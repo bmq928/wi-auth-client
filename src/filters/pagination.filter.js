@@ -1,6 +1,5 @@
 import angular from 'angular';
 import appName from '../app';
-console.log(appName);
 
 const name = 'pagination';
 
