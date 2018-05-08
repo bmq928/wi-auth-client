@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@uirouter/angularjs": "^1.0.7",
     "angular": "^1.6.10",
     "webpack-cli": "^2.1.3"
   },

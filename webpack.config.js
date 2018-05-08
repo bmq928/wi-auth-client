@@ -5,7 +5,7 @@ module.exports = {
   entry: path.join(__dirname, 'index.js'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build')
+    path: path.resolve(__dirname, 'public')
   },
   module: {
     rules: [
@@ -14,10 +14,7 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader',
-        ],
-        options: {
-          minimize: true
-        }
+        ]
       },
       {
         test: /\.html$/,
