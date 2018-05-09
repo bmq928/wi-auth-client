@@ -1,5 +1,5 @@
 import angular from 'angular';
-import appName from './app';
+import appName from './module';
 import { VIEWS } from './constant';
 
 function createUrl(view) {
@@ -12,7 +12,7 @@ function createComponent(view) {
 
 angular
     .module(appName)
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider,) {
 
         const {user, group} = VIEWS;
 
@@ -27,4 +27,4 @@ angular
             })
 
         $urlRouterProvider.otherwise(createUrl(user));
-    });
+    })

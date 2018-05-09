@@ -1,5 +1,5 @@
 import angular from 'angular';
-import appName from '../app';
+import appName from '../module';
 
 const name = 'range';
 

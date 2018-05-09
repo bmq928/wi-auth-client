@@ -1,5 +1,5 @@
 import angular from 'angular';
-import appName from '../../app';
+import appName from '../../module';
 import template from './navbar.html';
 
 const name = 'navbar';

@@ -2,7 +2,7 @@
 import '@uirouter/angularjs';
 
 //app
-import './src/app';
+import './src/module';
 import './src/config';
 import './src/filters';
 import './src/services';
