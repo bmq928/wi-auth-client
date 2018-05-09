@@ -45258,7 +45258,7 @@ function decideView() {
 /* 15 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=wrapper> <sidebar cur-view=self.curView change-view=self.changeView></sidebar> <div class=main-panel> <navbar></navbar> <div class=content> <div class=container-fluid> <div ui-view></div> </div> </div> <app-footer></app-footer> </div> </div>";
+module.exports = "<div class=wrapper> <sidebar cur-view=self.curView change-view=self.changeView></sidebar> <div class=main-panel> <navbar cur-view=self.curView></navbar> <div class=content> <div class=container-fluid> <div ui-view></div> </div> </div> <app-footer></app-footer> </div> </div>";
 
 /***/ }),
 /* 16 */
@@ -45947,11 +45947,14 @@ function controller() {
 //     .component(name, {
 //         template
 //     })
-
 /* harmony default export */ __webpack_exports__["a"] = ({
     name,
     options: {
-        template: __WEBPACK_IMPORTED_MODULE_0__navbar_html___default.a
+        template: __WEBPACK_IMPORTED_MODULE_0__navbar_html___default.a,
+        bindings: {
+            curView: '<'
+        },
+        controllerAs: 'self'
     }
 });
 
@@ -45959,7 +45962,7 @@ function controller() {
 /* 25 */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-transparent navbar-absolute\"> <div class=container-fluid> <navbar-header></navbar-header> <navbar-tool></navbar-tool> </div> </nav>";
+module.exports = "<nav class=\"navbar navbar-transparent navbar-absolute\"> <div class=container-fluid> <navbar-header cur-view=self.curView></navbar-header> <navbar-tool></navbar-tool> </div> </nav>";
 
 /***/ }),
 /* 26 */
@@ -45980,10 +45983,15 @@ const name = 'navbarHeader';
 //         template
 //     });
 
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     name,
     options: {
-        template: __WEBPACK_IMPORTED_MODULE_0__navbarHeader_html___default.a
+        template: __WEBPACK_IMPORTED_MODULE_0__navbarHeader_html___default.a,
+        bindings: {
+            curView: '<'
+        },
+        controllerAs: 'self'
     }
 });
 
@@ -45991,7 +45999,7 @@ const name = 'navbarHeader';
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=navbar-header> <button type=button class=navbar-toggle data-toggle=collapse> <span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span> </button> <a class=navbar-brand href=# ng-bind=\"(vm.curView | uppercase)\"></a> </div>";
+module.exports = "<div class=navbar-header> <button type=button class=navbar-toggle data-toggle=collapse> <span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span> </button> <a class=navbar-brand href=# ng-bind=\"(self.curView | uppercase)\"></a> </div>";
 
 /***/ }),
 /* 28 */

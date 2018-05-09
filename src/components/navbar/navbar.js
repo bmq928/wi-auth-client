@@ -13,10 +13,13 @@ function controller() {
 //     .component(name, {
 //         template
 //     })
-
 export default {
     name,
     options: {
-        template
+        template,
+        bindings: {
+            curView: '<'
+        },
+        controllerAs: 'self'
     }
 };
