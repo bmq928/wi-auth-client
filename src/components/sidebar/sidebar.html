@@ -1,11 +1,11 @@
 <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
     <div class="logo">
-        <a class="simple-text" ng-bind="self.title">
+        <a class="simple-text" ng-bind="self.title"></a>
         </a>
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="active" ng-click="">
+            <!-- <li class="active" ng-click="">
                 <a ui-sref="live">
                     <i class="material-icons">live_tv</i>
                     <p>Live</p>
@@ -22,10 +22,24 @@
                     <i class="material-icons">settings</i>
                     <p>Setting</p>
                 </a>
+            </li> -->
+
+            <li 
+             ng-repeat="view in self.views"
+             ng-class="{'active' : view.view === self.curView}"
+             ng-click="self.tabOnClick(view.view)">
+                <a ui-sref="{{view.view}}">
+                    <i class="material-icons" ng-bind="view.icon"></i>
+                    <p ng-bind="(view.view | capitalize)"></p>
+                    <!-- <p>{{view.view | capitalizex}}</p> -->
+                </a>
             </li>
         </ul>
     </div>
+
 </div>
+
+
 
 <!-- <h1>curView: {{self.curView}}</h1> 
 <button ng-click="self.call()">skda</button> -->

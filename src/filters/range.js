@@ -1,11 +1,11 @@
-import angular from 'angular';
-import appName from '../module';
+// import angular from 'angular';
+// import appName from '../module';
 
 const name = 'range';
 
-angular
-    .module(appName)
-    .filter(name, range)
+// angular
+//     .module(appName)
+//     .filter(name, range)
 
 function range() {
     return function (input, num) {
@@ -19,4 +19,7 @@ function range() {
     }
 }
 
-export default name;
+export default {
+    name,
+    options: range
+};

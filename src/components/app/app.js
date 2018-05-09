@@ -4,8 +4,6 @@ import template from './app.html';
 import { VIEWS } from '../../constant'
 import './app.css';
 
-import '../sidebar/sidebar';
-
 
 const name = 'app';
 
@@ -17,8 +15,8 @@ function controller() {
         init();
     }
 
-    self.changeView = function () {
-        console.log('nah');
+    self.changeView = function (view) {
+        self.curView = view;
     }
 
 

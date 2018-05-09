@@ -2,6 +2,7 @@
 // import appName from '../../module';
 import template from './sidebar.html';
 import { APP_TITLE } from '../../constant';
+import {VIEWS} from '../../constant';
 
 
 const name = 'sidebar';
@@ -11,38 +12,38 @@ function controller() {
     let self = this;
 
     self.$onInit = function () {
-        preProcess();
-        init();
-
-        console.log(self.curView);
-        console.log(self.changeView);
-        console.log(self);
-    }
-
-    function preProcess() {
         self.title = APP_TITLE;
-
+        self.views = generateView();
     }
 
-    function init() {
+    self.tabOnClick = function(view){
+        console.log('cl');
+        self.changeView(view);
+        console.log(self.curView);
     }
+
 
 
 }
 
-// angular
-//     .module(appName)
-//     .component(name, {
-//         template,    
-//         bindings: {
-//             curView: '<',
-//             changeView: '<'
-//         }, 
-//         controller,
-//         controllerAs: 'self',
 
-//     })
+function generateView() {
+    const {user, group} = VIEWS;
+    const views = [];
 
+
+    views.push({
+        view : user,
+        icon: 'person'
+    });
+
+    views.push({
+        view: group,
+        icon: 'group'
+    })
+
+    return views
+}
 
 export default {
     name,

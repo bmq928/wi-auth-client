@@ -1,12 +1,12 @@
-import angular from 'angular';
-import appName from '../module';
+// import angular from 'angular';
+// import appName from '../module';
 
 const name = 'pagination';
 
 
-angular
-    .module(appName)
-    .filter(name, pagination)
+// angular
+//     .module(appName)
+//     .filter(name, pagination)
 
 function pagination() {
     return function (input, pageth, videoPerPage) {
@@ -24,4 +24,7 @@ function pagination() {
     }
 }
 
-export default name;
+export default {
+    name,
+    options: pagination
+};

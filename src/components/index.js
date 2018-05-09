@@ -4,6 +4,7 @@ import navbar from './navbar/navbar';
 import navbarHeader from './navbarHeader/navbarHeader';
 import navbarTool from './navbarTool/navbarTool';
 import sidebar from './sidebar/sidebar';
-// import './views';
+import user from './views/user/user';
+import group from './views/group/group';
 
-export default [app,appFooter, navbar, navbarHeader, navbarTool ,sidebar];
+export default [app,appFooter, navbar, navbarHeader, navbarTool ,sidebar, user, group];

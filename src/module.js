@@ -1,11 +1,14 @@
 import angular from 'angular';
-import components from './components'
+import components from './components';
+import filters from './filters';
 
 
 const appName = 'app';
 
 const app = angular.module(appName, ['ui.router']);
+assignAllFilter();
 assignAllComponent();
+
 
 
 
@@ -55,6 +58,13 @@ function assignAllComponent() {
     components.forEach(c => {
         app.component(c.name, c.options)
     })
+}
+
+function assignAllFilter(){
+    filters.forEach(f => {
+        app.filter(f.name, f.options);
+        console.log(f.name);
+    });
 }
 
 export default appName;
