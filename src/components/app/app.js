@@ -1,5 +1,5 @@
-import angular from 'angular';
-import appName from '../../module';
+// import angular from 'angular';
+// import appName from '../../module';
 import template from './app.html';
 import { VIEWS } from '../../constant'
 import './app.css';
@@ -11,13 +11,13 @@ const name = 'app';
 
 function controller() {
     let self = this;
-    self.$onInit = function(){
+    self.$onInit = function () {
         console.log('int')
         preProcess();
         init();
     }
 
-    self.changeView = function (){
+    self.changeView = function () {
         console.log('nah');
     }
 
@@ -42,13 +42,21 @@ function decideView() {
 
 
 
-angular
-    .module(appName)
-    .component(name, {
+// angular
+//     .module(appName)
+//     .component(name, {
+//         // bindings: {},
+//         template,
+//         controller,
+//         controllerAs: 'self'
+//     })
+
+export default {
+    name,
+    options: {
         // bindings: {},
         template,
         controller,
         controllerAs: 'self'
-    })
-
-export default name;
+    }
+};

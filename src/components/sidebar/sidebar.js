@@ -1,7 +1,7 @@
-import angular from 'angular';
-import appName from '../../module';
+// import angular from 'angular';
+// import appName from '../../module';
 import template from './sidebar.html';
-import {APP_TITLE} from '../../constant';
+import { APP_TITLE } from '../../constant';
 
 
 const name = 'sidebar';
@@ -10,9 +10,7 @@ function controller() {
 
     let self = this;
 
-    self.call = function(){console.log(self.curView)}
-
-    self.$onInit = function(){
+    self.$onInit = function () {
         preProcess();
         init();
 
@@ -27,23 +25,35 @@ function controller() {
     }
 
     function init() {
-    }   
+    }
 
-    
+
 }
 
-angular
-    .module(appName)
-    .component(name, {
-        template,    
+// angular
+//     .module(appName)
+//     .component(name, {
+//         template,    
+//         bindings: {
+//             curView: '<',
+//             changeView: '<'
+//         }, 
+//         controller,
+//         controllerAs: 'self',
+
+//     })
+
+
+export default {
+    name,
+    options: {
+        template,
         bindings: {
             curView: '<',
             changeView: '<'
-        }, 
+        },
         controller,
         controllerAs: 'self',
-        
-    })
 
-
-export default name;
+    }
+};
