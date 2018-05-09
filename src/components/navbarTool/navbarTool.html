@@ -2,22 +2,22 @@
     <ul class="nav navbar-nav navbar-right">
         <li>
             <a class="dropdown-toggle" data-toggle="dropdown">
-                <i class="material-icons">person</i>
+                <i class="material-icons">dashboard</i>
                 <p class="hidden-lg hidden-md">Profile</p>
             </a>
             <ul class="dropdown-menu">
-                <li ng-if="!vm.isLogin()">
+                <!-- <li ng-if="!vm.isLogin()">
                     <a data-toggle="modal"
                      data-target="#login-modal"
                      ng-click="vm.prepareLogin()">Login</a>
-                </li>
-                <li ng-if="vm.isLogin()">
-                    <a ng-click="vm.showUserInfo()"
+                </li> -->
+                <li>
+                    <a
                      data-toggle="modal"
                      data-target="#show-user-info-modal">User info</a>
                 </li>
-                <li ng-if="vm.isLogin()">
-                    <a ng-click="vm.logout()">Logout</a>
+                <li>
+                    <a>Logout</a>
                 </li>
             </ul>
         </li>

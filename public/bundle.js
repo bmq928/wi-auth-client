@@ -46048,7 +46048,7 @@ function controller() {
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"collapse navbar-collapse\"> <ul class=\"nav navbar-nav navbar-right\"> <li> <a class=dropdown-toggle data-toggle=dropdown> <i class=material-icons>person</i> <p class=\"hidden-lg hidden-md\">Profile</p> </a> <ul class=dropdown-menu> <li ng-if=!vm.isLogin()> <a data-toggle=modal data-target=#login-modal ng-click=vm.prepareLogin()>Login</a> </li> <li ng-if=vm.isLogin()> <a ng-click=vm.showUserInfo() data-toggle=modal data-target=#show-user-info-modal>User info</a> </li> <li ng-if=vm.isLogin()> <a ng-click=vm.logout()>Logout</a> </li> </ul> </li> </ul> <form class=\"navbar-form navbar-right\" role=search> <div class=\"form-group is-empty\"> <input type=text class=form-control placeholder=Filter ng-model=vm.filterText ng-change=vm.textTyping()> <span class=material-input></span> </div> <button type=submit class=\"btn btn-white btn-round btn-just-icon\"> <i class=material-icons>search</i> <div class=ripple-container></div> </button> </form> </div>";
+module.exports = "<div class=\"collapse navbar-collapse\"> <ul class=\"nav navbar-nav navbar-right\"> <li> <a class=dropdown-toggle data-toggle=dropdown> <i class=material-icons>dashboard</i> <p class=\"hidden-lg hidden-md\">Profile</p> </a> <ul class=dropdown-menu> <li> <a data-toggle=modal data-target=#show-user-info-modal>User info</a> </li> <li> <a>Logout</a> </li> </ul> </li> </ul> <form class=\"navbar-form navbar-right\" role=search> <div class=\"form-group is-empty\"> <input type=text class=form-control placeholder=Filter ng-model=vm.filterText ng-change=vm.textTyping()> <span class=material-input></span> </div> <button type=submit class=\"btn btn-white btn-round btn-just-icon\"> <i class=material-icons>search</i> <div class=ripple-container></div> </button> </form> </div>";
 
 /***/ }),
 /* 30 */,
@@ -46066,8 +46066,59 @@ module.exports = "<div class=\"collapse navbar-collapse\"> <ul class=\"nav navba
 
 const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].user;
 
-function controller() {
 
+
+function controller() {
+    let self = this;
+
+    self.$onInit = function () {
+        self.users = getFakeData();
+        self.userPerPage = 9;
+        self.curPage = 1;
+        self.filter = '';
+        self.numPage = self.users.length / self.userPerPage + 1;
+    }
+
+    
+}
+
+function getFakeData () {
+    return [{
+        id: 'fasdkjf',
+        username: 'flakdsf',
+        email: 'fjaskldf',
+        status: 'aslkdfjlaskdjf',
+        role: 'datdfklajsdlfj',
+        fullname: 'dslfkjasdfjlj'
+    }, {
+        id: 'fasdkjf',
+        username: 'flakdsf',
+        email: 'fjaskldf',
+        status: 'aslkdfjlaskdjf',
+        role: 'datdfklajsdlfj',
+        fullname: 'dslfkjasdfjlj'
+    }, {
+        id: 'fasdkjf',
+        username: 'flakdsf',
+        email: 'fjaskldf',
+        status: 'aslkdfjlaskdjf',
+        role: 'datdfklajsdlfj',
+        fullname: 'dslfkjasdfjlj'
+    }, {
+        id: 'fasdkjf',
+        username: 'flakdsf',
+        email: 'fjaskldf',
+        status: 'aslkdfjlaskdjf',
+        role: 'datdfklajsdlfj',
+        fullname: 'dslfkjasdfjlj'
+    }, {
+        id: 'fasdkjf',
+        username: 'flakdsf',
+        email: 'fjaskldf',
+        status: 'aslkdfjlaskdjf',
+        role: 'datdfklajsdlfj',
+        fullname: 'dslfkjasdfjlj'
+    }]
 }
 
 // angular
@@ -46077,6 +46128,8 @@ function controller() {
 //         controller,
 //         controllerAs: 'self'
 //     })
+
+
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -46092,7 +46145,7 @@ function controller() {
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>USER</h1>";
+module.exports = "<div class=text-danger ng-bind=vm.err></div> <div class=text-success ng-bind=vm.resp></div> <table class=\"table table-hover\"> <thead> <tr> <th></th> <th>ID</th> <th>Username</th> <th>Email</th> <th>Status</th> <th>Role</th> <th>Fullname</th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter\"> <td> <input type=checkbox> </td> <td ng-bind=user.id></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td ng-bind=user.status></td> <td ng-bind=user.role></td> <td ng-bind=user.fullname></td> </tr> </tbody> </table> <div class=\"\"> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User</button> <button class=\"btn btn-success\">Add To Group</button> <button class=\"btn btn-danger\" ng-click=vm.deleteOnSubmit()>Remove User</button> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=vm.changePage(page)></a> </li> </ul> ";
 
 /***/ }),
 /* 33 */
