@@ -60,26 +60,44 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(6);
-module.exports = angular;
+"use strict";
+const VIEWS = {
+    user: 'user',
+    group: 'group'
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = VIEWS;
+
+
+const APP_TITLE = 'WELL INSIGHT'
+/* harmony export (immutable) */ __webpack_exports__["a"] = APP_TITLE;
 
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(7);
+module.exports = angular;
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(33);
+
 
 
 
@@ -88,51 +106,11 @@ module.exports = angular;
 const appName = 'app';
 
 const app = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module(appName, ['ui.router']);
+assignConfig();
 assignAllFilter();
 assignAllComponent();
 
 
-
-
-// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// // let sidebar = components[components.length - 1];
-// let template = `<h1>curView: {{self.curView}}</h1> 
-// <button ng-click="self.call()">skda</button>`
-// // console.log(sidebar);
-
-// app
-//     .controller('nah', function () { this.val = 'nadfa' })
-//     .component('cd', {
-//         bindings: { a: '<' },
-//         template: '<h1>{{$ctrl.a}}</h1>'
-//     })
-//     .component('ab', {
-//         bindings: { a: '<' },
-//         template: '<cd a="$ctrl.a"></cd>'
-//     })
-//     .component('sidebar', {
-//         template,
-//         bindings: {
-//             curView: '<',
-//             changeView: '<'
-//         },
-//         controller: function () {
-//             let self = this;
-
-//             self.call = function () { console.log(self) }
-
-//             self.$onInit = function () {
-
-//                 console.log(self.curView);
-//                 console.log(self.changeView);
-//                 console.log(self);
-//             }
-
-//         }
-//     });
-
-
-// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function assignAllComponent() {
 
@@ -149,127 +127,78 @@ function assignAllFilter(){
     });
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (appName);
+function assignConfig() {
+    app.config(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */]);
+}
 
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const VIEWS = {
-    user: 'user',
-    group: 'group'
-};
-/* harmony export (immutable) */ __webpack_exports__["b"] = VIEWS;
-
-
-const APP_TITLE = 'WELL INSIGHT'
-/* harmony export (immutable) */ __webpack_exports__["a"] = APP_TITLE;
-
+/* unused harmony default export */ var _unused_webpack_default_export = (appName);
 
 /***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidebar_html__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidebar_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__sidebar_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constant__ = __webpack_require__(2);
-// import angular from 'angular';
-// import appName from '../../module';
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_app__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(28);
 
 
 
 
 
-const name = 'sidebar';
-
-function controller() {
-
-    let self = this;
-
-    self.$onInit = function () {
-        self.title = __WEBPACK_IMPORTED_MODULE_1__constant__["a" /* APP_TITLE */];
-        self.views = generateView();
-    }
-
-    self.tabOnClick = function(view){
-        console.log('cl');
-        self.changeView(view);
-        console.log(self.curView);
-    }
 
 
 
-}
 
-
-function generateView() {
-    const {user, group} = __WEBPACK_IMPORTED_MODULE_1__constant__["b" /* VIEWS */];
-    const views = [];
-
-
-    views.push({
-        view : user,
-        icon: 'person'
-    });
-
-    views.push({
-        view: group,
-        icon: 'group'
-    })
-
-    return views
-}
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    name,
-    options: {
-        template: __WEBPACK_IMPORTED_MODULE_0__sidebar_html___default.a,
-        bindings: {
-            curView: '<',
-            changeView: '<'
-        },
-        controller,
-        controllerAs: 'self',
-
-    }
-});
+/* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__app_app__["a" /* default */],__WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__["a" /* default */] ,__WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__views_user_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__views_group_group__["a" /* default */]]);
 
 /***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_module__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_config__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_filters__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_services__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_services___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__src_services__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_components__ = __webpack_require__(13);
-//ui
-// import './public/js/jquery-3.2.1.min.js';
-// import './public/js/bootstrap.min.js';
-// import './public/js/material.min.js';
-// import './public/js/arrive.min.js';
-// import './public/js/perfect-scrollbar.jquery.min.js';
-// import './public/js/bootstrap-notify.js'
-
-//dependency
-
-
-//app
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(32);
 
 
 
 
 
+/* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__range__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__pagination__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__capitalize__["a" /* default */]]);
 
 /***/ }),
 /* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_module__ = __webpack_require__(2);
+//dependency
+
+
+
+
+//render
+const app = '<app></app>';
+render(app, document.getElementById('root-app'));
+
+
+
+
+function render(component, el) {
+    el.innerHTML = component;
+}
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -280,7 +209,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 (function (global, factory) {
-	 true ? factory(exports, __webpack_require__(0), __webpack_require__(7)) :
+	 true ? factory(exports, __webpack_require__(1), __webpack_require__(8)) :
 	typeof define === 'function' && define.amd ? define(['exports', 'angular', '@uirouter/core'], factory) :
 	(factory((global['@uirouter/angularjs'] = {}),global.angular,global['@uirouter/core']));
 }(this, (function (exports,ng_from_import,core) { 'use strict';
@@ -2289,7 +2218,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /**
@@ -37174,7 +37103,7 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -45097,101 +45026,14 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__module__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constant__ = __webpack_require__(2);
-
-
-
-
-function createUrl(view) {
-    return `/${view}`;
-}
-
-function createComponent(view) {
-    return `<${view}></${view}>`;
-}
-
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a
-    .module(__WEBPACK_IMPORTED_MODULE_1__module__["a" /* default */])
-    .config(function ($stateProvider, $urlRouterProvider,) {
-
-        const {user, group} = __WEBPACK_IMPORTED_MODULE_2__constant__["b" /* VIEWS */];
-
-        $stateProvider
-            .state(user, {
-                url: createUrl(user),
-                template: createComponent(user)
-            })
-            .state(group, {
-                url: createUrl(group),
-                template: createComponent(group)
-            })
-
-        $urlRouterProvider.otherwise(createUrl(user));
-    })
-
-/***/ }),
 /* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(42);
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__range__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__pagination__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__capitalize__["a" /* default */]]);
-
-/***/ }),
-/* 10 */,
-/* 11 */,
-/* 12 */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_app__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(33);
-
-
-
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__app_app__["a" /* default */],__WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__["a" /* default */] ,__WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__views_user_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__views_group_group__["a" /* default */]]);
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_html__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_html__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__app_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constant__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_css__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constant__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_css__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__app_css__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -45255,17 +45097,17 @@ function decideView() {
 });
 
 /***/ }),
-/* 15 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=wrapper> <sidebar cur-view=self.curView change-view=self.changeView></sidebar> <div class=main-panel> <navbar cur-view=self.curView></navbar> <div class=content> <div class=container-fluid> <div ui-view></div> </div> </div> <app-footer></app-footer> </div> </div>";
 
 /***/ }),
-/* 16 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(17);
+var content = __webpack_require__(12);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -45279,7 +45121,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(19)(content, options);
+var update = __webpack_require__(14)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -45311,10 +45153,10 @@ if(false) {
 }
 
 /***/ }),
-/* 17 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(18)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -45325,7 +45167,7 @@ exports.push([module.i, "a{\r\n    color: red;\r\n}", ""]);
 
 
 /***/ }),
-/* 18 */
+/* 13 */
 /***/ (function(module, exports) {
 
 /*
@@ -45407,7 +45249,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 19 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -45473,7 +45315,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(20);
+var	fixUrls = __webpack_require__(15);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -45793,7 +45635,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 20 */
+/* 15 */
 /***/ (function(module, exports) {
 
 
@@ -45888,17 +45730,11 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=sidebar data-color=purple data-image=../assets/img/sidebar-1.jpg> <div class=logo> <a class=simple-text ng-bind=self.title></a>  </div> <div class=sidebar-wrapper> <ul class=nav> <li ng-repeat=\"view in self.views\" ng-class=\"{'active' : view.view === self.curView}\" ng-click=self.tabOnClick(view.view)> <a ui-sref={{view.view}}> <i class=material-icons ng-bind=view.icon></i> <p ng-bind=\"(view.view | capitalize)\"></p> </a> </li> </ul> </div> </div> ";
-
-/***/ }),
-/* 22 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appFooter_html__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appFooter_html__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appFooter_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__appFooter_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -45920,17 +45756,17 @@ console.log(name);
 });
 
 /***/ }),
-/* 23 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = "<footer class=footer> <div class=container-fluid> <nav class=pull-left> <ul> <li> <a href=https://www.facebook.com/pages/Coltech/108494469181799 target=_blank> COLTECH FACEBOOK </a> </li> <li> <a href=https://uet.vnu.edu.vn/ target=_blank> UET Home </a> </li> <li> <a href=https://www.vnu.edu.vn/home/ target=_blank> VNU Home </a> </li> <li> <a href=http://ctmail.vnu.edu.vn/webmail/src/login.php target=_blank> CtMail </a> </li> </ul> </nav> <p class=\"copyright pull-right\"> &copy 2018; <a href=\"\">Bui Minh Quang</a>, K61C-CLC </p> </div> </footer>";
 
 /***/ }),
-/* 24 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbar_html__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbar_html__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbar_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__navbar_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -45959,17 +45795,17 @@ function controller() {
 });
 
 /***/ }),
-/* 25 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav class=\"navbar navbar-transparent navbar-absolute\"> <div class=container-fluid> <navbar-header cur-view=self.curView></navbar-header> <navbar-tool></navbar-tool> </div> </nav>";
 
 /***/ }),
-/* 26 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarHeader_html__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarHeader_html__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarHeader_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__navbarHeader_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -45996,17 +45832,17 @@ const name = 'navbarHeader';
 });
 
 /***/ }),
-/* 27 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=navbar-header> <button type=button class=navbar-toggle data-toggle=collapse> <span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span> </button> <a class=navbar-brand href=# ng-bind=\"(self.curView | uppercase)\"></a> </div>";
 
 /***/ }),
-/* 28 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarTool_html__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarTool_html__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarTool_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__navbarTool_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -46045,19 +45881,93 @@ function controller() {
 });
 
 /***/ }),
-/* 29 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"collapse navbar-collapse\"> <ul class=\"nav navbar-nav navbar-right\"> <li> <a class=dropdown-toggle data-toggle=dropdown> <i class=material-icons>dashboard</i> <p class=\"hidden-lg hidden-md\">Profile</p> </a> <ul class=dropdown-menu> <li> <a data-toggle=modal data-target=#show-user-info-modal>User info</a> </li> <li> <a>Logout</a> </li> </ul> </li> </ul> <form class=\"navbar-form navbar-right\" role=search> <div class=\"form-group is-empty\"> <input type=text class=form-control placeholder=Filter ng-model=vm.filterText ng-change=vm.textTyping()> <span class=material-input></span> </div> <button type=submit class=\"btn btn-white btn-round btn-just-icon\"> <i class=material-icons>search</i> <div class=ripple-container></div> </button> </form> </div>";
 
 /***/ }),
-/* 30 */,
-/* 31 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidebar_html__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidebar_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__sidebar_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constant__ = __webpack_require__(0);
+// import angular from 'angular';
+// import appName from '../../module';
+
+
+
+
+
+const name = 'sidebar';
+
+function controller() {
+
+    let self = this;
+
+    self.$onInit = function () {
+        self.title = __WEBPACK_IMPORTED_MODULE_1__constant__["a" /* APP_TITLE */];
+        self.views = generateView();
+    }
+
+    self.tabOnClick = function(view){
+        console.log('cl');
+        self.changeView(view);
+        console.log(self.curView);
+    }
+
+
+
+}
+
+
+function generateView() {
+    const {user, group} = __WEBPACK_IMPORTED_MODULE_1__constant__["b" /* VIEWS */];
+    const views = [];
+
+
+    views.push({
+        view : user,
+        icon: 'person'
+    });
+
+    views.push({
+        view: group,
+        icon: 'group'
+    })
+
+    return views
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        template: __WEBPACK_IMPORTED_MODULE_0__sidebar_html___default.a,
+        bindings: {
+            curView: '<',
+            changeView: '<'
+        },
+        controller,
+        controllerAs: 'self',
+
+    }
+});
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=sidebar data-color=purple data-image=../assets/img/sidebar-1.jpg> <div class=logo> <a class=simple-text ng-bind=self.title></a>  </div> <div class=sidebar-wrapper> <ul class=nav> <li ng-repeat=\"view in self.views\" ng-class=\"{'active' : view.view === self.curView}\" ng-click=self.tabOnClick(view.view)> <a ui-sref={{view.view}}> <i class=material-icons ng-bind=view.icon></i> <p ng-bind=\"(view.view | capitalize)\"></p> </a> </li> </ul> </div> </div> ";
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__user_html__);
 // import angular from 'angular';
 
@@ -46142,18 +46052,18 @@ function getFakeData () {
 });
 
 /***/ }),
-/* 32 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=text-danger ng-bind=vm.err></div> <div class=text-success ng-bind=vm.resp></div> <table class=\"table table-hover\"> <thead> <tr> <th></th> <th>ID</th> <th>Username</th> <th>Email</th> <th>Status</th> <th>Role</th> <th>Fullname</th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter\"> <td> <input type=checkbox> </td> <td ng-bind=user.id></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td ng-bind=user.status></td> <td ng-bind=user.role></td> <td ng-bind=user.fullname></td> </tr> </tbody> </table> <div class=\"\"> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User</button> <button class=\"btn btn-success\">Add To Group</button> <button class=\"btn btn-danger\" ng-click=vm.deleteOnSubmit()>Remove User</button> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=vm.changePage(page)></a> </li> </ul> ";
 
 /***/ }),
-/* 33 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__group_html__);
 // import angular from 'angular';
 
@@ -46185,40 +46095,13 @@ function controller() {
 });
 
 /***/ }),
-/* 34 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = "<h1>GROUP</h1>";
 
 /***/ }),
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const name = 'capitalize';
-
-function capitalize() {
-    return function (input) {
-        return (!!input) ?
-            input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() :
-            '';
-    }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    name,
-    options: capitalize
-});
-
-/***/ }),
-/* 43 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46249,7 +46132,7 @@ function range() {
 });
 
 /***/ }),
-/* 44 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46283,6 +46166,61 @@ function pagination() {
     name,
     options: pagination
 });
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const name = 'capitalize';
+
+function capitalize() {
+    return function (input) {
+        return (!!input) ?
+            input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() :
+            '';
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: capitalize
+});
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(0);
+
+
+    function config ($stateProvider, $urlRouterProvider,) {
+
+        const {user, group} = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */];
+
+        function createUrl(view) {
+            return `/${view}`;
+        }
+        
+        function createComponent(view) {
+            return `<${view}></${view}>`;
+        }
+
+        $stateProvider
+            .state(user, {
+                url: createUrl(user),
+                template: createComponent(user)
+            })
+            .state(group, {
+                url: createUrl(group),
+                template: createComponent(group)
+            })
+
+        $urlRouterProvider.otherwise(createUrl(user));
+    }
+
+/* harmony default export */ __webpack_exports__["a"] = (config);
 
 /***/ })
 /******/ ]);

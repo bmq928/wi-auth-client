@@ -1,20 +1,16 @@
-import angular from 'angular';
-import appName from './module';
 import { VIEWS } from './constant';
 
-function createUrl(view) {
-    return `/${view}`;
-}
-
-function createComponent(view) {
-    return `<${view}></${view}>`;
-}
-
-angular
-    .module(appName)
-    .config(function ($stateProvider, $urlRouterProvider,) {
+    function config ($stateProvider, $urlRouterProvider,) {
 
         const {user, group} = VIEWS;
+
+        function createUrl(view) {
+            return `/${view}`;
+        }
+        
+        function createComponent(view) {
+            return `<${view}></${view}>`;
+        }
 
         $stateProvider
             .state(user, {
@@ -27,4 +23,6 @@ angular
             })
 
         $urlRouterProvider.otherwise(createUrl(user));
-    })
+    }
+
+export default config;
