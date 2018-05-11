@@ -1,6 +1,6 @@
 //dependency
 import '@uirouter/angularjs';
-import './src/module';
+import './module';
 
 
 //render
