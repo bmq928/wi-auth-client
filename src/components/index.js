@@ -6,5 +6,6 @@ import navbarTool from './navbarTool/navbarTool';
 import sidebar from './sidebar/sidebar';
 import user from './views/user/user';
 import group from './views/group/group';
+import addUserModal from './addUserModal/addUserModal';
 
-export default [app,appFooter, navbar, navbarHeader, navbarTool ,sidebar, user, group];
+export default [app,appFooter, navbar, navbarHeader, navbarTool ,sidebar, user, group, addUserModal];

@@ -14,22 +14,14 @@ function controller(user) {
 
     self.$onInit = function () {
 
-    }
-
-    self.addUser = function () {
-
-    }
-
-    function preProcess() {
-        self.userForAdd = {};
-    }
-
-    function init() {
-        self.users = user.getAllUser((err, resp) => {
+        user.getAllUser((err, resp) => {
 
             if (err) {
+                console.log(err);
                 self.errMsg = err.reason;
             } else {
+
+                console.log(resp);
                 self.users = resp.content;
                 self.userPerPage = 9;
                 self.curPage = 1;
@@ -37,6 +29,13 @@ function controller(user) {
                 self.numPage = self.users.length / self.userPerPage + 1;
             }
         })
+
+
+    }
+
+    self.addUserSuccess = function (data) {
+        // self.users.push(data);
+        console.log(self.users);
     }
 }
 

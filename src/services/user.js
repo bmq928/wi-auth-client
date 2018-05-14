@@ -10,12 +10,12 @@ function service($http) {
 
         const url = createUrl('/user/list');
         // const url = 'http://auth.sflow.me:33333/user/list';
-        const token = localStorage.getItem('jwt-token');
+        // const token = localStorage.getItem('jwt-token');
 
         fetchPOST(
             $http,
             url,
-            token,
+            null,
             (resp) => callback(false, resp.data),
             (err) => callback(err));
 
@@ -25,9 +25,23 @@ function service($http) {
         // }).then(resp => console.log(resp));
     }
 
-    function addUser(callback) {
-        
+    function addUser(data,callback) {
+        const url = createUrl('/user/new');
+
+        fetchPOST(
+            $http,
+            url,
+            data,
+            (resp) => {console.log('succ');console.log(resp);callback(false, resp.data);},
+            (err) => {console.log('err');callback(err);}
+        )
     }
+
+    // function onAddUserSuccess(callback) {
+    //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
+    //         callback(data);
+    //     })
+    // }
 
 
     return {

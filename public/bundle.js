@@ -44948,9 +44948,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(38);
 
 
 
@@ -45009,6 +45009,7 @@ function assignConfig() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__ = __webpack_require__(29);
 
 
 
@@ -45018,7 +45019,8 @@ function assignConfig() {
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__app_app__["a" /* default */],__WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__["a" /* default */] ,__WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__views_user_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__views_group_group__["a" /* default */]]);
+
+/* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__app_app__["a" /* default */],__WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__["a" /* default */] ,__WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__views_user_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__views_group_group__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__["a" /* default */]]);
 
 /***/ }),
 /* 8 */
@@ -45980,22 +45982,14 @@ function controller(user) {
 
     self.$onInit = function () {
 
-    }
-
-    self.addUser = function () {
-
-    }
-
-    function preProcess() {
-        self.userForAdd = {};
-    }
-
-    function init() {
-        self.users = user.getAllUser((err, resp) => {
+        user.getAllUser((err, resp) => {
 
             if (err) {
+                console.log(err);
                 self.errMsg = err.reason;
             } else {
+
+                console.log(resp);
                 self.users = resp.content;
                 self.userPerPage = 9;
                 self.curPage = 1;
@@ -46003,6 +45997,13 @@ function controller(user) {
                 self.numPage = self.users.length / self.userPerPage + 1;
             }
         })
+
+
+    }
+
+    self.addUserSuccess = function (data) {
+        // self.users.push(data);
+        console.log(self.users);
     }
 }
 
@@ -46085,7 +46086,7 @@ function controller(user) {
 /* 26 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=vm.err></div> <div class=text-success ng-bind=vm.resp></div> <table class=\"table table-hover\"> <thead> <tr> <th></th> <th>ID</th> <th>Username</th> <th>Email</th> <th>Status</th> <th>Role</th> <th>Fullname</th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter\"> <td> <input type=checkbox> </td> <td ng-bind=user.id></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td ng-bind=user.status></td> <td ng-bind=user.role></td> <td ng-bind=user.fullname></td> </tr> </tbody> </table> <div class=\"\"> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User</button> <button class=\"btn btn-success\">Add To Group</button> <button class=\"btn btn-danger\" ng-click=vm.deleteOnSubmit()>Remove User</button> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=vm.changePage(page)></a> </li> </ul> ";
+module.exports = "<div class=text-danger ng-bind=vm.err></div> <div class=text-success ng-bind=vm.resp></div> <table class=\"table table-hover\"> <thead> <tr> <th></th> <th>ID</th> <th>Username</th> <th>Email</th> <th>Status</th> <th>Role</th> <th>Fullname</th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=user.idUser></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td ng-bind=user.status></td> <td ng-bind=user.role></td> <td ng-bind=user.fullname></td> </tr> </tbody> </table> <div class=\"\"> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User</button> <button class=\"btn btn-success\">Add To Group</button> <button class=\"btn btn-danger\" ng-click=vm.deleteOnSubmit()>Remove User</button> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=vm.changePage(page)></a> </li> </ul> ";
 
 /***/ }),
 /* 27 */
@@ -46135,9 +46136,68 @@ module.exports = "<h1>GROUP</h1>";
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addUserModal_html__);
+// import angular from 'angular';
+// import appName from '../../module';
+
+
+const name = 'addUserModal';
+
+controller.$inject = ['user'];
+function controller(user){
+    let self = this;
+
+    self.$onInit = function(){
+        self.user = {};        
+    }
+
+    self.onSubmit = function(){
+        user.addUser(self.user, (err, resp) => {
+            console.log(self.user);
+            if(err) {
+                console.log(err);
+            } else {
+                console.log(resp);
+                self.addUserSuccess(Object.assign({}, self.user));
+            }
+        })
+    }
+
+}
+
+// angular
+//     .module(appName)
+//     .component(name, {
+//         template
+//     })
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        bindings: {
+            addUserSuccess: '<'
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__addUserModal_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal fade\" id=add-user-modal tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000>&times;</button> <h1>User Infomation</h1> <div class=text-success ng-bind=self.resp></div> <div class=text-danger ng-bind=self.err></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=\"user id\" ng-model=self.user.idUser> <input type=text placeholder=username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=text placeholder=email ng-model=self.user.email> <input type=text placeholder=fullname ng-model=self.user.fullname> <label>Role : </label> <input type=number placeholder=role ng-model=self.user.role> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </div> </div> </div>";
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(34);
 
 
 
@@ -46146,7 +46206,7 @@ module.exports = "<h1>GROUP</h1>";
 /* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__range__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__pagination__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__capitalize__["a" /* default */]]);
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46177,7 +46237,7 @@ function range() {
 });
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46213,7 +46273,7 @@ function pagination() {
 });
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46233,21 +46293,21 @@ function capitalize() {
 });
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(36);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__user__["a" /* default */]]);
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(37);
 
 
 const name = 'user';
@@ -46260,12 +46320,12 @@ function service($http) {
 
         const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["a" /* createUrl */])('/user/list');
         // const url = 'http://auth.sflow.me:33333/user/list';
-        const token = localStorage.getItem('jwt-token');
+        // const token = localStorage.getItem('jwt-token');
 
         Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* fetchPOST */])(
             $http,
             url,
-            token,
+            null,
             (resp) => callback(false, resp.data),
             (err) => callback(err));
 
@@ -46275,9 +46335,23 @@ function service($http) {
         // }).then(resp => console.log(resp));
     }
 
-    function addUser(callback) {
-        
+    function addUser(data,callback) {
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["a" /* createUrl */])('/user/new');
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* fetchPOST */])(
+            $http,
+            url,
+            data,
+            (resp) => {console.log('succ');console.log(resp);callback(false, resp.data);},
+            (err) => {console.log('err');callback(err);}
+        )
     }
+
+    // function onAddUserSuccess(callback) {
+    //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
+    //         callback(data);
+    //     })
+    // }
 
 
     return {
@@ -46298,7 +46372,7 @@ function service($http) {
 });
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46310,12 +46384,15 @@ function createUrl(path) {
     return domain + path;
 }
 
-function fetchPOST($http, url, token, success, fail) {
+function fetchPOST($http, url,data, success, fail) {
+
+    const token = localStorage.getItem('jwt-token');
     return (
         $http({
             url,
             headers: { 'Authorization': 'Bearer ' + token },
-            method: 'POST'
+            method: 'POST',
+            data
         })
             .then(success)
             .catch(fail)
@@ -46323,7 +46400,7 @@ function fetchPOST($http, url, token, success, fail) {
 }
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

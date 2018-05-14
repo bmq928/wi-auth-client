@@ -14,11 +14,11 @@
     </thead>
     <tbody>
 
-        <tr ng-repeat="user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter">
+        <tr ng-repeat="user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter  track by $index">
             <td>
                 <input type="checkbox">
             </td>
-            <td ng-bind="user.id"></td>
+            <td ng-bind="user.idUser"></td>
             <td ng-bind="user.username"></td>
             <td ng-bind="user.email"></td>
             <td ng-bind="user.status"></td>
@@ -63,12 +63,20 @@
     
 </div>
 
+<!--===== modal ====-->
+<div>
+    <add-user-modal add-user-success="self.addUserSuccess"></add-user-modal>
+</div>
+
 <!--===================== pagination =========================-->
 <ul class="pagination pagination-sm">
     <li ng-repeat="page in [] | range: self.numPage" ng-class="{'active' : page === self.curPage}">
         <a ng-bind="page" ng-click="vm.changePage(page)"></a>
     </li>
 </ul>
+
+
+
 
 <!-- <div>
     <div ng-include="'../admin/components/views/user/modals/alMonitorModal.template.html'"></div>
