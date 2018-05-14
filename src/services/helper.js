@@ -6,13 +6,13 @@ export function createUrl(path) {
 
 export function fetchPOST($http, url,data, success, fail) {
 
-    const token = localStorage.getItem('jwt-token');
+    const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
     return (
         $http({
             url,
-            headers: { 'Authorization': 'Bearer ' + token },
+            // headers: { 'Authorization': 'Bearer ' + token },
             method: 'POST',
-            data
+            data: Object.assign({token}, data)
         })
             .then(success)
             .catch(fail)

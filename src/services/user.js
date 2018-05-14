@@ -17,7 +17,7 @@ function service($http) {
             url,
             null,
             (resp) => callback(false, resp.data),
-            (err) => callback(err));
+            (err) => callback(err.data));
 
         // $http({
         //     url: 'https://jsonplaceholder.typicode.com/posts',
@@ -32,8 +32,8 @@ function service($http) {
             $http,
             url,
             data,
-            (resp) => {console.log('succ');console.log(resp);callback(false, resp.data);},
-            (err) => {console.log('err');callback(err);}
+            (resp) => callback(false, resp.data),
+            (err) => callback(err)
         )
     }
 

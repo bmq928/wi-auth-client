@@ -34,7 +34,7 @@ function controller(user) {
     }
 
     self.addUserSuccess = function (data) {
-        // self.users.push(data);
+        self.users.push(data);
         console.log(self.users);
     }
 }

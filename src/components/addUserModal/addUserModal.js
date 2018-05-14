@@ -9,17 +9,22 @@ function controller(user){
     let self = this;
 
     self.$onInit = function(){
-        self.user = {};        
+        self.user = {};
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 
     self.onSubmit = function(){
         user.addUser(self.user, (err, resp) => {
             console.log(self.user);
             if(err) {
-                console.log(err);
+                self.errMsg = err.statusText;
+                self.sucMsg = '';
             } else {
                 console.log(resp);
-                self.addUserSuccess(Object.assign({}, self.user));
+                self.sucMsg = resp.reason;
+                self.errMsg = '';
+                self.addUserSuccess(self.user);
             }
         })
     }
