@@ -7,7 +7,8 @@
              class="close"
              id="login-modal-close" 
              data-dismiss="modal"
-             style="color:black;">&times;</button>
+             style="color:black;"
+             ng-click="self.onClose()">&times;</button>
             <h1>User Infomation</h1>
             <div class="text-success" ng-bind="self.sucMsg"></div>
             <div class="text-danger" ng-bind="self.errMsg"></div>

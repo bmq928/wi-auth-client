@@ -18,7 +18,7 @@ function controller(user){
         user.addUser(self.user, (err, resp) => {
             console.log(self.user);
             if(err) {
-                self.errMsg = err.statusText;
+                self.errMsg = err.reason || err.statusText;
                 self.sucMsg = '';
             } else {
                 console.log(resp);
@@ -27,6 +27,12 @@ function controller(user){
                 self.addUserSuccess(self.user);
             }
         })
+    }
+
+    self.onClose = function(){
+        console.log('close');
+        self.errMsg = '';
+        self.sucMsg = '';
     }
 
 }
