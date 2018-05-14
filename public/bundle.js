@@ -45974,79 +45974,92 @@ const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].user;
 // ------------- HAM CHINH ---------------------------
 
 
-// controller.$inject = ['user'];
-// function controller(user) {
-//     let self = this;
-
-//     self.$onInit = function () {
-//         self.users = user.getAllUser((err, resp) => {
-//             if (err) {
-//                 self.errMsg = err.reason;
-//             } else {
-//                 self.users = resp.content;
-//                 self.userPerPage = 9;
-//                 self.curPage = 1;
-//                 self.filter = '';
-//                 self.numPage = self.users.length / self.userPerPage + 1;
-//             }
-//         })
-//     }
-// }
-
-// ------------------------ HAM SIMULATE -------------------------------
-
-function controller() {
+controller.$inject = ['user'];
+function controller(user) {
     let self = this;
 
     self.$onInit = function () {
-        self.users = getFakeData();
-        self.userPerPage = 9;
-        self.curPage = 1;
-        self.filter = '';
-        self.numPage = self.users.length / self.userPerPage + 1;
+
     }
 
+    self.addUser = function () {
 
+    }
+
+    function preProcess() {
+        self.userForAdd = {};
+    }
+
+    function init() {
+        self.users = user.getAllUser((err, resp) => {
+
+            if (err) {
+                self.errMsg = err.reason;
+            } else {
+                self.users = resp.content;
+                self.userPerPage = 9;
+                self.curPage = 1;
+                self.filter = '';
+                self.numPage = self.users.length / self.userPerPage + 1;
+            }
+        })
+    }
 }
 
-function getFakeData () {
-    return [{
-        id: 'fasdkjf',
-        username: 'flakdsf',
-        email: 'fjaskldf',
-        status: 'aslkdfjlaskdjf',
-        role: 'datdfklajsdlfj',
-        fullname: 'dslfkjasdfjlj'
-    }, {
-        id: 'fasdkjf',
-        username: 'flakdsf',
-        email: 'fjaskldf',
-        status: 'aslkdfjlaskdjf',
-        role: 'datdfklajsdlfj',
-        fullname: 'dslfkjasdfjlj'
-    }, {
-        id: 'fasdkjf',
-        username: 'flakdsf',
-        email: 'fjaskldf',
-        status: 'aslkdfjlaskdjf',
-        role: 'datdfklajsdlfj',
-        fullname: 'dslfkjasdfjlj'
-    }, {
-        id: 'fasdkjf',
-        username: 'flakdsf',
-        email: 'fjaskldf',
-        status: 'aslkdfjlaskdjf',
-        role: 'datdfklajsdlfj',
-        fullname: 'dslfkjasdfjlj'
-    }, {
-        id: 'fasdkjf',
-        username: 'flakdsf',
-        email: 'fjaskldf',
-        status: 'aslkdfjlaskdjf',
-        role: 'datdfklajsdlfj',
-        fullname: 'dslfkjasdfjlj'
-    }]
-}
+// ------------------------ HAM SIMULATE -------------------------------
+
+// function controller() {
+//     let self = this;
+
+//     self.$onInit = function () {
+//         self.users = getFakeData();
+//         self.userPerPage = 9;
+//         self.curPage = 1;
+//         self.filter = '';
+//         self.numPage = self.users.length / self.userPerPage + 1;
+//     }
+
+
+// }
+
+// function getFakeData () {
+//     return [{
+//         id: 'fasdkjf',
+//         username: 'flakdsf',
+//         email: 'fjaskldf',
+//         status: 'aslkdfjlaskdjf',
+//         role: 'datdfklajsdlfj',
+//         fullname: 'dslfkjasdfjlj'
+//     }, {
+//         id: 'fasdkjf',
+//         username: 'flakdsf',
+//         email: 'fjaskldf',
+//         status: 'aslkdfjlaskdjf',
+//         role: 'datdfklajsdlfj',
+//         fullname: 'dslfkjasdfjlj'
+//     }, {
+//         id: 'fasdkjf',
+//         username: 'flakdsf',
+//         email: 'fjaskldf',
+//         status: 'aslkdfjlaskdjf',
+//         role: 'datdfklajsdlfj',
+//         fullname: 'dslfkjasdfjlj'
+//     }, {
+//         id: 'fasdkjf',
+//         username: 'flakdsf',
+//         email: 'fjaskldf',
+//         status: 'aslkdfjlaskdjf',
+//         role: 'datdfklajsdlfj',
+//         fullname: 'dslfkjasdfjlj'
+//     }, {
+//         id: 'fasdkjf',
+//         username: 'flakdsf',
+//         email: 'fjaskldf',
+//         status: 'aslkdfjlaskdjf',
+//         role: 'datdfklajsdlfj',
+//         fullname: 'dslfkjasdfjlj'
+//     }]
+// }
 
 // angular
 //     .module(appName)
@@ -46241,37 +46254,37 @@ const name = 'user';
 
 service.$inject = ['$http'];
 function service($http) {
-    return {
-        getAllUser
-    }
 
 
     function getAllUser(callback) {
 
-        const path = '/user/list';
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["a" /* createUrl */])('/user/list');
+        // const url = 'http://auth.sflow.me:33333/user/list';
         const token = localStorage.getItem('jwt-token');
 
-        _fetchPOST(Object(__WEBPACK_IMPORTED_MODULE_0__helper__["a" /* creatUrl */])(path),
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* fetchPOST */])(
+            $http,
+            url,
             token,
-            (resp) => callback(false, resp),
+            (resp) => callback(false, resp.data),
             (err) => callback(err));
+
+        // $http({
+        //     url: 'https://jsonplaceholder.typicode.com/posts',
+        //     method: 'POST',
+        // }).then(resp => console.log(resp));
+    }
+
+    function addUser(callback) {
+        
     }
 
 
-
-
-
-    function _fetchPOST(url, token, success, fail) {
-        return (
-            $http({
-                url,
-                headers: { 'Authorization': 'Bearer ' + token },
-                method: 'POST'
-            })
-                .then(success)
-                .catch(fail)
-        );
+    return {
+        getAllUser,
+        addUser
     }
+    
 }
 
 
@@ -46289,14 +46302,25 @@ function service($http) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = creatUrl;
-function creatUrl(path) {
-    const domain = 'localhost:2999';
+/* harmony export (immutable) */ __webpack_exports__["a"] = createUrl;
+/* harmony export (immutable) */ __webpack_exports__["b"] = fetchPOST;
+function createUrl(path) {
+    const domain = 'http://auth.sflow.me:33333';
 
     return domain + path;
 }
 
-
+function fetchPOST($http, url, token, success, fail) {
+    return (
+        $http({
+            url,
+            headers: { 'Authorization': 'Bearer ' + token },
+            method: 'POST'
+        })
+            .then(success)
+            .catch(fail)
+    );
+}
 
 /***/ }),
 /* 36 */
