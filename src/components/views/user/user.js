@@ -17,6 +17,37 @@ function controller(user) {
         self.removeUser = []; 
         self.addGroupUser = -1;  //id
 
+        init();
+
+    }
+
+    self.addUserSuccess = function (data) {
+        // self.users.push(data);
+        // // self.users = [...self.users];
+        // console.log(self.users);
+
+        init();
+    }
+
+    self.addGroupUserOnClick = function(id) {
+        self.addGroupUser = id;
+    }
+
+    self.removeUserOnClick = function (id){
+        if(confirm('Are you sure to delete user id : ' + id)) {
+            user.deleteUser(id, (err, resp) => {
+                if(err) {
+                    console.log(err);
+                    self.errMsg = err.reason;
+                } else {
+                    init();
+                    
+                }
+            });
+        }
+    }
+
+    function init(){
         user.getAllUser((err, resp) => {
 
             if (err) {
@@ -33,16 +64,6 @@ function controller(user) {
             }
         })
 
-
-    }
-
-    self.addUserSuccess = function (data) {
-        self.users.push(data);
-        console.log(self.users);
-    }
-
-    self.addGroupUserOnClick = function(id) {
-        self.addGroupUser = id;
     }
 }
 

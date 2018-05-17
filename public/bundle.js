@@ -44981,9 +44981,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(40);
 
 
 
@@ -45041,9 +45041,9 @@ function assignConfig() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__addGroupModal_addGroupModal__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__addGroupModal_addGroupModal__ = __webpack_require__(31);
 
 
 
@@ -46010,7 +46010,7 @@ module.exports = "<div class=sidebar data-color=purple data-image=../assets/img/
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__user_html__);
 // import angular from 'angular';
 
@@ -46031,6 +46031,37 @@ function controller(user) {
         self.removeUser = []; 
         self.addGroupUser = -1;  //id
 
+        init();
+
+    }
+
+    self.addUserSuccess = function (data) {
+        // self.users.push(data);
+        // // self.users = [...self.users];
+        // console.log(self.users);
+
+        init();
+    }
+
+    self.addGroupUserOnClick = function(id) {
+        self.addGroupUser = id;
+    }
+
+    self.removeUserOnClick = function (id){
+        if(confirm('Are you sure to delete user id : ' + id)) {
+            user.deleteUser(id, (err, resp) => {
+                if(err) {
+                    console.log(err);
+                    self.errMsg = err.reason;
+                } else {
+                    init();
+                    
+                }
+            });
+        }
+    }
+
+    function init(){
         user.getAllUser((err, resp) => {
 
             if (err) {
@@ -46047,16 +46078,6 @@ function controller(user) {
             }
         })
 
-
-    }
-
-    self.addUserSuccess = function (data) {
-        self.users.push(data);
-        console.log(self.users);
-    }
-
-    self.addGroupUserOnClick = function(id) {
-        self.addGroupUser = id;
     }
 }
 
@@ -46074,17 +46095,11 @@ function controller(user) {
 
 /***/ }),
 /* 27 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=text-danger ng-bind=vm.err></div> <div class=text-success ng-bind=vm.resp></div> <table class=\"table table-hover\"> <thead> <tr> <th></th> <th>ID</th> <th>Username</th> <th>Email</th> <th>Status</th> <th>Role</th> <th>Fullname</th> <th>Group</th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=user.idUser></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td ng-bind=user.status></td> <td ng-bind=user.role></td> <td ng-bind=user.fullname></td> <td> <button class=\"btn btn-success btn-sm\" title=\"group user\" data-toggle=modal data-target=#add-group-modal ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>add</i> </button> </td> </tr> </tbody> </table> <div class=\"\"> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User</button> <button class=\"btn btn-danger\" ng-click=vm.deleteOnSubmit()>Remove User</button> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-modal user-id=self.addGroupUser></add-group-modal> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=vm.changePage(page)></a> </li> </ul>";
-
-/***/ }),
-/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__group_html__);
 // import angular from 'angular';
 
@@ -46116,17 +46131,17 @@ function controller() {
 });
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = "<h1>GROUP</h1>";
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addUserModal_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -46186,17 +46201,17 @@ function controller(user){
 });
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"modal fade\" id=add-user-modal tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=\"user id\" ng-model=self.user.idUser> <input type=text placeholder=username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=text placeholder=email ng-model=self.user.email> <input type=text placeholder=fullname ng-model=self.user.fullname> <label>Role : </label> <input type=number placeholder=role ng-model=self.user.role> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </div> </div> </div>";
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__);
 
 
@@ -46270,19 +46285,19 @@ function controller(group) {
 });
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"modal fade\" id=add-group-modal tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <h1>Add User To Group</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <label>List Group</label> <select style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </div> </div> </div>";
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(36);
 
 
 
@@ -46291,7 +46306,7 @@ module.exports = "<div class=\"modal fade\" id=add-group-modal tabindex=-1 role=
 /* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__range__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__pagination__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__capitalize__["a" /* default */]]);
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46322,7 +46337,7 @@ function range() {
 });
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46358,7 +46373,7 @@ function pagination() {
 });
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46378,12 +46393,12 @@ function capitalize() {
 });
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(39);
 
 
 
@@ -46393,7 +46408,7 @@ function capitalize() {
 ]);
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46443,6 +46458,22 @@ function service($http) {
         )
     }
 
+    function deleteUser(id, callback) {
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/user/delete');
+        const data = {idUser: id};
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            } ,
+            (err) => callback(err)
+        )
+    }
+
     // function onAddUserSuccess(callback) {
     //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
     //         callback(data);
@@ -46452,7 +46483,8 @@ function service($http) {
 
     return {
         getAllUser,
-        addUser
+        addUser,
+        deleteUser
     }
     
 }
@@ -46468,7 +46500,7 @@ function service($http) {
 });
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46537,7 +46569,7 @@ function service($http) {
 });
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46570,6 +46602,12 @@ function service($http) {
     }
 
 /* harmony default export */ __webpack_exports__["a"] = (config);
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <table class=\"table table-hover\"> <thead> <tr> <th></th> <th>ID</th> <th>Username</th> <th>Email</th> <th>Status</th> <th>Role</th> <th>Fullname</th> <th>Group</th> <th>Delete</th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=user.idUser></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td ng-bind=user.status></td> <td ng-bind=user.role></td> <td ng-bind=user.fullname></td> <td> <button class=\"btn btn-success btn-sm\" title=\"group user\" data-toggle=modal data-target=#add-group-modal ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>add</i> </button> </td> <td> <button class=\"btn btn-danger btn-sm\" ng-click=self.removeUserOnClick(user.idUser)> <i class=material-icons>close</i> </button> </td> </tr> </tbody> </table> <div class=\"\"> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User</button> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-modal user-id=self.addGroupUser></add-group-modal> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=vm.changePage(page)></a> </li> </ul>";
 
 /***/ })
 /******/ ]);

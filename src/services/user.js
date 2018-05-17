@@ -43,6 +43,22 @@ function service($http) {
         )
     }
 
+    function deleteUser(id, callback) {
+        const url = createUrl('/user/delete');
+        const data = {idUser: id};
+
+        fetchPOST(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            } ,
+            (err) => callback(err)
+        )
+    }
+
     // function onAddUserSuccess(callback) {
     //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
     //         callback(data);
@@ -52,7 +68,8 @@ function service($http) {
 
     return {
         getAllUser,
-        addUser
+        addUser,
+        deleteUser
     }
     
 }
