@@ -1,3 +1,7 @@
 import user from './user';
+import group from './group';
 
-export default [user];
+export default [
+    user,
+    group
+];

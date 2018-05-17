@@ -14,6 +14,9 @@ function controller(user) {
 
     self.$onInit = function () {
 
+        self.removeUser = []; 
+        self.addGroupUser = -1;  //id
+
         user.getAllUser((err, resp) => {
 
             if (err) {
@@ -37,70 +40,11 @@ function controller(user) {
         self.users.push(data);
         console.log(self.users);
     }
+
+    self.addGroupUserOnClick = function(id) {
+        self.addGroupUser = id;
+    }
 }
-
-// ------------------------ HAM SIMULATE -------------------------------
-
-// function controller() {
-//     let self = this;
-
-//     self.$onInit = function () {
-//         self.users = getFakeData();
-//         self.userPerPage = 9;
-//         self.curPage = 1;
-//         self.filter = '';
-//         self.numPage = self.users.length / self.userPerPage + 1;
-//     }
-
-
-// }
-
-// function getFakeData () {
-//     return [{
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }, {
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }, {
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }, {
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }, {
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }]
-// }
-
-// angular
-//     .module(appName)
-//     .component(name, {
-//         template,
-//         controller,
-//         controllerAs: 'self'
-//     })
 
 
 

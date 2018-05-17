@@ -1,16 +1,14 @@
 import { createUrl, fetchPOST, SUCCESS_CODE } from './helper';
 
-const name = 'user';
+const name = 'group';
 
 service.$inject = ['$http'];
 function service($http) {
 
 
-    function getAllUser(callback) {
+    function getAllGroup(callback) {
 
-        const url = createUrl('/user/list');
-        // const url = 'http://auth.sflow.me:33333/user/list';
-        // const token = localStorage.getItem('jwt-token');
+        const url = createUrl('/group/list');
 
         fetchPOST(
             $http,
@@ -22,14 +20,10 @@ function service($http) {
             },
             (err) => callback(err));
 
-        // $http({
-        //     url: 'https://jsonplaceholder.typicode.com/posts',
-        //     method: 'POST',
-        // }).then(resp => console.log(resp));
     }
 
-    function addUser(data,callback) {
-        const url = createUrl('/user/new');
+    function addUserToGroup(data,callback) {
+        const url = createUrl('/group/add-user');
 
         fetchPOST(
             $http,
@@ -51,8 +45,8 @@ function service($http) {
 
 
     return {
-        getAllUser,
-        addUser
+        getAllGroup,
+        addUserToGroup
     }
     
 }

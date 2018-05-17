@@ -10,6 +10,7 @@
             <th>Status</th>
             <th>Role</th>
             <th>Fullname</th>
+            <th>Group</th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,16 @@
             <td ng-bind="user.status"></td>
             <td ng-bind="user.role"></td>
             <td ng-bind="user.fullname"></td>
+            <td>
+                <button 
+                class="btn btn-success btn-sm"
+                title="group user"
+                data-toggle="modal"
+                data-target="#add-group-modal"
+                ng-click="self.addGroupUserOnClick(user.idUser)">
+                    <i class="material-icons">add</i>
+                </button>
+            </td>
             <!-- <td>
                 <div ng-repeat="m in user.alMonitors track by $index " ng-bind="m"></div>
             </td> -->
@@ -57,7 +68,11 @@
     data-toggle="modal"
     data-target="#add-user-modal">Add User</button>
 
-    <button class="btn btn-success">Add To Group</button>
+    <!-- <button 
+    class="btn btn-success"
+    title="group user"
+    data-toggle="modal"
+    data-target="#add-group-modal">Add To Group</button> -->
 
     <button class="btn btn-danger" ng-click="vm.deleteOnSubmit()">Remove User</button>
     
@@ -66,6 +81,7 @@
 <!--===== modal ====-->
 <div>
     <add-user-modal add-user-success="self.addUserSuccess"></add-user-modal>
+    <add-group-modal user-id="self.addGroupUser"></add-group-modal>
 </div>
 
 <!--===================== pagination =========================-->
@@ -74,12 +90,3 @@
         <a ng-bind="page" ng-click="vm.changePage(page)"></a>
     </li>
 </ul>
-
-
-
-
-<!-- <div>
-    <div ng-include="'../admin/components/views/user/modals/alMonitorModal.template.html'"></div>
-    <div ng-include="'../admin/components/views/user/modals/unalMonitorModal.template.html'"></div>
-    <div ng-include="'../admin/components/views/user/modals/addUserModal.template.html'"></div>
-</div> -->

@@ -18,7 +18,7 @@ function controller(user){
         user.addUser(self.user, (err, resp) => {
             console.log(self.user);
             if(err) {
-                self.errMsg = err.reason || err.statusText;
+                self.errMsg = err.content || err.statusText;
                 self.sucMsg = '';
             } else {
                 console.log(resp);

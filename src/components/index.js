@@ -7,5 +7,17 @@ import sidebar from './sidebar/sidebar';
 import user from './views/user/user';
 import group from './views/group/group';
 import addUserModal from './addUserModal/addUserModal';
+import addGroupModal from './addGroupModal/addGroupModal';
 
-export default [app,appFooter, navbar, navbarHeader, navbarTool ,sidebar, user, group, addUserModal];
+export default [
+    app,
+    appFooter,
+    navbar,
+    navbarHeader,
+    navbarTool,
+    sidebar,
+    user,
+    group,
+    addUserModal,
+    addGroupModal
+];

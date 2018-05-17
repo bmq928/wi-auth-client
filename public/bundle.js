@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -83,7 +83,7 @@ const APP_TITLE = 'WELL INSIGHT'
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(4);
+__webpack_require__(5);
 module.exports = angular;
 
 
@@ -92,10 +92,43 @@ module.exports = angular;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = createUrl;
+/* harmony export (immutable) */ __webpack_exports__["c"] = fetchPOST;
+function createUrl(path) {
+    // const domain = 'http://auth.sflow.me:33333';
+    const domain = 'http://localhost:2999';
+
+    return domain + path;
+}
+
+function fetchPOST($http, url,data, success, fail) {
+
+    const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+    return (
+        $http({
+            url,
+            // headers: { 'Authorization': 'Bearer ' + token },
+            method: 'POST',
+            data: Object.assign({token}, data)
+        })
+            .then(success)
+            .catch(fail)
+    );
+}
+
+const SUCCESS_CODE = 200;
+/* harmony export (immutable) */ __webpack_exports__["a"] = SUCCESS_CODE;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__module__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__module__ = __webpack_require__(7);
 //dependency
 
 
@@ -113,7 +146,7 @@ function render(component, el) {
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -124,7 +157,7 @@ function render(component, el) {
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 (function (global, factory) {
-	 true ? factory(exports, __webpack_require__(1), __webpack_require__(5)) :
+	 true ? factory(exports, __webpack_require__(1), __webpack_require__(6)) :
 	typeof define === 'function' && define.amd ? define(['exports', 'angular', '@uirouter/core'], factory) :
 	(factory((global['@uirouter/angularjs'] = {}),global.angular,global['@uirouter/core']));
 }(this, (function (exports,ng_from_import,core) { 'use strict';
@@ -2133,7 +2166,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 /**
@@ -37018,7 +37051,7 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -44941,16 +44974,16 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(41);
 
 
 
@@ -44997,40 +45030,53 @@ function assignConfig() {
 /* unused harmony default export */ var _unused_webpack_default_export = (appName);
 
 /***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_app__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__ = __webpack_require__(29);
-
-
-
-
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__app_app__["a" /* default */],__WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__["a" /* default */] ,__WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__views_user_user__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__views_group_group__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__["a" /* default */]]);
-
-/***/ }),
 /* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_html__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_app__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__addGroupModal_addGroupModal__ = __webpack_require__(32);
+
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ([
+    __WEBPACK_IMPORTED_MODULE_0__app_app__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_1__appFooter_appFooter__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_2__navbar_navbar__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_3__navbarHeader_navbarHeader__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_6__views_user_user__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_7__views_group_group__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_9__addGroupModal_addGroupModal__["a" /* default */]
+]);
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_html__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__app_html__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constant__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_css__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_css__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__app_css__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -45094,17 +45140,17 @@ function decideView() {
 });
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=wrapper> <sidebar cur-view=self.curView change-view=self.changeView></sidebar> <div class=main-panel> <navbar cur-view=self.curView></navbar> <div class=content> <div class=container-fluid> <div ui-view></div> </div> </div> <app-footer></app-footer> </div> </div>";
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(11);
+var content = __webpack_require__(12);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -45118,7 +45164,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(13)(content, options);
+var update = __webpack_require__(14)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -45150,10 +45196,10 @@ if(false) {
 }
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(12)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -45164,7 +45210,7 @@ exports.push([module.i, "a{\r\n    color: red;\r\n}", ""]);
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 /*
@@ -45246,7 +45292,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -45312,7 +45358,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(14);
+var	fixUrls = __webpack_require__(15);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -45632,7 +45678,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 
@@ -45727,11 +45773,11 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appFooter_html__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appFooter_html__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appFooter_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__appFooter_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -45753,17 +45799,17 @@ console.log(name);
 });
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = "<footer class=footer> <div class=container-fluid> <nav class=pull-left> <ul> <li> <a href=https://www.facebook.com/pages/Coltech/108494469181799 target=_blank> COLTECH FACEBOOK </a> </li> <li> <a href=https://uet.vnu.edu.vn/ target=_blank> UET Home </a> </li> <li> <a href=https://www.vnu.edu.vn/home/ target=_blank> VNU Home </a> </li> <li> <a href=http://ctmail.vnu.edu.vn/webmail/src/login.php target=_blank> CtMail </a> </li> </ul> </nav> <p class=\"copyright pull-right\"> &copy 2018; <a href=\"\">Bui Minh Quang</a>, K61C-CLC </p> </div> </footer>";
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbar_html__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbar_html__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbar_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__navbar_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -45792,17 +45838,17 @@ function controller() {
 });
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav class=\"navbar navbar-transparent navbar-absolute\"> <div class=container-fluid> <navbar-header cur-view=self.curView></navbar-header> <navbar-tool></navbar-tool> </div> </nav>";
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarHeader_html__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarHeader_html__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarHeader_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__navbarHeader_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -45829,17 +45875,17 @@ const name = 'navbarHeader';
 });
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=navbar-header> <button type=button class=navbar-toggle data-toggle=collapse> <span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span> </button> <a class=navbar-brand href=# ng-bind=\"(self.curView | uppercase)\"></a> </div>";
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarTool_html__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarTool_html__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navbarTool_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__navbarTool_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -45878,17 +45924,17 @@ function controller() {
 });
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"collapse navbar-collapse\"> <ul class=\"nav navbar-nav navbar-right\"> <li> <a class=dropdown-toggle data-toggle=dropdown> <i class=material-icons>dashboard</i> <p class=\"hidden-lg hidden-md\">Profile</p> </a> <ul class=dropdown-menu> <li> <a data-toggle=modal data-target=#show-user-info-modal>User info</a> </li> <li> <a>Logout</a> </li> </ul> </li> </ul> <form class=\"navbar-form navbar-right\" role=search> <div class=\"form-group is-empty\"> <input type=text class=form-control placeholder=Filter ng-model=vm.filterText ng-change=vm.textTyping()> <span class=material-input></span> </div> <button type=submit class=\"btn btn-white btn-round btn-just-icon\"> <i class=material-icons>search</i> <div class=ripple-container></div> </button> </form> </div>";
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidebar_html__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidebar_html__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidebar_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__sidebar_html__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constant__ = __webpack_require__(0);
 // import angular from 'angular';
@@ -45953,18 +45999,18 @@ function generateView() {
 });
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=sidebar data-color=purple data-image=../assets/img/sidebar-1.jpg> <div class=logo> <a class=simple-text ng-bind=self.title></a>  </div> <div class=sidebar-wrapper> <ul class=nav> <li ng-repeat=\"view in self.views\" ng-class=\"{'active' : view.view === self.curView}\" ng-click=self.tabOnClick(view.view)> <a ui-sref={{view.view}}> <i class=material-icons ng-bind=view.icon></i> <p ng-bind=\"(view.view | capitalize)\"></p> </a> </li> </ul> </div> </div> ";
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__user_html__);
 // import angular from 'angular';
 
@@ -45981,6 +46027,9 @@ function controller(user) {
     let self = this;
 
     self.$onInit = function () {
+
+        self.removeUser = []; 
+        self.addGroupUser = -1;  //id
 
         user.getAllUser((err, resp) => {
 
@@ -46005,70 +46054,11 @@ function controller(user) {
         self.users.push(data);
         console.log(self.users);
     }
+
+    self.addGroupUserOnClick = function(id) {
+        self.addGroupUser = id;
+    }
 }
-
-// ------------------------ HAM SIMULATE -------------------------------
-
-// function controller() {
-//     let self = this;
-
-//     self.$onInit = function () {
-//         self.users = getFakeData();
-//         self.userPerPage = 9;
-//         self.curPage = 1;
-//         self.filter = '';
-//         self.numPage = self.users.length / self.userPerPage + 1;
-//     }
-
-
-// }
-
-// function getFakeData () {
-//     return [{
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }, {
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }, {
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }, {
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }, {
-//         id: 'fasdkjf',
-//         username: 'flakdsf',
-//         email: 'fjaskldf',
-//         status: 'aslkdfjlaskdjf',
-//         role: 'datdfklajsdlfj',
-//         fullname: 'dslfkjasdfjlj'
-//     }]
-// }
-
-// angular
-//     .module(appName)
-//     .component(name, {
-//         template,
-//         controller,
-//         controllerAs: 'self'
-//     })
 
 
 
@@ -46083,18 +46073,18 @@ function controller(user) {
 });
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=vm.err></div> <div class=text-success ng-bind=vm.resp></div> <table class=\"table table-hover\"> <thead> <tr> <th></th> <th>ID</th> <th>Username</th> <th>Email</th> <th>Status</th> <th>Role</th> <th>Fullname</th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=user.idUser></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td ng-bind=user.status></td> <td ng-bind=user.role></td> <td ng-bind=user.fullname></td> </tr> </tbody> </table> <div class=\"\"> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User</button> <button class=\"btn btn-success\">Add To Group</button> <button class=\"btn btn-danger\" ng-click=vm.deleteOnSubmit()>Remove User</button> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=vm.changePage(page)></a> </li> </ul> ";
+module.exports = "<div class=text-danger ng-bind=vm.err></div> <div class=text-success ng-bind=vm.resp></div> <table class=\"table table-hover\"> <thead> <tr> <th></th> <th>ID</th> <th>Username</th> <th>Email</th> <th>Status</th> <th>Role</th> <th>Fullname</th> <th>Group</th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=user.idUser></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td ng-bind=user.status></td> <td ng-bind=user.role></td> <td ng-bind=user.fullname></td> <td> <button class=\"btn btn-success btn-sm\" title=\"group user\" data-toggle=modal data-target=#add-group-modal ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>add</i> </button> </td> </tr> </tbody> </table> <div class=\"\"> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User</button> <button class=\"btn btn-danger\" ng-click=vm.deleteOnSubmit()>Remove User</button> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-modal user-id=self.addGroupUser></add-group-modal> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=vm.changePage(page)></a> </li> </ul>";
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__group_html__);
 // import angular from 'angular';
 
@@ -46126,17 +46116,17 @@ function controller() {
 });
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = "<h1>GROUP</h1>";
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addUserModal_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -46158,7 +46148,7 @@ function controller(user){
         user.addUser(self.user, (err, resp) => {
             console.log(self.user);
             if(err) {
-                self.errMsg = err.reason || err.statusText;
+                self.errMsg = err.content || err.statusText;
                 self.sucMsg = '';
             } else {
                 console.log(resp);
@@ -46196,19 +46186,103 @@ function controller(user){
 });
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"modal fade\" id=add-user-modal tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=\"user id\" ng-model=self.user.idUser> <input type=text placeholder=username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=text placeholder=email ng-model=self.user.email> <input type=text placeholder=fullname ng-model=self.user.fullname> <label>Role : </label> <input type=number placeholder=role ng-model=self.user.role> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </div> </div> </div>";
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__);
+
+
+const name = 'addGroupModal';
+
+controller.$inject = ['group'];
+function controller(group) {
+
+    let self = this;
+
+    self.$onInit = function () {
+        
+        self.sucMsg = '';
+        self.errMsg = '';
+        self.listGroup = [];
+        self.idGroup = null ;
+
+        group.getAllGroup((err, resp) => {
+            if(err) {
+                self.errMsg = err.reason || err.statusText;
+                self.sucMsg = '';
+            } else {
+                self.listGroup = resp.content;
+            }
+        })
+        
+    }
+
+    self.onSubmit = function() {
+        const data = {
+            idGroup: self.idGroup,
+            idUser: self.userId
+        };
+        group.addUserToGroup(data, (err, resp) => {
+            if(err) {
+                console.log(err);
+                self.errMsg = err.reason || err.statusText;
+                self.sucMsg = '';
+            } else {
+                console.log(resp);
+                self.sucMsg = resp.reason;
+                self.errMsg = '';
+            }
+        })
+    }
+
+    self.onClose = function(){
+        console.log('close');
+        self.errMsg = '';
+        self.sucMsg = '';
+    }
+
+}
+
+// angular`
+//     .module(appName)
+//     .component(name, {
+//         template
+//     })
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        bindings: {
+            userId: '<'
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal fade\" id=add-group-modal tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <h1>Add User To Group</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <label>List Group</label> <select style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </div> </div> </div>";
+
+/***/ }),
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(37);
 
 
 
@@ -46217,7 +46291,7 @@ module.exports = "<div class=\"modal fade\" id=add-user-modal tabindex=-1 role=d
 /* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__range__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__pagination__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__capitalize__["a" /* default */]]);
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46248,7 +46322,7 @@ function range() {
 });
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46284,7 +46358,7 @@ function pagination() {
 });
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46304,21 +46378,26 @@ function capitalize() {
 });
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(40);
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__user__["a" /* default */]]);
+
+/* harmony default export */ __webpack_exports__["a"] = ([
+    __WEBPACK_IMPORTED_MODULE_0__user__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_1__group__["a" /* default */]
+]);
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(2);
 
 
 const name = 'user';
@@ -46329,16 +46408,19 @@ function service($http) {
 
     function getAllUser(callback) {
 
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["a" /* createUrl */])('/user/list');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/user/list');
         // const url = 'http://auth.sflow.me:33333/user/list';
         // const token = localStorage.getItem('jwt-token');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* fetchPOST */])(
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
             $http,
             url,
             null,
-            (resp) => callback(false, resp.data),
-            (err) => callback(err.data));
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err));
 
         // $http({
         //     url: 'https://jsonplaceholder.typicode.com/posts',
@@ -46347,13 +46429,16 @@ function service($http) {
     }
 
     function addUser(data,callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["a" /* createUrl */])('/user/new');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/user/new');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* fetchPOST */])(
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
             $http,
             url,
             data,
-            (resp) => callback(false, resp.data),
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
             (err) => callback(err)
         )
     }
@@ -46383,35 +46468,76 @@ function service($http) {
 });
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createUrl;
-/* harmony export (immutable) */ __webpack_exports__["b"] = fetchPOST;
-function createUrl(path) {
-    const domain = 'http://auth.sflow.me:33333';
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(2);
 
-    return domain + path;
-}
 
-function fetchPOST($http, url,data, success, fail) {
+const name = 'group';
 
-    const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
-    return (
-        $http({
+service.$inject = ['$http'];
+function service($http) {
+
+
+    function getAllGroup(callback) {
+
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/list');
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
+            $http,
             url,
-            // headers: { 'Authorization': 'Bearer ' + token },
-            method: 'POST',
-            data: Object.assign({token}, data)
-        })
-            .then(success)
-            .catch(fail)
-    );
+            null,
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err));
+
+    }
+
+    function addUserToGroup(data,callback) {
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/add-user');
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
+    // function onAddUserSuccess(callback) {
+    //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
+    //         callback(data);
+    //     })
+    // }
+
+
+    return {
+        getAllGroup,
+        addUserToGroup
+    }
+    
 }
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: service
+});
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
