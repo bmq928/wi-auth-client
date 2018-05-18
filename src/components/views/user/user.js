@@ -13,12 +13,8 @@ function controller(user) {
     let self = this;
 
     self.$onInit = function () {
-
-        self.removeUser = []; 
-        self.addGroupUser = -1;  //id
-
+        preProcess();
         init();
-
     }
 
     self.addUserSuccess = function (data) {
@@ -29,25 +25,42 @@ function controller(user) {
         init();
     }
 
-    self.addGroupUserOnClick = function(id) {
+    self.addGroupUserOnClick = function (id) {
         self.addGroupUser = id;
     }
 
-    self.removeUserOnClick = function (id){
-        if(confirm('Are you sure to delete user id : ' + id)) {
+    self.removeUserOnClick = function (id) {
+        if (confirm('Are you sure to delete user id : ' + id)) {
             user.deleteUser(id, (err, resp) => {
-                if(err) {
+                if (err) {
                     console.log(err);
                     self.errMsg = err.reason;
                 } else {
                     init();
-                    
+
                 }
             });
         }
     }
 
-    function init(){
+    self.changePage = function (page) {
+        self.curPage = page;
+    }
+
+    function preProcess (){
+        self.removeUser = [];
+        self.addGroupUser = -1;  //id
+
+        //pre
+        self.users = [];
+
+        //pagination
+        self.userPerPage = 5;
+        self.curPage = 1;
+        self.numPage = self.users.length / self.userPerPage + 1;
+    }
+
+    function init() {
         user.getAllUser((err, resp) => {
 
             if (err) {
@@ -57,9 +70,10 @@ function controller(user) {
 
                 console.log(resp);
                 self.users = resp.content;
-                self.userPerPage = 9;
-                self.curPage = 1;
                 self.filter = '';
+
+
+                //pagination
                 self.numPage = self.users.length / self.userPerPage + 1;
             }
         })

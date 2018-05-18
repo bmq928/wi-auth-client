@@ -9,10 +9,7 @@ function controller(group) {
 
     self.$onInit = function () {
         
-        self.sucMsg = '';
-        self.errMsg = '';
-        self.listGroup = [];
-        self.idGroup = null ;
+        preProcess();
 
         group.getAllGroup((err, resp) => {
             if(err) {
@@ -44,9 +41,14 @@ function controller(group) {
     }
 
     self.onClose = function(){
-        console.log('close');
-        self.errMsg = '';
+        preProcess();
+    }
+
+    function preProcess(){
         self.sucMsg = '';
+        self.errMsg = '';
+        self.listGroup = [];
+        self.idGroup = null ;
     }
 
 }

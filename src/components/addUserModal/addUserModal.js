@@ -9,9 +9,7 @@ function controller(user){
     let self = this;
 
     self.$onInit = function(){
-        self.user = {};
-        self.sucMsg = '';
-        self.errMsg = '';
+        preProcess();
     }
 
     self.onSubmit = function(){
@@ -30,9 +28,13 @@ function controller(user){
     }
 
     self.onClose = function(){
-        console.log('close');
-        self.errMsg = '';
+        preProcess();
+    }
+
+    function preProcess () {
+        self.user = {};
         self.sucMsg = '';
+        self.errMsg = '';
     }
 
 }

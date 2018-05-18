@@ -41,29 +41,6 @@
                     <i class="material-icons">close</i>
                 </button>
             </td>
-            <!-- <td>
-                <div ng-repeat="m in user.alMonitors track by $index " ng-bind="m"></div>
-            </td> -->
-            <!-- <td>
-                <button 
-                title="allocate monitor to this user" 
-                class="btn btn-xs btn-success"
-                data-toggle="modal"
-                data-target="#al-monitor-modal"
-                ng-click="vm.alMonitorModal.onClick(user._id)">
-                    <i class="material-icons">add</i>
-                </button>
-            </td>
-            <td>
-                <button
-                 title="unallocate monitor to this user"
-                 class="btn btn-xs btn-danger"
-                 data-toggle="modal"
-                 data-target="#unal-monitor-modal"
-                 ng-click="vm.unalMonitorModal.onClick(user._id)">
-                    <i class="material-icons">clear</i>
-                </button>
-            </td> -->
         </tr>
     </tbody>
 </table>
@@ -73,15 +50,6 @@
     title="add a user"
     data-toggle="modal"
     data-target="#add-user-modal">Add User</button>
-
-    <!-- <button 
-    class="btn btn-success"
-    title="group user"
-    data-toggle="modal"
-    data-target="#add-group-modal">Add To Group</button> -->
-
-    <!-- <button class="btn btn-danger" ng-click="vm.deleteOnSubmit()">Remove User</button> -->
-    
 </div>
 
 <!--===== modal ====-->
@@ -93,6 +61,6 @@
 <!--===================== pagination =========================-->
 <ul class="pagination pagination-sm">
     <li ng-repeat="page in [] | range: self.numPage" ng-class="{'active' : page === self.curPage}">
-        <a ng-bind="page" ng-click="vm.changePage(page)"></a>
+        <a ng-bind="page" ng-click="self.changePage(page)"></a>
     </li>
 </ul>
