@@ -46122,7 +46122,7 @@ function controller(user) {
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=user.idUser></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 1\">Administrator </span> <span ng-if=\"user.role === 2\">User</span> </td> <td ng-bind=user.fullname></td> <td> <button class=\"btn btn-success btn-xs\" title=\"group user\" data-toggle=modal data-target=#add-group-modal ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>add</i> </button> <button title=\"edit user\" data-toggle=modal data-target=#edit-user-modal class=\"btn btn-success btn-xs\" ng-click=self.editUserOnClick(user.idUser)> <i class=material-icons>edit</i> </button> <button title=\"deactive user\" class=\"btn btn-danger btn-xs\"> <i class=material-icons>lock</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user.idUser)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=float-sm-left> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User </button> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-modal user-id=self.addGroupUser></add-group-modal> <edit-user-modal edit-user-success=self.editUserSuccess user-id=self.editUser> </edit-user-modal> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.filter  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=user.idUser></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 1\">Administrator </span> <span ng-if=\"user.role === 2\">User</span> </td> <td ng-bind=user.fullname></td> <td> <button class=\"btn btn-success btn-xs\" title=\"group user\" data-toggle=modal data-target=#add-group-modal ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>add</i> </button> <button title=\"edit user\" data-toggle=modal data-target=#edit-user-modal class=\"btn btn-success btn-xs\" ng-click=self.editUserOnClick(user.idUser)> <i class=material-icons>edit</i> </button> <button title=\"deactive user\" class=\"btn btn-danger btn-xs\"> <i class=material-icons>lock</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user.idUser)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=float-sm-left> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User </button> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-modal user-id=self.addGroupUser></add-group-modal> <edit-user-modal edit-user-success=self.editUserSuccess id-user=self.editUser> </edit-user-modal> </div> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul>";
 
 /***/ }),
 /* 28 */
@@ -46350,23 +46350,50 @@ module.exports = "<div class=\"modal fade\" id=add-group-modal tabindex=-1 role=
 const name = 'editUserModal';
 
 controller.$inject = ['user'];
-function controller(){
+function controller(user) {
     let self = this;
 
-    self.$onInit = function(){
+    self.$onInit = function () {
         preProcess();
         console.log(self.userId);
     }
 
+    self.onSubmit = function () {
+        checkSubmit(() => {
 
-    self.onClose = function(){
+            const data = Object.assign({
+                idUser: self.idUser
+            }, self.user)
+
+            user.editUser(data, (err, resp) => {
+                if(err) {
+                    self.errMsg = err.content || err.statusText;
+                    self.sucMsg = '';
+                } else {
+                    self.sucMsg = resp.reason;
+                    self.errMsg = '';
+                    self.editUserSuccess();
+                }
+            })
+        })
+    }
+
+    self.onClose = function () {
         preProcess();
     }
 
-    function preProcess () {
+    function preProcess() {
         self.user = {};
         self.sucMsg = '';
         self.errMsg = '';
+    }
+
+    function checkSubmit(fullfill) {
+        if (self.user.password === self.user.confirmPassword) {
+            fullfill();
+        } else {
+            self.errMsg = 'password confirm is not matched';
+        }
     }
 
     function checkSubmit(fullfill){
@@ -46384,7 +46411,7 @@ function controller(){
     options: {
         bindings: {
             editUserSuccess: '<',
-            userId: '<'
+            idUser: '<'
         },
         template: __WEBPACK_IMPORTED_MODULE_0__editUserModal_html___default.a,
         controller,
@@ -46396,7 +46423,7 @@ function controller(){
 /* 35 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal fade\" id=edit-user-modal tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </div> </div> </div>";
+module.exports = "<div class=\"modal fade\" id=edit-user-modal tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <h1>Edit User Info</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </div> </div> </div>";
 
 /***/ }),
 /* 36 */
@@ -46566,6 +46593,21 @@ function service($http) {
         )
     }
 
+    function editUser(data, callback){
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/user/edit');
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            err => callback(err)
+        )
+    }
+
     function deleteUser(id, callback) {
         const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/user/delete');
         const data = {idUser: id};
@@ -46592,7 +46634,8 @@ function service($http) {
     return {
         getAllUser,
         addUser,
-        deleteUser
+        deleteUser,
+        editUser
     }
     
 }

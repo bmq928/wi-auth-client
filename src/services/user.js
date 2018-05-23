@@ -43,6 +43,21 @@ function service($http) {
         )
     }
 
+    function editUser(data, callback){
+        const url = createUrl('/user/edit');
+
+        fetchPOST(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            err => callback(err)
+        )
+    }
+
     function deleteUser(id, callback) {
         const url = createUrl('/user/delete');
         const data = {idUser: id};
@@ -69,7 +84,8 @@ function service($http) {
     return {
         getAllUser,
         addUser,
-        deleteUser
+        deleteUser,
+        editUser
     }
     
 }
