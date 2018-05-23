@@ -24,7 +24,7 @@
 
                 <input 
                 type="text" 
-                placeholder="username" 
+                placeholder="Username" 
                 ng-model="self.user.username">
 
                 <input 
@@ -33,20 +33,31 @@
                 ng-model="self.user.password">
 
                 <input 
+                type="password" 
+                placeholder="Confirm Password" 
+                ng-model="self.user.confirmPassword">
+
+                <input 
                 type="text" 
-                placeholder="email" 
+                placeholder="Email" 
                 ng-model="self.user.email">
 
                 <input 
                 type="text"  
-                placeholder="fullname" 
+                placeholder="Fullname" 
                 ng-model="self.user.fullname">
 
-                <label>Role : </label>
+                <!-- <label>Role : </label>
                 <input 
                 type="number"  
                 placeholder="role" 
-                ng-model="self.user.role">
+                ng-model="self.user.role"> -->
+
+                <label>Role : </label>
+                <select ng-model="self.user.role">
+                    <option value="1">Administrator</option>
+                    <option value="2">User</option>
+                </select>
 
                 <!-- <label>Detail : </label> -->
                 <!-- <select ng-model="self.user.detail">

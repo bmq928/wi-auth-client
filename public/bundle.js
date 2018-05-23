@@ -46178,18 +46178,23 @@ function controller(user){
     }
 
     self.onSubmit = function(){
-        user.addUser(self.user, (err, resp) => {
-            console.log(self.user);
-            if(err) {
-                self.errMsg = err.content || err.statusText;
-                self.sucMsg = '';
-            } else {
-                console.log(resp);
-                self.sucMsg = resp.reason;
-                self.errMsg = '';
-                self.addUserSuccess(self.user);
-            }
+        
+        checkSubmit(() => {
+            user.addUser(self.user, (err, resp) => {
+                console.log(self.user);
+                if(err) {
+                    self.errMsg = err.content || err.statusText;
+                    self.sucMsg = '';
+                } else {
+                    console.log(resp);
+                    self.sucMsg = resp.reason;
+                    self.errMsg = '';
+                    self.addUserSuccess(self.user);
+                }
+            })
         })
+
+       
     }
 
     self.onClose = function(){
@@ -46200,6 +46205,14 @@ function controller(user){
         self.user = {};
         self.sucMsg = '';
         self.errMsg = '';
+    }
+
+    function checkSubmit(fullfill){
+        if(self.user.password === self.user.confirmPassword) {
+           fullfill();
+        } else {
+            self.errMsg = 'password confirm is not matched';
+        }
     }
 
 }
@@ -46226,7 +46239,7 @@ function controller(user){
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal fade\" id=add-user-modal tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=text placeholder=email ng-model=self.user.email> <input type=text placeholder=fullname ng-model=self.user.fullname> <label>Role : </label> <input type=number placeholder=role ng-model=self.user.role> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </div> </div> </div>";
+module.exports = "<div class=\"modal fade\" id=add-user-modal tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </div> </div> </div>";
 
 /***/ }),
 /* 32 */

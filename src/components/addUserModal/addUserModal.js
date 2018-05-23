@@ -13,18 +13,23 @@ function controller(user){
     }
 
     self.onSubmit = function(){
-        user.addUser(self.user, (err, resp) => {
-            console.log(self.user);
-            if(err) {
-                self.errMsg = err.content || err.statusText;
-                self.sucMsg = '';
-            } else {
-                console.log(resp);
-                self.sucMsg = resp.reason;
-                self.errMsg = '';
-                self.addUserSuccess(self.user);
-            }
+        
+        checkSubmit(() => {
+            user.addUser(self.user, (err, resp) => {
+                console.log(self.user);
+                if(err) {
+                    self.errMsg = err.content || err.statusText;
+                    self.sucMsg = '';
+                } else {
+                    console.log(resp);
+                    self.sucMsg = resp.reason;
+                    self.errMsg = '';
+                    self.addUserSuccess(self.user);
+                }
+            })
         })
+
+       
     }
 
     self.onClose = function(){
@@ -35,6 +40,14 @@ function controller(user){
         self.user = {};
         self.sucMsg = '';
         self.errMsg = '';
+    }
+
+    function checkSubmit(fullfill){
+        if(self.user.password === self.user.confirmPassword) {
+           fullfill();
+        } else {
+            self.errMsg = 'password confirm is not matched';
+        }
     }
 
 }
