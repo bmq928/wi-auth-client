@@ -8,13 +8,17 @@ const name = VIEWS.user;
 // ------------- HAM CHINH ---------------------------
 
 
-controller.$inject = ['user'];
-function controller(user) {
+controller.$inject = ['user', 'search'];
+function controller(user, search) {
     let self = this;
 
     self.$onInit = function () {
         preProcess();
         init();
+
+
+        //search type
+        search.onSearchSubmit((text) => self.searchStr = text);
     }
 
     self.addUserSuccess = function (data) {
@@ -66,6 +70,9 @@ function controller(user) {
         self.userPerPage = 5;
         self.curPage = 1;
         self.numPage = self.users.length / self.userPerPage + 1;
+
+        //filter
+        self.searchStr = '';
     }
 
     function init() {

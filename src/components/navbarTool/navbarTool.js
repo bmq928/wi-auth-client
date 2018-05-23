@@ -4,10 +4,17 @@ import template from './navbarTool.html';
 
 const name = 'navbarTool';
 
-function controller() {
+controller.$inject = ['search']
+function controller(search) {
     let self = this;
 
+    self.$onInit = function() {
+        self.searchStr = '';
+    }
 
+    self.onTyping = function(){
+        search.searchSubmit(self.searchStr);
+    }
 
 }
 
