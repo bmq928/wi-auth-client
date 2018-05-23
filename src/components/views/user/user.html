@@ -79,13 +79,27 @@
         </table>
     </div>
 </div>
-<div class="float-sm-left">
+<div class="row">
+
+   <div class="col-sm-10 col-md-10 col-lg-10">
+        <label>User per page :</label>
+        <select ng-model="self.userPerPage">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+        </select>
+   </div>
+
     <button 
      class="btn btn-success"
      title="add a user"
      data-toggle="modal"
      data-target="#add-user-modal">Add User
     </button>
+
+
 
 </div>
 
@@ -100,8 +114,14 @@
 </div>
 
 <!--===================== pagination =========================-->
-<ul class="pagination pagination-sm">
-    <li ng-repeat="page in [] | range: self.numPage" ng-class="{'active' : page === self.curPage}">
-        <a ng-bind="page" ng-click="self.changePage(page)"></a>
-    </li>
-</ul>
+<div class="row">
+    <div class="col-sm-5 col-md-5 col-lg-5"></div>
+    <div class="col-sm-5 col-md-5 col-lg-5">
+        <ul class="pagination pagination-sm">
+            <li ng-repeat="page in [] | range: self.numPage" ng-class="{'active' : page === self.curPage}">
+                <a ng-bind="page" ng-click="self.changePage(page)"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+</div>
