@@ -25,8 +25,16 @@ function controller(user) {
         init();
     }
 
+    self.editUserSuccess = function () {
+        init();
+    }
+
     self.addGroupUserOnClick = function (id) {
         self.addGroupUser = id;
+    }
+
+    self.editUserOnClick = function (id) {
+        self.editUser = id;
     }
 
     self.removeUserOnClick = function (id) {
@@ -47,7 +55,7 @@ function controller(user) {
         self.curPage = page;
     }
 
-    function preProcess (){
+    function preProcess() {
         self.removeUser = [];
         self.addGroupUser = -1;  //id
 

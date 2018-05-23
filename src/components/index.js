@@ -8,6 +8,7 @@ import user from './views/user/user';
 import group from './views/group/group';
 import addUserModal from './addUserModal/addUserModal';
 import addGroupModal from './addGroupModal/addGroupModal';
+import editUserModal from './editUserModal/editUserModal';
 
 export default [
     app,
@@ -19,5 +20,6 @@ export default [
     user,
     group,
     addUserModal,
-    addGroupModal
+    addGroupModal,
+    editUserModal
 ];

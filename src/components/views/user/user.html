@@ -56,7 +56,10 @@
                         </button>
                         <button 
                          title="edit user"
-                         class="btn btn-success btn-xs" >
+                         data-toggle="modal"
+                         data-target="#edit-user-modal"
+                         class="btn btn-success btn-xs"
+                         ng-click="self.editUserOnClick(user.idUser)" >
                             <i class="material-icons">edit</i>
                         </button>
                         <button 
@@ -90,6 +93,10 @@
 <div>
     <add-user-modal add-user-success="self.addUserSuccess"></add-user-modal>
     <add-group-modal user-id="self.addGroupUser"></add-group-modal>
+    <edit-user-modal 
+     edit-user-success="self.editUserSuccess"
+     user-id="self.editUser">
+    </edit-user-modal>
 </div>
 
 <!--===================== pagination =========================-->
