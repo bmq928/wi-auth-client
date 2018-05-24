@@ -59,6 +59,45 @@ function controller(user, search) {
         self.curPage = page;
     }
 
+    self.activeUser = function(idUser) {
+        const ACTIVE = 'Active';
+        const data = {
+            idUser,
+            status: ACTIVE
+        }
+        
+        user.editUser(data, (err, resp) => {
+            if(err) {
+                self.errMsg = err.reason;
+            } else {
+                init();
+            }
+        })
+    }
+
+    self.deactiveUser = function(idUser) {
+        const INACTIVE = 'Inactive';
+
+        const data = {
+            idUser,
+            status: INACTIVE
+        };
+
+        user.editUser(data, (err, resp) => {
+            if(err) {
+                self.errMsg = err.reason;
+            } else {
+                init();
+            }
+        })
+    }
+
+    self.isActive = function(user) {
+        const ACTIVE = 'Active';
+        
+        return user.status === ACTIVE;
+    }
+
     function preProcess() {
         self.removeUser = [];
         self.addGroupUser = -1;  //id

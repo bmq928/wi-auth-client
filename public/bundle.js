@@ -44983,7 +44983,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(44);
 
 
 
@@ -46083,6 +46083,45 @@ function controller(user, search) {
         self.curPage = page;
     }
 
+    self.activeUser = function(idUser) {
+        const ACTIVE = 'Active';
+        const data = {
+            idUser,
+            status: ACTIVE
+        }
+        
+        user.editUser(data, (err, resp) => {
+            if(err) {
+                self.errMsg = err.reason;
+            } else {
+                init();
+            }
+        })
+    }
+
+    self.deactiveUser = function(idUser) {
+        const INACTIVE = 'Inactive';
+
+        const data = {
+            idUser,
+            status: INACTIVE
+        };
+
+        user.editUser(data, (err, resp) => {
+            if(err) {
+                self.errMsg = err.reason;
+            } else {
+                init();
+            }
+        })
+    }
+
+    self.isActive = function(user) {
+        const ACTIVE = 'Active';
+        
+        return user.status === ACTIVE;
+    }
+
     function preProcess() {
         self.removeUser = [];
         self.addGroupUser = -1;  //id
@@ -46136,7 +46175,7 @@ function controller(user, search) {
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=user.idUser></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 1\">Administrator </span> <span ng-if=\"user.role === 2\">User</span> </td> <td ng-bind=user.fullname></td> <td> <button class=\"btn btn-success btn-xs\" title=\"group user\" data-toggle=modal data-target=#add-group-modal ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>add</i> </button> <button title=\"edit user\" data-toggle=modal data-target=#edit-user-modal class=\"btn btn-success btn-xs\" ng-click=self.editUserOnClick(user.idUser)> <i class=material-icons>edit</i> </button> <button title=\"deactive user\" class=\"btn btn-danger btn-xs\"> <i class=material-icons>lock</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user.idUser)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User </button> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-modal user-id=self.addGroupUser></add-group-modal> <edit-user-modal edit-user-success=self.editUserSuccess id-user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"user in self.users | pagination: self.curPage: self.userPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=user.idUser></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 1\">Administrator </span> <span ng-if=\"user.role === 2\">User</span> </td> <td ng-bind=user.fullname></td> <td> <button class=\"btn btn-success btn-xs\" title=\"group user\" data-toggle=modal data-target=#add-group-modal ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>add</i> </button> <button title=\"edit user\" data-toggle=modal data-target=#edit-user-modal class=\"btn btn-success btn-xs\" ng-click=self.editUserOnClick(user.idUser)> <i class=material-icons>edit</i> </button> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user.idUser)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <button class=\"btn btn-success\" title=\"add a user\" data-toggle=modal data-target=#add-user-modal>Add User </button> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-modal user-id=self.addGroupUser></add-group-modal> <edit-user-modal edit-user-success=self.editUserSuccess id-user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 28 */
@@ -46548,7 +46587,7 @@ function capitalize() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(43);
 
 
 
@@ -46741,6 +46780,39 @@ function service($http) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+const name = 'search';
+
+service.$inject = ['$rootScope'];
+function service($rootScope) {
+
+    const SEARCH_SUBMIT = 'SEARCH_SUBMIT';
+
+    function searchSubmit(text) {
+        $rootScope.$emit(SEARCH_SUBMIT, text);
+    }
+
+    function onSearchSubmit(callback) {
+        $rootScope.$on(SEARCH_SUBMIT, function(e, text) {
+            callback(text);
+        });
+    }
+
+    return {
+        searchSubmit,
+        onSearchSubmit
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: service
+});
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(0);
 
 
@@ -46770,39 +46842,6 @@ function service($http) {
     }
 
 /* harmony default export */ __webpack_exports__["a"] = (config);
-
-/***/ }),
-/* 44 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const name = 'search';
-
-service.$inject = ['$rootScope'];
-function service($rootScope) {
-
-    const SEARCH_SUBMIT = 'SEARCH_SUBMIT';
-
-    function searchSubmit(text) {
-        $rootScope.$emit(SEARCH_SUBMIT, text);
-    }
-
-    function onSearchSubmit(callback) {
-        $rootScope.$on(SEARCH_SUBMIT, function(e, text) {
-            callback(text);
-        });
-    }
-
-    return {
-        searchSubmit,
-        onSearchSubmit
-    }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    name,
-    options: service
-});
 
 /***/ })
 /******/ ]);

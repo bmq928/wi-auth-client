@@ -63,9 +63,18 @@
                             <i class="material-icons">edit</i>
                         </button>
                         <button 
+                         ng-if="self.isActive(user)"
                          title="deactive user"
-                         class="btn btn-danger btn-xs" >
+                         class="btn btn-danger btn-xs"
+                         ng-click="self.deactiveUser(user.idUser)">
                             <i class="material-icons">lock</i>
+                        </button>
+                        <button 
+                         ng-if="!(self.isActive(user))"
+                         title="active user"
+                         class="btn btn-success btn-xs"
+                         ng-click="self.activeUser(user.idUser)">
+                            <i class="material-icons">lock_open</i>
                         </button>
                         <button 
                          class="btn btn-danger btn-xs" 
