@@ -136,6 +136,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 //render
 const app = '<app></app>';
+// const app = `<modal name="'nah'"><h1>akldsjflkjasdf</h1></modal><modal-btn target="'nah'" style="'btn btn-success'">some</modal-btn>`
+// const app = `<table-form title="'MANAGE'" description="'flaksdjfl'" headers="['sadf', 'adsfsdf']"></table-form>`;
 render(app, document.getElementById('root-app'));
 
 
@@ -44984,6 +44986,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(45);
+
 
 
 
@@ -44998,8 +45002,7 @@ assignConfig();
 assignAllFilter();
 assignAllService();
 assignAllComponent();
-
-
+assignAllHoc();
 
 
 function assignAllComponent() {
@@ -45025,6 +45028,10 @@ function assignAllService() {
 
 function assignConfig() {
     app.config(__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */]);
+}
+
+function assignAllHoc() {
+    __WEBPACK_IMPORTED_MODULE_5__hoc__["a" /* default */].forEach(h => app.component(h.name, h.options));
 }
 
 /* unused harmony default export */ var _unused_webpack_default_export = (appName);
@@ -46842,6 +46849,171 @@ function service($rootScope) {
     }
 
 /* harmony default export */ __webpack_exports__["a"] = (config);
+
+/***/ }),
+/* 45 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tableForm_tableForm__ = __webpack_require__(51);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ([
+    __WEBPACK_IMPORTED_MODULE_0__modal_modal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_2__tableForm_tableForm__["a" /* default */]
+]);
+
+/***/ }),
+/* 46 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper__ = __webpack_require__(48);
+
+
+
+const name = 'modal';
+
+function controller() {
+    let self = this;
+
+    self.$onInit = function () {
+        console.log(self.name);
+        self._name = Object(__WEBPACK_IMPORTED_MODULE_1__helper__["a" /* createModalName */])(self.name);
+    }
+}
+
+// angular`
+//     .module(appName)
+//     .component(name, {
+//         template
+//     })
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        transclude: true,
+        bindings: {
+            name: '<'
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__modal_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <ng-transclude></ng-transclude> </div> </div> </div>";
+
+/***/ }),
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = createModalName;
+function createModalName(name) {
+    return `_modal_${name}`;
+}
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modalBtn_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper__ = __webpack_require__(48);
+
+
+
+const name = 'modalBtn';
+
+function controller() {
+    let self = this;
+
+    self.$onInit = function () {
+        self._target = '#' + Object(__WEBPACK_IMPORTED_MODULE_1__helper__["a" /* createModalName */])(self.target);
+    }
+}
+
+// angular`
+//     .module(appName)
+//     .component(name, {
+//         template
+//     })
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        transclude: true,
+        bindings: {
+            target: '<',
+            style: '<'
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__modalBtn_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
+
+module.exports = "<button class={{self.style}} title=\"add a user\" data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tableForm_html__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tableForm_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__tableForm_html__);
+
+
+const name = 'tableForm';
+
+function controller() {
+
+}
+
+// angular`
+//     .module(appName)
+//     .component(name, {
+//         template
+//     })
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        transclude: true,
+        bindings: {
+            title: '<',
+            description: '<',
+            headers: '<'
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__tableForm_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title ng-bind=self.title></h4> <p class=category ng-bind=self.description></p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th ng-repeat=\"h in self.headers\" ng-bind=h></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <ng-transclude></ng-transclude> </tbody> </table> </div> </div> ";
 
 /***/ })
 /******/ ]);

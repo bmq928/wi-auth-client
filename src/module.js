@@ -3,6 +3,7 @@ import components from './components';
 import filters from './filters';
 import services from './services';
 import config from './config';
+import hoc from './hoc'
 
 
 const appName = 'app';
@@ -12,8 +13,7 @@ assignConfig();
 assignAllFilter();
 assignAllService();
 assignAllComponent();
-
-
+assignAllHoc();
 
 
 function assignAllComponent() {
@@ -39,6 +39,10 @@ function assignAllService() {
 
 function assignConfig() {
     app.config(config);
+}
+
+function assignAllHoc() {
+    hoc.forEach(h => app.component(h.name, h.options));
 }
 
 export default appName;

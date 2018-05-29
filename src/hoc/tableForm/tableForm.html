@@ -1,0 +1,29 @@
+<div class="text-danger" ng-bind="self.errMsg"></div>
+<!-- <div class="text-success" ng-bind="vm.resp"></div> -->
+<div class="card">
+        <div class="card-header" data-background-color="purple">
+            <h4 class="title" ng-bind="self.title"></h4>
+            <p class="category" ng-bind="self.description"></p>
+        </div>
+    <div class="card-content table-responsive">
+        <table class="table table-hover">
+            <thead class="text-primary">
+                <tr>
+                    <th></th>
+                    <th ng-repeat="h in self.headers" ng-bind="h"></th>
+                    <!-- <th><h6>ID</h6></th>
+                    <th><h6>Username</h6></th>
+                    <th><h6>Email</h6></th>
+                    <th><h6>Status</h6></th>
+                    <th><h6>Role</h6></th>
+                    <th><h6>Fullname</h6></th> -->
+                    <th style="padding-left: 75px;"><h6>Action</h6></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-transclude></ng-transclude>
+            </tbody>
+        </table>
+    </div>
+</div>
+
