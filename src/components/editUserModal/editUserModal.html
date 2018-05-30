@@ -1,7 +1,63 @@
-<div class="modal fade" id="edit-user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<modal name="self.name">
+    <h1>Edit User Info</h1>
+    <div class="text-success" ng-bind="self.sucMsg"></div>
+    <div class="text-danger" ng-bind="self.errMsg"></div>
+    <br>
+    <span ng-bind="self.navErr" class="text-danger"></span>
+    <form>
+    
+        
+        
+    
+        <input 
+        type="text" 
+        placeholder="Username" 
+        ng-model="self.user.username">
+    
+        <input 
+        type="password" 
+        placeholder="Password" 
+        ng-model="self.user.password">
+    
+        <input 
+        type="password" 
+        placeholder="Confirm Password" 
+        ng-model="self.user.confirmPassword">
+    
+        <input 
+        type="text" 
+        placeholder="Email" 
+        ng-model="self.user.email">
+    
+        <input 
+        type="text"  
+        placeholder="Fullname" 
+        ng-model="self.user.fullname">
+    
+        
+    
+        <label>Role : </label>
+        <select ng-model="self.user.role">
+            <option value="1">Administrator</option>
+            <option value="2">User</option>
+        </select>
+    
+        
+        
+        <input
+            type="submit"
+            name="login"
+            class="login loginmodal-submit"
+            value="Submit"
+            ng-click="self.onSubmit()">
+    </form>
+        
+</modal>
+
+<!-- <div class="modal fade" id="edit-user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="z-index:1042;">
         <div class="loginmodal-container">
-            <!-- this btn is just for click in directiv -->
+            
             <button 
              type="button"
              class="close"
@@ -17,10 +73,7 @@
             <form>
 
                 
-                <!-- <input 
-                type="text" 
-                placeholder="user id" 
-                ng-model="self.user.idUser"> -->
+                
 
                 <input 
                 type="text" 
@@ -47,11 +100,7 @@
                 placeholder="Fullname" 
                 ng-model="self.user.fullname">
 
-                <!-- <label>Role : </label>
-                <input 
-                type="number"  
-                placeholder="role" 
-                ng-model="self.user.role"> -->
+                
 
                 <label>Role : </label>
                 <select ng-model="self.user.role">
@@ -59,11 +108,7 @@
                     <option value="2">User</option>
                 </select>
 
-                <!-- <label>Detail : </label> -->
-                <!-- <select ng-model="self.user.detail">
-                    <option value="root_user">root_user</option>
-                    <option value="common_user">common_user</option>
-                </select> -->
+                
                 
                 <input
                  type="submit"
@@ -73,9 +118,7 @@
                  ng-click="self.onSubmit()">
             </form>
 
-            <!-- <div class="login-help">
-                <a href="#">Forgot Password</a>
-            </div> -->
+            
         </div>
     </div>
-</div>
+</div> -->

@@ -36,6 +36,8 @@ function controller(user) {
     }
 
     function preProcess() {
+        self.name = 'edit-user-modal';
+
         self.user = {};
         self.sucMsg = '';
         self.errMsg = '';

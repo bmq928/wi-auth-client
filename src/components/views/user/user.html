@@ -60,14 +60,22 @@
                          ng-click="self.addGroupUserOnClick(user.idUser)">
                             <i class="material-icons">add</i>
                         </button> -->
-                        <button 
+
+                        <modal-btn
+                         class-name="'btn btn-success btn-xs'"
+                         target="'edit-user-modal'"
+                         ng-click="self.editUserOnClick(user.idUser)">
+                            <i class="material-icons">edit</i>
+                        </modal-btn>
+
+                        <!-- <button 
                          title="edit user"
                          data-toggle="modal"
                          data-target="#edit-user-modal"
                          class="btn btn-success btn-xs"
                          ng-click="self.editUserOnClick(user.idUser)" >
                             <i class="material-icons">edit</i>
-                        </button>
+                        </button> -->
                         <button 
                          ng-if="self.isActive(user)"
                          title="deactive user"
@@ -107,12 +115,17 @@
         </select>
    </div>
 
-    <button 
+    <!-- <button 
      class="btn btn-success"
      title="add a user"
      data-toggle="modal"
      data-target="#add-user-modal">Add User
-    </button>
+    </button> -->
+
+    <modal-btn 
+     class-name="'btn btn-success'"
+     target="'add-user-modal'">Add User
+    </modal-btn>
 
 
 
