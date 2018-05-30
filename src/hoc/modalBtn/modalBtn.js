@@ -23,7 +23,7 @@ export default {
         transclude: true,
         bindings: {
             target: '<',
-            style: '<'
+            className: '<'
         },
         template,
         controller,

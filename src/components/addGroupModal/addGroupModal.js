@@ -45,6 +45,8 @@ function controller(group) {
     }
 
     function preProcess(){
+        self.name = 'add-group-modal';
+
         self.sucMsg = '';
         self.errMsg = '';
         self.listGroup = [];

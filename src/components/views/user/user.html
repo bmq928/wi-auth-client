@@ -46,14 +46,20 @@
                     </td>
                     <td ng-bind="user.fullname"></td>
                     <td>
-                        <button 
+                        <modal-btn 
+                         class-name="'btn btn-success btn-xs'"
+                         target="'add-group-modal'"
+                         ng-click="self.addGroupUserOnClick(user.idUser)">
+                            <i class="material-icons">add</i>
+                        </modal-btn>
+                        <!-- <button 
                          class="btn btn-success btn-xs"
                          title="group user"
                          data-toggle="modal"
                          data-target="#add-group-modal"
                          ng-click="self.addGroupUserOnClick(user.idUser)">
                             <i class="material-icons">add</i>
-                        </button>
+                        </button> -->
                         <button 
                          title="edit user"
                          data-toggle="modal"
