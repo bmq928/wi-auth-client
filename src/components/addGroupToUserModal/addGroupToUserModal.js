@@ -1,6 +1,6 @@
-import template from './addGroupModal.html';
+import template from './addGroupToUserModal.html';
 
-const name = 'addGroupModal';
+const name = 'addGroupToUserModal';
 
 controller.$inject = ['group'];
 function controller(group) {
