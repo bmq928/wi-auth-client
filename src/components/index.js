@@ -10,6 +10,7 @@ import addUserModal from './addUserModal/addUserModal';
 import addGroupModal from './addGroupModal/addGroupModal';
 import addGroupToUserModal from './addGroupToUserModal/addGroupToUserModal';
 import editUserModal from './editUserModal/editUserModal';
+import listUserInGroupModal from './listUserInGroupModal/listUserInGroupModal';
 
 export default [
     app,
@@ -23,5 +24,6 @@ export default [
     addGroupModal,
     addUserModal,
     addGroupToUserModal,
-    editUserModal
+    editUserModal,
+    listUserInGroupModal
 ];
