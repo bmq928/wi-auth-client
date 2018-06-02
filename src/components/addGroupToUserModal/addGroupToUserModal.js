@@ -17,6 +17,8 @@ function controller(group) {
                 self.sucMsg = '';
             } else {
                 self.listGroup = resp.content;
+                // console.log('list content');
+                // console.log(resp.content);
             }
         })
         
@@ -41,7 +43,8 @@ function controller(group) {
     }
 
     self.onClose = function(){
-        preProcess();
+        // preProcess();
+        //prevent lost data (not neccessary to reload again)
     }
 
     function preProcess(){

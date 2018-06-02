@@ -44996,10 +44996,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(48);
 
 
 
@@ -45064,8 +45064,8 @@ function assignAllHoc() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__addGroupModal_addGroupModal__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__editUserModal_editUserModal__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__editUserModal_editUserModal__ = __webpack_require__(37);
 
 
 
@@ -46228,6 +46228,10 @@ function controller(group) {
         init();
     }
 
+    self.changePage = function(page) {
+        self.curPage = page;
+    }
+
     function preProcess(){
         self.groups = [];
 
@@ -46461,7 +46465,98 @@ module.exports = "<modal name=self.name on-close=self.onClose> <h1>GROUP INFOMAT
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editUserModal_html__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html__);
+
+
+const name = 'addGroupToUserModal';
+
+controller.$inject = ['group'];
+function controller(group) {
+
+    let self = this;
+
+    self.$onInit = function () {
+        
+        preProcess();
+
+        group.getAllGroup((err, resp) => {
+            if(err) {
+                self.errMsg = err.reason || err.statusText;
+                self.sucMsg = '';
+            } else {
+                self.listGroup = resp.content;
+                // console.log('list content');
+                // console.log(resp.content);
+            }
+        })
+        
+    }
+
+    self.onSubmit = function() {
+        const data = {
+            idGroup: self.idGroup,
+            idUser: self.userId
+        };
+        group.addUserToGroup(data, (err, resp) => {
+            if(err) {
+                console.log(err);
+                self.errMsg = err.reason || err.statusText;
+                self.sucMsg = '';
+            } else {
+                console.log(resp);
+                self.sucMsg = resp.reason;
+                self.errMsg = '';
+            }
+        })
+    }
+
+    self.onClose = function(){
+        // preProcess();
+        //prevent lost data (not neccessary to reload again)
+    }
+
+    function preProcess(){
+        self.name = 'add-group-modal';
+
+        self.sucMsg = '';
+        self.errMsg = '';
+        self.listGroup = [];
+        self.idGroup = null ;
+    }
+
+}
+
+// angular`
+//     .module(appName)
+//     .component(name, {
+//         template
+//     })
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        bindings: {
+            userId: '<'
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>Add User To Group</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <label>List Group</label> <select style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+
+/***/ }),
+/* 37 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editUserModal_html__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editUserModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__editUserModal_html__);
 
 
@@ -46540,19 +46635,19 @@ function controller(user) {
 });
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = "<modal name=self.name on-close=self.onClose> <h1>Edit User Info</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(42);
 
 
 
@@ -46561,7 +46656,7 @@ module.exports = "<modal name=self.name on-close=self.onClose> <h1>Edit User Inf
 /* harmony default export */ __webpack_exports__["a"] = ([__WEBPACK_IMPORTED_MODULE_0__range__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__pagination__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__capitalize__["a" /* default */]]);
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46592,7 +46687,7 @@ function range() {
 });
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46628,7 +46723,7 @@ function pagination() {
 });
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46648,13 +46743,13 @@ function capitalize() {
 });
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(46);
 
 
 
@@ -46666,7 +46761,7 @@ function capitalize() {
 ]);
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46774,7 +46869,7 @@ function service($http) {
 });
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46860,7 +46955,7 @@ function service($http) {
 });
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46893,7 +46988,7 @@ function service($rootScope) {
 });
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46928,12 +47023,12 @@ function service($rootScope) {
 /* harmony default export */ __webpack_exports__["a"] = (config);
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(51);
 
 
 // import tableForm from './tableForm/tableForm';
@@ -46946,11 +47041,11 @@ function service($rootScope) {
 ]);
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_html__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper__ = __webpack_require__(3);
 
@@ -46988,17 +47083,17 @@ function controller() {
 });
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports) {
 
-module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <ng-transclude></ng-transclude> </div> </div> </div>";
+module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true data-backdrop=static data-keyboard=false> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <ng-transclude></ng-transclude> </div> </div> </div>";
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modalBtn_html__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper__ = __webpack_require__(3);
 
@@ -47035,98 +47130,10 @@ function controller() {
 });
 
 /***/ }),
-/* 50 */
-/***/ (function(module, exports) {
-
-module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
-
-/***/ }),
-/* 51 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html__);
-
-
-const name = 'addGroupToUserModal';
-
-controller.$inject = ['group'];
-function controller(group) {
-
-    let self = this;
-
-    self.$onInit = function () {
-        
-        preProcess();
-
-        group.getAllGroup((err, resp) => {
-            if(err) {
-                self.errMsg = err.reason || err.statusText;
-                self.sucMsg = '';
-            } else {
-                self.listGroup = resp.content;
-            }
-        })
-        
-    }
-
-    self.onSubmit = function() {
-        const data = {
-            idGroup: self.idGroup,
-            idUser: self.userId
-        };
-        group.addUserToGroup(data, (err, resp) => {
-            if(err) {
-                console.log(err);
-                self.errMsg = err.reason || err.statusText;
-                self.sucMsg = '';
-            } else {
-                console.log(resp);
-                self.sucMsg = resp.reason;
-                self.errMsg = '';
-            }
-        })
-    }
-
-    self.onClose = function(){
-        preProcess();
-    }
-
-    function preProcess(){
-        self.name = 'add-group-modal';
-
-        self.sucMsg = '';
-        self.errMsg = '';
-        self.listGroup = [];
-        self.idGroup = null ;
-    }
-
-}
-
-// angular`
-//     .module(appName)
-//     .component(name, {
-//         template
-//     })
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    name,
-    options: {
-        bindings: {
-            userId: '<'
-        },
-        template: __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html___default.a,
-        controller,
-        controllerAs: 'self'
-    }
-});
-
-/***/ }),
 /* 52 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=self.onClose> <h1>Add User To Group</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <label>List Group</label> <select style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
 
 /***/ })
 /******/ ]);

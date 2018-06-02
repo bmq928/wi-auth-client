@@ -18,6 +18,10 @@ function controller(group) {
         init();
     }
 
+    self.changePage = function(page) {
+        self.curPage = page;
+    }
+
     function preProcess(){
         self.groups = [];
 
