@@ -20,5 +20,38 @@ export function fetchPOST($http, url,data, success, fail) {
     );
 }
 
+// export function createPostService($http, url) {
+//     url = createUrl(url);
+
+//     return function(data, callback) {
+//         fetchPOST(
+//             $http,
+//             url,
+//             data,
+//             (resp) => {
+//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+//                 else callback(resp.data);
+//             },
+//             (err) => callback(err)
+//         )
+//     }
+// }
+
+// export function createGetService($http, url) {
+//     url = createUrl(url);
+
+//     return function (callback) {
+//         fetchPOST(
+//             $http,
+//             url,
+//             null,
+//             (resp) => {
+//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+//                 else callback(resp.data);
+//             },
+//             (err) => callback(err));
+//     }
+// }
+
 export const SUCCESS_CODE = 200;
 export const INTERNAL_ERROR_CODE = 512;

@@ -1,9 +1,10 @@
 <modal name="self.name" on-close="">
     <h1>List User In Group</h1>
     <span class="text-danger" ng-bind="self.errMsg"></span>
+    <span class="text-success" ng-bind="self.sucMsg"></span>
     <ul class="list-group product-category-all">
         <li class="list-group-item" ng-repeat="u in self.listUser track by $index">
-            <a class="badge">
+            <a class="badge" ng-click="self.removeUserFromGroup(u.idUser)">
                 <i class="material-icons">delete</i>
                 </i>
             </a>

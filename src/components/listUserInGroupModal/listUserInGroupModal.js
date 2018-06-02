@@ -3,13 +3,34 @@ import './listUserInGroup.css';
 
 const name = 'listUserInGroupModal';
 
-controller.$inject = ['user']
-function controller(user) {
+controller.$inject = ['user', 'group']
+function controller(user, group) {
     let self = this;
 
     self.$onInit = function () {
         preProcess();
         init();
+    }
+
+    self.removeUserFromGroup = function (idUser) {
+        const data = {
+            idUser, 
+            idGroup: self.idGroup
+        }
+
+        group.removeUserFromGroup(data, (err, resp) => {
+            if(err) {
+                self.sucMsg = '';
+                self.errMsg = err.reason;
+            }
+            else {
+                self.sucMsg = 'success remove user from group';
+                self.errMsg = '';
+
+                //remove in representation
+                self.listUser = self.listUser.filter(u => u.idUser !== idUser);
+            }
+        })
     }
 
     function preProcess() {
@@ -26,8 +47,9 @@ function controller(user) {
         //         self.users = resp.content;
         //     }
         // })
-
-        if(!self.listUser || !self.listUser.length) self.errMsg = 'no user in this group';
+        // console.log(self.listUser);
+        // if (self.listUser )console.log(self.listUser.length); else console.log('nanimonaidesu');
+        // if(!self.listUser || !self.listUser.length) self.errMsg = 'no user in this group';
     }
 }
 
@@ -35,7 +57,8 @@ export default {
     name,
     options: {
         bindings: {
-            listUser: '<'
+            listUser: '<',
+            idGroup: '<'
         },
         template,
         controller,

@@ -584,6 +584,39 @@ function fetchPOST($http, url,data, success, fail) {
     );
 }
 
+// export function createPostService($http, url) {
+//     url = createUrl(url);
+
+//     return function(data, callback) {
+//         fetchPOST(
+//             $http,
+//             url,
+//             data,
+//             (resp) => {
+//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+//                 else callback(resp.data);
+//             },
+//             (err) => callback(err)
+//         )
+//     }
+// }
+
+// export function createGetService($http, url) {
+//     url = createUrl(url);
+
+//     return function (callback) {
+//         fetchPOST(
+//             $http,
+//             url,
+//             null,
+//             (resp) => {
+//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+//                 else callback(resp.data);
+//             },
+//             (err) => callback(err));
+//     }
+// }
+
 const SUCCESS_CODE = 200;
 /* harmony export (immutable) */ __webpack_exports__["a"] = SUCCESS_CODE;
 
@@ -46294,7 +46327,7 @@ function controller(group) {
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"group in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=group.idGroup></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-success'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users></list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"group in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=group.idGroup></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-success'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 31 */
@@ -46665,13 +46698,34 @@ module.exports = "<modal name=self.name on-close=self.onClose> <h1>Edit User Inf
 
 const name = 'listUserInGroupModal';
 
-controller.$inject = ['user']
-function controller(user) {
+controller.$inject = ['user', 'group']
+function controller(user, group) {
     let self = this;
 
     self.$onInit = function () {
         preProcess();
         init();
+    }
+
+    self.removeUserFromGroup = function (idUser) {
+        const data = {
+            idUser, 
+            idGroup: self.idGroup
+        }
+
+        group.removeUserFromGroup(data, (err, resp) => {
+            if(err) {
+                self.sucMsg = '';
+                self.errMsg = err.reason;
+            }
+            else {
+                self.sucMsg = 'success remove user from group';
+                self.errMsg = '';
+
+                //remove in representation
+                self.listUser = self.listUser.filter(u => u.idUser !== idUser);
+            }
+        })
     }
 
     function preProcess() {
@@ -46688,8 +46742,9 @@ function controller(user) {
         //         self.users = resp.content;
         //     }
         // })
-
-        if(!self.listUser || !self.listUser.length) self.errMsg = 'no user in this group';
+        // console.log(self.listUser);
+        // if (self.listUser )console.log(self.listUser.length); else console.log('nanimonaidesu');
+        // if(!self.listUser || !self.listUser.length) self.errMsg = 'no user in this group';
     }
 }
 
@@ -46697,7 +46752,8 @@ function controller(user) {
     name,
     options: {
         bindings: {
-            listUser: '<'
+            listUser: '<',
+            idGroup: '<'
         },
         template: __WEBPACK_IMPORTED_MODULE_0__listUserInGroup_html___default.a,
         controller,
@@ -46709,7 +46765,7 @@ function controller(user) {
 /* 40 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=\"\"> <h1>List User In Group</h1> <span class=text-danger ng-bind=self.errMsg></span> <ul class=\"list-group product-category-all\"> <li class=list-group-item ng-repeat=\"u in self.listUser track by $index\"> <a class=badge> <i class=material-icons>delete</i>  </a> <span> <i class=material-icons style=font-size:40px;vertical-align:middle>face</i> {{u.username}} </span> </li> </ul> </modal>";
+module.exports = "<modal name=self.name on-close=\"\"> <h1>List User In Group</h1> <span class=text-danger ng-bind=self.errMsg></span> <span class=text-success ng-bind=self.sucMsg></span> <ul class=\"list-group product-category-all\"> <li class=list-group-item ng-repeat=\"u in self.listUser track by $index\"> <a class=badge ng-click=self.removeUserFromGroup(u.idUser)> <i class=material-icons>delete</i>  </a> <span> <i class=material-icons style=font-size:40px;vertical-align:middle>face</i> {{u.username}} </span> </li> </ul> </modal>";
 
 /***/ }),
 /* 41 */
@@ -47048,6 +47104,21 @@ function service($http) {
         )
     }
 
+    function removeUserFromGroup(data, callback) {
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/remove-user');
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     function addNewGroup(data, callback) {
         const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/new');
 
@@ -47074,7 +47145,8 @@ function service($http) {
     return {
         getAllGroup,
         addUserToGroup,
-        addNewGroup
+        addNewGroup,
+        removeUserFromGroup
     }
     
 }

@@ -37,6 +37,21 @@ function service($http) {
         )
     }
 
+    function removeUserFromGroup(data, callback) {
+        const url = createUrl('/group/remove-user');
+
+        fetchPOST(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     function addNewGroup(data, callback) {
         const url = createUrl('/group/new');
 
@@ -63,7 +78,8 @@ function service($http) {
     return {
         getAllGroup,
         addUserToGroup,
-        addNewGroup
+        addNewGroup,
+        removeUserFromGroup
     }
     
 }
