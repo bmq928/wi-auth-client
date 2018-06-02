@@ -37,6 +37,22 @@ function service($http) {
         )
     }
 
+    function addNewGroup(data, callback) {
+        const url = createUrl('/group/new');
+
+        fetchPOST(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+        
+    }
+
     // function onAddUserSuccess(callback) {
     //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
     //         callback(data);
@@ -46,7 +62,8 @@ function service($http) {
 
     return {
         getAllGroup,
-        addUserToGroup
+        addUserToGroup,
+        addNewGroup
     }
     
 }

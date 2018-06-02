@@ -21,3 +21,4 @@ export function fetchPOST($http, url,data, success, fail) {
 }
 
 export const SUCCESS_CODE = 200;
+export const INTERNAL_ERROR_CODE = 512;

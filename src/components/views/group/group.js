@@ -14,6 +14,10 @@ function controller(group) {
         init();
     }
 
+    self.addGroupSuccess = function() {
+        init();
+    }
+
     function preProcess(){
         self.groups = [];
 

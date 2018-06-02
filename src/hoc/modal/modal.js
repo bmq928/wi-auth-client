@@ -23,7 +23,8 @@ export default {
     options: {
         transclude: true,
         bindings: {
-            name: '<'
+            name: '<',
+            onClose: '<'
         },
         template,
         controller,

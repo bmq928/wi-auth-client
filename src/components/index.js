@@ -7,6 +7,7 @@ import sidebar from './sidebar/sidebar';
 import user from './views/user/user';
 import group from './views/group/group';
 import addUserModal from './addUserModal/addUserModal';
+import addGroupModal from './addGroupModal/addGroupModal';
 import addGroupToUserModal from './addGroupToUserModal/addGroupToUserModal';
 import editUserModal from './editUserModal/editUserModal';
 
@@ -19,6 +20,7 @@ export default [
     sidebar,
     user,
     group,
+    addGroupModal,
     addUserModal,
     addGroupToUserModal,
     editUserModal

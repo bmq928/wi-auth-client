@@ -119,6 +119,9 @@ function fetchPOST($http, url,data, success, fail) {
 const SUCCESS_CODE = 200;
 /* harmony export (immutable) */ __webpack_exports__["a"] = SUCCESS_CODE;
 
+const INTERNAL_ERROR_CODE = 512;
+/* unused harmony export INTERNAL_ERROR_CODE */
+
 
 /***/ }),
 /* 3 */
@@ -45060,8 +45063,10 @@ function assignAllHoc() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__editUserModal_editUserModal__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__addGroupModal_addGroupModal__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__editUserModal_editUserModal__ = __webpack_require__(35);
+
 
 
 
@@ -45083,9 +45088,10 @@ function assignAllHoc() {
     __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_6__views_user_user__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_7__views_group_group__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_9__addGroupModal_addGroupModal__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_9__addGroupToUserModal_addGroupToUserModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_10__editUserModal_editUserModal__["a" /* default */]
+    __WEBPACK_IMPORTED_MODULE_10__addGroupToUserModal_addGroupToUserModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_11__editUserModal_editUserModal__["a" /* default */]
 ]);
 
 /***/ }),
@@ -46218,6 +46224,10 @@ function controller(group) {
         init();
     }
 
+    self.addGroupSuccess = function() {
+        init();
+    }
+
     function preProcess(){
         self.groups = [];
 
@@ -46269,7 +46279,7 @@ function controller(group) {
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"group in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=group.idGroup></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-success'\" target=\"'add-user-modal'\">Add Group </modal-btn> </div> <div> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"group in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=group.idGroup></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-success'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 31 */
@@ -46355,11 +46365,98 @@ function controller(user){
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
 
 /***/ }),
-/* 33 */,
-/* 34 */,
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__);
+// import angular from 'angular';
+// import appName from '../../module';
+
+
+const name = 'addGroupModal';
+
+controller.$inject = ['group'];
+function controller(group){
+    let self = this;
+
+    self.$onInit = function () {
+        preProcess();
+    }
+
+    self.onSubmit = function() {
+        checkSubmit(() => {
+            group.addNewGroup(self.group, (err, resp) => {
+                if(err) {
+                    console.log(err);
+                    self.errMsg = err.content || err.statusText;
+                    self.sucMsg = '';
+                } else {
+                    console.log(resp.reason);
+                    self.sucMsg = resp.reason;
+                    
+                    self.errMsg = '';
+                    self.addGroupSuccess();
+                }
+            })
+        })
+    }
+
+    self.onClose = function() {
+        preProcess();
+    }
+
+
+    function checkSubmit (fullfill) {
+        if(!self.group.name) {
+            self.errMsg = 'name is required';
+            self.sucMsg = '';
+        } else if (!self.group.description) {
+            self.errMsg = 'description is required';
+            self.sucMsg = ''
+        } else {
+            fullfill();
+        }
+    }
+
+    function preProcess(){
+        self.group = {};
+        self.name = 'add-group-modal';
+        self.sucMsg = '';
+        self.errMsg = '';
+    }
+
+}
+
+// angular
+//     .module(appName)
+//     .component(name, {
+//         template
+//     })
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        bindings: {
+            addGroupSuccess: '<'
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>GROUP INFOMATION</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Name ng-model=self.group.name> <input type=text placeholder=Description ng-model=self.group.description> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal>";
+
+/***/ }),
 /* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -46446,7 +46543,7 @@ function controller(user) {
 /* 36 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name> <h1>Edit User Info</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>Edit User Info</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
 
 /***/ }),
 /* 37 */
@@ -46721,6 +46818,22 @@ function service($http) {
         )
     }
 
+    function addNewGroup(data, callback) {
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/new');
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+        
+    }
+
     // function onAddUserSuccess(callback) {
     //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
     //         callback(data);
@@ -46730,7 +46843,8 @@ function service($http) {
 
     return {
         getAllGroup,
-        addUserToGroup
+        addUserToGroup,
+        addNewGroup
     }
     
 }
@@ -46864,7 +46978,8 @@ function controller() {
     options: {
         transclude: true,
         bindings: {
-            name: '<'
+            name: '<',
+            onClose: '<'
         },
         template: __WEBPACK_IMPORTED_MODULE_0__modal_html___default.a,
         controller,
@@ -47011,7 +47126,7 @@ function controller(group) {
 /* 52 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name> <h1>Add User To Group</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <label>List Group</label> <select style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>Add User To Group</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <label>List Group</label> <select style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
 
 /***/ })
 /******/ ]);

@@ -1,0 +1,28 @@
+<modal name="self.name" on-close="self.onClose">
+    <h1>GROUP INFOMATION</h1>
+    <div class="text-success" ng-bind="self.sucMsg"></div>
+    <div class="text-danger" ng-bind="self.errMsg"></div>
+    <br>
+    <span ng-bind="self.navErr" class="text-danger"></span>
+    <form>
+
+
+        <input 
+        type="text" 
+        placeholder="Name" 
+        ng-model="self.group.name">
+
+        <input 
+        type="text" 
+        placeholder="Description" 
+        ng-model="self.group.description">
+
+        <input
+            type="submit"
+            name="login"
+            class="login loginmodal-submit"
+            value="Submit"
+            ng-click="self.onSubmit()">
+        
+    </form>
+</modal>
