@@ -22,6 +22,11 @@ function controller(group) {
         self.curPage = page;
     }
 
+    self.chooseGroup = function(group) {
+        console.log(group);
+        self.selectedGroup = group;
+    }
+
     function preProcess(){
         self.groups = [];
 
@@ -32,6 +37,9 @@ function controller(group) {
 
         //filter
         self.searchStr = '';
+
+        //selected
+        self.selectedGroup = {};
     }
 
     function init(){

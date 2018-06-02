@@ -1,7 +1,8 @@
 <modal name="self.name" on-close="">
     <h1>List User In Group</h1>
+    <span class="text-danger" ng-bind="self.errMsg"></span>
     <ul class="list-group product-category-all">
-        <li class="list-group-item">
+        <li class="list-group-item" ng-repeat="u in self.listUser track by $index">
             <a class="badge">
                 <i class="material-icons">delete</i>
                 </i>
@@ -9,7 +10,7 @@
             <!-- <img src="http://static.iconarchive.com/static/images/social/facebook-icon.png"></img> -->
             <span>
                 <i class="material-icons" style="font-size: 40px; vertical-align: middle;">face</i>
-                Elektronik
+                {{u.username}}
             </span>
             <!-- <span>
                 <button 

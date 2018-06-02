@@ -29,7 +29,8 @@
                         <modal-btn
                          class-name="'btn btn-success btn-xs'"
                          title="list of user in a group"
-                         target="'list-user-in-group-modal'">
+                         target="'list-user-in-group-modal'"
+                         ng-click="self.chooseGroup(group)">
                             <i class="material-icons">list</i>
                         </modal-btn>
                     </td>
@@ -71,7 +72,7 @@
 <!--===== modal ====-->
 <div>
     <add-group-modal add-group-success="self.addGroupSuccess"></add-group-modal>
-    <list-user-in-group-modal></list-user-in-group-modal>
+    <list-user-in-group-modal list-user="self.selectedGroup.users"></list-user-in-group-modal>
 </div>
 
 <!--===================== pagination =========================-->
