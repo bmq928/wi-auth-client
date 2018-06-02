@@ -4,6 +4,7 @@ service.$inject = ['$rootScope'];
 function service($rootScope) {
 
     const SEARCH_SUBMIT = 'SEARCH_SUBMIT';
+    
 
     function searchSubmit(text) {
         $rootScope.$emit(SEARCH_SUBMIT, text);
@@ -15,7 +16,21 @@ function service($rootScope) {
         });
     }
 
+    function searchReset() {
+        $rootScope.$emit(SEARCH_SUBMIT, '');
+    }
+
+    function onSearchReset(callback) {
+        $rootScope.$on(SEARCH_SUBMIT, (e, text) => {
+            if(!text) {
+                callback();
+            }
+        })
+    }
+
     return {
+        onSearchReset,
+        searchReset,
         searchSubmit,
         onSearchSubmit
     }

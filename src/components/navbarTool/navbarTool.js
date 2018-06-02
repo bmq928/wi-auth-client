@@ -10,6 +10,10 @@ function controller(search) {
 
     self.$onInit = function() {
         self.searchStr = '';
+
+        search.onSearchReset(() => {
+            self.searchStr = '';
+        })
     }
 
     self.onTyping = function(){

@@ -7,7 +7,8 @@ import {VIEWS} from '../../constant';
 
 const name = 'sidebar';
 
-function controller() {
+controller.$inject = ['search']
+function controller(search) {
 
     let self = this;
 
@@ -17,9 +18,11 @@ function controller() {
     }
 
     self.tabOnClick = function(view){
-        console.log('cl');
+        // change view 
         self.changeView(view);
-        console.log(self.curView);
+
+        //reload search string
+        search.searchReset();
     }
 
 

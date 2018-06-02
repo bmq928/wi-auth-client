@@ -5,13 +5,16 @@ import template from './group.html';
 
 const name = VIEWS.group;
 
-controller.$inject = ['group']
-function controller(group) {
+controller.$inject = ['group', 'search']
+function controller(group, search) {
     let self = this;
 
     self.$onInit = function () {
         preProcess();
         init();
+
+        //search type
+        search.onSearchSubmit((text) => self.searchStr = text);
     }
 
     self.addGroupSuccess = function () {

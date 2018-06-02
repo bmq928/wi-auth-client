@@ -45961,6 +45961,10 @@ function controller(search) {
 
     self.$onInit = function() {
         self.searchStr = '';
+
+        search.onSearchReset(() => {
+            self.searchStr = '';
+        })
     }
 
     self.onTyping = function(){
@@ -45996,7 +46000,7 @@ function controller(search) {
 /* 24 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"collapse navbar-collapse\"> <ul class=\"nav navbar-nav navbar-right\"> <li> <a class=dropdown-toggle data-toggle=dropdown> <i class=material-icons>dashboard</i> <p class=\"hidden-lg hidden-md\">Profile</p> </a> <ul class=dropdown-menu> <li> <a data-toggle=modal data-target=#show-user-info-modal>User info</a> </li> <li> <a>Logout</a> </li> </ul> </li> </ul> <form class=\"navbar-form navbar-right\" role=search> <div class=\"form-group is-empty\"> <input type=text class=form-control placeholder=Filter ng-model=self.searchStr ng-change=self.onTyping()> <span class=material-input></span> </div> <button type=submit class=\"btn btn-white btn-round btn-just-icon\"> <i class=material-icons>search</i> <div class=ripple-container></div> </button> </form> </div>";
+module.exports = "<div class=\"collapse navbar-collapse\"> <ul class=\"nav navbar-nav navbar-right\"> <li> <a class=dropdown-toggle data-toggle=dropdown> <i class=material-icons>dashboard</i> <p class=\"hidden-lg hidden-md\">Profile</p> </a> <ul class=dropdown-menu> <li> <a data-toggle=modal data-target=#show-user-info-modal>User info</a> </li> <li> <a>Logout</a> </li> </ul> </li> </ul> <form class=\"navbar-form navbar-right\" role=search> <div class=\"form-group is-empty\"> <input id=filter-text type=text class=form-control placeholder=Filter ng-model=self.searchStr ng-change=self.onTyping()> <span class=material-input></span> </div> <button type=submit class=\"btn btn-white btn-round btn-just-icon\"> <i class=material-icons>search</i> <div class=ripple-container></div> </button> </form> </div>";
 
 /***/ }),
 /* 25 */
@@ -46015,7 +46019,8 @@ module.exports = "<div class=\"collapse navbar-collapse\"> <ul class=\"nav navba
 
 const name = 'sidebar';
 
-function controller() {
+controller.$inject = ['search']
+function controller(search) {
 
     let self = this;
 
@@ -46025,9 +46030,11 @@ function controller() {
     }
 
     self.tabOnClick = function(view){
-        console.log('cl');
+        // change view 
         self.changeView(view);
-        console.log(self.curView);
+
+        //reload search string
+        search.searchReset();
     }
 
 
@@ -46251,13 +46258,16 @@ module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=c
 
 const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].group;
 
-controller.$inject = ['group']
-function controller(group) {
+controller.$inject = ['group', 'search']
+function controller(group, search) {
     let self = this;
 
     self.$onInit = function () {
         preProcess();
         init();
+
+        //search type
+        search.onSearchSubmit((text) => self.searchStr = text);
     }
 
     self.addGroupSuccess = function () {
@@ -46345,7 +46355,7 @@ function controller(group) {
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"group in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=group.idGroup></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-success'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"group in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=group.idGroup></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-success'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 31 */
@@ -47206,6 +47216,7 @@ service.$inject = ['$rootScope'];
 function service($rootScope) {
 
     const SEARCH_SUBMIT = 'SEARCH_SUBMIT';
+    
 
     function searchSubmit(text) {
         $rootScope.$emit(SEARCH_SUBMIT, text);
@@ -47217,7 +47228,21 @@ function service($rootScope) {
         });
     }
 
+    function searchReset() {
+        $rootScope.$emit(SEARCH_SUBMIT, '');
+    }
+
+    function onSearchReset(callback) {
+        $rootScope.$on(SEARCH_SUBMIT, (e, text) => {
+            if(!text) {
+                callback();
+            }
+        })
+    }
+
     return {
+        onSearchReset,
+        searchReset,
         searchSubmit,
         onSearchSubmit
     }
