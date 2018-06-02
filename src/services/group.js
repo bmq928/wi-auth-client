@@ -68,6 +68,21 @@ function service($http) {
         
     }
 
+    function removeGroup (data, callback) {
+        const url = createUrl('/group/delete');
+
+        fetchPOST(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     // function onAddUserSuccess(callback) {
     //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
     //         callback(data);
@@ -79,7 +94,8 @@ function service($http) {
         getAllGroup,
         addUserToGroup,
         addNewGroup,
-        removeUserFromGroup
+        removeUserFromGroup,
+        removeGroup
     }
     
 }

@@ -33,6 +33,12 @@
                          ng-click="self.chooseGroup(group)">
                             <i class="material-icons">list</i>
                         </modal-btn>
+                        <button 
+                         class="btn btn-danger btn-xs" 
+                         title="remove group"
+                         ng-click="self.removeGroup(group.idGroup)">
+                            <i class="material-icons">delete</i>
+                        </button>
                     </td>
                 </tr>
             </tbody>

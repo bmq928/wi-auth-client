@@ -9,25 +9,40 @@ controller.$inject = ['group']
 function controller(group) {
     let self = this;
 
-    self.$onInit = function() {
+    self.$onInit = function () {
         preProcess();
         init();
     }
 
-    self.addGroupSuccess = function() {
+    self.addGroupSuccess = function () {
         init();
     }
 
-    self.changePage = function(page) {
+    self.changePage = function (page) {
         self.curPage = page;
     }
 
-    self.chooseGroup = function(group) {
+    self.chooseGroup = function (group) {
         console.log(group);
         self.selectedGroup = group;
     }
 
-    function preProcess(){
+    self.removeGroup = function (idGroup) {
+        const data = { idGroup };
+
+        if(confirm('are you sure remove this group')) {
+            group.removeGroup(data, (err, resp) => {
+                if(err) {
+                    self.errMsg = err.reason;
+                } else {
+                    self.errMsg = '';
+                    init();
+                }
+            });
+        }
+    }
+
+    function preProcess() {
         self.groups = [];
 
         //pagination
@@ -40,21 +55,24 @@ function controller(group) {
 
         //selected
         self.selectedGroup = {};
+
+        //text info
+        self.errMsg = ''
     }
 
-    function init(){
+    function init() {
         group.getAllGroup((err, resp) => {
-            if(err) {
+            if (err) {
                 console.log(err);
                 self.errMsg = err.reason;
             } else {
                 console.log(resp);
                 self.groups = resp.content;
-                
+
                 //pagination'
                 self.numPage = self.groups.length / self.groupPerPage + 1;
             }
-        }) 
+        })
     }
 
 }
