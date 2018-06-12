@@ -31,7 +31,7 @@ function controller(search) {
 
 
 function generateView() {
-    const {user, group} = VIEWS;
+    const {user, group, company} = VIEWS;
     const views = [];
 
 
@@ -43,6 +43,11 @@ function generateView() {
     views.push({
         view: group,
         icon: 'group'
+    })
+
+    views.push({
+        view: company,
+        icon: 'business'
     })
 
     return views

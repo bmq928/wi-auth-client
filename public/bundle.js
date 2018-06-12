@@ -70,7 +70,8 @@
 "use strict";
 const VIEWS = {
     user: 'user',
-    group: 'group'
+    group: 'group',
+    company: 'company'
 };
 /* harmony export (immutable) */ __webpack_exports__["b"] = VIEWS;
 
@@ -45563,11 +45564,13 @@ function assignAllHoc() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__addGroupModal_addGroupModal__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__editUserModal_editUserModal__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__listUserInGroupModal_listUserInGroupModal__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_company_company__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__addUserModal_addUserModal__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__addGroupModal_addGroupModal__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__editUserModal_editUserModal__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__listUserInGroupModal_listUserInGroupModal__ = __webpack_require__(39);
+
 
 
 
@@ -45591,11 +45594,12 @@ function assignAllHoc() {
     __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_6__views_user_user__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_7__views_group_group__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_9__addGroupModal_addGroupModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_8__addUserModal_addUserModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_10__addGroupToUserModal_addGroupToUserModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_11__editUserModal_editUserModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_12__listUserInGroupModal_listUserInGroupModal__["a" /* default */]
+    __WEBPACK_IMPORTED_MODULE_8__views_company_company__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_10__addGroupModal_addGroupModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_9__addUserModal_addUserModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_11__addGroupToUserModal_addGroupToUserModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_12__editUserModal_editUserModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_13__listUserInGroupModal_listUserInGroupModal__["a" /* default */]
 ]);
 
 /***/ }),
@@ -46043,7 +46047,7 @@ function controller(search) {
 
 
 function generateView() {
-    const {user, group} = __WEBPACK_IMPORTED_MODULE_1__constant__["b" /* VIEWS */];
+    const {user, group, company} = __WEBPACK_IMPORTED_MODULE_1__constant__["b" /* VIEWS */];
     const views = [];
 
 
@@ -46055,6 +46059,11 @@ function generateView() {
     views.push({
         view: group,
         icon: 'group'
+    })
+
+    views.push({
+        view: company,
+        icon: 'business'
     })
 
     return views
@@ -47263,7 +47272,7 @@ function service($rootScope) {
 
     function config ($stateProvider, $urlRouterProvider,) {
 
-        const {user, group} = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */];
+        const {user, group, company} = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */];
 
         function createUrl(view) {
             return `/${view}`;
@@ -47281,6 +47290,10 @@ function service($rootScope) {
             .state(group, {
                 url: createUrl(group),
                 template: createComponent(group)
+            })
+            .state(company, {
+                url: createUrl(company),
+                template: createComponent(company)
             })
 
         $urlRouterProvider.otherwise(createUrl(user));
@@ -47400,6 +47413,53 @@ function controller() {
 /***/ (function(module, exports) {
 
 module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
+
+/***/ }),
+/* 57 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__company_html__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__company_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__company_html__);
+
+
+
+const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].company;
+
+function controller() {
+    
+    
+
+    function init() {
+    
+    }
+
+}
+
+// angular
+//     .module(appName)
+//     .component(name, {
+//         template,
+//         controller,
+//         controllerAs: 'self'
+//     })
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        template: __WEBPACK_IMPORTED_MODULE_1__company_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports) {
+
+module.exports = "<h1>kfasldfjl</h1>";
 
 /***/ })
 /******/ ]);
