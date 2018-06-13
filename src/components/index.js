@@ -10,6 +10,7 @@ import company from './views/company/company';
 import addUserModal from './addUserModal/addUserModal';
 import addGroupModal from './addGroupModal/addGroupModal';
 import addGroupToUserModal from './addGroupToUserModal/addGroupToUserModal';
+import addCompanyModal from './addCompanyModal/addCompanyModal';
 import editUserModal from './editUserModal/editUserModal';
 import listUserInGroupModal from './listUserInGroupModal/listUserInGroupModal';
 
@@ -24,6 +25,7 @@ export default [
     group,
     company,
     addGroupModal,
+    addCompanyModal,
     addUserModal,
     addGroupToUserModal,
     editUserModal,

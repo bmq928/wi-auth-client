@@ -1,1 +1,100 @@
-<h1>kfasldfjl</h1>
+<div class="text-danger" ng-bind="self.errMsg"></div>
+<!-- <div class="text-success" ng-bind="vm.resp"></div> -->
+<div class="card">
+        <div class="card-header" data-background-color="purple">
+            <h4 class="title">COMPANY MANAGEMENT</h4>
+            <p class="category">This is a site that manage the companys of user  </p>
+        </div>
+    <div class="card-content table-responsive">
+        <table class="table table-hover">
+            <thead class="text-primary">
+                <tr>
+                    <th></th>
+                    <th><h6>ID</h6></th>
+                    <th><h6>companyname</h6></th>
+                    <th><h6>Description</h6></th>
+                    <!-- <th style="padding-left: 75px;"><h6>Action</h6></th> -->
+                    <th><h6>Action</h6></th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                <tr ng-repeat="company in self.companies | pagination: self.curPage: self.companyPerPage | filter:self.searchStr  track by $index">
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td ng-bind="company.idCompany"></td>
+                    <td ng-bind="company.name"></td>
+                    <td ng-bind="company.description"></td>                    
+                    <td ng-bind="company.location"></td> 
+                    <td>
+                        <modal-btn
+                         class-name="'btn btn-success btn-xs'"
+                         title="list of user in a company"
+                         target="'list-user-in-company-modal'"
+                         ng-click="self.choosecompany(company)">
+                            <i class="material-icons">list</i>
+                        </modal-btn>
+                        <button 
+                         class="btn btn-danger btn-xs" 
+                         title="remove company"
+                         ng-click="self.removecompany(company.idcompany)">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+
+   <div class="col-sm-10 col-md-10 col-lg-10">
+        <label>companies per page :</label>
+        <select ng-model="self.companyPerPage">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+        </select>
+   </div>
+
+    <!-- <button 
+     class="btn btn-success"
+     title="add a user"
+     data-toggle="modal"
+     data-target="#add-user-modal">Add User
+    </button> -->
+
+    <modal-btn 
+     title="add a new company"
+     class-name="'btn btn-success'"
+     target="'add-company-modal'">Add company
+    </modal-btn>
+
+
+
+</div>
+
+<!--===== modal ====-->
+<div>
+    <add-company-modal add-company-success="self.addcompanySuccess"></add-company-modal>
+    <!-- <list-user-in-company-modal 
+     list-user="self.selectedcompany.users" 
+     id-company="self.selectedcompany.idcompany">
+    </list-user-in-company-modal> -->
+</div>
+
+<!--===================== pagination =========================-->
+<div class="row">
+    <div class="col-sm-5 col-md-5 col-lg-5"></div>
+    <div class="col-sm-5 col-md-5 col-lg-5">
+        <ul class="pagination pagination-sm">
+            <li ng-repeat="page in [] | range: self.numPage" ng-class="{'active' : page === self.curPage}">
+                <a ng-bind="page" ng-click="self.changePage(page)"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+</div>
