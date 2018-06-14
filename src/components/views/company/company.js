@@ -3,14 +3,17 @@ import template from './company.html';
 
 const name = VIEWS.company;
 
-controller.$inject = ['company']
-function controller(company) {
+controller.$inject = ['company', 'search']
+function controller(company, search) {
 
     let self = this;
 
     self.$onInit = function () {
         preProcess();
         init();
+
+        //search type
+        search.onSearchSubmit((text) => self.searchStr = text);
     }
 
     self.addCompanySuccess = function () {

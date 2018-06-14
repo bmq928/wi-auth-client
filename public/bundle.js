@@ -48021,14 +48021,17 @@ module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=c
 
 const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].company;
 
-controller.$inject = ['company']
-function controller(company) {
+controller.$inject = ['company', 'search']
+function controller(company, search) {
 
     let self = this;
 
     self.$onInit = function () {
         preProcess();
         init();
+
+        //search type
+        search.onSearchSubmit((text) => self.searchStr = text);
     }
 
     self.addCompanySuccess = function () {
