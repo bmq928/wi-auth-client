@@ -13,6 +13,25 @@ function controller(company) {
         init();
     }
 
+    self.addcompanySuccess = function () {
+        init();
+    }
+
+    self.removeCompany = function (idCompany) {
+        const data = { idCompany };
+        console.log(data);
+        if (confirm('are you sure remove this group')) {
+            company.removeCompany(data, (err, resp) => {
+                if(err) {
+                    self.errMsg = err.reason;
+                } else {
+                    self.errMsg = '';
+                    init();
+                }
+            })
+        }
+    }
+
     function preProcess() {
         self.companies = [];
 
@@ -30,7 +49,7 @@ function controller(company) {
 
     function init() {
         company.getAllCompanies((err, resp) => {
-            if(err) {
+            if (err) {
                 console.log(err);
                 self.errMsg = err.reason;
             } else {

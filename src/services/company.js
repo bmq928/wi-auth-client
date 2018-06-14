@@ -27,19 +27,33 @@ function service($http) {
             url,
             data,
             (resp) => {
-                if(res.data.code === SUCCESS_CODE) callback(false, res.data);
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
                 else callback(resp.data);
             },
             (err) => callback(err)
         )
     }
     
+    function removeCompany(data, callback) {
+        const url = createUrl('/company/delete');
 
+        fetchPOST(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
 
 
     return {
         getAllCompanies,
-        addCompany
+        addCompany,
+        removeCompany
     }
 }
 
