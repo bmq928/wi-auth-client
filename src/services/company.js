@@ -50,10 +50,26 @@ function service($http) {
     }
 
 
+    function editCompany(data, callback) {
+        const url = createUrl('/company/edit');
+
+        fetchPOST(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     return {
         getAllCompanies,
         addCompany,
-        removeCompany
+        removeCompany,
+        editCompany
     }
 }
 

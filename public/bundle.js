@@ -47206,7 +47206,9 @@ function assignAllHoc() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__addCompanyModal_addCompanyModal__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__editUserModal_editUserModal__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__listUserInGroupModal_listUserInGroupModal__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__editCompanyModal_editCompanyModal__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__listUserInGroupModal_listUserInGroupModal__ = __webpack_require__(115);
+
 
 
 
@@ -47238,7 +47240,8 @@ function assignAllHoc() {
     __WEBPACK_IMPORTED_MODULE_9__addUserModal_addUserModal__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_11__addGroupToUserModal_addGroupToUserModal__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_13__editUserModal_editUserModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_14__listUserInGroupModal_listUserInGroupModal__["a" /* default */]
+    __WEBPACK_IMPORTED_MODULE_14__editCompanyModal_editCompanyModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_15__listUserInGroupModal_listUserInGroupModal__["a" /* default */]
 ]);
 
 /***/ }),
@@ -48028,7 +48031,11 @@ function controller(company) {
         init();
     }
 
-    self.addcompanySuccess = function () {
+    self.addCompanySuccess = function () {
+        init();
+    }
+
+    self.editCompanySuccess = function() {
         init();
     }
 
@@ -48047,6 +48054,10 @@ function controller(company) {
         }
     }
 
+    self.chooseCompany = function(company) {
+        self.editCompany = company;
+    }
+
     function preProcess() {
         self.companies = [];
 
@@ -48060,6 +48071,9 @@ function controller(company) {
 
         //text info
         self.errMsg = ''
+
+        //chosen com
+        self.editCompany = null;
     }
 
     function init() {
@@ -48098,7 +48112,7 @@ function controller(company) {
 /* 104 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>COMPANY MANAGEMENT</h4> <p class=category>This is a site that manage the companys of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>NAME</h6></th> <th><h6>Description</h6></th> <th><h6>Location</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"company in self.companies | pagination: self.curPage: self.companyPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=company.idCompany></td> <td ng-bind=company.name></td> <td ng-bind=company.description></td> <td ng-bind=company.location></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a company\" target=\"'list-user-in-company-modal'\" ng-click=self.choosecompany(company)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=self.removeCompany(company.idCompany)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>companies per page :</label> <select ng-model=self.companyPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new company\" class-name=\"'btn btn-success'\" target=\"'add-company-modal'\">Add company </modal-btn> </div> <div> <add-company-modal add-company-success=self.addcompanySuccess></add-company-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>COMPANY MANAGEMENT</h4> <p class=category>This is a site that manage the companys of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>ID</h6></th> <th><h6>NAME</h6></th> <th><h6>Description</h6></th> <th><h6>Location</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"company in self.companies | pagination: self.curPage: self.companyPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=company.idCompany></td> <td ng-bind=company.name></td> <td ng-bind=company.description></td> <td ng-bind=company.location></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"edit the info of company\" target=\"'edit-company-modal'\" ng-click=self.chooseCompany(company)> <i class=material-icons>edit</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=self.removeCompany(company.idCompany)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>companies per page :</label> <select ng-model=self.companyPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new company\" class-name=\"'btn btn-success'\" target=\"'add-company-modal'\">Add company </modal-btn> </div> <div> <add-company-modal add-company-success=self.addCompanySuccess></add-company-modal> <edit-company-modal edit-company-success=self.editCompanySuccess id-company=self.editCompany.idCompany> </edit-company-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 105 */
@@ -49143,10 +49157,26 @@ function service($http) {
     }
 
 
+    function editCompany(data, callback) {
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/company/edit');
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     return {
         getAllCompanies,
         addCompany,
-        removeCompany
+        removeCompany,
+        editCompany
     }
 }
 
@@ -49311,6 +49341,85 @@ function controller() {
 /***/ (function(module, exports) {
 
 module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
+
+/***/ }),
+/* 134 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editCompanyModal_html__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editCompanyModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__editCompanyModal_html__);
+
+
+const name = 'editCompanyModal';
+
+controller.$inject = ['company'];
+function controller(company) {
+    let self = this;
+
+    self.$onInit = function() {
+        preProcess();
+    }
+
+    self.onSubmit = function(){
+        checkSubmit(() => {
+            const data = Object.assign({
+                idCompany: self.idCompany
+            }, self.company)
+
+            company.editCompany(data, (err, resp) => {
+                if(err) {
+                    self.errMsg = err.content || err.statusText;
+                    self.sucMsg = '';
+                } else {
+                    self.sucMsg = resp.reason;
+                    self.errMsg = '';
+                    self.editCompanySuccess();
+                }
+            })
+        })
+    }
+
+    self.onClose = function() {
+        preProcess();
+    }
+
+    function checkSubmit(fullfill) {
+        if(!self.company.name){
+            self.errMsg = 'name is required';
+            self.sucMsg = '';
+        } else {
+            fullfill();
+        }
+    }
+
+    function preProcess() {
+        self.name = 'edit-company-modal';
+        self.company = {};
+        self.sucMsg = '';
+        self.errMsg = '';
+    }
+}
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        bindings: {
+            editCompanySuccess: '<',
+            idCompany: '<'
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__editCompanyModal_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports) {
+
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>Edit Company</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Name ng-model=self.company.name> <input type=text placeholder=Description ng-model=self.company.description> <input type=text placeholder=Location ng-model=self.company.location> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal>";
 
 /***/ })
 /******/ ]);

@@ -31,10 +31,10 @@
                     <td>
                         <modal-btn
                          class-name="'btn btn-success btn-xs'"
-                         title="list of user in a company"
-                         target="'list-user-in-company-modal'"
-                         ng-click="self.choosecompany(company)">
-                            <i class="material-icons">list</i>
+                         title="edit the info of company"
+                         target="'edit-company-modal'"
+                         ng-click="self.chooseCompany(company)">
+                            <i class="material-icons">edit</i>
                         </modal-btn>
                         <button 
                          class="btn btn-danger btn-xs" 
@@ -80,7 +80,11 @@
 
 <!--===== modal ====-->
 <div>
-    <add-company-modal add-company-success="self.addcompanySuccess"></add-company-modal>
+    <add-company-modal add-company-success="self.addCompanySuccess"></add-company-modal>
+    <edit-company-modal 
+    edit-company-success="self.editCompanySuccess"
+    id-company="self.editCompany.idCompany">
+    </edit-company-modal>
     <!-- <list-user-in-company-modal 
      list-user="self.selectedcompany.users" 
      id-company="self.selectedcompany.idcompany">

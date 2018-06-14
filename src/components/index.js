@@ -12,6 +12,7 @@ import addGroupModal from './addGroupModal/addGroupModal';
 import addGroupToUserModal from './addGroupToUserModal/addGroupToUserModal';
 import addCompanyModal from './addCompanyModal/addCompanyModal';
 import editUserModal from './editUserModal/editUserModal';
+import editCompanyModal from './editCompanyModal/editCompanyModal';
 import listUserInGroupModal from './listUserInGroupModal/listUserInGroupModal';
 
 export default [
@@ -29,5 +30,6 @@ export default [
     addUserModal,
     addGroupToUserModal,
     editUserModal,
+    editCompanyModal,
     listUserInGroupModal
 ];

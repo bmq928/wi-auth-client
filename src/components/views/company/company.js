@@ -13,7 +13,11 @@ function controller(company) {
         init();
     }
 
-    self.addcompanySuccess = function () {
+    self.addCompanySuccess = function () {
+        init();
+    }
+
+    self.editCompanySuccess = function() {
         init();
     }
 
@@ -32,6 +36,10 @@ function controller(company) {
         }
     }
 
+    self.chooseCompany = function(company) {
+        self.editCompany = company;
+    }
+
     function preProcess() {
         self.companies = [];
 
@@ -45,6 +53,9 @@ function controller(company) {
 
         //text info
         self.errMsg = ''
+
+        //chosen com
+        self.editCompany = null;
     }
 
     function init() {
