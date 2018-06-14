@@ -24,6 +24,10 @@ function controller(group) {
         
     }
 
+    self.onClose = function() {
+        preProcess();
+    }
+
     self.onSubmit = function() {
         const data = {
             idGroup: self.idGroup,
@@ -45,6 +49,9 @@ function controller(group) {
     self.onClose = function(){
         // preProcess();
         //prevent lost data (not neccessary to reload again)
+
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 
     function preProcess(){

@@ -48211,7 +48211,7 @@ function controller(user){
 /* 106 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=self.onClose> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <input type=text placeholder=\"Company Id\" ng-model=self.user.idCompany> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
 
 /***/ }),
 /* 107 */
@@ -48300,7 +48300,7 @@ function controller(group){
 /* 108 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=self.onClose> <h1>GROUP INFOMATION</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Name ng-model=self.group.name> <input type=text placeholder=Description ng-model=self.group.description> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal>";
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>GROUP INFOMATION</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Name ng-model=self.group.name> <input type=text placeholder=Description ng-model=self.group.description> <input type=text placeholder=\"Company Id\" ng-model=self.group.idCompany> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal>";
 
 /***/ }),
 /* 109 */
@@ -48335,6 +48335,10 @@ function controller(group) {
         
     }
 
+    self.onClose = function() {
+        preProcess();
+    }
+
     self.onSubmit = function() {
         const data = {
             idGroup: self.idGroup,
@@ -48356,6 +48360,9 @@ function controller(group) {
     self.onClose = function(){
         // preProcess();
         //prevent lost data (not neccessary to reload again)
+
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 
     function preProcess(){
