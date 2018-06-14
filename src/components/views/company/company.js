@@ -21,6 +21,10 @@ function controller(company) {
         init();
     }
 
+    self.changePage = function (page) {
+        self.curPage = page;
+    }
+
     self.removeCompany = function (idCompany) {
         const data = { idCompany };
         console.log(data);
@@ -66,6 +70,12 @@ function controller(company) {
             } else {
                 console.log(resp);
                 self.companies = resp.content;
+
+                self.filter = '';
+
+
+                //pagination
+                self.numPage = self.companies.length / self.companyPerPage + 1;
             }
         })
     }
