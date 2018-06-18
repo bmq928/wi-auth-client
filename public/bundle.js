@@ -48140,12 +48140,13 @@ module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=c
 
 const name = 'addUserModal';
 
-controller.$inject = ['user'];
-function controller(user){
+controller.$inject = ['user', 'company'];
+function controller(user, company){
     let self = this;
 
     self.$onInit = function(){
         preProcess();
+        init();
     }
 
     self.onSubmit = function(){
@@ -48177,6 +48178,20 @@ function controller(user){
         self.user = {};
         self.sucMsg = '';
         self.errMsg = '';
+        self.listCompany = [];
+    }
+
+    function init() {
+        company.getAllCompanies((err, resp) => {
+            if (err) {
+                console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                console.log(resp);
+                self.listCompany = resp.content;
+                console.log(self.listCompany);
+            }
+        })
     }
 
     function checkSubmit(fullfill){
@@ -48211,7 +48226,7 @@ function controller(user){
 /* 106 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=self.onClose> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <input type=text placeholder=\"Company Id\" ng-model=self.user.idCompany> <label>Role : </label> <select ng-model=self.user.role> <option value=1>Administrator</option> <option value=2>User</option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>User Infomation</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <div class=row> <label class=\"col-sm-4 col-md-4 col-lg-4\">Company : </label> <select ng-model=self.user.idCompany class=\"col-sm-5 col-md-5 col-lg-5\"> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> </div> <div class=row> <label class=\"col-sm-4 col-md-4 col-lg-4\">Role : </label> <select ng-model=self.user.role class=\"col-sm-5 col-md-5 col-lg-5\"> <option value=1>Administrator</option> <option value=2>User</option> </select> </div> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
 
 /***/ }),
 /* 107 */
@@ -48226,12 +48241,13 @@ module.exports = "<modal name=self.name on-close=self.onClose> <h1>User Infomati
 
 const name = 'addGroupModal';
 
-controller.$inject = ['group'];
-function controller(group){
+controller.$inject = ['group', 'company'];
+function controller(group, company){
     let self = this;
 
     self.$onInit = function () {
         preProcess();
+        init();
     }
 
     self.onSubmit = function() {
@@ -48274,8 +48290,21 @@ function controller(group){
         self.name = 'add-group-modal';
         self.sucMsg = '';
         self.errMsg = '';
+        self.listCompany = [];
     }
 
+    function init() {
+        company.getAllCompanies((err, resp) => {
+            if (err) {
+                console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                console.log(resp);
+                self.listCompany = resp.content;
+                console.log(self.listCompany);
+            }
+        })
+    }
 }
 
 // angular
@@ -48300,7 +48329,7 @@ function controller(group){
 /* 108 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=self.onClose> <h1>GROUP INFOMATION</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Name ng-model=self.group.name> <input type=text placeholder=Description ng-model=self.group.description> <input type=text placeholder=\"Company Id\" ng-model=self.group.idCompany> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal>";
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>GROUP INFOMATION</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Name ng-model=self.group.name> <input type=text placeholder=Description ng-model=self.group.description> <div class=row> <label class=\"col-sm-4 col-md-4 col-lg-4\">Company : </label> <select ng-model=self.user.idCompany class=\"col-sm-5 col-md-5 col-lg-5\"> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> </div> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal>";
 
 /***/ }),
 /* 109 */

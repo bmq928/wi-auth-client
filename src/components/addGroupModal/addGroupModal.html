@@ -17,9 +17,20 @@
         placeholder="Description" 
         ng-model="self.group.description">
 
-        <input type="text"
+        <!-- <input type="text"
         placeholder="Company Id"
-        ng-model="self.group.idCompany">
+        ng-model="self.group.idCompany"> -->
+
+        <div class="row">
+            <label class="col-sm-4 col-md-4 col-lg-4">Company : </label>
+            <select ng-model="self.user.idCompany" class="col-sm-5 col-md-5 col-lg-5">
+                <option 
+                    ng-repeat="company in self.listCompany" 
+                    value="{{company.idCompany}}" 
+                    ng-bind="company.name">
+                </option>
+            </select>
+        </div>
 
         <input
             type="submit"

@@ -4,12 +4,13 @@ import template from './addGroupModal.html';
 
 const name = 'addGroupModal';
 
-controller.$inject = ['group'];
-function controller(group){
+controller.$inject = ['group', 'company'];
+function controller(group, company){
     let self = this;
 
     self.$onInit = function () {
         preProcess();
+        init();
     }
 
     self.onSubmit = function() {
@@ -52,8 +53,21 @@ function controller(group){
         self.name = 'add-group-modal';
         self.sucMsg = '';
         self.errMsg = '';
+        self.listCompany = [];
     }
 
+    function init() {
+        company.getAllCompanies((err, resp) => {
+            if (err) {
+                console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                console.log(resp);
+                self.listCompany = resp.content;
+                console.log(self.listCompany);
+            }
+        })
+    }
 }
 
 // angular

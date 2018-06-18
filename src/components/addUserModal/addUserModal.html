@@ -32,15 +32,30 @@
         placeholder="Fullname" 
         ng-model="self.user.fullname">
 
-        <input type="text"
+        <!-- <input type="text"
         placeholder="Company Id"
-        ng-model="self.user.idCompany">
+        ng-model="self.user.idCompany"> -->
+        
+        <div class="row">
+            <label class="col-sm-4 col-md-4 col-lg-4">Company : </label>
+            <select ng-model="self.user.idCompany" class="col-sm-5 col-md-5 col-lg-5">
+                <option 
+                    ng-repeat="company in self.listCompany" 
+                    value="{{company.idCompany}}" 
+                    ng-bind="company.name">
+                </option>
+            </select>
+        </div>
+        
 
-        <label>Role : </label>
-        <select ng-model="self.user.role">
-            <option value="1">Administrator</option>
-            <option value="2">User</option>
-        </select>
+
+        <div class="row">
+            <label class="col-sm-4 col-md-4 col-lg-4">Role : </label>
+            <select ng-model="self.user.role" class="col-sm-5 col-md-5 col-lg-5">
+                <option value="1">Administrator</option>
+                <option value="2">User</option>
+                </select>
+        </div>
         
         <input
             type="submit"

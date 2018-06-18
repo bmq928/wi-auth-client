@@ -4,12 +4,13 @@ import template from './addUserModal.html';
 
 const name = 'addUserModal';
 
-controller.$inject = ['user'];
-function controller(user){
+controller.$inject = ['user', 'company'];
+function controller(user, company){
     let self = this;
 
     self.$onInit = function(){
         preProcess();
+        init();
     }
 
     self.onSubmit = function(){
@@ -41,6 +42,20 @@ function controller(user){
         self.user = {};
         self.sucMsg = '';
         self.errMsg = '';
+        self.listCompany = [];
+    }
+
+    function init() {
+        company.getAllCompanies((err, resp) => {
+            if (err) {
+                console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                console.log(resp);
+                self.listCompany = resp.content;
+                console.log(self.listCompany);
+            }
+        })
     }
 
     function checkSubmit(fullfill){
