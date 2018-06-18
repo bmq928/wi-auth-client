@@ -14,14 +14,37 @@
             <button 
             type="button"
             class="close"
-            id="login-modal-close" 
+            id="{{self._closeBtn}}" 
             data-dismiss="modal"
             style="color:black;"
             ng-click="self.onClose()">&times;</button>
 
+            <!-- <button 
+            type="button"
+            class="close"
+            id="login-modal-close" 
+            data-dismiss="modal"
+            style="color:black;"
+            ng-click="self.onClose()">&times;</button> -->
+
+            <!-- <button 
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            style="color:black;"
+            ng-click="self.onClose()">&times;</button> -->
 
             <ng-transclude></ng-transclude>
             
         </div>
     </div>
 </div>
+
+<script>
+    // const btn = document.getElementById(self._closeBtn);
+    // btn.onclick = function() {
+    //         $rootScope.$apply(() => {
+    //             console.log('should inside a $digest');
+    //         })
+    //     }
+</script>

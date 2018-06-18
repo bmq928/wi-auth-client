@@ -4,8 +4,8 @@ import template from './addUserModal.html';
 
 const name = 'addUserModal';
 
-controller.$inject = ['user', 'company'];
-function controller(user, company){
+controller.$inject = ['user', 'company', 'modal'];
+function controller(user, company, modal){
     let self = this;
 
     self.$onInit = function(){
@@ -25,7 +25,9 @@ function controller(user, company){
                     console.log(resp);
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
+                    
                     self.addUserSuccess(self.user);
+                    modal.closeModal(self.name);
                 }
             })
         })

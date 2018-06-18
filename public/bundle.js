@@ -8917,16 +8917,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 57 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createModalName;
-function createModalName(name) {
-    return `_modal_${name}`;
-}
-
-/***/ }),
+/* 57 */,
 /* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -48140,8 +48131,8 @@ module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=c
 
 const name = 'addUserModal';
 
-controller.$inject = ['user', 'company'];
-function controller(user, company){
+controller.$inject = ['user', 'company', 'modal'];
+function controller(user, company, modal){
     let self = this;
 
     self.$onInit = function(){
@@ -48161,7 +48152,9 @@ function controller(user, company){
                     console.log(resp);
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
+                    
                     self.addUserSuccess(self.user);
+                    modal.closeModal(self.name);
                 }
             })
         })
@@ -48957,6 +48950,8 @@ function capitalize() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(137);
+
 
 
 
@@ -48966,7 +48961,8 @@ function capitalize() {
     __WEBPACK_IMPORTED_MODULE_0__user__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_1__group__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_2__search__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_3__company__["a" /* default */]
+    __WEBPACK_IMPORTED_MODULE_3__company__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_4__modal__["a" /* default */]
 ]);
 
 /***/ }),
@@ -49398,18 +49394,28 @@ function service($http) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper__ = __webpack_require__(57);
 
-
+// import { createModalName } from '../helper';
 
 const name = 'modal';
 
-function controller() {
+controller.$inject = ['modal', '$rootScope']
+function controller(modal, $rootScope) {
     let self = this;
 
     self.$onInit = function () {
-        console.log(self.name);
-        self._name = Object(__WEBPACK_IMPORTED_MODULE_1__helper__["a" /* createModalName */])(self.name);
+        self._name = modal.createModalName(self.name);
+        self._closeBtn = modal.createModalCloseName(self.name);
+
+        
+        // //safe close on click
+        // const btn = document.getElementById(self._closeBtn);
+        // console.log(btn)
+        // // btn.onclick = function() {
+        // //     $rootScope.$apply(() => {
+        // //         console.log('should inside a $digest');
+        // //     })
+        // // }
     }
 }
 
@@ -49437,7 +49443,7 @@ function controller() {
 /* 133 */
 /***/ (function(module, exports) {
 
-module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true data-backdrop=static data-keyboard=false> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id=login-modal-close data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <ng-transclude></ng-transclude> </div> </div> </div>";
+module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true data-backdrop=static data-keyboard=false> <div class=modal-dialog style=z-index:1042> <div class=loginmodal-container> <button type=button class=close id={{self._closeBtn}} data-dismiss=modal style=color:#000 ng-click=self.onClose()>&times;</button> <ng-transclude></ng-transclude> </div> </div> </div> <script></script>";
 
 /***/ }),
 /* 134 */
@@ -49446,17 +49452,17 @@ module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modalBtn_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper__ = __webpack_require__(57);
 
-
+// import { createModalName } from '../helper'
 
 const name = 'modalBtn';
 
-function controller() {
+controller.$inject = ['modal']
+function controller(modal) {
     let self = this;
 
     self.$onInit = function () {
-        self._target = '#' + Object(__WEBPACK_IMPORTED_MODULE_1__helper__["a" /* createModalName */])(self.target);
+        self._target = '#' + modal.createModalName(self.target);
     }
 }
 
@@ -49502,6 +49508,64 @@ function stt() {
 /* harmony default export */ __webpack_exports__["a"] = ({
     name,
     options: stt
+});
+
+/***/ }),
+/* 137 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const name = 'modal';
+
+service.$inject = ['$rootScope']
+function service($rootScope) {
+
+    // const CLOSE_MODAL_EVENT = 'CLOSE_MODAL_EVENT'
+
+    function closeModal(name) {
+        const id = createModalName(name);
+
+        const $ = window.jQuery;
+
+        
+
+         if ($rootScope.$$phase === '$apply' ||
+            $rootScope.$$phase === '$digest') {
+
+                $('#'+id).modal('hide');
+
+        } else {
+            $rootScope.$apply(() => {
+                $('#'+id).modal('hide');
+            })
+        }
+
+    }
+
+    // function onCloseModal(callback) {
+    //     $rootScope.$on(CLOSE_MODAL_EVENT, (event, args) => {
+    //         callback();
+    //     })
+    // }
+
+    function createModalName(name) {
+        return `_modal_${name}`;
+    }
+
+    function createModalCloseName(name) {
+        return `_${createModalName(name)}_close_btn_`;
+    }
+
+    return {
+        closeModal,
+        createModalName,
+        createModalCloseName
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: service
 });
 
 /***/ })

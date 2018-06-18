@@ -1,13 +1,14 @@
 import template from './modalBtn.html';
-import { createModalName } from '../helper'
+// import { createModalName } from '../helper'
 
 const name = 'modalBtn';
 
-function controller() {
+controller.$inject = ['modal']
+function controller(modal) {
     let self = this;
 
     self.$onInit = function () {
-        self._target = '#' + createModalName(self.target);
+        self._target = '#' + modal.createModalName(self.target);
     }
 }
 

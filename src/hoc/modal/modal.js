@@ -1,14 +1,25 @@
 import template from './modal.html';
-import { createModalName } from '../helper';
+// import { createModalName } from '../helper';
 
 const name = 'modal';
 
-function controller() {
+controller.$inject = ['modal', '$rootScope']
+function controller(modal, $rootScope) {
     let self = this;
 
     self.$onInit = function () {
-        console.log(self.name);
-        self._name = createModalName(self.name);
+        self._name = modal.createModalName(self.name);
+        self._closeBtn = modal.createModalCloseName(self.name);
+
+        
+        // //safe close on click
+        // const btn = document.getElementById(self._closeBtn);
+        // console.log(btn)
+        // // btn.onclick = function() {
+        // //     $rootScope.$apply(() => {
+        // //         console.log('should inside a $digest');
+        // //     })
+        // // }
     }
 }
 
