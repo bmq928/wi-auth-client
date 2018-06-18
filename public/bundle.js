@@ -48573,7 +48573,7 @@ function controller(user) {
 /* 114 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=self.onClose> <h1>Edit User Info</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Username ng-model=self.user.username> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+module.exports = "<modal name=self.name on-close=self.onClose> <h1>Edit User Info</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
 
 /***/ }),
 /* 115 */
