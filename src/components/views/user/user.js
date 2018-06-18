@@ -37,8 +37,8 @@ function controller(user, search) {
         self.addGroupUser = id;
     }
 
-    self.editUserOnClick = function (id) {
-        self.editUser = id;
+    self.editUserOnClick = function (user) {
+        self.editUser = user;
     }
 
     self.removeUserOnClick = function (id) {

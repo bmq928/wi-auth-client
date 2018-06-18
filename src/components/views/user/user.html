@@ -67,7 +67,7 @@
                         <modal-btn
                          class-name="'btn btn-success btn-xs'"
                          target="'edit-user-modal'"
-                         ng-click="self.editUserOnClick(user.idUser)">
+                         ng-click="self.editUserOnClick(user)">
                             <i class="material-icons">edit</i>
                         </modal-btn>
 
@@ -140,7 +140,7 @@
     <add-group-to-user-modal user-id="self.addGroupUser"></add-group-to-user-modal>
     <edit-user-modal 
      edit-user-success="self.editUserSuccess"
-     id-user="self.editUser">
+     user="self.editUser">
     </edit-user-modal>
 </div>
 

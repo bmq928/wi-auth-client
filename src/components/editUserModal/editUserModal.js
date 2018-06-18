@@ -8,7 +8,15 @@ function controller(user) {
 
     self.$onInit = function () {
         preProcess();
-        console.log(self.userId);
+
+        // //copy confirm password
+        // self.user.confirmPassword = self.user.password;
+    }
+
+    self.$onChanges = function (obj) {
+        if (obj && obj.user && obj.user.currentValue && self.user)
+            self.user.confirmPassword = obj.user.currentValue.password;
+        console.log(obj.user);
     }
 
     self.onSubmit = function () {
@@ -19,7 +27,7 @@ function controller(user) {
             }, self.user)
 
             user.editUser(data, (err, resp) => {
-                if(err) {
+                if (err) {
                     self.errMsg = err.content || err.statusText;
                     self.sucMsg = '';
                 } else {
@@ -38,7 +46,7 @@ function controller(user) {
     function preProcess() {
         self.name = 'edit-user-modal';
 
-        self.user = {};
+        // self.user = {};
         self.sucMsg = '';
         self.errMsg = '';
     }
@@ -51,9 +59,9 @@ function controller(user) {
         }
     }
 
-    function checkSubmit(fullfill){
-        if(self.user.password === self.user.confirmPassword) {
-           fullfill();
+    function checkSubmit(fullfill) {
+        if (self.user.password === self.user.confirmPassword) {
+            fullfill();
         } else {
             self.errMsg = 'password confirm is not matched';
         }
@@ -66,7 +74,8 @@ export default {
     options: {
         bindings: {
             editUserSuccess: '<',
-            idUser: '<'
+            // idUser: '<',
+            user: '<'
         },
         template,
         controller,

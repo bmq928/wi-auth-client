@@ -47778,8 +47778,8 @@ function controller(user, search) {
         self.addGroupUser = id;
     }
 
-    self.editUserOnClick = function (id) {
-        self.editUser = id;
+    self.editUserOnClick = function (user) {
+        self.editUser = user;
     }
 
     self.removeUserOnClick = function (id) {
@@ -47892,7 +47892,7 @@ function controller(user, search) {
 /* 100 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>STT</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, user) in self.users | pagination: self.curPage: self.userPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 1\">Administrator </span> <span ng-if=\"user.role === 2\">User</span> </td> <td ng-bind=user.fullname></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>add</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user.idUser)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user.idUser)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-success'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user-id=self.addGroupUser></add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess id-user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>STT</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, user) in self.users | pagination: self.curPage: self.userPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 1\">Administrator </span> <span ng-if=\"user.role === 2\">User</span> </td> <td ng-bind=user.fullname></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>add</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user.idUser)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-success'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user-id=self.addGroupUser></add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 101 */
@@ -48125,7 +48125,7 @@ function controller(company, search) {
 /* 104 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>COMPANY MANAGEMENT</h4> <p class=category>This is a site that manage the companys of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>STT</h6></th> <th><h6>NAME</h6></th> <th><h6>Description</h6></th> <th><h6>Location</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, company) in self.companies | pagination: self.curPage: self.companyPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=company.name></td> <td ng-bind=company.description></td> <td ng-bind=company.location></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"edit the info of company\" target=\"'edit-company-modal'\" ng-click=self.chooseCompany(company)> <i class=material-icons>edit</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=self.removeCompany(company.idCompany)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>companies per page :</label> <select ng-model=self.companyPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new company\" class-name=\"'btn btn-success'\" target=\"'add-company-modal'\">Add company </modal-btn> </div> <div> <add-company-modal add-company-success=self.addCompanySuccess></add-company-modal> <edit-company-modal edit-company-success=self.editCompanySuccess id-company=self.editCompany.idCompany> </edit-company-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>COMPANY MANAGEMENT</h4> <p class=category>This is a site that manage the companys of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>STT</h6></th> <th><h6>NAME</h6></th> <th><h6>Description</h6></th> <th><h6>Location</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, company) in self.companies | pagination: self.curPage: self.companyPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=company.name></td> <td ng-bind=company.description></td> <td ng-bind=company.location></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"edit the info of company\" target=\"'edit-company-modal'\" ng-click=self.chooseCompany(company)> <i class=material-icons>edit</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=self.removeCompany(company.idCompany)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>companies per page :</label> <select ng-model=self.companyPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new company\" class-name=\"'btn btn-success'\" target=\"'add-company-modal'\">Add company </modal-btn> </div> <div> <add-company-modal add-company-success=self.addCompanySuccess></add-company-modal> <edit-company-modal edit-company-success=self.editCompanySuccess company=self.editCompany> </edit-company-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 105 */
@@ -48503,7 +48503,15 @@ function controller(user) {
 
     self.$onInit = function () {
         preProcess();
-        console.log(self.userId);
+
+        // //copy confirm password
+        // self.user.confirmPassword = self.user.password;
+    }
+
+    self.$onChanges = function (obj) {
+        if (obj && obj.user && obj.user.currentValue && self.user)
+            self.user.confirmPassword = obj.user.currentValue.password;
+        console.log(obj.user);
     }
 
     self.onSubmit = function () {
@@ -48514,7 +48522,7 @@ function controller(user) {
             }, self.user)
 
             user.editUser(data, (err, resp) => {
-                if(err) {
+                if (err) {
                     self.errMsg = err.content || err.statusText;
                     self.sucMsg = '';
                 } else {
@@ -48533,7 +48541,7 @@ function controller(user) {
     function preProcess() {
         self.name = 'edit-user-modal';
 
-        self.user = {};
+        // self.user = {};
         self.sucMsg = '';
         self.errMsg = '';
     }
@@ -48546,9 +48554,9 @@ function controller(user) {
         }
     }
 
-    function checkSubmit(fullfill){
-        if(self.user.password === self.user.confirmPassword) {
-           fullfill();
+    function checkSubmit(fullfill) {
+        if (self.user.password === self.user.confirmPassword) {
+            fullfill();
         } else {
             self.errMsg = 'password confirm is not matched';
         }
@@ -48561,7 +48569,8 @@ function controller(user) {
     options: {
         bindings: {
             editUserSuccess: '<',
-            idUser: '<'
+            // idUser: '<',
+            user: '<'
         },
         template: __WEBPACK_IMPORTED_MODULE_0__editUserModal_html___default.a,
         controller,
@@ -48628,7 +48637,7 @@ function controller(company) {
 
     function preProcess() {
         self.name = 'edit-company-modal';
-        self.company = {};
+        // self.company = {};
         self.sucMsg = '';
         self.errMsg = '';
     }
@@ -48640,7 +48649,7 @@ function controller(company) {
     options: {
         bindings: {
             editCompanySuccess: '<',
-            idCompany: '<'
+            company: '<'
         },
         template: __WEBPACK_IMPORTED_MODULE_0__editCompanyModal_html___default.a,
         controller,

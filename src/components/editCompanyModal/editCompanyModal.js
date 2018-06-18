@@ -44,7 +44,7 @@ function controller(company) {
 
     function preProcess() {
         self.name = 'edit-company-modal';
-        self.company = {};
+        // self.company = {};
         self.sucMsg = '';
         self.errMsg = '';
     }
@@ -56,7 +56,7 @@ export default {
     options: {
         bindings: {
             editCompanySuccess: '<',
-            idCompany: '<'
+            company: '<'
         },
         template,
         controller,
