@@ -2,8 +2,8 @@ import template from './addGroupToUserModal.html';
 
 const name = 'addGroupToUserModal';
 
-controller.$inject = ['group'];
-function controller(group) {
+controller.$inject = ['group', 'modal'];
+function controller(group, modal) {
 
     let self = this;
 
@@ -42,6 +42,7 @@ function controller(group) {
                 console.log(resp);
                 self.sucMsg = resp.reason;
                 self.errMsg = '';
+                modal.closeModal(self.name);
             }
         })
     }

@@ -2,8 +2,8 @@ import template from './editCompanyModal.html';
 
 const name = 'editCompanyModal';
 
-controller.$inject = ['company'];
-function controller(company) {
+controller.$inject = ['company', 'modal'];
+function controller(company, modal) {
     let self = this;
 
     self.$onInit = function() {
@@ -24,6 +24,7 @@ function controller(company) {
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
                     self.editCompanySuccess();
+                    modal.closeModal(self.name);
                 }
             })
         })

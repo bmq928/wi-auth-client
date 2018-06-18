@@ -48234,8 +48234,8 @@ module.exports = "<modal name=self.name on-close=self.onClose> <h1>User Infomati
 
 const name = 'addGroupModal';
 
-controller.$inject = ['group', 'company'];
-function controller(group, company){
+controller.$inject = ['group', 'company', 'modal'];
+function controller(group, company, modal){
     let self = this;
 
     self.$onInit = function () {
@@ -48256,6 +48256,7 @@ function controller(group, company){
                     
                     self.errMsg = '';
                     self.addGroupSuccess();
+                    modal.closeModal(self.name);
                 }
             })
         })
@@ -48335,8 +48336,8 @@ module.exports = "<modal name=self.name on-close=self.onClose> <h1>GROUP INFOMAT
 
 const name = 'addGroupToUserModal';
 
-controller.$inject = ['group'];
-function controller(group) {
+controller.$inject = ['group', 'modal'];
+function controller(group, modal) {
 
     let self = this;
 
@@ -48375,6 +48376,7 @@ function controller(group) {
                 console.log(resp);
                 self.sucMsg = resp.reason;
                 self.errMsg = '';
+                modal.closeModal(self.name);
             }
         })
     }
@@ -48435,8 +48437,8 @@ module.exports = "<modal name=self.name on-close=self.onClose> <h1>Add User To G
 
 const name = 'addCompanyModal';
 
-controller.$inject = ['company'];
-function controller(company){
+controller.$inject = ['company', 'modal'];
+function controller(company, modal){
     
     let self = this;
 
@@ -48460,7 +48462,9 @@ function controller(company){
                     self.sucMsg = resp.reason;
                     
                     self.errMsg = '';
+
                     self.addCompanySuccess();
+                    modal.closeModal(self.name);
                 }
             })
         })
@@ -48519,8 +48523,8 @@ module.exports = "<modal name=self.name on-close=self.onClose> <h1>GROUP INFOMAT
 
 const name = 'editUserModal';
 
-controller.$inject = ['user'];
-function controller(user) {
+controller.$inject = ['user', 'modal'];
+function controller(user, modal) {
     let self = this;
 
     self.$onInit = function () {
@@ -48551,6 +48555,7 @@ function controller(user) {
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
                     self.editUserSuccess();
+                    modal.closeModal(self.name);
                 }
             })
         })
@@ -48617,8 +48622,8 @@ module.exports = "<modal name=self.name on-close=self.onClose> <h1>Edit User Inf
 
 const name = 'editCompanyModal';
 
-controller.$inject = ['company'];
-function controller(company) {
+controller.$inject = ['company', 'modal'];
+function controller(company, modal) {
     let self = this;
 
     self.$onInit = function() {
@@ -48639,6 +48644,7 @@ function controller(company) {
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
                     self.editCompanySuccess();
+                    modal.closeModal(self.name);
                 }
             })
         })

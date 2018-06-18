@@ -4,8 +4,8 @@ import template from './addCompanyModal.html';
 
 const name = 'addCompanyModal';
 
-controller.$inject = ['company'];
-function controller(company){
+controller.$inject = ['company', 'modal'];
+function controller(company, modal){
     
     let self = this;
 
@@ -29,7 +29,9 @@ function controller(company){
                     self.sucMsg = resp.reason;
                     
                     self.errMsg = '';
+
                     self.addCompanySuccess();
+                    modal.closeModal(self.name);
                 }
             })
         })

@@ -2,8 +2,8 @@ import template from './editUserModal.html';
 
 const name = 'editUserModal';
 
-controller.$inject = ['user'];
-function controller(user) {
+controller.$inject = ['user', 'modal'];
+function controller(user, modal) {
     let self = this;
 
     self.$onInit = function () {
@@ -34,6 +34,7 @@ function controller(user) {
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
                     self.editUserSuccess();
+                    modal.closeModal(self.name);
                 }
             })
         })

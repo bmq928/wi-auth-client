@@ -4,8 +4,8 @@ import template from './addGroupModal.html';
 
 const name = 'addGroupModal';
 
-controller.$inject = ['group', 'company'];
-function controller(group, company){
+controller.$inject = ['group', 'company', 'modal'];
+function controller(group, company, modal){
     let self = this;
 
     self.$onInit = function () {
@@ -26,6 +26,7 @@ function controller(group, company){
                     
                     self.errMsg = '';
                     self.addGroupSuccess();
+                    modal.closeModal(self.name);
                 }
             })
         })
