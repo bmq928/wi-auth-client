@@ -51,6 +51,11 @@ function controller(group, modal) {
         // preProcess();
         //prevent lost data (not neccessary to reload again)
 
+        //because after click close and click add again
+        //the component has been already init
+        // => init func doesnt get call
+        // => if call preProcess cause lose data
+
         self.sucMsg = '';
         self.errMsg = '';
     }

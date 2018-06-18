@@ -48163,7 +48163,13 @@ function controller(user, company, modal){
     }
 
     self.onClose = function(){
-        preProcess();
+        // preProcess();
+        //the reason is just like in addGroupToUserModal
+
+        self.name = 'add-user-modal';
+        self.user = {};
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 
     function preProcess () {
@@ -48263,7 +48269,13 @@ function controller(group, company, modal){
     }
 
     self.onClose = function() {
-        preProcess();
+        // preProcess();
+        //the reason is just like in addGroupToUserModal
+
+        self.group = {};
+        self.name = 'add-group-modal';
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 
 
@@ -48384,6 +48396,11 @@ function controller(group, modal) {
     self.onClose = function(){
         // preProcess();
         //prevent lost data (not neccessary to reload again)
+
+        //because after click close and click add again
+        //the component has been already init
+        // => init func doesnt get call
+        // => if call preProcess cause lose data
 
         self.sucMsg = '';
         self.errMsg = '';

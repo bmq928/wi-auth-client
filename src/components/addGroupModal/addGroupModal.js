@@ -33,7 +33,13 @@ function controller(group, company, modal){
     }
 
     self.onClose = function() {
-        preProcess();
+        // preProcess();
+        //the reason is just like in addGroupToUserModal
+
+        self.group = {};
+        self.name = 'add-group-modal';
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 
 
