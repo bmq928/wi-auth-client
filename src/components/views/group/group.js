@@ -6,8 +6,8 @@ import toast from 'toastr';
 
 const name = VIEWS.group;
 
-controller.$inject = ['group', 'search']
-function controller(group, search) {
+controller.$inject = ['group', 'search', 'company']
+function controller(group, search, company) {
     let self = this;
 
     self.$onInit = function () {
@@ -51,6 +51,7 @@ function controller(group, search) {
 
     function preProcess() {
         self.groups = [];
+        self.companies = [];
 
         //pagination
         self.groupPerPage = 5;
@@ -59,6 +60,7 @@ function controller(group, search) {
 
         //filter
         self.searchStr = {};
+        self.inCompany = {};
 
         //selected
         self.selectedGroup = {};
@@ -78,6 +80,17 @@ function controller(group, search) {
 
                 //pagination'
                 self.numPage = self.groups.length / self.groupPerPage + 1;
+            }
+        })
+
+        company.getAllCompanies((err, resp) => {
+            if (err) {
+                console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                console.log(resp);
+                self.companies = resp.content;
+                
             }
         })
     }

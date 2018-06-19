@@ -58847,8 +58847,8 @@ module.exports = function() {
 
 const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].group;
 
-controller.$inject = ['group', 'search']
-function controller(group, search) {
+controller.$inject = ['group', 'search', 'company']
+function controller(group, search, company) {
     let self = this;
 
     self.$onInit = function () {
@@ -58892,6 +58892,7 @@ function controller(group, search) {
 
     function preProcess() {
         self.groups = [];
+        self.companies = [];
 
         //pagination
         self.groupPerPage = 5;
@@ -58900,6 +58901,7 @@ function controller(group, search) {
 
         //filter
         self.searchStr = {};
+        self.inCompany = {};
 
         //selected
         self.selectedGroup = {};
@@ -58919,6 +58921,17 @@ function controller(group, search) {
 
                 //pagination'
                 self.numPage = self.groups.length / self.groupPerPage + 1;
+            }
+        })
+
+        company.getAllCompanies((err, resp) => {
+            if (err) {
+                console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                console.log(resp);
+                self.companies = resp.content;
+                
             }
         })
     }
@@ -58947,7 +58960,7 @@ function controller(group, search) {
 /* 106 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-success'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th></th> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr | filter:self.inCompany  track by $index\"> <td> <input type=checkbox> </td> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-success'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 107 */
