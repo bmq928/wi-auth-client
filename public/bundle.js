@@ -48438,7 +48438,7 @@ function controller(group, modal) {
 /* 109 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=self.onClose> <h1>Add User To Group</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <label>List Group</label> <select style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+module.exports = " <modal name=self.name on-close=self.onClose header=\"'Add User To Group'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=row> <span class=\"col-sm-3 col-md-3 col-lg-3 col-form-label\">List Group:</span> <select class=\"col-sm-6 col-md-6 col-lg-6\" style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
 /* 110 */
@@ -48527,7 +48527,7 @@ function controller(company, modal){
 /* 111 */
 /***/ (function(module, exports) {
 
-module.exports = " <modal name=self.name on-close=self.onClose header=\"'GROUP INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Name</label> <input type=text class=form-control ng-model=self.company.name> </div> <div class=form-group> <label class=col-form-label>Description</label> <input type=text class=form-control ng-model=self.company.description> </div> <div class=form-group> <label class=col-form-label>Location</label> <input type=text class=form-control ng-model=self.company.location> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
+module.exports = " <modal name=self.name on-close=self.onClose header=\"'COMPANY INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Name</label> <input type=text class=form-control ng-model=self.company.name> </div> <div class=form-group> <label class=col-form-label>Description</label> <input type=text class=form-control ng-model=self.company.description> </div> <div class=form-group> <label class=col-form-label>Location</label> <input type=text class=form-control ng-model=self.company.location> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
 /* 112 */,
