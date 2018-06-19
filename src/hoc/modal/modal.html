@@ -1,6 +1,4 @@
-
-
-<div 
+<!-- <div 
  class="modal fade" 
  id="{{self._name}}" 
  tabindex="-1" 
@@ -19,32 +17,61 @@
             style="color:black;"
             ng-click="self.onClose()">&times;</button>
 
-            <!-- <button 
-            type="button"
-            class="close"
-            id="login-modal-close" 
-            data-dismiss="modal"
-            style="color:black;"
-            ng-click="self.onClose()">&times;</button> -->
-
-            <!-- <button 
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            style="color:black;"
-            ng-click="self.onClose()">&times;</button> -->
+            
 
             <ng-transclude></ng-transclude>
             
         </div>
     </div>
+</div> -->
+
+
+
+<div 
+class="modal fade" 
+id="{{self._name}}" 
+tabindex="-1" 
+role="dialog" 
+aria-labelledby="exampleModalLabel" 
+aria-hidden="true"
+data-backdrop="static">
+
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button 
+                type="button" 
+                class="close" 
+                data-dismiss="modal" 
+                aria-label="Close"
+                ng-click="self.onClose()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title" id="exampleModalLabel" ng-bind="self.header"></h3>
+            </div>
+            <div class="modal-body">
+
+                <ng-transclude></ng-transclude>
+                <!-- <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                </form> -->
+            </div>
+        </div>
+    </div>
 </div>
 
-<script>
-    // const btn = document.getElementById(self._closeBtn);
-    // btn.onclick = function() {
-    //         $rootScope.$apply(() => {
-    //             console.log('should inside a $digest');
-    //         })
-    //     }
-</script>
+<!-- <div class="modal fade bd-example-modal-lg" id="{{self._name}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        ...
+      </div>
+    </div>
+  </div> -->

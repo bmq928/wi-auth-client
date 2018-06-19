@@ -1,4 +1,5 @@
 import template from './modal.html';
+// import './modal.css'
 // import { createModalName } from '../helper';
 
 const name = 'modal';
@@ -34,6 +35,7 @@ export default {
     options: {
         transclude: true,
         bindings: {
+            header: '<',
             name: '<',
             onClose: '<'
         },

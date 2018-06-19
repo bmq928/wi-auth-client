@@ -1,6 +1,7 @@
 // import angular from 'angular';
 // import appName from '../../module';
 import template from './addCompanyModal.html';
+// import './addCompanyModal.css'
 
 const name = 'addCompanyModal';
 

@@ -1,4 +1,4 @@
-<modal name="self.name" on-close="self.onClose">
+<!-- <modal name="self.name" on-close="self.onClose">
     <h1>GROUP INFOMATION</h1>
     <div class="text-success" ng-bind="self.sucMsg"></div>
     <div class="text-danger" ng-bind="self.errMsg"></div>
@@ -28,4 +28,33 @@
             ng-click="self.onSubmit()">
             
     </form>
+</modal> -->
+
+<modal name="self.name" on-close="self.onClose" header="'GROUP INFOMATION'">
+    <div class="text-success" ng-bind="self.sucMsg"></div>
+    <div class="text-danger" ng-bind="self.errMsg"></div>
+    <form>
+
+        <div class="form-group">
+            <label class="col-form-label">Name</label>
+
+            <input type="text" class="form-control" ng-model="self.company.name">
+        </div>
+
+        <div class="form-group">
+            <label class="col-form-label">Description</label>
+
+            <input type="text" class="form-control" ng-model="self.company.description">
+        </div>
+
+        <div class="form-group">
+            <label class="col-form-label">Location</label>
+
+            <input type="text" class="form-control" ng-model="self.company.location">
+        </div>
+
+    </form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="self.onSubmit()">Send message</button>
+    </div>
 </modal>
