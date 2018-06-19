@@ -48132,7 +48132,7 @@ function controller(search) {
 /* 96 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=navbar-header> <button type=button class=navbar-toggle data-toggle=collapse> <span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span> </button> <a class=navbar-brand href=# ng-bind=\"(self.curView | uppercase)\" ng-click=self.reload()></a> </div>";
+module.exports = "<div class=navbar-header> <button type=button class=navbar-toggle data-toggle=collapse> <span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span> </button> <a class=navbar-brand ng-bind=\"(self.curView | uppercase)\" ng-click=self.reload()></a> </div>";
 
 /***/ }),
 /* 97 */
