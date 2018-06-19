@@ -38,6 +38,7 @@ function controller(company, search) {
             company.removeCompany(data, (err, resp) => {
                 if(err) {
                     self.errMsg = err.reason;
+                    toast.error(err.reason);
                 } else {
                     self.errMsg = '';
                     init();

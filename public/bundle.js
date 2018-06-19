@@ -48063,6 +48063,7 @@ function controller(company, search) {
             company.removeCompany(data, (err, resp) => {
                 if(err) {
                     self.errMsg = err.reason;
+                    __WEBPACK_IMPORTED_MODULE_2_toastr___default.a.error(err.reason);
                 } else {
                     self.errMsg = '';
                     init();
