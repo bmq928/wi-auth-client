@@ -52,7 +52,7 @@ function controller(user, search) {
                     toast.error(err.reason);
                 } else {
                     init();
-
+                    toast.success('Delete success');
                 }
             });
         }

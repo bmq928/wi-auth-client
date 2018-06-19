@@ -42,6 +42,7 @@ function controller(company, search) {
                 } else {
                     self.errMsg = '';
                     init();
+                    toast.success('Delete success');
                 }
             })
         }

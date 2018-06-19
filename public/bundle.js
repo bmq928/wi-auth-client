@@ -48345,7 +48345,7 @@ function controller(user, search) {
                     __WEBPACK_IMPORTED_MODULE_2_toastr___default.a.error(err.reason);
                 } else {
                     init();
-
+                    __WEBPACK_IMPORTED_MODULE_2_toastr___default.a.success('Delete success');
                 }
             });
         }
@@ -58884,6 +58884,7 @@ function controller(group, search) {
                 } else {
                     self.errMsg = '';
                     init();
+                    __WEBPACK_IMPORTED_MODULE_2_toastr___default.a.success('Delete success');
                 }
             });
         }
@@ -59002,6 +59003,7 @@ function controller(company, search) {
                 } else {
                     self.errMsg = '';
                     init();
+                    __WEBPACK_IMPORTED_MODULE_2_toastr___default.a.success('Delete success');
                 }
             })
         }
