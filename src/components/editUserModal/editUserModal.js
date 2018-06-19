@@ -14,9 +14,17 @@ function controller(user, modal) {
     }
 
     self.$onChanges = function (obj) {
-        if (obj && obj.user && obj.user.currentValue && self.user)
+
+
+        if (obj && obj.user && obj.user.currentValue && self.user) {
             self.user.confirmPassword = obj.user.currentValue.password;
-        console.log(obj.user);
+
+            //prevent password is show up in ui
+            self.user.password = self.user.confirmPassword = '';
+        }
+
+        
+
     }
 
     self.onSubmit = function () {
@@ -50,13 +58,27 @@ function controller(user, modal) {
         // self.user = {};
         self.sucMsg = '';
         self.errMsg = '';
+
+        //prevent password show up
+        if (self.user) self.user.password = self.user.confirmPassword = '';
     }
 
     function checkSubmit(fullfill) {
-        if (self.user.password === self.user.confirmPassword) {
-            fullfill();
-        } else {
+        if (!self.user.password) {
+
+
+            self.errMsg = 'password is required';
+
+
+        } else if (!self.user.confirmPassword) {
+
+            self.errMsg = 'confirm password is required';
+
+        } else if (self.user.password !== self.user.confirmPassword) {
             self.errMsg = 'password confirm is not matched';
+        } else {
+
+            fullfill();
         }
     }
 

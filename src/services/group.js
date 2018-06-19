@@ -15,6 +15,7 @@ function service($http) {
             url,
             null,
             (resp) => {
+                console.log(resp);
                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
                 else callback(resp.data);
             },
