@@ -12,6 +12,11 @@ function controller(user, group) {
         init();
     }
 
+    self.$onChanges = function() {
+        if(!self.listUser || !self.listUser.length) self.errMsg = 'no user in this group';
+        if(self.listUser && self.listUser.length) self.errMsg = '';
+    }
+
     self.removeUserFromGroup = function (idUser) {
         const data = {
             idUser, 
@@ -40,6 +45,9 @@ function controller(user, group) {
     }
 
     function init() {
+
+        // if(!self.listUser.length) self.errMsg = 'no user in this group'
+
         // user.getAllUser((err, resp) => {
         //     if (err) {
         //         self.errMsg = err.reason;

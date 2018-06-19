@@ -48224,7 +48224,7 @@ function controller(user, company, modal){
 /* 105 */
 /***/ (function(module, exports) {
 
-module.exports = " <modal name=self.name on-close=self.onClose header=\"'USER INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <div class=\"input-group input-group-sm mb-3\"> <form> <div class=form-group> <label class=col-form-label>Username</label> <input type=text class=form-control ng-model=self.user.username> </div> <div class=row> <div class=\"form-group col-lg-6 col-sm-6 col-md-6\"> <label class=col-form-label>Password</label> <input type=password class=form-control ng-model=self.user.password> </div> <div class=\"form-group col-lg-6 col-sm-6 col-md-6\"> <label class=col-form-label>Confirm Password</label> <input type=password class=form-control ng-model=self.user.confirmPassword> </div> </div> <div class=row> <div class=\"form-group col-lg-6 col-sm-6 col-md-6\"> <label class=col-form-label>Email</label> <input type=email class=form-control ng-model=self.user.email> </div> <div class=\"form-group col-lg-6 col-sm-6 col-md-6\"> <label class=col-form-label>Full Name</label> <input type=text class=form-control ng-model=self.user.fullname> </div> </div> <div class=row> <label class=\"col-sm-3 col-md-3 col-lg-3\">Company : </label> <select ng-model=self.user.idCompany class=\"col-sm-6 col-md-6 col-lg-6\"> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> <div class=\"col-sm-3 col-md-3 col-lg-3\"></div> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </div></modal>";
+module.exports = " <modal name=self.name on-close=self.onClose header=\"'USER INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Username</label> <input type=text class=form-control ng-model=self.user.username> </div> <div class=form-group> <label class=col-form-label>Password</label> <input type=password class=form-control ng-model=self.user.password> </div> <div class=form-group> <label class=col-form-label>Confirm Password</label> <input type=password class=form-control ng-model=self.user.confirmPassword> </div> <div class=row> <div class=\"form-group col-lg-6 col-sm-6 col-md-6\"> <label class=col-form-label>Email</label> <input type=email class=form-control ng-model=self.user.email> </div> <div class=\"form-group col-lg-6 col-sm-6 col-md-6\"> <label class=col-form-label>Full Name</label> <input type=text class=form-control ng-model=self.user.fullname> </div> </div> <div class=row> <label class=\"col-sm-3 col-md-3 col-lg-3\">Company : </label> <select ng-model=self.user.idCompany class=\"col-sm-6 col-md-6 col-lg-6\"> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> <div class=\"col-sm-3 col-md-3 col-lg-3\"></div> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
 /* 106 */
@@ -48628,7 +48628,7 @@ function controller(user, modal) {
 /* 115 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=self.onClose> <h1>Edit User Info</h1> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <br> <span ng-bind=self.navErr class=text-danger></span> <form> <input type=text placeholder=Email ng-model=self.user.email> <input type=text placeholder=Fullname ng-model=self.user.fullname> <input type=password placeholder=Password ng-model=self.user.password> <input type=password placeholder=\"Confirm Password\" ng-model=self.user.confirmPassword> <input type=submit name=login class=\"login loginmodal-submit\" value=Submit ng-click=self.onSubmit()> </form> </modal> ";
+module.exports = " <modal name=self.name on-close=self.onClose header=\"'USER INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Email</label> <input type=email class=form-control ng-model=self.user.email> </div> <div class=form-group> <label class=col-form-label>Full Name</label> <input type=text class=form-control ng-model=self.user.fullname> </div> <div class=form-group> <label class=col-form-label>Password</label> <input type=password class=form-control ng-model=self.user.password> </div> <div class=form-group> <label class=col-form-label>Confirm Password</label> <input type=password class=form-control ng-model=self.user.confirmPassword> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary float-right\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
 /* 116 */
@@ -48733,6 +48733,11 @@ function controller(user, group) {
         init();
     }
 
+    self.$onChanges = function() {
+        if(!self.listUser || !self.listUser.length) self.errMsg = 'no user in this group';
+        if(self.listUser && self.listUser.length) self.errMsg = '';
+    }
+
     self.removeUserFromGroup = function (idUser) {
         const data = {
             idUser, 
@@ -48761,6 +48766,9 @@ function controller(user, group) {
     }
 
     function init() {
+
+        // if(!self.listUser.length) self.errMsg = 'no user in this group'
+
         // user.getAllUser((err, resp) => {
         //     if (err) {
         //         self.errMsg = err.reason;
@@ -48791,7 +48799,7 @@ function controller(user, group) {
 /* 119 */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=\"\"> <h1>List User In Group</h1> <span class=text-danger ng-bind=self.errMsg></span> <span class=text-success ng-bind=self.sucMsg></span> <ul class=\"list-group product-category-all\"> <li class=list-group-item ng-repeat=\"u in self.listUser track by $index\"> <a class=badge ng-click=self.removeUserFromGroup(u.idUser)> <i class=material-icons>delete</i>  </a> <span> <i class=material-icons style=font-size:40px;vertical-align:middle>face</i> {{u.username}} </span> </li> </ul> </modal>";
+module.exports = "<modal name=self.name on-close=\"\" header=\"'List User In Group'\"> <span class=text-danger ng-bind=self.errMsg></span> <span class=text-success ng-bind=self.sucMsg></span> <ul class=\"list-group product-category-all\"> <li class=list-group-item ng-repeat=\"u in self.listUser track by $index\"> <a class=badge ng-click=self.removeUserFromGroup(u.idUser)> <i class=material-icons>delete</i>  </a> <span> <i class=material-icons style=font-size:40px;vertical-align:middle>face</i> {{u.username}} </span> </li> </ul> </modal>";
 
 /***/ }),
 /* 120 */

@@ -4179,7 +4179,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .modal .modal-dialog {
-    margin-top: 100px;
+    margin-top: 15px;
 }
 
 .modal .modal-header .close {
