@@ -18,7 +18,7 @@ function controller(user, search) {
 
 
         //search type
-        search.onSearchSubmit((text) => self.searchStr = text);
+        search.onSearchSubmit((text) => self.searchStr.username = text);
     }
 
     self.addUserSuccess = function (data) {
@@ -114,7 +114,7 @@ function controller(user, search) {
         self.numPage = self.users.length / self.userPerPage + 1;
 
         //filter
-        self.searchStr = '';
+        self.searchStr = {};
     }
 
     function init() {

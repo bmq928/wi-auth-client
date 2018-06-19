@@ -4,6 +4,15 @@ import template from './navbarHeader.html';
 
 const name = 'navbarHeader';
 
+controller.$inject = ['search']
+function controller(search) {
+    let self = this;
+
+    self.reload = function() {
+        search.searchSubmit('');
+    }
+}
+
 // angular
 //     .module(appName)
 //     .component(name, {
@@ -14,6 +23,7 @@ const name = 'navbarHeader';
 export default {
     name,
     options: {
+        controller,
         template,
         bindings: {
             curView: '<'

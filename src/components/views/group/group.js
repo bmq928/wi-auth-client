@@ -15,7 +15,7 @@ function controller(group, search) {
         init();
 
         //search type
-        search.onSearchSubmit((text) => self.searchStr = text);
+        search.onSearchSubmit((text) => self.searchStr.name = text);
     }
 
     self.addGroupSuccess = function () {
@@ -57,7 +57,7 @@ function controller(group, search) {
         self.numPage = self.groups.length / self.groupPerPage + 1;
 
         //filter
-        self.searchStr = '';
+        self.searchStr = {};
 
         //selected
         self.selectedGroup = {};

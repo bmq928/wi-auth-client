@@ -29,11 +29,11 @@
             type="text" 
             class="form-control" 
             placeholder="Filter" 
-            ng-model="self.searchStr"
-            ng-change="self.onTyping()">
+            ng-model="self.searchStr">
+            <!-- ng-change="self.onTyping()"> -->
             <span class="material-input"></span>
         </div>
-        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+        <button type="submit" class="btn btn-white btn-round btn-just-icon" ng-click="self.search()">
             <i class="material-icons">search</i>
             <div class="ripple-container"></div>
         </button>

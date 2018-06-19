@@ -16,7 +16,11 @@ function controller(search) {
         })
     }
 
-    self.onTyping = function(){
+    // self.onTyping = function(){
+    //     search.searchSubmit(self.searchStr);
+    // }
+
+    self.search = function() {
         search.searchSubmit(self.searchStr);
     }
 

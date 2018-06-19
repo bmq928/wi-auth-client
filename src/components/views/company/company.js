@@ -14,7 +14,7 @@ function controller(company, search) {
         init();
 
         //search type
-        search.onSearchSubmit((text) => self.searchStr = text);
+        search.onSearchSubmit((text) => self.searchStr.name = text);
     }
 
     self.addCompanySuccess = function () {
@@ -60,7 +60,7 @@ function controller(company, search) {
         self.numPage = self.companies.length / self.companyPerPage + 1;
 
         //filter
-        self.searchStr = '';
+        self.searchStr = {};
 
         //text info
         self.errMsg = ''
