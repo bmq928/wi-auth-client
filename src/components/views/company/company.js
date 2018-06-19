@@ -1,5 +1,6 @@
 import { VIEWS } from '../../../constant';
 import template from './company.html';
+import toast from 'toastr';
 
 const name = VIEWS.company;
 
@@ -18,10 +19,12 @@ function controller(company, search) {
 
     self.addCompanySuccess = function () {
         init();
+        toast.success('add company success');
     }
 
     self.editCompanySuccess = function() {
         init();
+        toast.success('edit company success');
     }
 
     self.changePage = function (page) {

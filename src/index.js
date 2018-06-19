@@ -1,3 +1,6 @@
+//config toastr
+import 'toastr/build/toastr.min.css';
+
 //dependency
 import '@uirouter/angularjs';
 import './module';

@@ -2,6 +2,7 @@
 import { VIEWS } from '../../../constant';
 // import appName from '../../../module';
 import template from './group.html';
+import toast from 'toastr';
 
 const name = VIEWS.group;
 
@@ -19,6 +20,7 @@ function controller(group, search) {
 
     self.addGroupSuccess = function () {
         init();
+        toast.success('add group success');
     }
 
     self.changePage = function (page) {
@@ -37,6 +39,7 @@ function controller(group, search) {
             group.removeGroup(data, (err, resp) => {
                 if(err) {
                     self.errMsg = err.reason;
+                    toast.error(err.reason);
                 } else {
                     self.errMsg = '';
                     init();

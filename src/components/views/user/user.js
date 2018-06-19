@@ -1,7 +1,6 @@
-// import angular from 'angular';
 import { VIEWS } from '../../../constant';
-// import appName from '../../../module';
 import template from './user.html';
+import toast from 'toastr'
 
 const name = VIEWS.user;
 
@@ -13,6 +12,7 @@ function controller(user, search) {
     let self = this;
 
     self.$onInit = function () {
+        console.log(toast);
         preProcess();
         init();
 
@@ -27,10 +27,12 @@ function controller(user, search) {
         // console.log(self.users);
 
         init();
+        toast.success('add user success');
     }
 
     self.editUserSuccess = function () {
         init();
+        toast.success('Edit user success');
     }
 
     self.addGroupUserOnClick = function (id) {
@@ -47,6 +49,7 @@ function controller(user, search) {
                 if (err) {
                     console.log(err);
                     self.errMsg = err.reason;
+                    toast.error(err.reason);
                 } else {
                     init();
 
@@ -59,15 +62,15 @@ function controller(user, search) {
         self.curPage = page;
     }
 
-    self.activeUser = function(idUser) {
+    self.activeUser = function (idUser) {
         const ACTIVE = 'Active';
         const data = {
             idUser,
             status: ACTIVE
         }
-        
+
         user.editUser(data, (err, resp) => {
-            if(err) {
+            if (err) {
                 self.errMsg = err.reason;
             } else {
                 init();
@@ -75,7 +78,7 @@ function controller(user, search) {
         })
     }
 
-    self.deactiveUser = function(idUser) {
+    self.deactiveUser = function (idUser) {
         const INACTIVE = 'Inactive';
 
         const data = {
@@ -84,7 +87,7 @@ function controller(user, search) {
         };
 
         user.editUser(data, (err, resp) => {
-            if(err) {
+            if (err) {
                 self.errMsg = err.reason;
             } else {
                 init();
@@ -92,9 +95,9 @@ function controller(user, search) {
         })
     }
 
-    self.isActive = function(user) {
+    self.isActive = function (user) {
         const ACTIVE = 'Active';
-        
+
         return user.status === ACTIVE;
     }
 
