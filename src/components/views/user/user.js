@@ -43,8 +43,10 @@ function controller(user, search) {
         self.editUser = user;
     }
 
-    self.removeUserOnClick = function (id) {
-        if (confirm('Are you sure to delete user id : ' + id)) {
+    self.removeUserOnClick = function (u) {
+
+        const id = u.idUser;
+        if (confirm('Are you sure to delete user : ' + u.username)) {
             user.deleteUser(id, (err, resp) => {
                 if (err) {
                     console.log(err);
