@@ -8,7 +8,8 @@ export function createUrl(path) {
 
 export function fetchPOST($http, url,data, success, fail) {
 
-    const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+    // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+    const token = localStorage.getItem('jwt-token');
     return (
         $http({
             url,
