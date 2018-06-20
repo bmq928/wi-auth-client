@@ -22,10 +22,14 @@ function service($http) {
         return JSON.parse(data);
     }
 
+    function logout() {
+        localStorage.removeItem('jwt-token');
+    }
     
     return {
         isLogined,
-        getData
+        getData,
+        logout
     }
 }
 

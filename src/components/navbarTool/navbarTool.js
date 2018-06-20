@@ -4,8 +4,8 @@ import template from './navbarTool.html';
 
 const name = 'navbarTool';
 
-controller.$inject = ['search']
-function controller(search) {
+controller.$inject = ['search', 'auth']
+function controller(search, auth) {
     let self = this;
 
     self.$onInit = function() {
@@ -14,6 +14,13 @@ function controller(search) {
         search.onSearchReset(() => {
             self.searchStr = '';
         })
+    }
+
+    self.logout = function () {
+        console.log('logout');
+        auth.logout();
+        // location.reload();
+        location.replace('/login');
     }
 
     // self.onTyping = function(){

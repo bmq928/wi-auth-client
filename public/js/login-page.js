@@ -8,6 +8,7 @@
         const username = $('#username').val();
         const password = $('#password').val();
         const $error = $('#error');
+        let data;
 
         console.log(username);
         console.log(password)
@@ -24,16 +25,20 @@
             return;
         }
 
+        data = JSON.stringify({
+            
+            username: username,
+            password: password
+        });
+        console.log(data);
+
         
 
         $.ajax({
             url,
             type: 'POST',
-            data: {
-                token: 'f82e62d7c3ea69cc12b5cdb8d621dab6',
-                username: username,
-                password: password
-            },
+            data: data,
+            contentType: "application/json",
             success: function (data, status) {
                 
                 if(data.code === 200) {
