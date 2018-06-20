@@ -2,7 +2,7 @@ import { VIEWS } from './constant';
 
 function config($stateProvider, $urlRouterProvider ) {
 
-    const { user, group, company } = VIEWS;
+    const { user, group, company, login } = VIEWS;
 
     function createUrl(view) {
         return `/${view}`;
@@ -24,6 +24,10 @@ function config($stateProvider, $urlRouterProvider ) {
         .state(company, {
             url: createUrl(company),
             template: createComponent(company)
+        })
+        .state(login, {
+            url: createUrl(login),
+            template: createComponent(login)
         })
 
     $urlRouterProvider.otherwise(createUrl(user));

@@ -1378,7 +1378,8 @@ exports.trace = trace;
 const VIEWS = {
     user: 'user',
     group: 'group',
-    company: 'company'
+    company: 'company',
+    login: 'login'
 };
 /* harmony export (immutable) */ __webpack_exports__["b"] = VIEWS;
 
@@ -47832,14 +47833,16 @@ function assignAllHoc() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_company_company__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__addUserModal_addUserModal__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__addGroupModal_addGroupModal__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__addCompanyModal_addCompanyModal__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__editUserModal_editUserModal__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__editCompanyModal_editCompanyModal__ = __webpack_require__(119);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__listUserInGroupModal_listUserInGroupModal__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_login_login__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_company_company__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__addUserModal_addUserModal__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__addGroupModal_addGroupModal__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__addCompanyModal_addCompanyModal__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__editUserModal_editUserModal__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__editCompanyModal_editCompanyModal__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__listUserInGroupModal_listUserInGroupModal__ = __webpack_require__(121);
+
 
 
 
@@ -47865,15 +47868,16 @@ function assignAllHoc() {
     __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_6__views_user_user__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_8__views_login_login__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_7__views_group_group__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_8__views_company_company__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_10__addGroupModal_addGroupModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_12__addCompanyModal_addCompanyModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_9__addUserModal_addUserModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_11__addGroupToUserModal_addGroupToUserModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_13__editUserModal_editUserModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_14__editCompanyModal_editCompanyModal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_15__listUserInGroupModal_listUserInGroupModal__["a" /* default */]
+    __WEBPACK_IMPORTED_MODULE_9__views_company_company__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_11__addGroupModal_addGroupModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_13__addCompanyModal_addCompanyModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_10__addUserModal_addUserModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_12__addGroupToUserModal_addGroupToUserModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_14__editUserModal_editUserModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_15__editCompanyModal_editCompanyModal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_16__listUserInGroupModal_listUserInGroupModal__["a" /* default */]
 ]);
 
 /***/ }),
@@ -60501,7 +60505,7 @@ function service($http) {
 
 function config($stateProvider, $urlRouterProvider ) {
 
-    const { user, group, company } = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */];
+    const { user, group, company, login } = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */];
 
     function createUrl(view) {
         return `/${view}`;
@@ -60523,6 +60527,10 @@ function config($stateProvider, $urlRouterProvider ) {
         .state(company, {
             url: createUrl(company),
             template: createComponent(company)
+        })
+        .state(login, {
+            url: createUrl(login),
+            template: createComponent(login)
         })
 
     $urlRouterProvider.otherwise(createUrl(user));
@@ -60654,6 +60662,55 @@ function controller(modal) {
 /***/ (function(module, exports) {
 
 module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
+
+/***/ }),
+/* 143 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_html__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__login_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_toastr__);
+// import angular from 'angular';
+
+// import appName from '../../../module';
+
+
+
+const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].login;
+
+function controller() {
+    let self = this;
+
+    
+
+}
+
+// angular
+//     .module(appName)
+//     .component(name, {
+//         template,
+//         controller,
+//         controllerAs: 'self'
+//     })
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        template: __WEBPACK_IMPORTED_MODULE_1__login_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports) {
+
+module.exports = "<h1>askdjfljasldfjlkdsjfljl</h1>";
 
 /***/ })
 /******/ ]);
