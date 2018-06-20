@@ -20,7 +20,7 @@ function controller(search, auth) {
         console.log('logout');
         auth.logout();
         // location.reload();
-        location.replace('/login');
+        // location.replace('/login');
     }
 
     // self.onTyping = function(){
