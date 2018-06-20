@@ -59995,6 +59995,8 @@ function stt() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth__ = __webpack_require__(142);
+
 
 
 
@@ -60006,7 +60008,8 @@ function stt() {
     __WEBPACK_IMPORTED_MODULE_1__group__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_2__search__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_3__company__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_4__modal__["a" /* default */]
+    __WEBPACK_IMPORTED_MODULE_4__modal__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_5__auth__["a" /* default */]
 ]);
 
 /***/ }),
@@ -60441,34 +60444,34 @@ function service($rootScope) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(7);
 
 
-    function config ($stateProvider, $urlRouterProvider,) {
+function config($stateProvider, $urlRouterProvider ) {
 
-        const {user, group, company} = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */];
+    const { user, group, company } = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */];
 
-        function createUrl(view) {
-            return `/${view}`;
-        }
-        
-        function createComponent(view) {
-            return `<${view}></${view}>`;
-        }
-
-        $stateProvider
-            .state(user, {
-                url: createUrl(user),
-                template: createComponent(user)
-            })
-            .state(group, {
-                url: createUrl(group),
-                template: createComponent(group)
-            })
-            .state(company, {
-                url: createUrl(company),
-                template: createComponent(company)
-            })
-
-        $urlRouterProvider.otherwise(createUrl(user));
+    function createUrl(view) {
+        return `/${view}`;
     }
+
+    function createComponent(view) {
+        return `<${view}></${view}>`;
+    }
+
+    $stateProvider
+        .state(user, {
+            url: createUrl(user),
+            template: createComponent(user)
+        })
+        .state(group, {
+            url: createUrl(group),
+            template: createComponent(group)
+        })
+        .state(company, {
+            url: createUrl(company),
+            template: createComponent(company)
+        })
+
+    $urlRouterProvider.otherwise(createUrl(user));
+}
 
 /* harmony default export */ __webpack_exports__["a"] = (config);
 
@@ -60596,6 +60599,65 @@ function controller(modal) {
 /***/ (function(module, exports) {
 
 module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
+
+/***/ }),
+/* 142 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(30);
+
+
+const name = 'auth';
+
+service.$inject = ['$http'];
+function service($http) {
+    
+
+    function isLogined() {
+        
+        const token = localStorage.getItem('jwt-token');
+        
+        if(token) return true;
+        return false;
+
+    }
+
+    function getData() {
+        const token = localStorage.getItem('jwt-token');
+        const data = atob(token.split('.')[1]);
+
+        return JSON.parse(data);
+    }
+
+    function login(data, callback) {
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/company/edit');
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
+            $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
+    
+    return {
+        isLogined,
+        getData,
+        login
+    }
+}
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: service
+});
 
 /***/ })
 /******/ ]);
