@@ -5,10 +5,42 @@ import './login.css';
 
 const name = VIEWS.login;
 
-function controller() {
+controller.$inject = ['auth']
+function controller(auth) {
     let self = this;
 
+    self.$onInit = function(){
+        preProcess();
+    }
+
+    self.login = function() {
+        checkSumit(() => {
+            auth.login(self.user, (err, resp) => {
+                if(err) {                
+                    self.errMsg = err.reason;
+                } else {
+                    console.log('suc');
+                    console.log(resp);
+                }
+            })
+        })
+    }
+
     
+    function preProcess() {
+        self.user = {};
+        self.errMsg = '';
+    }
+
+    function checkSumit(fullfil) {
+        if(!self.user.username) {
+            self.errMsg = 'Username is required';
+        } else if(!self.user.password) {
+            self.errMsg = 'Password is required'
+        } else {
+            fullfil();
+        }
+    }
 
 }
 

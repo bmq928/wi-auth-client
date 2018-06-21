@@ -11,7 +11,16 @@ function controller(auth) {
 
     self.$onInit = function () {
         preProcess();
-        init()
+        init();
+
+        auth.onLoginSuccess(() => {
+            preProcess();
+            changeUrl('user');
+        });
+        auth.onLoggoutSuccess(() => {
+            preProcess();
+            changeUrl('login');
+        });
     }
 
     function preProcess() {

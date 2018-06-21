@@ -59000,10 +59000,42 @@ module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=c
 
 const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].login;
 
-function controller() {
+controller.$inject = ['auth']
+function controller(auth) {
     let self = this;
 
+    self.$onInit = function(){
+        preProcess();
+    }
+
+    self.login = function() {
+        checkSumit(() => {
+            auth.login(self.user, (err, resp) => {
+                if(err) {                
+                    self.errMsg = err.reason;
+                } else {
+                    console.log('suc');
+                    console.log(resp);
+                }
+            })
+        })
+    }
+
     
+    function preProcess() {
+        self.user = {};
+        self.errMsg = '';
+    }
+
+    function checkSumit(fullfil) {
+        if(!self.user.username) {
+            self.errMsg = 'Username is required';
+        } else if(!self.user.password) {
+            self.errMsg = 'Password is required'
+        } else {
+            fullfil();
+        }
+    }
 
 }
 
@@ -59029,7 +59061,7 @@ function controller() {
 /* 108 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=container> <div id=loginbox style=margin-top:50px class=\"mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2\"> <div class=\"panel panel-info\"> <div class=panel-heading id=login-panel> <div class=panel-title>Sign In</div> </div> <div style=padding-top:30px class=panel-body> <div style=display:none id=login-alert class=\"alert alert-danger col-sm-12\"></div> <form id=loginform class=form-horizontal role=form> <div style=margin-bottom:25px class=input-group> <span class=input-group-addon> <i class=material-icons>person</i> </span> <input id=login-username type=text class=form-control placeholder=\"  Username\"> </div> <div style=margin-bottom:25px class=input-group> <span class=input-group-addon> <i class=material-icons>lock</i> </span> <input id=login-password type=password class=form-control placeholder=Password> </div> <div style=margin-top:10px class=form-group> <div class=\"col-sm-12 controls\"> <a id=btn-login href=# class=\"btn btn-primary\">Login </a> </div> </div> </form> </div> </div> </div> </div>";
+module.exports = "<div class=container> <div id=loginbox style=margin-top:50px class=\"mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2\"> <div class=\"panel panel-info\"> <div class=panel-heading id=login-panel> <div class=panel-title>Sign In</div> </div> <div style=padding-top:30px class=panel-body> <div style=display:none id=login-alert class=\"alert alert-danger col-sm-12\"></div> <form id=loginform class=form-horizontal role=form> <div style=margin-bottom:25px class=input-group> <span class=input-group-addon> <i class=material-icons>person</i> </span> <input ng-model=self.user.username id=login-username type=text class=form-control placeholder=\"  Username\"> </div> <div style=margin-bottom:25px class=input-group> <span class=input-group-addon> <i class=material-icons>lock</i> </span> <input ng-model=self.user.password id=login-password type=password class=form-control placeholder=Password> </div> <div style=margin-top:10px class=form-group> <div class=\"col-sm-12 controls right\"> <a ng-click=self.login() id=btn-login class=\"btn btn-primary\"> Login </a> <span id=error-login-msg class=text-danger ng-bind=self.errMsg></span> </div> </div> </form> </div> </div> </div> </div>";
 
 /***/ }),
 /* 109 */
@@ -60513,15 +60545,19 @@ function service($rootScope) {
 
 const name = 'auth';
 
-service.$inject = ['$http'];
-function service($http) {
-    
+service.$inject = ['$http', '$rootScope'];
+function service($http, $rootScope) {
+
+    const EVENTS = {
+        LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+        LOGOUT_SUCCESS: 'LOGOUT_SUCCESS'
+    }
 
     function isLogined() {
-        
+
         const token = localStorage.getItem('jwt-token');
-        
-        if(token) return true;
+
+        if (token) return true;
         return false;
 
     }
@@ -60535,12 +60571,51 @@ function service($http) {
 
     function logout() {
         localStorage.removeItem('jwt-token');
+        emitMessage(EVENTS.LOGOUT_SUCCESS);
     }
-    
+
+    function login(data, callback) {
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/login');
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
+            $http,
+            url,
+            data,
+            (resp) => {
+
+                if (resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) {
+
+                    const { token } = resp.data.content;
+
+                    localStorage.setItem('jwt-token', token);
+                    emitMessage(EVENTS.LOGIN_SUCCESS);
+
+                    callback(false, resp.data);
+                }
+                else callback(resp.data);
+            },
+            (err) => callback(err));
+    }
+
+    function emitMessage(event, data) {
+        $rootScope.$emit(event, data);
+    }
+
+    function onLoginSuccess(callback){
+        $rootScope.$on(EVENTS.LOGIN_SUCCESS, (e, data) => callback(data));
+    }
+
+    function onLoggoutSuccess(callback) {
+        $rootScope.$on(EVENTS.LOGOUT_SUCCESS, (e, data) => callback(data));
+    }
+
     return {
         isLogined,
         getData,
-        logout
+        logout,
+        login,
+        onLoggoutSuccess,
+        onLoginSuccess
     }
 }
 
@@ -60818,7 +60893,7 @@ exports = module.exports = __webpack_require__(21)(false);
 
 
 // module
-exports.push([module.i, "\n\n#login-password{\n    background-image: linear-gradient(#9c27b0, #9c27b0), linear-gradient(#D2D2D2, #D2D2D2);\n    border:0;\n    background-size: 0 2px, 100% 1px;\n    background-repeat: no-repeat;\n    background-position: center bottom, center calc(100% - 1px);\n}\n\n#btn-login{\n    float: right;\n    margin-right: 20px\n}\n\n\n\n", ""]);
+exports.push([module.i, "\n\n#login-password{\n    background-image: linear-gradient(#9c27b0, #9c27b0), linear-gradient(#D2D2D2, #D2D2D2);\n    border:0;\n    background-size: 0 2px, 100% 1px;\n    background-repeat: no-repeat;\n    background-position: center bottom, center calc(100% - 1px);\n}\n\n#btn-login{\n    float: right;\n    margin-right: 20px\n}\n\n#error-login-msg{\n    float: right;\n    margin-top: 21px;\n    margin-right: 15px;\n}\n\n/* .right{\n    float: right;\n    margin-right: 20px\n} */\n\n", ""]);
 
 // exports
 
@@ -60845,7 +60920,16 @@ function controller(auth) {
 
     self.$onInit = function () {
         preProcess();
-        init()
+        init();
+
+        auth.onLoginSuccess(() => {
+            preProcess();
+            changeUrl('user');
+        });
+        auth.onLoggoutSuccess(() => {
+            preProcess();
+            changeUrl('login');
+        });
     }
 
     function preProcess() {
