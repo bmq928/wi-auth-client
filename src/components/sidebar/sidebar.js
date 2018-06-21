@@ -31,7 +31,7 @@ function controller(search) {
 
 
 function generateView() {
-    const {user, group, company} = VIEWS;
+    const {user, group, company, parameter} = VIEWS;
     const views = [];
 
 
@@ -48,6 +48,12 @@ function generateView() {
     views.push({
         view: company,
         icon: 'business'
+    })
+
+
+    views.push({
+        view: parameter,
+        icon: 'spellcheck'
     })
 
     return views

@@ -2,7 +2,7 @@ import { VIEWS } from './constant';
 
 function config($stateProvider, $urlRouterProvider) {
 
-    const { user, group, company, login } = VIEWS;
+    const { user, group, company, login, parameter } = VIEWS;
 
     function createUrl(view) {
         return `/${view}`;
@@ -30,6 +30,13 @@ function config($stateProvider, $urlRouterProvider) {
         .state(company, {
             url: createUrl(company),
             template: createComponent(company),
+            controller: function($state) {
+                if(!isLogin()) goToLogin($state);
+            }
+        })
+        .state(parameter, {
+            url: createUrl(parameter),
+            template: createComponent(parameter),
             controller: function($state) {
                 if(!isLogin()) goToLogin($state);
             }

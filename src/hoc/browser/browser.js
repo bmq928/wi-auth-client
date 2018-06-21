@@ -1,7 +1,5 @@
 // import { VIEWS } from '../../../constant';
 import template from './browser.html';
-// import './login.css';
-import toast from 'toastr';
 
 const name = 'browser'
 

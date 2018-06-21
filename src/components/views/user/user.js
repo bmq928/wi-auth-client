@@ -7,8 +7,8 @@ const name = VIEWS.user;
 // ------------- HAM CHINH ---------------------------
 
 
-controller.$inject = ['user', 'search'];
-function controller(user, search) {
+controller.$inject = ['user', 'search', 'company'];
+function controller(user, search, company) {
     let self = this;
 
     self.$onInit = function () {
@@ -109,6 +109,7 @@ function controller(user, search) {
 
         //pre
         self.users = [];
+        self.idToCompanyDict = {};
 
         //pagination
         self.userPerPage = 5;
@@ -134,6 +135,19 @@ function controller(user, search) {
 
                 //pagination
                 self.numPage = self.users.length / self.userPerPage + 1;
+            }
+        })
+
+
+        company.getAllCompanies((err, resp) => {
+            if (err) {
+                console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                
+                const companies = resp.content;
+                
+                companies.forEach(c => self.idToCompanyDict[c.idCompany] = c.name)
             }
         })
 

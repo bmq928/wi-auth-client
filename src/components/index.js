@@ -8,6 +8,7 @@ import user from './views/user/user';
 import group from './views/group/group';
 import login from './views/login/login';
 import company from './views/company/company';
+import parameter from './views/parameter/parameter';
 import addUserModal from './addUserModal/addUserModal';
 import addGroupModal from './addGroupModal/addGroupModal';
 import addGroupToUserModal from './addGroupToUserModal/addGroupToUserModal';
@@ -26,6 +27,7 @@ export default [
     user,
     login,
     group,
+    parameter,
     company,
     addGroupModal,
     addCompanyModal,
