@@ -45,8 +45,9 @@
                         </span>
                     </td>
                     <td >
-                        <span ng-if="user.role === 1">Administrator </span>
-                        <span ng-if="user.role === 2">User</span>
+                        <span ng-if="user.role === 0">System Admin</span>
+                        <span ng-if="user.role === 1">Company Moderator </span>
+                        <span ng-if="user.role === 2">Normal User</span>
                     </td>
                     <td ng-bind="user.fullname"></td>
                     <td ng-bind="self.idToCompanyDict[user.idCompany]"></td>
@@ -128,7 +129,7 @@
     </button> -->
 
     <modal-btn 
-     class-name="'btn btn-success'"
+     class-name="'btn btn-primary'"
      target="'add-user-modal'">Add User
     </modal-btn>
 
