@@ -1,7 +1,20 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
     <sidebar ng-class="{'hidden' : !self.isLogined}" cur-view="self.curView" change-view="self.changeView"></sidebar>
     <div ng-class="{'main-panel' : self.isLogined}">
         <navbar ng-class="{'hidden' : !self.isLogined}" cur-view="self.curView"></navbar>
+        <div class="content">
+            <div class="container-fluid">
+                <div ui-view></div>
+            </div>
+        </div>
+        
+    </div>
+</div> -->
+
+<div class="wrapper">
+    <sidebar cur-view="self.curView" change-view="self.changeView"></sidebar>
+    <div class="main-panel">
+        <navbar cur-view="self.curView"></navbar>
         <div class="content">
             <div class="container-fluid">
                 <div ui-view></div>

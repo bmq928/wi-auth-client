@@ -35,14 +35,20 @@ function config($stateProvider, $urlRouterProvider) {
             }
         })
         .state(login, {
+            //just a fake url for login
+            //because now i use browser hoc
             url: createUrl(login),
-            template: createComponent(login),
-            controller: function($state) {
-                if(isLogin()) {
-                    goToDashboard($state);
-                }
-            }
+            template: '<div></div>'
         })
+        // .state(login, {
+        //     url: createUrl(login),
+        //     template: createComponent(login),
+        //     controller: function($state) {
+        //         if(isLogin()) {
+        //             goToDashboard($state);
+        //         }
+        //     }
+        // })
 
     $urlRouterProvider.otherwise(createUrl(user));
 

@@ -9415,11 +9415,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 //render
-const app = '<app></app>';
+// const app = '<app></app>';
 // const app = `<modal name="'nah'"><h1>akldsjflkjasdf</h1></modal><modal-btn ng-click="console.log('nah')" target="'nah'" style="'btn btn-success'">some</modal-btn>`
 // const app = `<table-form title="'MANAGE'" description="'flaksdjfl'" headers="['sadf', 'adsfsdf']"></table-form>`;
-render(app, document.getElementById('root-app'));
+// render(app, document.getElementById('root-app'));
 
+const browser = '<browser></browser>';
+render(browser, document.getElementById('root-app'));
 
 
 
@@ -47894,6 +47896,9 @@ function assignAllHoc() {
 // import appName from '../../module';
 
 
+// import './demo.css';
+// import './material-dashboard.css';
+
 
 
 
@@ -47957,7 +47962,7 @@ function decideView() {
 /* 88 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=wrapper> <sidebar ng-class=\"{'hidden' : !self.isLogined}\" cur-view=self.curView change-view=self.changeView></sidebar> <div ng-class=\"{'main-panel' : self.isLogined}\"> <navbar ng-class=\"{'hidden' : !self.isLogined}\" cur-view=self.curView></navbar> <div class=content> <div class=container-fluid> <div ui-view></div> </div> </div> </div> </div>";
+module.exports = " <div class=wrapper> <sidebar cur-view=self.curView change-view=self.changeView></sidebar> <div class=main-panel> <navbar cur-view=self.curView></navbar> <div class=content> <div class=container-fluid> <div ui-view></div> </div> </div> </div> </div>";
 
 /***/ }),
 /* 89 */
@@ -48015,10 +48020,10 @@ if(false) {
 
 exports = module.exports = __webpack_require__(21)(false);
 // imports
-
+exports.push([module.i, "@import url(http://fonts.googleapis.com/css?family=Roboto);", ""]);
 
 // module
-exports.push([module.i, ".main-panel {\n    overflow: hidden;\n}\n\n.hidden {\n    display: none;\n}", ""]);
+exports.push([module.i, ".main-panel {\n    overflow: hidden;\n}\n\n.hidden {\n    display: none;\n}\n\na{\n    cursor: pointer;\n  }\n  \n  /* body {\n    overflow: hidden;\n  } */\n  \n  input[type=\"submit\"]{\n    background: #9c27b0;\n  }\n  \n  ul li {\n      list-style: none;\n  }\n  \n  /* hide some thing */\n  .hide {\n    display: none;\n  }\n  \n  /* form group */\n  .form-group{\n    margin-bottom: 15px;\n    display: block;\n  }\n  \n  .media{\n      padding:0;margin:0;\n      list-style:none;\n      border-radius:1px;\n      color:White;\n  }\n  \n  .media-header{\n      background:purple;\n      border-right:white solid 0.05px;\n      padding-right: 5px;\n  }\n  .media-header a {\n      color:goldenrod;\n  }\n  .media-header .monitor-tool i{\n      font-size: 20px;\n  }\n  \n  /* for login modal */\n  \n  /****** LOGIN MODAL ******/\n  .loginmodal-container {\n    padding: 30px;\n    max-width: 350px;\n    width: 100% !important;\n    background-color: #F7F7F7;\n    margin: 0 auto;\n    border-radius: 2px;\n    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);\n    overflow: hidden;\n    font-family: roboto;\n  }\n  \n  .loginmodal-container h1 {\n    text-align: center;\n    font-size: 1.8em;\n    font-family: roboto;\n  }\n  \n  .loginmodal-container input[type=submit] {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n  }\n  \n  .loginmodal-container input[type=text], input[type=password] {\n    height: 44px;\n    font-size: 16px;\n    width: 100%;\n    margin-bottom: 10px;\n    -webkit-appearance: none;\n    background: #fff;\n    border: 1px solid #d9d9d9;\n    border-top: 1px solid #c0c0c0;\n    /* border-radius: 2px; */\n    padding: 0 8px;\n    box-sizing: border-box;\n    -moz-box-sizing: border-box;\n  }\n  \n  .loginmodal-container input[type=text]:hover, input[type=password]:hover {\n    border: 1px solid #b9b9b9;\n    border-top: 1px solid #a0a0a0;\n    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);\n    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);\n    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);\n  }\n  \n  .loginmodal {\n    text-align: center;\n    font-size: 14px;\n    font-family: 'Arial', sans-serif;\n    font-weight: 700;\n    height: 36px;\n    padding: 0 8px;\n   \n  /* border-radius: 3px; */\n  /* -webkit-user-select: none;\n    user-select: none; */\n  }\n  \n  .loginmodal-submit {\n    /* border: 1px solid #3079ed; */\n    border: 0px;\n    color: #fff;\n    text-shadow: 0 1px rgba(0,0,0,0.1); \n    background-color: #4d90fe;\n    padding: 17px 0px;\n    font-family: roboto;\n    font-size: 14px;\n    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */\n  }\n  \n  .loginmodal-submit:hover {\n    border: 0px;\n    text-shadow: 0 1px rgba(0,0,0,0.3);\n    /* background-color: #357ae8; */\n  }\n  \n  .loginmodal-container a {\n    text-decoration: none;\n    color: #666;\n    font-weight: 400;\n    text-align: center;\n    display: inline-block;\n    opacity: 0.6;\n    transition: opacity ease 0.5s;\n  } \n  \n  .login-help{\n    font-size: 12px;\n  }\n  \n  /* fix content below modal */\n  .modal-backdrop{\n    z-index: 1028;\n  }", ""]);
 
 // exports
 
@@ -58986,13 +58991,12 @@ module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=c
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_html__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__login_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_toastr__);
-// import angular from 'angular';
-
-// import appName from '../../../module';
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_css__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__login_css__);
 
 
+
+// import toast from 'toastr';
 
 const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].login;
 
@@ -59025,7 +59029,7 @@ function controller() {
 /* 108 */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>askdjfljasldfjlkdsjfljl</h1>";
+module.exports = "<div class=container> <div id=loginbox style=margin-top:50px class=\"mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2\"> <div class=\"panel panel-info\"> <div class=panel-heading id=login-panel> <div class=panel-title>Sign In</div> </div> <div style=padding-top:30px class=panel-body> <div style=display:none id=login-alert class=\"alert alert-danger col-sm-12\"></div> <form id=loginform class=form-horizontal role=form> <div style=margin-bottom:25px class=input-group> <span class=input-group-addon> <i class=material-icons>person</i> </span> <input id=login-username type=text class=form-control placeholder=\"  Username\"> </div> <div style=margin-bottom:25px class=input-group> <span class=input-group-addon> <i class=material-icons>lock</i> </span> <input id=login-password type=password class=form-control placeholder=Password> </div> <div style=margin-top:10px class=form-group> <div class=\"col-sm-12 controls\"> <a id=btn-login href=# class=\"btn btn-primary\">Login </a> </div> </div> </form> </div> </div> </div> </div>";
 
 /***/ }),
 /* 109 */
@@ -60589,14 +60593,20 @@ function config($stateProvider, $urlRouterProvider) {
             }
         })
         .state(login, {
+            //just a fake url for login
+            //because now i use browser hoc
             url: createUrl(login),
-            template: createComponent(login),
-            controller: function($state) {
-                if(isLogin()) {
-                    goToDashboard($state);
-                }
-            }
+            template: '<div></div>'
         })
+        // .state(login, {
+        //     url: createUrl(login),
+        //     template: createComponent(login),
+        //     controller: function($state) {
+        //         if(isLogin()) {
+        //             goToDashboard($state);
+        //         }
+        //     }
+        // })
 
     $urlRouterProvider.otherwise(createUrl(user));
 
@@ -60628,12 +60638,15 @@ function config($stateProvider, $urlRouterProvider) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__browser_browser__ = __webpack_require__(147);
+
 
 
 // import tableForm from './tableForm/tableForm';
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([
+    __WEBPACK_IMPORTED_MODULE_2__browser_browser__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_0__modal_modal__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__["a" /* default */]
     // tableForm
@@ -60745,6 +60758,138 @@ function controller(modal) {
 /***/ (function(module, exports) {
 
 module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(146);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(22)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {
+	module.hot.accept("!!../../../../node_modules/css-loader/index.js!./login.css", function() {
+		var newContent = require("!!../../../../node_modules/css-loader/index.js!./login.css");
+
+		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(21)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n#login-password{\n    background-image: linear-gradient(#9c27b0, #9c27b0), linear-gradient(#D2D2D2, #D2D2D2);\n    border:0;\n    background-size: 0 2px, 100% 1px;\n    background-repeat: no-repeat;\n    background-position: center bottom, center calc(100% - 1px);\n}\n\n#btn-login{\n    float: right;\n    margin-right: 20px\n}\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 147 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__browser_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_toastr__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_toastr__);
+// import { VIEWS } from '../../../constant';
+
+// import './login.css';
+
+
+const name = 'browser'
+
+controller.$inject = ['auth']
+function controller(auth) {
+    let self = this;
+
+    self.$onInit = function () {
+        preProcess();
+        init()
+    }
+
+    function preProcess() {
+        self.isLogined = auth.isLogined();
+    }
+
+    function init() {
+        if (self.isLogined) {
+            changeUrl('user');
+        } else {
+            changeUrl('login');
+        }
+    }
+
+
+    function changeUrl(url) {
+        location.hash = `#!/${url}`;
+    }
+
+}
+
+// angular
+//     .module(appName)
+//     .component(name, {
+//         template,
+//         controller,
+//         controllerAs: 'self'
+//     })
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: {
+        template: __WEBPACK_IMPORTED_MODULE_0__browser_html___default.a,
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports) {
+
+module.exports = "<div ng-if=self.isLogined> <app></app> </div> <div ng-if=!self.isLogined> <login></login> </div>";
 
 /***/ })
 /******/ ]);

@@ -1,8 +1,7 @@
-// import angular from 'angular';
 import { VIEWS } from '../../../constant';
-// import appName from '../../../module';
 import template from './login.html';
-import toast from 'toastr';
+import './login.css';
+// import toast from 'toastr';
 
 const name = VIEWS.login;
 

@@ -1,8 +1,11 @@
 // import angular from 'angular';
 // import appName from '../../module';
 import template from './app.html';
-import { VIEWS } from '../../constant'
+import { VIEWS } from '../../constant';
+// import './demo.css';
+// import './material-dashboard.css';
 import './app.css';
+
 
 
 const name = 'app';
