@@ -7,7 +7,8 @@ import './app.css';
 
 const name = 'app';
 
-function controller() {
+controller.$inject = ['auth']
+function controller(auth) {
     let self = this;
     self.$onInit = function () {
         console.log('int')
@@ -22,6 +23,7 @@ function controller() {
 
     function preProcess() {
         self.curView = VIEWS.user;
+        self.isLogined = auth.isLogined();
     }
 
     function init() {
