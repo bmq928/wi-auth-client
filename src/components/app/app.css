@@ -10,9 +10,9 @@ a{
     cursor: pointer;
   }
   
-  /* body {
+  body {
     overflow: hidden;
-  } */
+  }
   
   input[type="submit"]{
     background: #9c27b0;

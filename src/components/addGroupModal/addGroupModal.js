@@ -25,6 +25,8 @@ function controller(group, company, modal){
                     self.sucMsg = resp.reason;
                     
                     self.errMsg = '';
+
+                    refreshField();
                     self.addGroupSuccess();
                     modal.closeModal(self.name);
                 }
@@ -74,6 +76,13 @@ function controller(group, company, modal){
                 console.log(self.listCompany);
             }
         })
+    }
+
+    function refreshField(){
+        self.group = {};
+        self.name = 'add-group-modal';
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 }
 

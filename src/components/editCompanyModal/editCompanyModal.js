@@ -23,6 +23,8 @@ function controller(company, modal) {
                 } else {
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
+
+                    preProcess();
                     self.editCompanySuccess();
                     modal.closeModal(self.name);
                 }
@@ -48,6 +50,10 @@ function controller(company, modal) {
         // self.company = {};
         self.sucMsg = '';
         self.errMsg = '';
+    }
+
+    function refreshField() {
+        preProcess();
     }
 }
 

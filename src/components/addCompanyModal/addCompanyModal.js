@@ -31,6 +31,7 @@ function controller(company, modal){
                     
                     self.errMsg = '';
 
+                    refreshField();
                     self.addCompanySuccess();
                     modal.closeModal(self.name);
                 }
@@ -54,6 +55,10 @@ function controller(company, modal){
         }
     }
 
+    function refreshField() {
+        preProcess();
+    }
+    
 }
 
 // angular

@@ -41,6 +41,8 @@ function controller(user, modal) {
                 } else {
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
+
+                    refreshField();
                     self.editUserSuccess();
                     modal.closeModal(self.name);
                 }
@@ -61,6 +63,10 @@ function controller(user, modal) {
 
         //prevent password show up
         if (self.user) self.user.password = self.user.confirmPassword = '';
+    }
+
+    function refreshField() {
+        preProcess();
     }
 
     function checkSubmit(fullfill) {

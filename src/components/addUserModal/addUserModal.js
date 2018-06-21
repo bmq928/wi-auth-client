@@ -26,6 +26,7 @@ function controller(user, company, modal){
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
                     
+                    refreshField();
                     self.addUserSuccess(self.user);
                     modal.closeModal(self.name);
                 }
@@ -64,6 +65,13 @@ function controller(user, company, modal){
                 console.log(self.listCompany);
             }
         })
+    }
+
+    function refreshField() {
+        self.name = 'add-user-modal';
+        self.user = {};
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 
     function checkSubmit(fullfill){

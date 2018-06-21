@@ -4390,8 +4390,8 @@ function createUrl(path) {
 
 function fetchPOST($http, url,data, success, fail) {
 
-    // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
-    const token = localStorage.getItem('jwt-token');
+    const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+    // const token = localStorage.getItem('jwt-token');
     return (
         $http({
             url,
@@ -48027,7 +48027,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.push([module.i, "@import url(http://fonts.googleapis.com/css?family=Roboto);", ""]);
 
 // module
-exports.push([module.i, ".main-panel {\n    overflow: hidden;\n}\n\n.hidden {\n    display: none;\n}\n\na{\n    cursor: pointer;\n  }\n  \n  /* body {\n    overflow: hidden;\n  } */\n  \n  input[type=\"submit\"]{\n    background: #9c27b0;\n  }\n  \n  ul li {\n      list-style: none;\n  }\n  \n  /* hide some thing */\n  .hide {\n    display: none;\n  }\n  \n  /* form group */\n  .form-group{\n    margin-bottom: 15px;\n    display: block;\n  }\n  \n  .media{\n      padding:0;margin:0;\n      list-style:none;\n      border-radius:1px;\n      color:White;\n  }\n  \n  .media-header{\n      background:purple;\n      border-right:white solid 0.05px;\n      padding-right: 5px;\n  }\n  .media-header a {\n      color:goldenrod;\n  }\n  .media-header .monitor-tool i{\n      font-size: 20px;\n  }\n  \n  /* for login modal */\n  \n  /****** LOGIN MODAL ******/\n  .loginmodal-container {\n    padding: 30px;\n    max-width: 350px;\n    width: 100% !important;\n    background-color: #F7F7F7;\n    margin: 0 auto;\n    border-radius: 2px;\n    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);\n    overflow: hidden;\n    font-family: roboto;\n  }\n  \n  .loginmodal-container h1 {\n    text-align: center;\n    font-size: 1.8em;\n    font-family: roboto;\n  }\n  \n  .loginmodal-container input[type=submit] {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n  }\n  \n  .loginmodal-container input[type=text], input[type=password] {\n    height: 44px;\n    font-size: 16px;\n    width: 100%;\n    margin-bottom: 10px;\n    -webkit-appearance: none;\n    background: #fff;\n    border: 1px solid #d9d9d9;\n    border-top: 1px solid #c0c0c0;\n    /* border-radius: 2px; */\n    padding: 0 8px;\n    box-sizing: border-box;\n    -moz-box-sizing: border-box;\n  }\n  \n  .loginmodal-container input[type=text]:hover, input[type=password]:hover {\n    border: 1px solid #b9b9b9;\n    border-top: 1px solid #a0a0a0;\n    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);\n    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);\n    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);\n  }\n  \n  .loginmodal {\n    text-align: center;\n    font-size: 14px;\n    font-family: 'Arial', sans-serif;\n    font-weight: 700;\n    height: 36px;\n    padding: 0 8px;\n   \n  /* border-radius: 3px; */\n  /* -webkit-user-select: none;\n    user-select: none; */\n  }\n  \n  .loginmodal-submit {\n    /* border: 1px solid #3079ed; */\n    border: 0px;\n    color: #fff;\n    text-shadow: 0 1px rgba(0,0,0,0.1); \n    background-color: #4d90fe;\n    padding: 17px 0px;\n    font-family: roboto;\n    font-size: 14px;\n    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */\n  }\n  \n  .loginmodal-submit:hover {\n    border: 0px;\n    text-shadow: 0 1px rgba(0,0,0,0.3);\n    /* background-color: #357ae8; */\n  }\n  \n  .loginmodal-container a {\n    text-decoration: none;\n    color: #666;\n    font-weight: 400;\n    text-align: center;\n    display: inline-block;\n    opacity: 0.6;\n    transition: opacity ease 0.5s;\n  } \n  \n  .login-help{\n    font-size: 12px;\n  }\n  \n  /* fix content below modal */\n  .modal-backdrop{\n    z-index: 1028;\n  }", ""]);
+exports.push([module.i, ".main-panel {\n    overflow: hidden;\n}\n\n.hidden {\n    display: none;\n}\n\na{\n    cursor: pointer;\n  }\n  \n  body {\n    overflow: hidden;\n  }\n  \n  input[type=\"submit\"]{\n    background: #9c27b0;\n  }\n  \n  ul li {\n      list-style: none;\n  }\n  \n  /* hide some thing */\n  .hide {\n    display: none;\n  }\n  \n  /* form group */\n  .form-group{\n    margin-bottom: 15px;\n    display: block;\n  }\n  \n  .media{\n      padding:0;margin:0;\n      list-style:none;\n      border-radius:1px;\n      color:White;\n  }\n  \n  .media-header{\n      background:purple;\n      border-right:white solid 0.05px;\n      padding-right: 5px;\n  }\n  .media-header a {\n      color:goldenrod;\n  }\n  .media-header .monitor-tool i{\n      font-size: 20px;\n  }\n  \n  /* for login modal */\n  \n  /****** LOGIN MODAL ******/\n  .loginmodal-container {\n    padding: 30px;\n    max-width: 350px;\n    width: 100% !important;\n    background-color: #F7F7F7;\n    margin: 0 auto;\n    border-radius: 2px;\n    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);\n    overflow: hidden;\n    font-family: roboto;\n  }\n  \n  .loginmodal-container h1 {\n    text-align: center;\n    font-size: 1.8em;\n    font-family: roboto;\n  }\n  \n  .loginmodal-container input[type=submit] {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n  }\n  \n  .loginmodal-container input[type=text], input[type=password] {\n    height: 44px;\n    font-size: 16px;\n    width: 100%;\n    margin-bottom: 10px;\n    -webkit-appearance: none;\n    background: #fff;\n    border: 1px solid #d9d9d9;\n    border-top: 1px solid #c0c0c0;\n    /* border-radius: 2px; */\n    padding: 0 8px;\n    box-sizing: border-box;\n    -moz-box-sizing: border-box;\n  }\n  \n  .loginmodal-container input[type=text]:hover, input[type=password]:hover {\n    border: 1px solid #b9b9b9;\n    border-top: 1px solid #a0a0a0;\n    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);\n    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);\n    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);\n  }\n  \n  .loginmodal {\n    text-align: center;\n    font-size: 14px;\n    font-family: 'Arial', sans-serif;\n    font-weight: 700;\n    height: 36px;\n    padding: 0 8px;\n   \n  /* border-radius: 3px; */\n  /* -webkit-user-select: none;\n    user-select: none; */\n  }\n  \n  .loginmodal-submit {\n    /* border: 1px solid #3079ed; */\n    border: 0px;\n    color: #fff;\n    text-shadow: 0 1px rgba(0,0,0,0.1); \n    background-color: #4d90fe;\n    padding: 17px 0px;\n    font-family: roboto;\n    font-size: 14px;\n    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */\n  }\n  \n  .loginmodal-submit:hover {\n    border: 0px;\n    text-shadow: 0 1px rgba(0,0,0,0.3);\n    /* background-color: #357ae8; */\n  }\n  \n  .loginmodal-container a {\n    text-decoration: none;\n    color: #666;\n    font-weight: 400;\n    text-align: center;\n    display: inline-block;\n    opacity: 0.6;\n    transition: opacity ease 0.5s;\n  } \n  \n  .login-help{\n    font-size: 12px;\n  }\n  \n  /* fix content below modal */\n  .modal-backdrop{\n    z-index: 1028;\n  }", ""]);
 
 // exports
 
@@ -59359,6 +59359,7 @@ function controller(user, company, modal){
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
                     
+                    refreshField();
                     self.addUserSuccess(self.user);
                     modal.closeModal(self.name);
                 }
@@ -59397,6 +59398,13 @@ function controller(user, company, modal){
                 console.log(self.listCompany);
             }
         })
+    }
+
+    function refreshField() {
+        self.name = 'add-user-modal';
+        self.user = {};
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 
     function checkSubmit(fullfill){
@@ -59467,6 +59475,8 @@ function controller(group, company, modal){
                     self.sucMsg = resp.reason;
                     
                     self.errMsg = '';
+
+                    refreshField();
                     self.addGroupSuccess();
                     modal.closeModal(self.name);
                 }
@@ -59516,6 +59526,13 @@ function controller(group, company, modal){
                 console.log(self.listCompany);
             }
         })
+    }
+
+    function refreshField(){
+        self.group = {};
+        self.name = 'add-group-modal';
+        self.sucMsg = '';
+        self.errMsg = '';
     }
 }
 
@@ -59687,6 +59704,7 @@ function controller(company, modal){
                     
                     self.errMsg = '';
 
+                    refreshField();
                     self.addCompanySuccess();
                     modal.closeModal(self.name);
                 }
@@ -59710,6 +59728,10 @@ function controller(company, modal){
         }
     }
 
+    function refreshField() {
+        preProcess();
+    }
+    
 }
 
 // angular
@@ -59786,6 +59808,8 @@ function controller(user, modal) {
                 } else {
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
+
+                    refreshField();
                     self.editUserSuccess();
                     modal.closeModal(self.name);
                 }
@@ -59806,6 +59830,10 @@ function controller(user, modal) {
 
         //prevent password show up
         if (self.user) self.user.password = self.user.confirmPassword = '';
+    }
+
+    function refreshField() {
+        preProcess();
     }
 
     function checkSubmit(fullfill) {
@@ -59889,6 +59917,8 @@ function controller(company, modal) {
                 } else {
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
+
+                    preProcess();
                     self.editCompanySuccess();
                     modal.closeModal(self.name);
                 }
@@ -59914,6 +59944,10 @@ function controller(company, modal) {
         // self.company = {};
         self.sucMsg = '';
         self.errMsg = '';
+    }
+
+    function refreshField() {
+        preProcess();
     }
 }
 
