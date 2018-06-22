@@ -2,22 +2,23 @@
 // import appName from '../../module';
 import template from './sidebar.html';
 import { APP_TITLE } from '../../constant';
-import {VIEWS} from '../../constant';
+import { VIEWS } from '../../constant';
 
 
 const name = 'sidebar';
 
-controller.$inject = ['search']
-function controller(search) {
+controller.$inject = ['search', 'auth']
+function controller(search, auth) {
 
     let self = this;
+    const {role} = auth.getData();
 
     self.$onInit = function () {
         self.title = APP_TITLE;
-        self.views = generateView();
+        self.views = generateView(role);
     }
 
-    self.tabOnClick = function(view){
+    self.tabOnClick = function (view) {
         // change view 
         self.changeView(view);
 
@@ -30,34 +31,65 @@ function controller(search) {
 }
 
 
-function generateView() {
-    const {user, group, company, parameter} = VIEWS;
+function generateView(role) {
+    const { user, group, company, parameter } = VIEWS;
     const views = [];
 
+    limitTabForUser();
 
-    views.push({
-        view : user,
-        icon: 'person'
-    });
+    return views;
 
-    views.push({
-        view: group,
-        icon: 'group'
-    })
+    function limitTabForUser() {
+        switch (role) {
+            case 2:
+                enableTabUser();
+                enableTabParameter();
+                break;
+            case 1:
+                enableTabUser();
+                enableTabParameter();
+                enableTabGroup();
+                break;
+            case 0:
+                enableTabUser();
+                enableTabParameter();
+                enableTabGroup();
+                enableTabCompany();
+                break;
+        }
+    }
 
-    views.push({
-        view: company,
-        icon: 'business'
-    })
+    function enableTabUser() {
+        views.push({
+            view: user,
+            icon: 'person'
+        });
+    }
 
+    function enableTabGroup() {
+        views.push({
+            view: group,
+            icon: 'group'
+        })
+    }
 
-    views.push({
-        view: parameter,
-        icon: 'spellcheck'
-    })
+    function enableTabCompany() {
+        views.push({
+            view: company,
+            icon: 'business'
+        })
+    }
 
-    return views
+    function enableTabParameter() {
+        views.push({
+            view: parameter,
+            icon: 'spellcheck'
+        })
+    }
 }
+
+
+
 
 export default {
     name,
