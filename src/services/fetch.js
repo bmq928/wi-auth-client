@@ -2,8 +2,8 @@ import {TOKEN_EXPIRED} from './helper'
 
 const name = 'fetch';
 
-service.$inject = ['$http'];
-function service($http) {
+service.$inject = ['$http',  '$rootScope'];
+function service($http, $rootScope) {
 
     function fetchPOST(url,data, success, fail) {
 
@@ -20,7 +20,10 @@ function service($http) {
                 .catch(err => {
                     if(err.data.message === TOKEN_EXPIRED) {
     
-                        
+                        // auth.jwtExpired();
+                        localStorage.removeItem('jwt-token');
+                        $rootScope.$emit(TOKEN_EXPIRED);
+
                         return ;
                     } 
     

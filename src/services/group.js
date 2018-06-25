@@ -1,9 +1,9 @@
-import { createUrl, fetchPOST, SUCCESS_CODE } from './helper';
+import { createUrl, SUCCESS_CODE } from './helper';
 
 const name = 'group';
 
-// service.$inject = ['$http'];
-function service() {
+service.$inject = ['fetch'];
+function service(fetch) {
 
 
     function getAllGroup(callback) {

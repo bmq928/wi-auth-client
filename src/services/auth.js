@@ -1,4 +1,4 @@
-import { createUrl, SUCCESS_CODE } from './helper';
+import { createUrl, SUCCESS_CODE, TOKEN_EXPIRED } from './helper';
 
 const name = 'auth';
 
@@ -54,8 +54,19 @@ function service( $rootScope, fetch) {
             (err) => callback(err));
     }
 
+    
+
     function emitMessage(event, data) {
         $rootScope.$emit(event, data);
+    }
+
+    // function jwtExpired() {
+    //     localStorage.removeItem('jwt-token');
+    //     emitMessage(TOKEN_EXPIRED);
+    // }
+
+    function onJwtExpired(callback){
+        $rootScope.$on(TOKEN_EXPIRED, (e, data) => callback());
     }
 
     function onLoginSuccess(callback){
@@ -72,7 +83,9 @@ function service( $rootScope, fetch) {
         logout,
         login,
         onLoggoutSuccess,
-        onLoginSuccess
+        onLoginSuccess,
+        // jwtExpired,
+        onJwtExpired
     }
 }
 

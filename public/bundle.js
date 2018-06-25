@@ -59072,6 +59072,11 @@ function controller(auth) {
 
     self.$onInit = function(){
         preProcess();
+
+
+        auth.onJwtExpired(() => {
+            self.errMsg = 'Token is expired';
+        })
     }
 
     self.login = function() {
@@ -60335,8 +60340,8 @@ function stt() {
 
 const name = 'user';
 
-// service.$inject = ['$http'];
-function service() {
+service.$inject = ['fetch'];
+function service(fetch) {
 
 
     function getAllUser(callback) {
@@ -60440,8 +60445,8 @@ function service() {
 
 const name = 'group';
 
-// service.$inject = ['$http'];
-function service() {
+service.$inject = ['fetch'];
+function service(fetch) {
 
 
     function getAllGroup(callback) {
@@ -60607,8 +60612,8 @@ function service($rootScope) {
 
 const name = 'company';
 
-// service.$inject = ['$http'];
-function service() {
+service.$inject = ['fetch'];
+function service(fetch) {
 
     function getAllCompanies(callback) {
         const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/company/list');
@@ -60808,8 +60813,19 @@ function service( $rootScope, fetch) {
             (err) => callback(err));
     }
 
+    
+
     function emitMessage(event, data) {
         $rootScope.$emit(event, data);
+    }
+
+    // function jwtExpired() {
+    //     localStorage.removeItem('jwt-token');
+    //     emitMessage(TOKEN_EXPIRED);
+    // }
+
+    function onJwtExpired(callback){
+        $rootScope.$on(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* TOKEN_EXPIRED */], (e, data) => callback());
     }
 
     function onLoginSuccess(callback){
@@ -60826,7 +60842,9 @@ function service( $rootScope, fetch) {
         logout,
         login,
         onLoggoutSuccess,
-        onLoginSuccess
+        onLoginSuccess,
+        // jwtExpired,
+        onJwtExpired
     }
 }
 
@@ -61080,6 +61098,11 @@ function controller(auth) {
             preProcess();
             changeUrl('login');
         });
+
+        auth.onJwtExpired(() => {
+            preProcess();
+            changeUrl('login');
+        })
     }
 
     function preProcess() {
@@ -61135,8 +61158,8 @@ module.exports = "<div ng-if=self.isLogined> <app></app> </div> <div ng-if=!self
 
 const name = 'fetch';
 
-service.$inject = ['$http'];
-function service($http) {
+service.$inject = ['$http',  '$rootScope'];
+function service($http, $rootScope) {
 
     function fetchPOST(url,data, success, fail) {
 
@@ -61153,7 +61176,10 @@ function service($http) {
                 .catch(err => {
                     if(err.data.message === __WEBPACK_IMPORTED_MODULE_0__helper__["b" /* TOKEN_EXPIRED */]) {
     
-                        
+                        // auth.jwtExpired();
+                        localStorage.removeItem('jwt-token');
+                        $rootScope.$emit(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* TOKEN_EXPIRED */]);
+
                         return ;
                     } 
     

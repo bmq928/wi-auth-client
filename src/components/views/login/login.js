@@ -11,6 +11,11 @@ function controller(auth) {
 
     self.$onInit = function(){
         preProcess();
+
+
+        auth.onJwtExpired(() => {
+            self.errMsg = 'Token is expired';
+        })
     }
 
     self.login = function() {

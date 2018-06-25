@@ -2,8 +2,8 @@ import { createUrl, SUCCESS_CODE } from './helper';
 
 const name = 'company';
 
-// service.$inject = ['$http'];
-function service() {
+service.$inject = ['fetch'];
+function service(fetch) {
 
     function getAllCompanies(callback) {
         const url = createUrl('/company/list');

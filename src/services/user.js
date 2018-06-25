@@ -2,8 +2,8 @@ import { createUrl, SUCCESS_CODE } from './helper';
 
 const name = 'user';
 
-// service.$inject = ['$http'];
-function service() {
+service.$inject = ['fetch'];
+function service(fetch) {
 
 
     function getAllUser(callback) {

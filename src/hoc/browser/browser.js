@@ -19,6 +19,11 @@ function controller(auth) {
             preProcess();
             changeUrl('login');
         });
+
+        auth.onJwtExpired(() => {
+            preProcess();
+            changeUrl('login');
+        })
     }
 
     function preProcess() {
