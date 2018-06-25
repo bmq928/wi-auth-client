@@ -971,7 +971,7 @@ var predicates_1 = __webpack_require__(1);
 var rejectFactory_1 = __webpack_require__(8);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
-var transition_1 = __webpack_require__(16);
+var transition_1 = __webpack_require__(17);
 var resolvable_1 = __webpack_require__(13);
 /**
  * Returns a string shortened to a maximum length
@@ -2256,6 +2256,87 @@ exports.Resolvable = Resolvable;
 
 /***/ }),
 /* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["c"] = createUrl;
+function createUrl(path) {
+    // const domain = 'http://auth.sflow.me:33333';
+    const domain = 'http://localhost:2999';
+    // const domain = 'http://167.99.77.175:2999';
+
+    return domain + path;
+}
+
+// export function fetchPOST($http, url,data, success, fail) {
+
+//     // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+//     const token = localStorage.getItem('jwt-token');
+//     return (
+//         $http({
+//             url,
+//             // headers: { 'Authorization': 'Bearer ' + token },
+//             method: 'POST',
+//             data: Object.assign({token}, data)
+//         })
+//             .then(success)
+//             .catch(err => {
+//                 if(err.data.message === 'Failed to authenticate') {
+
+
+//                     return ;
+//                 } 
+
+//                 fail(err);
+//             })
+//     );
+// }
+
+// export function createPostService($http, url) {
+//     url = createUrl(url);
+
+//     return function(data, callback) {
+//         fetchPOST(
+//             $http,
+//             url,
+//             data,
+//             (resp) => {
+//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+//                 else callback(resp.data);
+//             },
+//             (err) => callback(err)
+//         )
+//     }
+// }
+
+// export function createGetService($http, url) {
+//     url = createUrl(url);
+
+//     return function (callback) {
+//         fetchPOST(
+//             $http,
+//             url,
+//             null,
+//             (resp) => {
+//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+//                 else callback(resp.data);
+//             },
+//             (err) => callback(err));
+//     }
+// }
+
+const SUCCESS_CODE = 200;
+/* harmony export (immutable) */ __webpack_exports__["a"] = SUCCESS_CODE;
+
+const INTERNAL_ERROR_CODE = 512;
+/* unused harmony export INTERNAL_ERROR_CODE */
+
+const TOKEN_EXPIRED = 'Failed to authenticate';
+/* harmony export (immutable) */ __webpack_exports__["b"] = TOKEN_EXPIRED;
+
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports) {
 
 /*
@@ -2337,7 +2418,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -2723,7 +2804,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2744,10 +2825,10 @@ var interface_1 = __webpack_require__(9); // has or is using
 var transitionHook_1 = __webpack_require__(12);
 var hookRegistry_1 = __webpack_require__(25);
 var hookBuilder_1 = __webpack_require__(32);
-var pathUtils_1 = __webpack_require__(17);
+var pathUtils_1 = __webpack_require__(18);
 var param_1 = __webpack_require__(11);
 var resolvable_1 = __webpack_require__(13);
-var resolveContext_1 = __webpack_require__(18);
+var resolveContext_1 = __webpack_require__(19);
 var rejectFactory_1 = __webpack_require__(8);
 /** @hidden */
 var stateSelf = hof_1.prop('self');
@@ -3394,7 +3475,7 @@ exports.Transition = Transition;
 //# sourceMappingURL=transition.js.map
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3569,7 +3650,7 @@ exports.PathUtils = PathUtils;
 //# sourceMappingURL=pathUtils.js.map
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3583,7 +3664,7 @@ var trace_1 = __webpack_require__(7);
 var coreservices_1 = __webpack_require__(3);
 var interface_1 = __webpack_require__(33);
 var resolvable_1 = __webpack_require__(13);
-var pathUtils_1 = __webpack_require__(17);
+var pathUtils_1 = __webpack_require__(18);
 var strings_1 = __webpack_require__(5);
 var common_2 = __webpack_require__(4);
 var whens = interface_1.resolvePolicies.when;
@@ -3780,7 +3861,7 @@ var UIInjectorImpl = /** @class */ (function () {
 //# sourceMappingURL=resolveContext.js.map
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4325,7 +4406,7 @@ exports.UrlMatcher = UrlMatcher;
 //# sourceMappingURL=urlMatcher.js.map
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4372,87 +4453,6 @@ var BaseLocationServices = /** @class */ (function () {
 }());
 exports.BaseLocationServices = BaseLocationServices;
 //# sourceMappingURL=baseLocationService.js.map
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = createUrl;
-function createUrl(path) {
-    // const domain = 'http://auth.sflow.me:33333';
-    const domain = 'http://localhost:2999';
-    // const domain = 'http://167.99.77.175:2999';
-
-    return domain + path;
-}
-
-// export function fetchPOST($http, url,data, success, fail) {
-
-//     // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
-//     const token = localStorage.getItem('jwt-token');
-//     return (
-//         $http({
-//             url,
-//             // headers: { 'Authorization': 'Bearer ' + token },
-//             method: 'POST',
-//             data: Object.assign({token}, data)
-//         })
-//             .then(success)
-//             .catch(err => {
-//                 if(err.data.message === 'Failed to authenticate') {
-
-
-//                     return ;
-//                 } 
-
-//                 fail(err);
-//             })
-//     );
-// }
-
-// export function createPostService($http, url) {
-//     url = createUrl(url);
-
-//     return function(data, callback) {
-//         fetchPOST(
-//             $http,
-//             url,
-//             data,
-//             (resp) => {
-//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
-//                 else callback(resp.data);
-//             },
-//             (err) => callback(err)
-//         )
-//     }
-// }
-
-// export function createGetService($http, url) {
-//     url = createUrl(url);
-
-//     return function (callback) {
-//         fetchPOST(
-//             $http,
-//             url,
-//             null,
-//             (resp) => {
-//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
-//                 else callback(resp.data);
-//             },
-//             (err) => callback(err));
-//     }
-// }
-
-const SUCCESS_CODE = 200;
-/* harmony export (immutable) */ __webpack_exports__["a"] = SUCCESS_CODE;
-
-const INTERNAL_ERROR_CODE = 512;
-/* unused harmony export INTERNAL_ERROR_CODE */
-
-const TOKEN_EXPIRED = 'Failed to authenticate';
-/* harmony export (immutable) */ __webpack_exports__["b"] = TOKEN_EXPIRED;
-
 
 /***/ }),
 /* 22 */
@@ -5147,7 +5147,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 /** for typedoc */
 var interface_1 = __webpack_require__(9);
-var transition_1 = __webpack_require__(16);
+var transition_1 = __webpack_require__(17);
 var hookRegistry_1 = __webpack_require__(25);
 var coreResolvables_1 = __webpack_require__(69);
 var redirectTo_1 = __webpack_require__(70);
@@ -6333,7 +6333,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** @module resolve */ /** for typedoc */
 __export(__webpack_require__(33));
 __export(__webpack_require__(13));
-__export(__webpack_require__(18));
+__export(__webpack_require__(19));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -6997,14 +6997,14 @@ var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var queue_1 = __webpack_require__(24);
 var coreservices_1 = __webpack_require__(3);
-var pathUtils_1 = __webpack_require__(17);
+var pathUtils_1 = __webpack_require__(18);
 var pathNode_1 = __webpack_require__(26);
 var transitionService_1 = __webpack_require__(28);
 var rejectFactory_1 = __webpack_require__(8);
 var targetState_1 = __webpack_require__(10);
 var param_1 = __webpack_require__(11);
 var glob_1 = __webpack_require__(23);
-var resolveContext_1 = __webpack_require__(18);
+var resolveContext_1 = __webpack_require__(19);
 var lazyLoad_1 = __webpack_require__(49);
 var hof_1 = __webpack_require__(2);
 /**
@@ -7762,7 +7762,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** for typedoc */
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
-var urlMatcher_1 = __webpack_require__(19);
+var urlMatcher_1 = __webpack_require__(20);
 var param_1 = __webpack_require__(11);
 var paramTypes_1 = __webpack_require__(34);
 /**
@@ -7887,7 +7887,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** for typedoc */
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
-var urlMatcher_1 = __webpack_require__(19);
+var urlMatcher_1 = __webpack_require__(20);
 var hof_1 = __webpack_require__(2);
 var urlRule_1 = __webpack_require__(45);
 var targetState_1 = __webpack_require__(10);
@@ -8200,7 +8200,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @coreapi
  * @module url
  */ /** */
-var urlMatcher_1 = __webpack_require__(19);
+var urlMatcher_1 = __webpack_require__(20);
 var predicates_1 = __webpack_require__(1);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
@@ -9176,7 +9176,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 /** */
 var common_1 = __webpack_require__(4);
-var baseLocationService_1 = __webpack_require__(20);
+var baseLocationService_1 = __webpack_require__(21);
 /** A `LocationServices` that uses the browser hash "#" to get/set the current location */
 var HashLocationService = /** @class */ (function (_super) {
     __extends(HashLocationService, _super);
@@ -9222,7 +9222,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module vanilla
  */
 /** */
-var baseLocationService_1 = __webpack_require__(20);
+var baseLocationService_1 = __webpack_require__(21);
 /** A `LocationServices` that gets/sets the current location from an in-memory object */
 var MemoryLocationService = /** @class */ (function (_super) {
     __extends(MemoryLocationService, _super);
@@ -9257,7 +9257,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var baseLocationService_1 = __webpack_require__(20);
+var baseLocationService_1 = __webpack_require__(21);
 var common_1 = __webpack_require__(4);
 /**
  * A `LocationServices` that gets/sets the current location using the browser's `location` and `history` apis
@@ -9459,7 +9459,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(16)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -9494,7 +9494,7 @@ if(false) {
 /* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(15)(false);
 // imports
 
 
@@ -47183,7 +47183,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module path */ /** for typedoc */
 __export(__webpack_require__(26));
-__export(__webpack_require__(17));
+__export(__webpack_require__(18));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -47213,7 +47213,7 @@ __export(__webpack_require__(10));
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module hooks */ /** */
-var transition_1 = __webpack_require__(16);
+var transition_1 = __webpack_require__(17);
 var router_1 = __webpack_require__(42);
 var resolve_1 = __webpack_require__(36);
 var common_1 = __webpack_require__(4);
@@ -47365,7 +47365,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** @module hooks */
 /** for typedoc */
 var common_1 = __webpack_require__(0);
-var resolveContext_1 = __webpack_require__(18);
+var resolveContext_1 = __webpack_require__(19);
 var hof_1 = __webpack_require__(2);
 exports.RESOLVE_HOOK_PRIORITY = 1000;
 /**
@@ -47634,7 +47634,7 @@ __export(__webpack_require__(9));
 __export(__webpack_require__(32));
 __export(__webpack_require__(25));
 __export(__webpack_require__(8));
-__export(__webpack_require__(16));
+__export(__webpack_require__(17));
 __export(__webpack_require__(12));
 __export(__webpack_require__(50));
 __export(__webpack_require__(28));
@@ -47650,7 +47650,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(19));
+__export(__webpack_require__(20));
 __export(__webpack_require__(43));
 __export(__webpack_require__(44));
 __export(__webpack_require__(45));
@@ -47700,7 +47700,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(51));
 __export(__webpack_require__(52));
-__export(__webpack_require__(20));
+__export(__webpack_require__(21));
 __export(__webpack_require__(53));
 __export(__webpack_require__(54));
 __export(__webpack_require__(55));
@@ -47782,8 +47782,8 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(145);
 
 
 
@@ -47997,7 +47997,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(16)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -48032,7 +48032,7 @@ if(false) {
 /* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(15)(false);
 // imports
 exports.push([module.i, "@import url(http://fonts.googleapis.com/css?family=Roboto);", ""]);
 
@@ -59153,7 +59153,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(16)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -59188,7 +59188,7 @@ if(false) {
 /* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(15)(false);
 // imports
 
 
@@ -60128,7 +60128,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(16)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -60163,7 +60163,7 @@ if(false) {
 /* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(15)(false);
 // imports
 
 
@@ -60311,7 +60311,7 @@ function stt() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(140);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetch__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetch__ = __webpack_require__(143);
 
 
 
@@ -60335,7 +60335,7 @@ function stt() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
 
 
 const name = 'user';
@@ -60440,7 +60440,7 @@ function service(fetch) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
 
 
 const name = 'group';
@@ -60607,7 +60607,7 @@ function service($rootScope) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
 
 
 const name = 'company';
@@ -60756,7 +60756,7 @@ function service($rootScope) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
 
 
 const name = 'auth';
@@ -60859,6 +60859,60 @@ function service( $rootScope, fetch) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
+
+
+const name = 'fetch';
+
+service.$inject = ['$http',  '$rootScope'];
+function service($http, $rootScope) {
+
+    function fetchPOST(url,data, success, fail) {
+
+        // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+        const token = localStorage.getItem('jwt-token');
+        return (
+            $http({
+                url,
+                // headers: { 'Authorization': 'Bearer ' + token },
+                method: 'POST',
+                data: Object.assign({token}, data)
+            })
+                .then(success)
+                .catch(err => {
+                    if(err.data.message === __WEBPACK_IMPORTED_MODULE_0__helper__["b" /* TOKEN_EXPIRED */]) {
+    
+                        // auth.jwtExpired();
+                        localStorage.removeItem('jwt-token');
+                        $rootScope.$emit(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* TOKEN_EXPIRED */]);
+
+                        return ;
+                    } 
+    
+                    fail(err);
+                })
+        );
+    }
+
+    return {
+        fetchPOST
+    }
+    
+}
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: service
+});
+
+/***/ }),
+/* 144 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(6);
 
 
@@ -60943,13 +60997,13 @@ function config($stateProvider, $urlRouterProvider) {
 /* harmony default export */ __webpack_exports__["a"] = (config);
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__browser_browser__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__browser_browser__ = __webpack_require__(150);
 
 
 
@@ -60964,11 +61018,11 @@ function config($stateProvider, $urlRouterProvider) {
 ]);
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_html__);
 
 // import './modal.css'
@@ -60984,7 +61038,7 @@ function controller(modal, $rootScope) {
         self._name = modal.createModalName(self.name);
         self._closeBtn = modal.createModalCloseName(self.name);
 
-        
+
         // //safe close on click
         // const btn = document.getElementById(self._closeBtn);
         // console.log(btn)
@@ -60993,6 +61047,42 @@ function controller(modal, $rootScope) {
         // //         console.log('should inside a $digest');
         // //     })
         // // }
+
+        enableEnterSubmit();
+
+    }
+
+    function enableEnterSubmit() {
+        // const $ = window.jQuery;
+        // const $thisModal = $(`#${self._name}`);
+        // const $btnSubmit = $(`#${self._name} .modal-footer > button`);
+
+        // console.log('this modal');
+        // console.log(self._name);
+        // console.log($thisModal);
+
+        // console.log('this modal button');
+        // console.log($btnSubmit);
+
+        // console.log(document.getElementById(self._name));
+
+
+        // if($thisModal.hasClass('in')) {
+
+        // }
+        window.addEventListener('keyup', function (event) {
+            
+            event.preventDefault();
+
+            if (event.keyCode === 13) {
+                
+                const $ = window.jQuery;
+                const $thisModal = $(`#${self._name}`);
+                const $btnSubmit = $(`#${self._name} .modal-footer > button`);
+
+                if ($thisModal.hasClass('in')) $btnSubmit.click();
+            }
+        })
     }
 }
 
@@ -61018,17 +61108,17 @@ function controller(modal, $rootScope) {
 });
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports) {
 
 module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true data-backdrop=static> <div class=modal-dialog role=document> <div class=modal-content> <div class=modal-header> <button type=button class=close data-dismiss=modal aria-label=Close ng-click=self.onClose()> <span aria-hidden=true>&times;</span> </button> <h3 class=modal-title id=exampleModalLabel ng-bind=self.header></h3> </div> <div class=modal-body> <ng-transclude></ng-transclude> </div> </div> </div> </div> ";
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modalBtn_html__);
 
 // import { createModalName } from '../helper'
@@ -61065,17 +61155,17 @@ function controller(modal) {
 });
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports) {
 
 module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html__ = __webpack_require__(151);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__browser_html__);
 // import { VIEWS } from '../../../constant';
 
@@ -61143,64 +61233,10 @@ function controller(auth) {
 });
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-if=self.isLogined> <app></app> </div> <div ng-if=!self.isLogined> <login></login> </div>";
-
-/***/ }),
-/* 151 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(21);
-
-
-const name = 'fetch';
-
-service.$inject = ['$http',  '$rootScope'];
-function service($http, $rootScope) {
-
-    function fetchPOST(url,data, success, fail) {
-
-        // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
-        const token = localStorage.getItem('jwt-token');
-        return (
-            $http({
-                url,
-                // headers: { 'Authorization': 'Bearer ' + token },
-                method: 'POST',
-                data: Object.assign({token}, data)
-            })
-                .then(success)
-                .catch(err => {
-                    if(err.data.message === __WEBPACK_IMPORTED_MODULE_0__helper__["b" /* TOKEN_EXPIRED */]) {
-    
-                        // auth.jwtExpired();
-                        localStorage.removeItem('jwt-token');
-                        $rootScope.$emit(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* TOKEN_EXPIRED */]);
-
-                        return ;
-                    } 
-    
-                    fail(err);
-                })
-        );
-    }
-
-    return {
-        fetchPOST
-    }
-    
-}
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    name,
-    options: service
-});
 
 /***/ })
 /******/ ]);

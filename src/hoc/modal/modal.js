@@ -12,7 +12,7 @@ function controller(modal, $rootScope) {
         self._name = modal.createModalName(self.name);
         self._closeBtn = modal.createModalCloseName(self.name);
 
-        
+
         // //safe close on click
         // const btn = document.getElementById(self._closeBtn);
         // console.log(btn)
@@ -21,6 +21,42 @@ function controller(modal, $rootScope) {
         // //         console.log('should inside a $digest');
         // //     })
         // // }
+
+        enableEnterSubmit();
+
+    }
+
+    function enableEnterSubmit() {
+        // const $ = window.jQuery;
+        // const $thisModal = $(`#${self._name}`);
+        // const $btnSubmit = $(`#${self._name} .modal-footer > button`);
+
+        // console.log('this modal');
+        // console.log(self._name);
+        // console.log($thisModal);
+
+        // console.log('this modal button');
+        // console.log($btnSubmit);
+
+        // console.log(document.getElementById(self._name));
+
+
+        // if($thisModal.hasClass('in')) {
+
+        // }
+        window.addEventListener('keyup', function (event) {
+            
+            event.preventDefault();
+
+            if (event.keyCode === 13) {
+                
+                const $ = window.jQuery;
+                const $thisModal = $(`#${self._name}`);
+                const $btnSubmit = $(`#${self._name} .modal-footer > button`);
+
+                if ($thisModal.hasClass('in')) $btnSubmit.click();
+            }
+        })
     }
 }
 
