@@ -1,9 +1,9 @@
-import { createUrl, fetchPOST, SUCCESS_CODE } from './helper';
+import { createUrl, SUCCESS_CODE } from './helper';
 
 const name = 'user';
 
-service.$inject = ['$http'];
-function service($http) {
+// service.$inject = ['$http'];
+function service() {
 
 
     function getAllUser(callback) {
@@ -12,8 +12,8 @@ function service($http) {
         // const url = 'http://auth.sflow.me:33333/user/list';
         // const token = localStorage.getItem('jwt-token');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             null,
             (resp) => {
@@ -31,8 +31,8 @@ function service($http) {
     function addUser(data,callback) {
         const url = createUrl('/user/new');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -46,8 +46,8 @@ function service($http) {
     function editUser(data, callback){
         const url = createUrl('/user/edit');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -62,8 +62,8 @@ function service($http) {
         const url = createUrl('/user/delete');
         const data = {idUser: id};
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -89,9 +89,6 @@ function service($http) {
     }
     
 }
-
-
-
 
 
 

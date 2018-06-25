@@ -2,16 +2,16 @@ import { createUrl, fetchPOST, SUCCESS_CODE } from './helper';
 
 const name = 'group';
 
-service.$inject = ['$http'];
-function service($http) {
+// service.$inject = ['$http'];
+function service() {
 
 
     function getAllGroup(callback) {
 
         const url = createUrl('/group/list');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             null,
             (resp) => {
@@ -26,8 +26,8 @@ function service($http) {
     function addUserToGroup(data,callback) {
         const url = createUrl('/group/add-user');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -41,8 +41,8 @@ function service($http) {
     function removeUserFromGroup(data, callback) {
         const url = createUrl('/group/remove-user');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -56,8 +56,8 @@ function service($http) {
     function addNewGroup(data, callback) {
         const url = createUrl('/group/new');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -72,8 +72,8 @@ function service($http) {
     function removeGroup (data, callback) {
         const url = createUrl('/group/delete');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {

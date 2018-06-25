@@ -4378,8 +4378,7 @@ exports.BaseLocationServices = BaseLocationServices;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = createUrl;
-/* harmony export (immutable) */ __webpack_exports__["c"] = fetchPOST;
+/* harmony export (immutable) */ __webpack_exports__["c"] = createUrl;
 function createUrl(path) {
     // const domain = 'http://auth.sflow.me:33333';
     const domain = 'http://localhost:2999';
@@ -4388,21 +4387,29 @@ function createUrl(path) {
     return domain + path;
 }
 
-function fetchPOST($http, url,data, success, fail) {
+// export function fetchPOST($http, url,data, success, fail) {
 
-    // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
-    const token = localStorage.getItem('jwt-token');
-    return (
-        $http({
-            url,
-            // headers: { 'Authorization': 'Bearer ' + token },
-            method: 'POST',
-            data: Object.assign({token}, data)
-        })
-            .then(success)
-            .catch(fail)
-    );
-}
+//     // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+//     const token = localStorage.getItem('jwt-token');
+//     return (
+//         $http({
+//             url,
+//             // headers: { 'Authorization': 'Bearer ' + token },
+//             method: 'POST',
+//             data: Object.assign({token}, data)
+//         })
+//             .then(success)
+//             .catch(err => {
+//                 if(err.data.message === 'Failed to authenticate') {
+
+
+//                     return ;
+//                 } 
+
+//                 fail(err);
+//             })
+//     );
+// }
 
 // export function createPostService($http, url) {
 //     url = createUrl(url);
@@ -4442,6 +4449,9 @@ const SUCCESS_CODE = 200;
 
 const INTERNAL_ERROR_CODE = 512;
 /* unused harmony export INTERNAL_ERROR_CODE */
+
+const TOKEN_EXPIRED = 'Failed to authenticate';
+/* harmony export (immutable) */ __webpack_exports__["b"] = TOKEN_EXPIRED;
 
 
 /***/ }),
@@ -60296,6 +60306,8 @@ function stt() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(140);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetch__ = __webpack_require__(151);
+
 
 
 
@@ -60309,7 +60321,8 @@ function stt() {
     __WEBPACK_IMPORTED_MODULE_2__search__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_3__company__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_4__modal__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_5__auth__["a" /* default */]
+    __WEBPACK_IMPORTED_MODULE_5__auth__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_6__fetch__["a" /* default */]
 ]);
 
 /***/ }),
@@ -60322,18 +60335,18 @@ function stt() {
 
 const name = 'user';
 
-service.$inject = ['$http'];
-function service($http) {
+// service.$inject = ['$http'];
+function service() {
 
 
     function getAllUser(callback) {
 
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/user/list');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/user/list');
         // const url = 'http://auth.sflow.me:33333/user/list';
         // const token = localStorage.getItem('jwt-token');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             null,
             (resp) => {
@@ -60349,10 +60362,10 @@ function service($http) {
     }
 
     function addUser(data,callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/user/new');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/user/new');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60364,10 +60377,10 @@ function service($http) {
     }
 
     function editUser(data, callback){
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/user/edit');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/user/edit');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60379,11 +60392,11 @@ function service($http) {
     }
 
     function deleteUser(id, callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/user/delete');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/user/delete');
         const data = {idUser: id};
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60412,9 +60425,6 @@ function service($http) {
 
 
 
-
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
     name,
     options: service
@@ -60430,16 +60440,16 @@ function service($http) {
 
 const name = 'group';
 
-service.$inject = ['$http'];
-function service($http) {
+// service.$inject = ['$http'];
+function service() {
 
 
     function getAllGroup(callback) {
 
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/list');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/group/list');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             null,
             (resp) => {
@@ -60452,10 +60462,10 @@ function service($http) {
     }
 
     function addUserToGroup(data,callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/add-user');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/group/add-user');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60467,10 +60477,10 @@ function service($http) {
     }
 
     function removeUserFromGroup(data, callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/remove-user');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/group/remove-user');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60482,10 +60492,10 @@ function service($http) {
     }
 
     function addNewGroup(data, callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/new');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/group/new');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60498,10 +60508,10 @@ function service($http) {
     }
 
     function removeGroup (data, callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/group/delete');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/group/delete');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60597,14 +60607,14 @@ function service($rootScope) {
 
 const name = 'company';
 
-service.$inject = ['$http'];
-function service($http) {
+// service.$inject = ['$http'];
+function service() {
 
     function getAllCompanies(callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/company/list');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/company/list');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             null,
             (resp) => {
@@ -60615,10 +60625,10 @@ function service($http) {
     }
 
     function addCompany(data, callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/company/new');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/company/new');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60630,10 +60640,10 @@ function service($http) {
     }
     
     function removeCompany(data, callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/company/delete');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/company/delete');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60646,10 +60656,10 @@ function service($http) {
 
 
     function editCompany(data, callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/company/edit');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/company/edit');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -60746,8 +60756,8 @@ function service($rootScope) {
 
 const name = 'auth';
 
-service.$inject = ['$http', '$rootScope'];
-function service($http, $rootScope) {
+service.$inject = ['$rootScope', 'fetch'];
+function service( $rootScope, fetch) {
 
     const EVENTS = {
         LOGIN_SUCCESS: 'LOGIN_SUCCESS',
@@ -60776,10 +60786,10 @@ function service($http, $rootScope) {
     }
 
     function login(data, callback) {
-        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["b" /* createUrl */])('/login');
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/login');
 
-        Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* fetchPOST */])(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -61114,6 +61124,57 @@ function controller(auth) {
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-if=self.isLogined> <app></app> </div> <div ng-if=!self.isLogined> <login></login> </div>";
+
+/***/ }),
+/* 151 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(21);
+
+
+const name = 'fetch';
+
+service.$inject = ['$http'];
+function service($http) {
+
+    function fetchPOST(url,data, success, fail) {
+
+        // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+        const token = localStorage.getItem('jwt-token');
+        return (
+            $http({
+                url,
+                // headers: { 'Authorization': 'Bearer ' + token },
+                method: 'POST',
+                data: Object.assign({token}, data)
+            })
+                .then(success)
+                .catch(err => {
+                    if(err.data.message === __WEBPACK_IMPORTED_MODULE_0__helper__["b" /* TOKEN_EXPIRED */]) {
+    
+                        
+                        return ;
+                    } 
+    
+                    fail(err);
+                })
+        );
+    }
+
+    return {
+        fetchPOST
+    }
+    
+}
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: service
+});
 
 /***/ })
 /******/ ]);

@@ -1,9 +1,9 @@
-import { createUrl, fetchPOST, SUCCESS_CODE } from './helper';
+import { createUrl, SUCCESS_CODE } from './helper';
 
 const name = 'auth';
 
-service.$inject = ['$http', '$rootScope'];
-function service($http, $rootScope) {
+service.$inject = ['$rootScope', 'fetch'];
+function service( $rootScope, fetch) {
 
     const EVENTS = {
         LOGIN_SUCCESS: 'LOGIN_SUCCESS',
@@ -34,8 +34,8 @@ function service($http, $rootScope) {
     function login(data, callback) {
         const url = createUrl('/login');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {

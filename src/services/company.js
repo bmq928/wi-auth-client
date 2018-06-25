@@ -1,15 +1,15 @@
-import { createUrl, fetchPOST, SUCCESS_CODE } from './helper';
+import { createUrl, SUCCESS_CODE } from './helper';
 
 const name = 'company';
 
-service.$inject = ['$http'];
-function service($http) {
+// service.$inject = ['$http'];
+function service() {
 
     function getAllCompanies(callback) {
         const url = createUrl('/company/list');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             null,
             (resp) => {
@@ -22,8 +22,8 @@ function service($http) {
     function addCompany(data, callback) {
         const url = createUrl('/company/new');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -37,8 +37,8 @@ function service($http) {
     function removeCompany(data, callback) {
         const url = createUrl('/company/delete');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {
@@ -53,8 +53,8 @@ function service($http) {
     function editCompany(data, callback) {
         const url = createUrl('/company/edit');
 
-        fetchPOST(
-            $http,
+        fetch.fetchPOST(
+            // $http,
             url,
             data,
             (resp) => {

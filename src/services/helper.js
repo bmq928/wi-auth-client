@@ -6,21 +6,29 @@ export function createUrl(path) {
     return domain + path;
 }
 
-export function fetchPOST($http, url,data, success, fail) {
+// export function fetchPOST($http, url,data, success, fail) {
 
-    // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
-    const token = localStorage.getItem('jwt-token');
-    return (
-        $http({
-            url,
-            // headers: { 'Authorization': 'Bearer ' + token },
-            method: 'POST',
-            data: Object.assign({token}, data)
-        })
-            .then(success)
-            .catch(fail)
-    );
-}
+//     // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+//     const token = localStorage.getItem('jwt-token');
+//     return (
+//         $http({
+//             url,
+//             // headers: { 'Authorization': 'Bearer ' + token },
+//             method: 'POST',
+//             data: Object.assign({token}, data)
+//         })
+//             .then(success)
+//             .catch(err => {
+//                 if(err.data.message === 'Failed to authenticate') {
+
+
+//                     return ;
+//                 } 
+
+//                 fail(err);
+//             })
+//     );
+// }
 
 // export function createPostService($http, url) {
 //     url = createUrl(url);
@@ -57,3 +65,4 @@ export function fetchPOST($http, url,data, success, fail) {
 
 export const SUCCESS_CODE = 200;
 export const INTERNAL_ERROR_CODE = 512;
+export const TOKEN_EXPIRED = 'Failed to authenticate';

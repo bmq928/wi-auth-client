@@ -4,6 +4,7 @@ import search from './search';
 import company from './company';
 import modal from './modal';
 import auth from './auth';
+import fetch from './fetch';
 
 export default [
     user,
@@ -11,5 +12,6 @@ export default [
     search,
     company,
     modal,
-    auth
+    auth,
+    fetch
 ];
