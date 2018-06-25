@@ -20,7 +20,7 @@ function controller(group, search, company) {
 
     self.addGroupSuccess = function () {
         init();
-        toast.success('add group success');
+        toast.success('Add group success');
     }
 
     self.changePage = function (page) {
@@ -35,7 +35,7 @@ function controller(group, search, company) {
     self.removeGroup = function (idGroup) {
         const data = { idGroup };
 
-        if(confirm('are you sure remove this group')) {
+        if(confirm('Are you sure remove this group?')) {
             group.removeGroup(data, (err, resp) => {
                 if(err) {
                     self.errMsg = err.reason;

@@ -19,12 +19,12 @@ function controller(company, search) {
 
     self.addCompanySuccess = function () {
         init();
-        toast.success('add company success');
+        toast.success('Add company success');
     }
 
     self.editCompanySuccess = function() {
         init();
-        toast.success('edit company success');
+        toast.success('Edit company success');
     }
 
     self.changePage = function (page) {
@@ -34,7 +34,7 @@ function controller(company, search) {
     self.removeCompany = function (idCompany) {
         const data = { idCompany };
         console.log(data);
-        if (confirm('are you sure remove this group')) {
+        if (confirm('Are you sure remove this company?')) {
             company.removeCompany(data, (err, resp) => {
                 if(err) {
                     self.errMsg = err.reason;

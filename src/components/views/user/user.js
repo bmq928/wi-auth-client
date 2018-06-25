@@ -27,7 +27,7 @@ function controller(user, search, company) {
         // console.log(self.users);
 
         init();
-        toast.success('add user success');
+        toast.success('Add user success');
     }
 
     self.editUserSuccess = function () {
