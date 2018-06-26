@@ -9,7 +9,7 @@
         <table class="table table-hover">
             <thead class="text-primary">
                 <tr>
-                    <th></th>
+                    <!-- <th></th> -->
                     <!-- <th><h6>ID</h6></th> -->
                     <th><h6>STT</h6></th>
                     <th><h6>Groupname</h6></th>
@@ -21,9 +21,9 @@
             <tbody>
         
                 <tr ng-repeat="(key, group) in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr | filter:self.inCompany  track by $index">
-                    <td>
+                    <!-- <td>
                         <input type="checkbox">
-                    </td>
+                    </td> -->
                     <!-- <td ng-bind="group.idGroup"></td> -->
                     <td ng-bind="key | stt: key"></td>
                     <td ng-bind="group.name"></td>
