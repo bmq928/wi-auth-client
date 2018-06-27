@@ -1,8 +1,9 @@
-import { createUrl, SUCCESS_CODE } from './helper';
+import {createUrl, SUCCESS_CODE} from './helper';
 
 const name = 'user';
 
 service.$inject = ['fetch'];
+
 function service(fetch) {
 
 
@@ -17,7 +18,7 @@ function service(fetch) {
             url,
             null,
             (resp) => {
-                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
                 else callback(resp.data);
             },
             (err) => callback(err));
@@ -28,7 +29,7 @@ function service(fetch) {
         // }).then(resp => console.log(resp));
     }
 
-    function addUser(data,callback) {
+    function addUser(data, callback) {
         const url = createUrl('/user/new');
 
         fetch.fetchPOST(
@@ -36,14 +37,14 @@ function service(fetch) {
             url,
             data,
             (resp) => {
-                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
                 else callback(resp.data);
             },
             (err) => callback(err)
         )
     }
 
-    function editUser(data, callback){
+    function editUser(data, callback) {
         const url = createUrl('/user/edit');
 
         fetch.fetchPOST(
@@ -51,7 +52,21 @@ function service(fetch) {
             url,
             data,
             (resp) => {
-                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            err => callback(err)
+        )
+    }
+
+    function changeStatus(data, callback) {
+        const url = createUrl('/user/change-status');
+        fetch.fetchPOST(
+            // $http,
+            url,
+            data,
+            (resp) => {
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
                 else callback(resp.data);
             },
             err => callback(err)
@@ -67,9 +82,9 @@ function service(fetch) {
             url,
             data,
             (resp) => {
-                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
                 else callback(resp.data);
-            } ,
+            },
             (err) => callback(err)
         )
     }
@@ -85,11 +100,11 @@ function service(fetch) {
         getAllUser,
         addUser,
         deleteUser,
-        editUser
+        editUser,
+        changeStatus
     }
-    
-}
 
+}
 
 
 export default {

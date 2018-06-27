@@ -71,7 +71,7 @@ function controller(user, search, company) {
             status: ACTIVE
         }
 
-        user.editUser(data, (err, resp) => {
+        user.changeStatus(data, (err, resp) => {
             if (err) {
                 self.errMsg = err.reason;
             } else {
@@ -88,7 +88,7 @@ function controller(user, search, company) {
             status: INACTIVE
         };
 
-        user.editUser(data, (err, resp) => {
+        user.changeStatus(data, (err, resp) => {
             if (err) {
                 self.errMsg = err.reason;
             } else {
