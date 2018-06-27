@@ -47780,10 +47780,10 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(147);
 
 
 
@@ -48369,7 +48369,7 @@ module.exports = "<div class=sidebar data-color=purple data-image=../assets/img/
 const name = __WEBPACK_IMPORTED_MODULE_0__constant__["b" /* VIEWS */].user;
 
 // ------------- HAM CHINH ---------------------------
-
+//self.userPerPage is a string => have to parseInt before use
 
 controller.$inject = ['user', 'search', 'company'];
 function controller(user, search, company) {
@@ -48428,6 +48428,11 @@ function controller(user, search, company) {
         self.curPage = page;
     }
 
+    self.changeUserPerPage = function() {
+        self.numPage = self.users.length / parseInt(self.userPerPage) + 1;
+        if(self.curPage > self.numPage) self.curPage = 1;
+    }
+
     self.activeUser = function (idUser) {
         const ACTIVE = 'Active';
         const data = {
@@ -48435,7 +48440,7 @@ function controller(user, search, company) {
             status: ACTIVE
         }
 
-        user.editUser(data, (err, resp) => {
+        user.changeStatus(data, (err, resp) => {
             if (err) {
                 self.errMsg = err.reason;
             } else {
@@ -48452,7 +48457,7 @@ function controller(user, search, company) {
             status: INACTIVE
         };
 
-        user.editUser(data, (err, resp) => {
+        user.changeStatus(data, (err, resp) => {
             if (err) {
                 self.errMsg = err.reason;
             } else {
@@ -48534,7 +48539,7 @@ function controller(user, search, company) {
 /* 102 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th><h6>Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, user) in self.users | pagination: self.curPage: self.userPerPage | filter:self.searchStr track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>group</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user-id=self.addGroupUser></add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th><h6>Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, user) in self.users | pagination: self.curPage: self.userPerPage | filter:self.searchStr track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>group</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user-id=self.addGroupUser></add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 103 */
@@ -58955,6 +58960,11 @@ function controller(group, search, company) {
         self.curPage = page;
     }
 
+    self.changeGroupPerPage = function() {
+        self.numPage = self.companies.length / parseInt(self.groupPerPage) + 1;
+        if(self.curPage > self.numPage) self.curPage = 1;
+    }
+
     self.chooseGroup = function (group) {
         console.log(group);
         self.selectedGroup = group;
@@ -59047,7 +59057,7 @@ function controller(group, search, company) {
 /* 106 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr | filter:self.inCompany  track by $index\"> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-primary'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr | filter:self.inCompany  track by $index\"> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage ng-click=self.changeGroupPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-primary'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 107 */
@@ -59272,6 +59282,11 @@ function controller(company, search) {
         self.curPage = page;
     }
 
+    self.changeCompanyPerPage = function() {
+        self.numPage = self.companies.length / parseInt(self.companyPerPage) + 1;
+        if(self.curPage > self.numPage) self.curPage = 1;
+    }
+
     self.removeCompany = function (idCompany) {
         const data = { idCompany };
         console.log(data);
@@ -59353,7 +59368,7 @@ function controller(company, search) {
 /* 112 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>COMPANY MANAGEMENT</h4> <p class=category>This is a site that manage the companys of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>NAME</h6></th> <th><h6>Description</h6></th> <th><h6>Location</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, company) in self.companies | pagination: self.curPage: self.companyPerPage | filter:self.searchStr  track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=company.name></td> <td ng-bind=company.description></td> <td ng-bind=company.location></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"edit the info of company\" target=\"'edit-company-modal'\" ng-click=self.chooseCompany(company)> <i class=material-icons>edit</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=self.removeCompany(company.idCompany)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>companies per page :</label> <select ng-model=self.companyPerPage> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new company\" class-name=\"'btn btn-primary'\" target=\"'add-company-modal'\">Add company </modal-btn> </div> <div> <add-company-modal add-company-success=self.addCompanySuccess></add-company-modal> <edit-company-modal edit-company-success=self.editCompanySuccess company=self.editCompany> </edit-company-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>COMPANY MANAGEMENT</h4> <p class=category>This is a site that manage the companys of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>NAME</h6></th> <th><h6>Description</h6></th> <th><h6>Location</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, company) in self.companies | pagination: self.curPage: self.companyPerPage | filter:self.searchStr  track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=company.name></td> <td ng-bind=company.description></td> <td ng-bind=company.location></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"edit the info of company\" target=\"'edit-company-modal'\" ng-click=self.chooseCompany(company)> <i class=material-icons>edit</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=self.removeCompany(company.idCompany)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>companies per page :</label> <select ng-model=self.companyPerPage ng-click=self.changeCompanyPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new company\" class-name=\"'btn btn-primary'\" target=\"'add-company-modal'\">Add company </modal-btn> </div> <div> <add-company-modal add-company-success=self.addCompanySuccess></add-company-modal> <edit-company-modal edit-company-success=self.editCompanySuccess company=self.editCompany> </edit-company-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 /* 113 */
@@ -60205,14 +60220,16 @@ exports.push([module.i, ".badge{\nbackground:none;   \n}\n.badge i{\ncolor:#5d82
 
 
 /***/ }),
-/* 131 */
+/* 131 */,
+/* 132 */,
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stt__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stt__ = __webpack_require__(137);
 
 
 
@@ -60227,7 +60244,7 @@ exports.push([module.i, ".badge{\nbackground:none;   \n}\n.badge i{\ncolor:#5d82
 ]);
 
 /***/ }),
-/* 132 */
+/* 134 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60258,7 +60275,7 @@ function range() {
 });
 
 /***/ }),
-/* 133 */
+/* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60273,18 +60290,30 @@ const name = 'pagination';
 //     .filter(name, pagination)
 
 function pagination() {
-    return function (input, pageth, videoPerPage) {
+    return function (input, pageth, elPerPage) {
 
         if (!input || !input.length) return;
 
         // var videoPerPage = window.constants.VIDEO_PER_PAGE;
-        let numVideos = input.length;
-        let start = (pageth - 1) * videoPerPage;
-        let end = start + videoPerPage > numVideos ? numVideos - 1 : start + videoPerPage - 1;
+        // elPerPage = parseInt(elPerPage);
 
-        if (pageth > numVideos / videoPerPage + 1) return; // pageth > num pages
-        return input.slice(start, end + 1);
+        pageth = parseInt(pageth);
+        elPerPage = parseInt(elPerPage);
 
+        let numEl = input.length;
+        let start = (pageth - 1) * elPerPage;
+        let end = start + elPerPage;
+
+        console.log('==========')
+        console.log(`num ele ${numEl}`);
+        console.log(`page: ${pageth}`);
+        console.log(`elperpage: ${elPerPage}`);
+        console.log(`start: ${start}`);
+        console.log(`end: ${end}`);
+        // if (pageth > numEl / elPerPage + 1) return; // pageth > num pages
+        return input.slice(start, end);
+
+        
     }
 }
 
@@ -60294,7 +60323,7 @@ function pagination() {
 });
 
 /***/ }),
-/* 134 */
+/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60314,7 +60343,7 @@ function capitalize() {
 });
 
 /***/ }),
-/* 135 */
+/* 137 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60332,17 +60361,17 @@ function stt() {
 });
 
 /***/ }),
-/* 136 */
+/* 138 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetch__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetch__ = __webpack_require__(145);
 
 
 
@@ -60362,7 +60391,7 @@ function stt() {
 ]);
 
 /***/ }),
-/* 137 */
+/* 139 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60372,6 +60401,7 @@ function stt() {
 const name = 'user';
 
 service.$inject = ['fetch'];
+
 function service(fetch) {
 
 
@@ -60386,7 +60416,7 @@ function service(fetch) {
             url,
             null,
             (resp) => {
-                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                if (resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
                 else callback(resp.data);
             },
             (err) => callback(err));
@@ -60397,7 +60427,7 @@ function service(fetch) {
         // }).then(resp => console.log(resp));
     }
 
-    function addUser(data,callback) {
+    function addUser(data, callback) {
         const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/user/new');
 
         fetch.fetchPOST(
@@ -60405,14 +60435,14 @@ function service(fetch) {
             url,
             data,
             (resp) => {
-                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                if (resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
                 else callback(resp.data);
             },
             (err) => callback(err)
         )
     }
 
-    function editUser(data, callback){
+    function editUser(data, callback) {
         const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/user/edit');
 
         fetch.fetchPOST(
@@ -60420,7 +60450,21 @@ function service(fetch) {
             url,
             data,
             (resp) => {
-                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                if (resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            err => callback(err)
+        )
+    }
+
+    function changeStatus(data, callback) {
+        const url = Object(__WEBPACK_IMPORTED_MODULE_0__helper__["c" /* createUrl */])('/user/change-status');
+        fetch.fetchPOST(
+            // $http,
+            url,
+            data,
+            (resp) => {
+                if (resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
                 else callback(resp.data);
             },
             err => callback(err)
@@ -60436,9 +60480,9 @@ function service(fetch) {
             url,
             data,
             (resp) => {
-                if(resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
+                if (resp.data.code === __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* SUCCESS_CODE */]) callback(false, resp.data);
                 else callback(resp.data);
-            } ,
+            },
             (err) => callback(err)
         )
     }
@@ -60454,11 +60498,11 @@ function service(fetch) {
         getAllUser,
         addUser,
         deleteUser,
-        editUser
+        editUser,
+        changeStatus
     }
-    
-}
 
+}
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -60467,7 +60511,7 @@ function service(fetch) {
 });
 
 /***/ }),
-/* 138 */
+/* 140 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60586,7 +60630,7 @@ function service(fetch) {
 });
 
 /***/ }),
-/* 139 */
+/* 141 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60634,7 +60678,7 @@ function service($rootScope) {
 });
 
 /***/ }),
-/* 140 */
+/* 142 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60725,7 +60769,7 @@ function service(fetch) {
 });
 
 /***/ }),
-/* 141 */
+/* 143 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60783,7 +60827,7 @@ function service($rootScope) {
 });
 
 /***/ }),
-/* 142 */
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60886,7 +60930,7 @@ function service( $rootScope, fetch) {
 });
 
 /***/ }),
-/* 143 */
+/* 145 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60940,7 +60984,7 @@ function service($http, $rootScope) {
 });
 
 /***/ }),
-/* 144 */
+/* 146 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61028,13 +61072,13 @@ function config($stateProvider, $urlRouterProvider) {
 /* harmony default export */ __webpack_exports__["a"] = (config);
 
 /***/ }),
-/* 145 */
+/* 147 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__browser_browser__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__browser_browser__ = __webpack_require__(152);
 
 
 
@@ -61049,11 +61093,11 @@ function config($stateProvider, $urlRouterProvider) {
 ]);
 
 /***/ }),
-/* 146 */
+/* 148 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_html__);
 
 // import './modal.css'
@@ -61139,17 +61183,17 @@ function controller(modal, $rootScope) {
 });
 
 /***/ }),
-/* 147 */
+/* 149 */
 /***/ (function(module, exports) {
 
 module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true data-backdrop=static> <div class=modal-dialog role=document> <div class=modal-content> <div class=modal-header> <button type=button class=close data-dismiss=modal aria-label=Close ng-click=self.onClose()> <span aria-hidden=true>&times;</span> </button> <h3 class=modal-title id=exampleModalLabel ng-bind=self.header></h3> </div> <div class=modal-body> <ng-transclude></ng-transclude> </div> </div> </div> </div> ";
 
 /***/ }),
-/* 148 */
+/* 150 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(151);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modalBtn_html__);
 
 // import { createModalName } from '../helper'
@@ -61186,17 +61230,17 @@ function controller(modal) {
 });
 
 /***/ }),
-/* 149 */
+/* 151 */
 /***/ (function(module, exports) {
 
 module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
 
 /***/ }),
-/* 150 */
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__browser_html__);
 // import { VIEWS } from '../../../constant';
 
@@ -61264,7 +61308,7 @@ function controller(auth) {
 });
 
 /***/ }),
-/* 151 */
+/* 153 */
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-if=self.isLogined> <app></app> </div> <div ng-if=!self.isLogined> <login></login> </div>";

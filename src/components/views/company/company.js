@@ -31,6 +31,11 @@ function controller(company, search) {
         self.curPage = page;
     }
 
+    self.changeCompanyPerPage = function() {
+        self.numPage = self.companies.length / parseInt(self.companyPerPage) + 1;
+        if(self.curPage > self.numPage) self.curPage = 1;
+    }
+
     self.removeCompany = function (idCompany) {
         const data = { idCompany };
         console.log(data);

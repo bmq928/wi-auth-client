@@ -27,6 +27,11 @@ function controller(group, search, company) {
         self.curPage = page;
     }
 
+    self.changeGroupPerPage = function() {
+        self.numPage = self.companies.length / parseInt(self.groupPerPage) + 1;
+        if(self.curPage > self.numPage) self.curPage = 1;
+    }
+
     self.chooseGroup = function (group) {
         console.log(group);
         self.selectedGroup = group;
