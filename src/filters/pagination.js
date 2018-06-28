@@ -23,12 +23,12 @@ function pagination() {
         let start = (pageth - 1) * elPerPage;
         let end = start + elPerPage;
 
-        console.log('==========')
-        console.log(`num ele ${numEl}`);
-        console.log(`page: ${pageth}`);
-        console.log(`elperpage: ${elPerPage}`);
-        console.log(`start: ${start}`);
-        console.log(`end: ${end}`);
+        // console.log('==========')
+        // console.log(`num ele ${numEl}`);
+        // console.log(`page: ${pageth}`);
+        // console.log(`elperpage: ${elPerPage}`);
+        // console.log(`start: ${start}`);
+        // console.log(`end: ${end}`);
         // if (pageth > numEl / elPerPage + 1) return; // pageth > num pages
         return input.slice(start, end);
 
