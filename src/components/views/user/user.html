@@ -102,6 +102,12 @@
                          ng-click="self.removeUserOnClick(user)">
                             <i class="material-icons">delete</i>
                         </button>
+                        <button
+                                class="btn btn-danger btn-xs"
+                                title="Force User Logout"
+                                ng-click="self.forceUserLogOut(user)">
+                            <i class="material-icons">sentiment_very_dissatisfied</i>
+                        </button>
                     </td>
                 </tr>
             </tbody>

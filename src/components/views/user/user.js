@@ -1,4 +1,4 @@
-import { VIEWS } from '../../../constant';
+import {VIEWS} from '../../../constant';
 import template from './user.html';
 import toast from 'toastr'
 
@@ -8,6 +8,7 @@ const name = VIEWS.user;
 
 
 controller.$inject = ['user', 'search', 'company'];
+
 function controller(user, search, company) {
     let self = this;
 
@@ -97,6 +98,16 @@ function controller(user, search, company) {
         })
     }
 
+    self.forceUserLogOut = function (u) {
+        user.forceLogOut(u.idUser, (err, resp) => {
+            if (err) {
+                self.errMsg = err.reason;
+            } else {
+                init();
+            }
+        });
+    };
+
     self.isActive = function (user) {
         const ACTIVE = 'Active';
 
@@ -144,17 +155,15 @@ function controller(user, search, company) {
                 console.log(err);
                 self.errMsg = err.reason;
             } else {
-                
+
                 const companies = resp.content;
-                
+
                 companies.forEach(c => self.idToCompanyDict[c.idCompany] = c.name)
             }
         })
 
     }
 }
-
-
 
 
 export default {

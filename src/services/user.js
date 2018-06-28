@@ -89,6 +89,21 @@ function service(fetch) {
         )
     }
 
+    function forceLogOut(idUser, callback) {
+        const url = createUrl('/user/force-log-out');
+        const data = {idUser: idUser};
+        fetch.fetchPOST(
+            // $http,
+            url,
+            data,
+            (resp) => {
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     // function onAddUserSuccess(callback) {
     //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
     //         callback(data);
@@ -101,7 +116,8 @@ function service(fetch) {
         addUser,
         deleteUser,
         editUser,
-        changeStatus
+        changeStatus,
+        forceLogOut
     }
 
 }
