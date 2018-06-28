@@ -9,18 +9,30 @@ const name = 'pagination';
 //     .filter(name, pagination)
 
 function pagination() {
-    return function (input, pageth, videoPerPage) {
+    return function (input, pageth, elPerPage) {
 
         if (!input || !input.length) return;
 
         // var videoPerPage = window.constants.VIDEO_PER_PAGE;
-        let numVideos = input.length;
-        let start = (pageth - 1) * videoPerPage;
-        let end = start + videoPerPage > numVideos ? numVideos - 1 : start + videoPerPage - 1;
+        // elPerPage = parseInt(elPerPage);
 
-        if (pageth > numVideos / videoPerPage + 1) return; // pageth > num pages
-        return input.slice(start, end + 1);
+        pageth = parseInt(pageth);
+        elPerPage = parseInt(elPerPage);
 
+        let numEl = input.length;
+        let start = (pageth - 1) * elPerPage;
+        let end = start + elPerPage;
+
+        // console.log('==========')
+        // console.log(`num ele ${numEl}`);
+        // console.log(`page: ${pageth}`);
+        // console.log(`elperpage: ${elPerPage}`);
+        // console.log(`start: ${start}`);
+        // console.log(`end: ${end}`);
+        // if (pageth > numEl / elPerPage + 1) return; // pageth > num pages
+        return input.slice(start, end);
+
+        
     }
 }
 

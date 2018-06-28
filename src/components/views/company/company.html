@@ -54,7 +54,7 @@
 
    <div class="col-sm-10 col-md-10 col-lg-10">
         <label>companies per page :</label>
-        <select ng-model="self.companyPerPage">
+        <select ng-model="self.companyPerPage" ng-click="self.changeCompanyPerPage()">
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="15">15</option>

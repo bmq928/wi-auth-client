@@ -69,24 +69,24 @@ function controller(user, modal) {
         preProcess();
     }
 
-    function checkSubmit(fullfill) {
-        if (!self.user.password) {
+    // function checkSubmit(fullfill) {
+    //     if (!self.user.password) {
 
 
-            self.errMsg = 'password is required';
+    //         self.errMsg = 'password is required';
 
 
-        } else if (!self.user.confirmPassword) {
+    //     } else if (!self.user.confirmPassword) {
 
-            self.errMsg = 'confirm password is required';
+    //         self.errMsg = 'confirm password is required';
 
-        } else if (self.user.password !== self.user.confirmPassword) {
-            self.errMsg = 'password confirm is not matched';
-        } else {
+    //     } else if (self.user.password !== self.user.confirmPassword) {
+    //         self.errMsg = 'password confirm is not matched';
+    //     } else {
 
-            fullfill();
-        }
-    }
+    //         fullfill();
+    //     }
+    // }
 
     function checkSubmit(fullfill) {
         if (self.user.password === self.user.confirmPassword) {

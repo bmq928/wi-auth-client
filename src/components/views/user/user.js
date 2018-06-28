@@ -5,7 +5,7 @@ import toast from 'toastr'
 const name = VIEWS.user;
 
 // ------------- HAM CHINH ---------------------------
-
+//self.userPerPage is a string => have to parseInt before use
 
 controller.$inject = ['user', 'search', 'company'];
 
@@ -63,6 +63,11 @@ function controller(user, search, company) {
 
     self.changePage = function (page) {
         self.curPage = page;
+    }
+
+    self.changeUserPerPage = function() {
+        self.numPage = self.users.length / parseInt(self.userPerPage) + 1;
+        if(self.curPage > self.numPage) self.curPage = 1;
     }
 
     self.activeUser = function (idUser) {
