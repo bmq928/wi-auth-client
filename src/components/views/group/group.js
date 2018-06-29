@@ -6,8 +6,8 @@ import toast from 'toastr';
 
 const name = VIEWS.group;
 
-controller.$inject = ['group', 'search', 'company']
-function controller(group, search, company) {
+controller.$inject = ['group', 'search', 'company', 'auth']
+function controller(group, search, company, auth) {
     let self = this;
 
     self.$onInit = function () {
@@ -65,6 +65,7 @@ function controller(group, search, company) {
     function preProcess() {
         self.groups = [];
         self.companies = [];
+        self.role = auth.getData().role;
 
         //pagination
         self.groupPerPage = 5;
