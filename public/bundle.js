@@ -60178,6 +60178,7 @@ function controller(user, group) {
     }
 
     self.$onChanges = function() {
+        self.sucMsg = '';
         if(!self.listUser || !self.listUser.length) self.errMsg = 'no user in this group';
         if(self.listUser && self.listUser.length) self.errMsg = '';
     }
