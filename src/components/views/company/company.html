@@ -21,7 +21,7 @@
             </thead>
             <tbody>
         
-                <tr ng-repeat="(key, company) in self.companies | pagination: self.curPage: self.companyPerPage | filter:self.searchStr  track by $index">
+                <tr ng-repeat="(key, company) in self.companies  | filter:self.searchStr | pagination: self.curPage: self.companyPerPage  track by $index">
                     <!-- <td>
                         <input type="checkbox">
                     </td> -->

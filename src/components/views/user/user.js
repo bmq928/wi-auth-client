@@ -1,4 +1,4 @@
-import {VIEWS} from '../../../constant';
+import { VIEWS } from '../../../constant';
 import template from './user.html';
 import toast from 'toastr'
 
@@ -19,7 +19,16 @@ function controller(user, search, company) {
 
 
         //search type
-        search.onSearchSubmit((text) => self.searchStr.username = text);
+        search.onSearchSubmit((text) => {
+            self.searchStr.username = text
+
+            //change page to one
+            self.changePage(1);
+
+            //update numPage            
+            const numElment = self.users.filter(u => u.username.includes(text)).length;
+            self.numPage = calNumPage(numElment, self.userPerPage);
+        });
     }
 
     self.addUserSuccess = function (data) {
@@ -65,9 +74,10 @@ function controller(user, search, company) {
         self.curPage = page;
     }
 
-    self.changeUserPerPage = function() {
-        self.numPage = self.users.length / parseInt(self.userPerPage) + 1;
-        if(self.curPage > self.numPage) self.curPage = 1;
+    self.changeUserPerPage = function () {
+        // self.numPage = self.users.length / parseInt(self.userPerPage) + 1;
+        self.numPage = calNumPage(self.users.length, self.userPerPage);
+        if (self.curPage > self.numPage) self.curPage = 1;
     }
 
     self.activeUser = function (idUser) {
@@ -130,7 +140,8 @@ function controller(user, search, company) {
         //pagination
         self.userPerPage = 5;
         self.curPage = 1;
-        self.numPage = self.users.length / self.userPerPage + 1;
+        // self.numPage = self.users.length / self.userPerPage + 1;
+        self.numPage = calNumPage(self.users.length, self.userPerPage);
 
         //filter
         self.searchStr = {};
@@ -167,6 +178,11 @@ function controller(user, search, company) {
             }
         })
 
+    }
+
+    function calNumPage(numElments, elPerPage) {
+        // return self.users.length / parseInt(self.userPerPage) + 1;
+        return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
 }
 

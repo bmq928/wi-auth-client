@@ -15,7 +15,14 @@ function controller(group, search, company) {
         init();
 
         //search type
-        search.onSearchSubmit((text) => self.searchStr.name = text);
+        search.onSearchSubmit((text) => {
+            self.searchStr.name = text
+
+            self.changePage(1);
+
+            const numElement = self.groups.filter(g => g.name.includes(text)).length;
+            self.numPage = calNumPage(numElement, self.groupPerPage);
+        });
     }
 
     self.addGroupSuccess = function () {
@@ -28,7 +35,8 @@ function controller(group, search, company) {
     }
 
     self.changeGroupPerPage = function() {
-        self.numPage = self.companies.length / parseInt(self.groupPerPage) + 1;
+        // self.numPage = self.companies.length / parseInt(self.groupPerPage) + 1;
+        self.numPage = calNumPage(self.groups.length, self.groupPerPage);
         if(self.curPage > self.numPage) self.curPage = 1;
     }
 
@@ -61,7 +69,8 @@ function controller(group, search, company) {
         //pagination
         self.groupPerPage = 5;
         self.curPage = 1;
-        self.numPage = self.groups.length / self.groupPerPage + 1;
+        // self.numPage = self.groups.length / self.groupPerPage + 1;
+        self.numPage = calNumPage(self.groups.length, self.groupPerPage);
 
         //filter
         self.searchStr = {};
@@ -84,7 +93,8 @@ function controller(group, search, company) {
                 self.groups = resp.content;
 
                 //pagination'
-                self.numPage = self.groups.length / self.groupPerPage + 1;
+                // self.numPage = self.groups.length / self.groupPerPage + 1;
+                self.numPage = calNumPage(self.groups.length, self.groupPerPage);
             }
         })
 
@@ -98,6 +108,11 @@ function controller(group, search, company) {
                 
             }
         })
+    }
+
+    function calNumPage(numElments, elPerPage) {
+        // return self.users.length / parseInt(self.userPerPage) + 1;
+        return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
 
 }

@@ -14,7 +14,14 @@ function controller(company, search) {
         init();
 
         //search type
-        search.onSearchSubmit((text) => self.searchStr.name = text);
+        search.onSearchSubmit((text) => {
+            self.searchStr.name = text;
+
+            self.changePage(1);
+
+            const numElments = self.companies.filter(c => c.name.includes(text)).length;
+            self.numPage = calNumPage(numElments, self.companyPerPage);
+        });
     }
 
     self.addCompanySuccess = function () {
@@ -32,7 +39,8 @@ function controller(company, search) {
     }
 
     self.changeCompanyPerPage = function() {
-        self.numPage = self.companies.length / parseInt(self.companyPerPage) + 1;
+        // self.numPage = self.companies.length / parseInt(self.companyPerPage) + 1;
+        self.numPage = calNumPage(self.companies.length, self.companyPerPage);
         if(self.curPage > self.numPage) self.curPage = 1;
     }
 
@@ -63,7 +71,8 @@ function controller(company, search) {
         //pagination
         self.companyPerPage = 5;
         self.curPage = 1;
-        self.numPage = self.companies.length / self.companyPerPage + 1;
+        // self.numPage = self.companies.length / self.companyPerPage + 1;
+        self.numPage = calNumPage(self.companies.length, self.companyPerPage);
 
         //filter
         self.searchStr = {};
@@ -88,9 +97,15 @@ function controller(company, search) {
 
 
                 //pagination
-                self.numPage = self.companies.length / self.companyPerPage + 1;
+                // self.numPage = self.companies.length / self.companyPerPage + 1;
+                self.numPage = calNumPage(self.companies.length, self.companyPerPage);
             }
         })
+    }
+
+    function calNumPage(numElments, elPerPage) {
+        // return self.users.length / parseInt(self.userPerPage) + 1;
+        return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
 
 }

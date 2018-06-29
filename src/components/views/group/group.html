@@ -20,7 +20,7 @@
             </thead>
             <tbody>
         
-                <tr ng-repeat="(key, group) in self.groups | pagination: self.curPage: self.groupPerPage | filter:self.searchStr | filter:self.inCompany  track by $index">
+                <tr ng-repeat="(key, group) in self.groups  | filter:self.searchStr | filter:self.inCompany | pagination: self.curPage: self.groupPerPage  track by $index">
                     <!-- <td>
                         <input type="checkbox">
                     </td> -->
