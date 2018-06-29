@@ -2,13 +2,14 @@ import template from './editUserModal.html';
 
 const name = 'editUserModal';
 
-controller.$inject = ['user', 'modal'];
-function controller(user, modal) {
+controller.$inject = ['user', 'modal', 'auth', 'company', 'group'];
+function controller(user, modal, auth, company, group) {
     let self = this;
+
 
     self.$onInit = function () {
         preProcess();
-
+        init();
         // //copy confirm password
         // self.user.confirmPassword = self.user.password;
     }
@@ -23,7 +24,7 @@ function controller(user, modal) {
             self.user.password = self.user.confirmPassword = '';
         }
 
-        
+
 
     }
 
@@ -51,11 +52,14 @@ function controller(user, modal) {
     }
 
     self.onClose = function () {
-        preProcess();
+        refreshField();
     }
 
     function preProcess() {
         self.name = 'edit-user-modal';
+        self.role = auth.getData().role;
+        self.listCompany = [];
+        self.listGroup = [];
 
         // self.user = {};
         self.sucMsg = '';
@@ -65,8 +69,39 @@ function controller(user, modal) {
         if (self.user) self.user.password = self.user.confirmPassword = '';
     }
 
+    function init() {
+        group.getAllGroup((err, resp) => {
+            if (err) {
+                console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                console.log(resp);
+                self.listGroup = resp.content;
+            }
+        })
+
+        company.getAllCompanies((err, resp) => {
+            if (err) {
+                console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                console.log(resp);
+                self.listCompany = resp.content;
+                
+            }
+        })
+    }
+
     function refreshField() {
-        preProcess();
+        self.name = 'edit-user-modal';
+        self.role = auth.getData().role;
+
+        // self.user = {};
+        self.sucMsg = '';
+        self.errMsg = '';
+
+        //prevent password show up
+        if (self.user) self.user.password = self.user.confirmPassword = '';
     }
 
     // function checkSubmit(fullfill) {

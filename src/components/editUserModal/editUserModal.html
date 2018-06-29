@@ -44,7 +44,6 @@
     <div class="text-success" ng-bind="self.sucMsg"></div>
     <div class="text-danger" ng-bind="self.errMsg"></div>
 
-
     <form>
 
 
@@ -75,6 +74,35 @@
             <input type="password" class="form-control" ng-model="self.user.confirmPassword">
         </div>
 
+        <div class="row">
+
+            <div class="col-sm-4 col-md-4 col-lg-4 row">
+                <div class="row" ng-if="self.role <= 1">
+                    <label class="col-sm-4 col-md-4 col-lg-4">Group : </label>
+                    <select ng-model="self.user.idGroup" class="col-sm-5 col-md-5 col-lg-5">
+                        <option 
+                         ng-repeat="group in self.listGroup"
+                         value="{{group.idGroup}}"
+                         ng-bind="group.name">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-8 col-md-8 col-lg-8 row" ng-if="self.role === 0">
+                <label class="col-sm-3 col-md-3 col-lg-3">Company : </label>
+                <select ng-model="self.user.idCompany" class="col-sm-6 col-md-6 col-lg-6">
+                    <option 
+                     ng-repeat="company in self.listCompany" 
+                     value="{{company.idCompany}}" 
+                     ng-bind="company.name">
+                    </option>
+                </select>
+                
+            </div>
+
+            
+        </div>
 
     </form>
     <div class="modal-footer">
