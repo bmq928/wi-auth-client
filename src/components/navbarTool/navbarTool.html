@@ -29,7 +29,8 @@
             type="text" 
             class="form-control" 
             placeholder="Filter" 
-            ng-model="self.searchStr">
+            ng-model="self.searchStr"
+            ng-change="self.search()">
             <!-- ng-change="self.onTyping()"> -->
             <span class="material-input"></span>
         </div>
