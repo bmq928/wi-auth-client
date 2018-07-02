@@ -5,7 +5,7 @@ const name = 'editUserModal';
 controller.$inject = ['user', 'modal', 'auth', 'company', 'group'];
 function controller(user, modal, auth, company, group) {
     let self = this;
-
+    let allGroups = [];
 
     self.$onInit = function () {
         preProcess();
@@ -23,9 +23,7 @@ function controller(user, modal, auth, company, group) {
             //prevent password is show up in ui
             self.user.password = self.user.confirmPassword = '';
         }
-
-
-
+        // console.log(self.user);
     }
 
     self.onSubmit = function () {
@@ -55,6 +53,10 @@ function controller(user, modal, auth, company, group) {
         refreshField();
     }
 
+    self.companyOptionOnClick = function() {
+        makeGroupOption();
+    }
+
     function preProcess() {
         self.name = 'edit-user-modal';
         self.role = auth.getData().role;
@@ -76,7 +78,9 @@ function controller(user, modal, auth, company, group) {
                 self.errMsg = err.reason;
             } else {
                 console.log(resp);
-                self.listGroup = resp.content;
+                // self.listGroup = resp.content;
+                allGroups = resp.content;
+                makeGroupOption();
             }
         })
 
@@ -87,9 +91,21 @@ function controller(user, modal, auth, company, group) {
             } else {
                 console.log(resp);
                 self.listCompany = resp.content;
-                
+
             }
         })
+    }
+
+    function makeGroupOption() {
+        
+        if (!self.user) {
+            self.listGroup = [];
+        } else {
+            self.listGroup = allGroups.filter(g => g.idCompany.toString() === self.user.idCompany.toString());
+        }
+        // console.log('++++');
+        // console.log(self.user);
+        // console.log(self.listGroup);
     }
 
     function refreshField() {

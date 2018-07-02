@@ -91,7 +91,7 @@
 
             <div class="col-sm-8 col-md-8 col-lg-8 row" ng-if="self.role === 0">
                 <label class="col-sm-3 col-md-3 col-lg-3">Company : </label>
-                <select ng-model="self.user.idCompany" class="col-sm-6 col-md-6 col-lg-6">
+                <select ng-model="self.user.idCompany" class="col-sm-6 col-md-6 col-lg-6" ng-click="self.companyOptionOnClick()">
                     <option 
                      ng-repeat="company in self.listCompany" 
                      value="{{company.idCompany}}" 

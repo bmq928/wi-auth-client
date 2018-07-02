@@ -59937,7 +59937,7 @@ const name = 'editUserModal';
 controller.$inject = ['user', 'modal', 'auth', 'company', 'group'];
 function controller(user, modal, auth, company, group) {
     let self = this;
-
+    let allGroups = [];
 
     self.$onInit = function () {
         preProcess();
@@ -59955,9 +59955,7 @@ function controller(user, modal, auth, company, group) {
             //prevent password is show up in ui
             self.user.password = self.user.confirmPassword = '';
         }
-
-
-
+        // console.log(self.user);
     }
 
     self.onSubmit = function () {
@@ -59987,6 +59985,10 @@ function controller(user, modal, auth, company, group) {
         refreshField();
     }
 
+    self.companyOptionOnClick = function() {
+        makeGroupOption();
+    }
+
     function preProcess() {
         self.name = 'edit-user-modal';
         self.role = auth.getData().role;
@@ -60008,7 +60010,9 @@ function controller(user, modal, auth, company, group) {
                 self.errMsg = err.reason;
             } else {
                 console.log(resp);
-                self.listGroup = resp.content;
+                // self.listGroup = resp.content;
+                allGroups = resp.content;
+                makeGroupOption();
             }
         })
 
@@ -60019,9 +60023,21 @@ function controller(user, modal, auth, company, group) {
             } else {
                 console.log(resp);
                 self.listCompany = resp.content;
-                
+
             }
         })
+    }
+
+    function makeGroupOption() {
+        
+        if (!self.user) {
+            self.listGroup = [];
+        } else {
+            self.listGroup = allGroups.filter(g => g.idCompany.toString() === self.user.idCompany.toString());
+        }
+        // console.log('++++');
+        // console.log(self.user);
+        // console.log(self.listGroup);
     }
 
     function refreshField() {
@@ -60083,7 +60099,7 @@ function controller(user, modal, auth, company, group) {
 /* 124 */
 /***/ (function(module, exports) {
 
-module.exports = " <modal name=self.name on-close=self.onClose header=\"'USER INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Email</label> <input type=text class=form-control ng-model=self.user.email> </div> <div class=form-group> <label class=col-form-label>Full Name</label> <input type=text class=form-control ng-model=self.user.fullname> </div> <div class=form-group> <label class=col-form-label>Password</label> <input type=password class=form-control ng-model=self.user.password> </div> <div class=form-group> <label class=col-form-label>Confirm Password</label> <input type=password class=form-control ng-model=self.user.confirmPassword> </div> <div class=row> <div class=\"col-sm-4 col-md-4 col-lg-4 row\"> <div class=row ng-if=\"self.role <= 1\"> <label class=\"col-sm-4 col-md-4 col-lg-4\">Group : </label> <select ng-model=self.user.idGroup class=\"col-sm-5 col-md-5 col-lg-5\"> <option ng-repeat=\"group in self.listGroup\" value={{group.idGroup}} ng-bind=group.name> </option> </select> </div> </div> <div class=\"col-sm-8 col-md-8 col-lg-8 row\" ng-if=\"self.role === 0\"> <label class=\"col-sm-3 col-md-3 col-lg-3\">Company : </label> <select ng-model=self.user.idCompany class=\"col-sm-6 col-md-6 col-lg-6\"> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> </div> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary float-right\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
+module.exports = " <modal name=self.name on-close=self.onClose header=\"'USER INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Email</label> <input type=text class=form-control ng-model=self.user.email> </div> <div class=form-group> <label class=col-form-label>Full Name</label> <input type=text class=form-control ng-model=self.user.fullname> </div> <div class=form-group> <label class=col-form-label>Password</label> <input type=password class=form-control ng-model=self.user.password> </div> <div class=form-group> <label class=col-form-label>Confirm Password</label> <input type=password class=form-control ng-model=self.user.confirmPassword> </div> <div class=row> <div class=\"col-sm-4 col-md-4 col-lg-4 row\"> <div class=row ng-if=\"self.role <= 1\"> <label class=\"col-sm-4 col-md-4 col-lg-4\">Group : </label> <select ng-model=self.user.idGroup class=\"col-sm-5 col-md-5 col-lg-5\"> <option ng-repeat=\"group in self.listGroup\" value={{group.idGroup}} ng-bind=group.name> </option> </select> </div> </div> <div class=\"col-sm-8 col-md-8 col-lg-8 row\" ng-if=\"self.role === 0\"> <label class=\"col-sm-3 col-md-3 col-lg-3\">Company : </label> <select ng-model=self.user.idCompany class=\"col-sm-6 col-md-6 col-lg-6\" ng-click=self.companyOptionOnClick()> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> </div> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary float-right\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
 /* 125 */
