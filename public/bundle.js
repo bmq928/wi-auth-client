@@ -48409,8 +48409,9 @@ function controller(user, search, company) {
         __WEBPACK_IMPORTED_MODULE_2_toastr___default.a.success('Edit user success');
     }
 
-    self.addGroupUserOnClick = function (id) {
-        self.addGroupUser = id;
+    self.addGroupUserOnClick = function (user) {
+        self.addGroupUser = user.idUser;
+        self.addGroupUser_idCompany = user.idCompany;
     }
 
     self.editUserOnClick = function (user) {
@@ -48496,6 +48497,7 @@ function controller(user, search, company) {
     function preProcess() {
         self.removeUser = [];
         self.addGroupUser = -1;  //id
+        self.addGroupUser_idCompany = -1;
 
         //pre
         self.users = [];
@@ -48564,7 +48566,7 @@ function controller(user, search, company) {
 /* 102 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th><h6>Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user.idUser)> <i class=material-icons>group</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user-id=self.addGroupUser></add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th><h6>Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user-id=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
 
 /***/ }),
 /* 103 */
@@ -59724,35 +59726,48 @@ controller.$inject = ['group', 'modal'];
 function controller(group, modal) {
 
     let self = this;
+    let groups = [];
 
     self.$onInit = function () {
-        
+
         preProcess();
 
         group.getAllGroup((err, resp) => {
-            if(err) {
+            if (err) {
                 self.errMsg = err.reason || err.statusText;
                 self.sucMsg = '';
             } else {
-                self.listGroup = resp.content;
-                // console.log('list content');
+                // self.listGroup = resp.content;
+                // console.log('==========');
                 // console.log(resp.content);
+                // console.log(self.companyId);
+                // console.log(resp.content.filter(g => g.idCompany === self.companyId));
+                groups = resp.content;
+                self.listGroup = resp.content.filter(g => g.idCompany === self.companyId);
             }
         })
-        
+
     }
 
-    self.onClose = function() {
+    self.$onChanges = function () {
+        // console.log('com id')
+        // console.log(self.companyId);
+        // console.log(groups);
+
+        self.listGroup = groups.filter(g => g.idCompany === self.companyId);
+    }
+
+    self.onClose = function () {
         preProcess();
     }
 
-    self.onSubmit = function() {
+    self.onSubmit = function () {
         const data = {
             idGroup: self.idGroup,
             idUser: self.userId
         };
         group.addUserToGroup(data, (err, resp) => {
-            if(err) {
+            if (err) {
                 console.log(err);
                 self.errMsg = err.reason || err.statusText;
                 self.sucMsg = '';
@@ -59765,7 +59780,7 @@ function controller(group, modal) {
         })
     }
 
-    self.onClose = function(){
+    self.onClose = function () {
         // preProcess();
         //prevent lost data (not neccessary to reload again)
 
@@ -59778,13 +59793,13 @@ function controller(group, modal) {
         self.errMsg = '';
     }
 
-    function preProcess(){
+    function preProcess() {
         self.name = 'add-group-modal';
 
         self.sucMsg = '';
         self.errMsg = '';
         self.listGroup = [];
-        self.idGroup = null ;
+        self.idGroup = null;
     }
 
 }
@@ -59799,7 +59814,8 @@ function controller(group, modal) {
     name,
     options: {
         bindings: {
-            userId: '<'
+            userId: '<',
+            companyId: '<'
         },
         template: __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html___default.a,
         controller,

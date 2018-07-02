@@ -45,8 +45,9 @@ function controller(user, search, company) {
         toast.success('Edit user success');
     }
 
-    self.addGroupUserOnClick = function (id) {
-        self.addGroupUser = id;
+    self.addGroupUserOnClick = function (user) {
+        self.addGroupUser = user.idUser;
+        self.addGroupUser_idCompany = user.idCompany;
     }
 
     self.editUserOnClick = function (user) {
@@ -132,6 +133,7 @@ function controller(user, search, company) {
     function preProcess() {
         self.removeUser = [];
         self.addGroupUser = -1;  //id
+        self.addGroupUser_idCompany = -1;
 
         //pre
         self.users = [];

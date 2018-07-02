@@ -6,35 +6,48 @@ controller.$inject = ['group', 'modal'];
 function controller(group, modal) {
 
     let self = this;
+    let groups = [];
 
     self.$onInit = function () {
-        
+
         preProcess();
 
         group.getAllGroup((err, resp) => {
-            if(err) {
+            if (err) {
                 self.errMsg = err.reason || err.statusText;
                 self.sucMsg = '';
             } else {
-                self.listGroup = resp.content;
-                // console.log('list content');
+                // self.listGroup = resp.content;
+                // console.log('==========');
                 // console.log(resp.content);
+                // console.log(self.companyId);
+                // console.log(resp.content.filter(g => g.idCompany === self.companyId));
+                groups = resp.content;
+                self.listGroup = resp.content.filter(g => g.idCompany === self.companyId);
             }
         })
-        
+
     }
 
-    self.onClose = function() {
+    self.$onChanges = function () {
+        // console.log('com id')
+        // console.log(self.companyId);
+        // console.log(groups);
+
+        self.listGroup = groups.filter(g => g.idCompany === self.companyId);
+    }
+
+    self.onClose = function () {
         preProcess();
     }
 
-    self.onSubmit = function() {
+    self.onSubmit = function () {
         const data = {
             idGroup: self.idGroup,
             idUser: self.userId
         };
         group.addUserToGroup(data, (err, resp) => {
-            if(err) {
+            if (err) {
                 console.log(err);
                 self.errMsg = err.reason || err.statusText;
                 self.sucMsg = '';
@@ -47,7 +60,7 @@ function controller(group, modal) {
         })
     }
 
-    self.onClose = function(){
+    self.onClose = function () {
         // preProcess();
         //prevent lost data (not neccessary to reload again)
 
@@ -60,13 +73,13 @@ function controller(group, modal) {
         self.errMsg = '';
     }
 
-    function preProcess(){
+    function preProcess() {
         self.name = 'add-group-modal';
 
         self.sucMsg = '';
         self.errMsg = '';
         self.listGroup = [];
-        self.idGroup = null ;
+        self.idGroup = null;
     }
 
 }
@@ -81,7 +94,8 @@ export default {
     name,
     options: {
         bindings: {
-            userId: '<'
+            userId: '<',
+            companyId: '<'
         },
         template,
         controller,
