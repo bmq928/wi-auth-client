@@ -22,5 +22,8 @@
     "css-loader": "^0.28.11",
     "html-loader": "^0.5.5",
     "style-loader": "^0.21.0"
+  },
+  "deploy": {
+    "script": "rsync -av public/* dev.sflow.me:/opt/admin-build/"
   }
 }
