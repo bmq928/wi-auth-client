@@ -13,18 +13,18 @@
                     <!-- <th><h6>ID</h6></th> -->
                     <!-- <th><h6>STT</h6></th> -->
                     <th><h6>STT</h6></th>
-                    <th><h6>Username</h6></th>
+                    <th><h6 class="clickable" ng-click="self.sort('username')">Username</h6></th>
                     <th><h6>Email</h6></th>
                     <th><h6>Status</h6></th>
                     <th><h6>Role</h6></th>
-                    <th><h6>Fullname</h6></th>
-                    <th><h6>Company</h6></th>
+                    <th><h6 class="clickable" ng-click="self.sort('fullname')">Fullname</h6></th>
+                    <th><h6 class="clickable" ng-click="self.sort('idCompany')">Company</h6></th>
                     <th style="padding-left: 75px;"><h6>Action</h6></th>
                 </tr>
             </thead>
             <tbody>
         
-                <tr ng-repeat="(key, user) in self.users  | filter:self.searchStr | pagination: self.curPage: self.userPerPage track by $index">
+                <tr ng-repeat="(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy | pagination: self.curPage: self.userPerPage track by $index">
                     <!-- <td>
                         <input type="checkbox">
                     </td> -->

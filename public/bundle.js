@@ -972,7 +972,7 @@ var rejectFactory_1 = __webpack_require__(8);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
 var transition_1 = __webpack_require__(17);
-var resolvable_1 = __webpack_require__(13);
+var resolvable_1 = __webpack_require__(15);
 /**
  * Returns a string shortened to a maximum length
  *
@@ -1906,437 +1906,6 @@ exports.Param = Param;
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * @coreapi
- * @module transition
- */
-/** for typedoc */
-var interface_1 = __webpack_require__(9);
-var common_1 = __webpack_require__(0);
-var strings_1 = __webpack_require__(5);
-var predicates_1 = __webpack_require__(1);
-var hof_1 = __webpack_require__(2);
-var trace_1 = __webpack_require__(7);
-var coreservices_1 = __webpack_require__(3);
-var rejectFactory_1 = __webpack_require__(8);
-var targetState_1 = __webpack_require__(10);
-var defaultOptions = {
-    current: common_1.noop,
-    transition: null,
-    traceData: {},
-    bind: null,
-};
-/** @hidden */
-var TransitionHook = /** @class */ (function () {
-    function TransitionHook(transition, stateContext, registeredHook, options) {
-        var _this = this;
-        this.transition = transition;
-        this.stateContext = stateContext;
-        this.registeredHook = registeredHook;
-        this.options = options;
-        this.isSuperseded = function () { return _this.type.hookPhase === interface_1.TransitionHookPhase.RUN && !_this.options.transition.isActive(); };
-        this.options = common_1.defaults(options, defaultOptions);
-        this.type = registeredHook.eventType;
-    }
-    /**
-     * Chains together an array of TransitionHooks.
-     *
-     * Given a list of [[TransitionHook]] objects, chains them together.
-     * Each hook is invoked after the previous one completes.
-     *
-     * #### Example:
-     * ```js
-     * var hooks: TransitionHook[] = getHooks();
-     * let promise: Promise<any> = TransitionHook.chain(hooks);
-     *
-     * promise.then(handleSuccess, handleError);
-     * ```
-     *
-     * @param hooks the list of hooks to chain together
-     * @param waitFor if provided, the chain is `.then()`'ed off this promise
-     * @returns a `Promise` for sequentially invoking the hooks (in order)
-     */
-    TransitionHook.chain = function (hooks, waitFor) {
-        // Chain the next hook off the previous
-        var createHookChainR = function (prev, nextHook) { return prev.then(function () { return nextHook.invokeHook(); }); };
-        return hooks.reduce(createHookChainR, waitFor || coreservices_1.services.$q.when());
-    };
-    /**
-     * Invokes all the provided TransitionHooks, in order.
-     * Each hook's return value is checked.
-     * If any hook returns a promise, then the rest of the hooks are chained off that promise, and the promise is returned.
-     * If no hook returns a promise, then all hooks are processed synchronously.
-     *
-     * @param hooks the list of TransitionHooks to invoke
-     * @param doneCallback a callback that is invoked after all the hooks have successfully completed
-     *
-     * @returns a promise for the async result, or the result of the callback
-     */
-    TransitionHook.invokeHooks = function (hooks, doneCallback) {
-        for (var idx = 0; idx < hooks.length; idx++) {
-            var hookResult = hooks[idx].invokeHook();
-            if (predicates_1.isPromise(hookResult)) {
-                var remainingHooks = hooks.slice(idx + 1);
-                return TransitionHook.chain(remainingHooks, hookResult).then(doneCallback);
-            }
-        }
-        return doneCallback();
-    };
-    /**
-     * Run all TransitionHooks, ignoring their return value.
-     */
-    TransitionHook.runAllHooks = function (hooks) {
-        hooks.forEach(function (hook) { return hook.invokeHook(); });
-    };
-    TransitionHook.prototype.logError = function (err) {
-        this.transition.router.stateService.defaultErrorHandler()(err);
-    };
-    TransitionHook.prototype.invokeHook = function () {
-        var _this = this;
-        var hook = this.registeredHook;
-        if (hook._deregistered)
-            return;
-        var notCurrent = this.getNotCurrentRejection();
-        if (notCurrent)
-            return notCurrent;
-        var options = this.options;
-        trace_1.trace.traceHookInvocation(this, this.transition, options);
-        var invokeCallback = function () { return hook.callback.call(options.bind, _this.transition, _this.stateContext); };
-        var normalizeErr = function (err) { return rejectFactory_1.Rejection.normalize(err).toPromise(); };
-        var handleError = function (err) { return hook.eventType.getErrorHandler(_this)(err); };
-        var handleResult = function (result) { return hook.eventType.getResultHandler(_this)(result); };
-        try {
-            var result = invokeCallback();
-            if (!this.type.synchronous && predicates_1.isPromise(result)) {
-                return result.catch(normalizeErr).then(handleResult, handleError);
-            }
-            else {
-                return handleResult(result);
-            }
-        }
-        catch (err) {
-            // If callback throws (synchronously)
-            return handleError(rejectFactory_1.Rejection.normalize(err));
-        }
-        finally {
-            if (hook.invokeLimit && ++hook.invokeCount >= hook.invokeLimit) {
-                hook.deregister();
-            }
-        }
-    };
-    /**
-     * This method handles the return value of a Transition Hook.
-     *
-     * A hook can return false (cancel), a TargetState (redirect),
-     * or a promise (which may later resolve to false or a redirect)
-     *
-     * This also handles "transition superseded" -- when a new transition
-     * was started while the hook was still running
-     */
-    TransitionHook.prototype.handleHookResult = function (result) {
-        var _this = this;
-        var notCurrent = this.getNotCurrentRejection();
-        if (notCurrent)
-            return notCurrent;
-        // Hook returned a promise
-        if (predicates_1.isPromise(result)) {
-            // Wait for the promise, then reprocess with the resulting value
-            return result.then(function (val) { return _this.handleHookResult(val); });
-        }
-        trace_1.trace.traceHookResult(result, this.transition, this.options);
-        // Hook returned false
-        if (result === false) {
-            // Abort this Transition
-            return rejectFactory_1.Rejection.aborted('Hook aborted transition').toPromise();
-        }
-        var isTargetState = hof_1.is(targetState_1.TargetState);
-        // hook returned a TargetState
-        if (isTargetState(result)) {
-            // Halt the current Transition and redirect (a new Transition) to the TargetState.
-            return rejectFactory_1.Rejection.redirected(result).toPromise();
-        }
-    };
-    /**
-     * Return a Rejection promise if the transition is no longer current due
-     * to a stopped router (disposed), or a new transition has started and superseded this one.
-     */
-    TransitionHook.prototype.getNotCurrentRejection = function () {
-        var router = this.transition.router;
-        // The router is stopped
-        if (router._disposed) {
-            return rejectFactory_1.Rejection.aborted("UIRouter instance #" + router.$id + " has been stopped (disposed)").toPromise();
-        }
-        if (this.transition._aborted) {
-            return rejectFactory_1.Rejection.aborted().toPromise();
-        }
-        // This transition is no longer current.
-        // Another transition started while this hook was still running.
-        if (this.isSuperseded()) {
-            // Abort this transition
-            return rejectFactory_1.Rejection.superseded(this.options.current()).toPromise();
-        }
-    };
-    TransitionHook.prototype.toString = function () {
-        var _a = this, options = _a.options, registeredHook = _a.registeredHook;
-        var event = hof_1.parse('traceData.hookType')(options) || 'internal', context = hof_1.parse('traceData.context.state.name')(options) || hof_1.parse('traceData.context')(options) || 'unknown', name = strings_1.fnToString(registeredHook.callback);
-        return event + " context: " + context + ", " + strings_1.maxLength(200, name);
-    };
-    /**
-     * These GetResultHandler(s) are used by [[invokeHook]] below
-     * Each HookType chooses a GetResultHandler (See: [[TransitionService._defineCoreEvents]])
-     */
-    TransitionHook.HANDLE_RESULT = function (hook) { return function (result) {
-        return hook.handleHookResult(result);
-    }; };
-    /**
-     * If the result is a promise rejection, log it.
-     * Otherwise, ignore the result.
-     */
-    TransitionHook.LOG_REJECTED_RESULT = function (hook) { return function (result) {
-        predicates_1.isPromise(result) && result.catch(function (err) { return hook.logError(rejectFactory_1.Rejection.normalize(err)); });
-        return undefined;
-    }; };
-    /**
-     * These GetErrorHandler(s) are used by [[invokeHook]] below
-     * Each HookType chooses a GetErrorHandler (See: [[TransitionService._defineCoreEvents]])
-     */
-    TransitionHook.LOG_ERROR = function (hook) { return function (error) { return hook.logError(error); }; };
-    TransitionHook.REJECT_ERROR = function (hook) { return function (error) { return common_1.silentRejection(error); }; };
-    TransitionHook.THROW_ERROR = function (hook) { return function (error) {
-        throw error;
-    }; };
-    return TransitionHook;
-}());
-exports.TransitionHook = TransitionHook;
-//# sourceMappingURL=transitionHook.js.map
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * @coreapi
- * @module resolve
- */ /** for typedoc */
-var common_1 = __webpack_require__(0);
-var coreservices_1 = __webpack_require__(3);
-var trace_1 = __webpack_require__(7);
-var strings_1 = __webpack_require__(5);
-var predicates_1 = __webpack_require__(1);
-var predicates_2 = __webpack_require__(1);
-// TODO: explicitly make this user configurable
-exports.defaultResolvePolicy = {
-    when: 'LAZY',
-    async: 'WAIT',
-};
-/**
- * The basic building block for the resolve system.
- *
- * Resolvables encapsulate a state's resolve's resolveFn, the resolveFn's declared dependencies, the wrapped (.promise),
- * and the unwrapped-when-complete (.data) result of the resolveFn.
- *
- * Resolvable.get() either retrieves the Resolvable's existing promise, or else invokes resolve() (which invokes the
- * resolveFn) and returns the resulting promise.
- *
- * Resolvable.get() and Resolvable.resolve() both execute within a context path, which is passed as the first
- * parameter to those fns.
- */
-var Resolvable = /** @class */ (function () {
-    function Resolvable(arg1, resolveFn, deps, policy, data) {
-        this.resolved = false;
-        this.promise = undefined;
-        if (arg1 instanceof Resolvable) {
-            common_1.extend(this, arg1);
-        }
-        else if (predicates_1.isFunction(resolveFn)) {
-            if (predicates_2.isNullOrUndefined(arg1))
-                throw new Error('new Resolvable(): token argument is required');
-            if (!predicates_1.isFunction(resolveFn))
-                throw new Error('new Resolvable(): resolveFn argument must be a function');
-            this.token = arg1;
-            this.policy = policy;
-            this.resolveFn = resolveFn;
-            this.deps = deps || [];
-            this.data = data;
-            this.resolved = data !== undefined;
-            this.promise = this.resolved ? coreservices_1.services.$q.when(this.data) : undefined;
-        }
-        else if (predicates_1.isObject(arg1) && arg1.token && (arg1.hasOwnProperty('resolveFn') || arg1.hasOwnProperty('data'))) {
-            var literal = arg1;
-            return new Resolvable(literal.token, literal.resolveFn, literal.deps, literal.policy, literal.data);
-        }
-    }
-    Resolvable.prototype.getPolicy = function (state) {
-        var thisPolicy = this.policy || {};
-        var statePolicy = (state && state.resolvePolicy) || {};
-        return {
-            when: thisPolicy.when || statePolicy.when || exports.defaultResolvePolicy.when,
-            async: thisPolicy.async || statePolicy.async || exports.defaultResolvePolicy.async,
-        };
-    };
-    /**
-     * Asynchronously resolve this Resolvable's data
-     *
-     * Given a ResolveContext that this Resolvable is found in:
-     * Wait for this Resolvable's dependencies, then invoke this Resolvable's function
-     * and update the Resolvable's state
-     */
-    Resolvable.prototype.resolve = function (resolveContext, trans) {
-        var _this = this;
-        var $q = coreservices_1.services.$q;
-        // Gets all dependencies from ResolveContext and wait for them to be resolved
-        var getResolvableDependencies = function () {
-            return $q.all(resolveContext.getDependencies(_this).map(function (resolvable) { return resolvable.get(resolveContext, trans); }));
-        };
-        // Invokes the resolve function passing the resolved dependencies as arguments
-        var invokeResolveFn = function (resolvedDeps) { return _this.resolveFn.apply(null, resolvedDeps); };
-        /**
-         * For RXWAIT policy:
-         *
-         * Given an observable returned from a resolve function:
-         * - enables .cache() mode (this allows multicast subscribers)
-         * - then calls toPromise() (this triggers subscribe() and thus fetches)
-         * - Waits for the promise, then return the cached observable (not the first emitted value).
-         */
-        var waitForRx = function (observable$) {
-            var cached = observable$.cache(1);
-            return cached
-                .take(1)
-                .toPromise()
-                .then(function () { return cached; });
-        };
-        // If the resolve policy is RXWAIT, wait for the observable to emit something. otherwise pass through.
-        var node = resolveContext.findNode(this);
-        var state = node && node.state;
-        var maybeWaitForRx = this.getPolicy(state).async === 'RXWAIT' ? waitForRx : common_1.identity;
-        // After the final value has been resolved, update the state of the Resolvable
-        var applyResolvedValue = function (resolvedValue) {
-            _this.data = resolvedValue;
-            _this.resolved = true;
-            _this.resolveFn = null;
-            trace_1.trace.traceResolvableResolved(_this, trans);
-            return _this.data;
-        };
-        // Sets the promise property first, then getsResolvableDependencies in the context of the promise chain. Always waits one tick.
-        return (this.promise = $q
-            .when()
-            .then(getResolvableDependencies)
-            .then(invokeResolveFn)
-            .then(maybeWaitForRx)
-            .then(applyResolvedValue));
-    };
-    /**
-     * Gets a promise for this Resolvable's data.
-     *
-     * Fetches the data and returns a promise.
-     * Returns the existing promise if it has already been fetched once.
-     */
-    Resolvable.prototype.get = function (resolveContext, trans) {
-        return this.promise || this.resolve(resolveContext, trans);
-    };
-    Resolvable.prototype.toString = function () {
-        return "Resolvable(token: " + strings_1.stringify(this.token) + ", requires: [" + this.deps.map(strings_1.stringify) + "])";
-    };
-    Resolvable.prototype.clone = function () {
-        return new Resolvable(this);
-    };
-    Resolvable.fromData = function (token, data) { return new Resolvable(token, function () { return data; }, null, null, data); };
-    return Resolvable;
-}());
-exports.Resolvable = Resolvable;
-//# sourceMappingURL=resolvable.js.map
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = createUrl;
-function createUrl(path) {
-    // const domain = 'http://auth.sflow.me:33333';
-    const domain = 'http://localhost:2999';
-    // const domain = 'http://167.99.77.175:2999';
-
-    return domain + path;
-}
-
-// export function fetchPOST($http, url,data, success, fail) {
-
-//     // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
-//     const token = localStorage.getItem('jwt-token');
-//     return (
-//         $http({
-//             url,
-//             // headers: { 'Authorization': 'Bearer ' + token },
-//             method: 'POST',
-//             data: Object.assign({token}, data)
-//         })
-//             .then(success)
-//             .catch(err => {
-//                 if(err.data.message === 'Failed to authenticate') {
-
-
-//                     return ;
-//                 } 
-
-//                 fail(err);
-//             })
-//     );
-// }
-
-// export function createPostService($http, url) {
-//     url = createUrl(url);
-
-//     return function(data, callback) {
-//         fetchPOST(
-//             $http,
-//             url,
-//             data,
-//             (resp) => {
-//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
-//                 else callback(resp.data);
-//             },
-//             (err) => callback(err)
-//         )
-//     }
-// }
-
-// export function createGetService($http, url) {
-//     url = createUrl(url);
-
-//     return function (callback) {
-//         fetchPOST(
-//             $http,
-//             url,
-//             null,
-//             (resp) => {
-//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
-//                 else callback(resp.data);
-//             },
-//             (err) => callback(err));
-//     }
-// }
-
-const SUCCESS_CODE = 200;
-/* harmony export (immutable) */ __webpack_exports__["a"] = SUCCESS_CODE;
-
-const INTERNAL_ERROR_CODE = 512;
-/* unused harmony export INTERNAL_ERROR_CODE */
-
-const TOKEN_EXPIRED = 'Failed to authenticate';
-/* harmony export (immutable) */ __webpack_exports__["b"] = TOKEN_EXPIRED;
-
-
-/***/ }),
-/* 15 */
 /***/ (function(module, exports) {
 
 /*
@@ -2418,7 +1987,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 16 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -2804,6 +2373,437 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @coreapi
+ * @module transition
+ */
+/** for typedoc */
+var interface_1 = __webpack_require__(9);
+var common_1 = __webpack_require__(0);
+var strings_1 = __webpack_require__(5);
+var predicates_1 = __webpack_require__(1);
+var hof_1 = __webpack_require__(2);
+var trace_1 = __webpack_require__(7);
+var coreservices_1 = __webpack_require__(3);
+var rejectFactory_1 = __webpack_require__(8);
+var targetState_1 = __webpack_require__(10);
+var defaultOptions = {
+    current: common_1.noop,
+    transition: null,
+    traceData: {},
+    bind: null,
+};
+/** @hidden */
+var TransitionHook = /** @class */ (function () {
+    function TransitionHook(transition, stateContext, registeredHook, options) {
+        var _this = this;
+        this.transition = transition;
+        this.stateContext = stateContext;
+        this.registeredHook = registeredHook;
+        this.options = options;
+        this.isSuperseded = function () { return _this.type.hookPhase === interface_1.TransitionHookPhase.RUN && !_this.options.transition.isActive(); };
+        this.options = common_1.defaults(options, defaultOptions);
+        this.type = registeredHook.eventType;
+    }
+    /**
+     * Chains together an array of TransitionHooks.
+     *
+     * Given a list of [[TransitionHook]] objects, chains them together.
+     * Each hook is invoked after the previous one completes.
+     *
+     * #### Example:
+     * ```js
+     * var hooks: TransitionHook[] = getHooks();
+     * let promise: Promise<any> = TransitionHook.chain(hooks);
+     *
+     * promise.then(handleSuccess, handleError);
+     * ```
+     *
+     * @param hooks the list of hooks to chain together
+     * @param waitFor if provided, the chain is `.then()`'ed off this promise
+     * @returns a `Promise` for sequentially invoking the hooks (in order)
+     */
+    TransitionHook.chain = function (hooks, waitFor) {
+        // Chain the next hook off the previous
+        var createHookChainR = function (prev, nextHook) { return prev.then(function () { return nextHook.invokeHook(); }); };
+        return hooks.reduce(createHookChainR, waitFor || coreservices_1.services.$q.when());
+    };
+    /**
+     * Invokes all the provided TransitionHooks, in order.
+     * Each hook's return value is checked.
+     * If any hook returns a promise, then the rest of the hooks are chained off that promise, and the promise is returned.
+     * If no hook returns a promise, then all hooks are processed synchronously.
+     *
+     * @param hooks the list of TransitionHooks to invoke
+     * @param doneCallback a callback that is invoked after all the hooks have successfully completed
+     *
+     * @returns a promise for the async result, or the result of the callback
+     */
+    TransitionHook.invokeHooks = function (hooks, doneCallback) {
+        for (var idx = 0; idx < hooks.length; idx++) {
+            var hookResult = hooks[idx].invokeHook();
+            if (predicates_1.isPromise(hookResult)) {
+                var remainingHooks = hooks.slice(idx + 1);
+                return TransitionHook.chain(remainingHooks, hookResult).then(doneCallback);
+            }
+        }
+        return doneCallback();
+    };
+    /**
+     * Run all TransitionHooks, ignoring their return value.
+     */
+    TransitionHook.runAllHooks = function (hooks) {
+        hooks.forEach(function (hook) { return hook.invokeHook(); });
+    };
+    TransitionHook.prototype.logError = function (err) {
+        this.transition.router.stateService.defaultErrorHandler()(err);
+    };
+    TransitionHook.prototype.invokeHook = function () {
+        var _this = this;
+        var hook = this.registeredHook;
+        if (hook._deregistered)
+            return;
+        var notCurrent = this.getNotCurrentRejection();
+        if (notCurrent)
+            return notCurrent;
+        var options = this.options;
+        trace_1.trace.traceHookInvocation(this, this.transition, options);
+        var invokeCallback = function () { return hook.callback.call(options.bind, _this.transition, _this.stateContext); };
+        var normalizeErr = function (err) { return rejectFactory_1.Rejection.normalize(err).toPromise(); };
+        var handleError = function (err) { return hook.eventType.getErrorHandler(_this)(err); };
+        var handleResult = function (result) { return hook.eventType.getResultHandler(_this)(result); };
+        try {
+            var result = invokeCallback();
+            if (!this.type.synchronous && predicates_1.isPromise(result)) {
+                return result.catch(normalizeErr).then(handleResult, handleError);
+            }
+            else {
+                return handleResult(result);
+            }
+        }
+        catch (err) {
+            // If callback throws (synchronously)
+            return handleError(rejectFactory_1.Rejection.normalize(err));
+        }
+        finally {
+            if (hook.invokeLimit && ++hook.invokeCount >= hook.invokeLimit) {
+                hook.deregister();
+            }
+        }
+    };
+    /**
+     * This method handles the return value of a Transition Hook.
+     *
+     * A hook can return false (cancel), a TargetState (redirect),
+     * or a promise (which may later resolve to false or a redirect)
+     *
+     * This also handles "transition superseded" -- when a new transition
+     * was started while the hook was still running
+     */
+    TransitionHook.prototype.handleHookResult = function (result) {
+        var _this = this;
+        var notCurrent = this.getNotCurrentRejection();
+        if (notCurrent)
+            return notCurrent;
+        // Hook returned a promise
+        if (predicates_1.isPromise(result)) {
+            // Wait for the promise, then reprocess with the resulting value
+            return result.then(function (val) { return _this.handleHookResult(val); });
+        }
+        trace_1.trace.traceHookResult(result, this.transition, this.options);
+        // Hook returned false
+        if (result === false) {
+            // Abort this Transition
+            return rejectFactory_1.Rejection.aborted('Hook aborted transition').toPromise();
+        }
+        var isTargetState = hof_1.is(targetState_1.TargetState);
+        // hook returned a TargetState
+        if (isTargetState(result)) {
+            // Halt the current Transition and redirect (a new Transition) to the TargetState.
+            return rejectFactory_1.Rejection.redirected(result).toPromise();
+        }
+    };
+    /**
+     * Return a Rejection promise if the transition is no longer current due
+     * to a stopped router (disposed), or a new transition has started and superseded this one.
+     */
+    TransitionHook.prototype.getNotCurrentRejection = function () {
+        var router = this.transition.router;
+        // The router is stopped
+        if (router._disposed) {
+            return rejectFactory_1.Rejection.aborted("UIRouter instance #" + router.$id + " has been stopped (disposed)").toPromise();
+        }
+        if (this.transition._aborted) {
+            return rejectFactory_1.Rejection.aborted().toPromise();
+        }
+        // This transition is no longer current.
+        // Another transition started while this hook was still running.
+        if (this.isSuperseded()) {
+            // Abort this transition
+            return rejectFactory_1.Rejection.superseded(this.options.current()).toPromise();
+        }
+    };
+    TransitionHook.prototype.toString = function () {
+        var _a = this, options = _a.options, registeredHook = _a.registeredHook;
+        var event = hof_1.parse('traceData.hookType')(options) || 'internal', context = hof_1.parse('traceData.context.state.name')(options) || hof_1.parse('traceData.context')(options) || 'unknown', name = strings_1.fnToString(registeredHook.callback);
+        return event + " context: " + context + ", " + strings_1.maxLength(200, name);
+    };
+    /**
+     * These GetResultHandler(s) are used by [[invokeHook]] below
+     * Each HookType chooses a GetResultHandler (See: [[TransitionService._defineCoreEvents]])
+     */
+    TransitionHook.HANDLE_RESULT = function (hook) { return function (result) {
+        return hook.handleHookResult(result);
+    }; };
+    /**
+     * If the result is a promise rejection, log it.
+     * Otherwise, ignore the result.
+     */
+    TransitionHook.LOG_REJECTED_RESULT = function (hook) { return function (result) {
+        predicates_1.isPromise(result) && result.catch(function (err) { return hook.logError(rejectFactory_1.Rejection.normalize(err)); });
+        return undefined;
+    }; };
+    /**
+     * These GetErrorHandler(s) are used by [[invokeHook]] below
+     * Each HookType chooses a GetErrorHandler (See: [[TransitionService._defineCoreEvents]])
+     */
+    TransitionHook.LOG_ERROR = function (hook) { return function (error) { return hook.logError(error); }; };
+    TransitionHook.REJECT_ERROR = function (hook) { return function (error) { return common_1.silentRejection(error); }; };
+    TransitionHook.THROW_ERROR = function (hook) { return function (error) {
+        throw error;
+    }; };
+    return TransitionHook;
+}());
+exports.TransitionHook = TransitionHook;
+//# sourceMappingURL=transitionHook.js.map
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @coreapi
+ * @module resolve
+ */ /** for typedoc */
+var common_1 = __webpack_require__(0);
+var coreservices_1 = __webpack_require__(3);
+var trace_1 = __webpack_require__(7);
+var strings_1 = __webpack_require__(5);
+var predicates_1 = __webpack_require__(1);
+var predicates_2 = __webpack_require__(1);
+// TODO: explicitly make this user configurable
+exports.defaultResolvePolicy = {
+    when: 'LAZY',
+    async: 'WAIT',
+};
+/**
+ * The basic building block for the resolve system.
+ *
+ * Resolvables encapsulate a state's resolve's resolveFn, the resolveFn's declared dependencies, the wrapped (.promise),
+ * and the unwrapped-when-complete (.data) result of the resolveFn.
+ *
+ * Resolvable.get() either retrieves the Resolvable's existing promise, or else invokes resolve() (which invokes the
+ * resolveFn) and returns the resulting promise.
+ *
+ * Resolvable.get() and Resolvable.resolve() both execute within a context path, which is passed as the first
+ * parameter to those fns.
+ */
+var Resolvable = /** @class */ (function () {
+    function Resolvable(arg1, resolveFn, deps, policy, data) {
+        this.resolved = false;
+        this.promise = undefined;
+        if (arg1 instanceof Resolvable) {
+            common_1.extend(this, arg1);
+        }
+        else if (predicates_1.isFunction(resolveFn)) {
+            if (predicates_2.isNullOrUndefined(arg1))
+                throw new Error('new Resolvable(): token argument is required');
+            if (!predicates_1.isFunction(resolveFn))
+                throw new Error('new Resolvable(): resolveFn argument must be a function');
+            this.token = arg1;
+            this.policy = policy;
+            this.resolveFn = resolveFn;
+            this.deps = deps || [];
+            this.data = data;
+            this.resolved = data !== undefined;
+            this.promise = this.resolved ? coreservices_1.services.$q.when(this.data) : undefined;
+        }
+        else if (predicates_1.isObject(arg1) && arg1.token && (arg1.hasOwnProperty('resolveFn') || arg1.hasOwnProperty('data'))) {
+            var literal = arg1;
+            return new Resolvable(literal.token, literal.resolveFn, literal.deps, literal.policy, literal.data);
+        }
+    }
+    Resolvable.prototype.getPolicy = function (state) {
+        var thisPolicy = this.policy || {};
+        var statePolicy = (state && state.resolvePolicy) || {};
+        return {
+            when: thisPolicy.when || statePolicy.when || exports.defaultResolvePolicy.when,
+            async: thisPolicy.async || statePolicy.async || exports.defaultResolvePolicy.async,
+        };
+    };
+    /**
+     * Asynchronously resolve this Resolvable's data
+     *
+     * Given a ResolveContext that this Resolvable is found in:
+     * Wait for this Resolvable's dependencies, then invoke this Resolvable's function
+     * and update the Resolvable's state
+     */
+    Resolvable.prototype.resolve = function (resolveContext, trans) {
+        var _this = this;
+        var $q = coreservices_1.services.$q;
+        // Gets all dependencies from ResolveContext and wait for them to be resolved
+        var getResolvableDependencies = function () {
+            return $q.all(resolveContext.getDependencies(_this).map(function (resolvable) { return resolvable.get(resolveContext, trans); }));
+        };
+        // Invokes the resolve function passing the resolved dependencies as arguments
+        var invokeResolveFn = function (resolvedDeps) { return _this.resolveFn.apply(null, resolvedDeps); };
+        /**
+         * For RXWAIT policy:
+         *
+         * Given an observable returned from a resolve function:
+         * - enables .cache() mode (this allows multicast subscribers)
+         * - then calls toPromise() (this triggers subscribe() and thus fetches)
+         * - Waits for the promise, then return the cached observable (not the first emitted value).
+         */
+        var waitForRx = function (observable$) {
+            var cached = observable$.cache(1);
+            return cached
+                .take(1)
+                .toPromise()
+                .then(function () { return cached; });
+        };
+        // If the resolve policy is RXWAIT, wait for the observable to emit something. otherwise pass through.
+        var node = resolveContext.findNode(this);
+        var state = node && node.state;
+        var maybeWaitForRx = this.getPolicy(state).async === 'RXWAIT' ? waitForRx : common_1.identity;
+        // After the final value has been resolved, update the state of the Resolvable
+        var applyResolvedValue = function (resolvedValue) {
+            _this.data = resolvedValue;
+            _this.resolved = true;
+            _this.resolveFn = null;
+            trace_1.trace.traceResolvableResolved(_this, trans);
+            return _this.data;
+        };
+        // Sets the promise property first, then getsResolvableDependencies in the context of the promise chain. Always waits one tick.
+        return (this.promise = $q
+            .when()
+            .then(getResolvableDependencies)
+            .then(invokeResolveFn)
+            .then(maybeWaitForRx)
+            .then(applyResolvedValue));
+    };
+    /**
+     * Gets a promise for this Resolvable's data.
+     *
+     * Fetches the data and returns a promise.
+     * Returns the existing promise if it has already been fetched once.
+     */
+    Resolvable.prototype.get = function (resolveContext, trans) {
+        return this.promise || this.resolve(resolveContext, trans);
+    };
+    Resolvable.prototype.toString = function () {
+        return "Resolvable(token: " + strings_1.stringify(this.token) + ", requires: [" + this.deps.map(strings_1.stringify) + "])";
+    };
+    Resolvable.prototype.clone = function () {
+        return new Resolvable(this);
+    };
+    Resolvable.fromData = function (token, data) { return new Resolvable(token, function () { return data; }, null, null, data); };
+    return Resolvable;
+}());
+exports.Resolvable = Resolvable;
+//# sourceMappingURL=resolvable.js.map
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["c"] = createUrl;
+function createUrl(path) {
+    // const domain = 'http://auth.sflow.me:33333';
+    const domain = 'http://localhost:2999';
+    // const domain = 'http://167.99.77.175:2999';
+
+    return domain + path;
+}
+
+// export function fetchPOST($http, url,data, success, fail) {
+
+//     // const token = 'f82e62d7c3ea69cc12b5cdb8d621dab6';
+//     const token = localStorage.getItem('jwt-token');
+//     return (
+//         $http({
+//             url,
+//             // headers: { 'Authorization': 'Bearer ' + token },
+//             method: 'POST',
+//             data: Object.assign({token}, data)
+//         })
+//             .then(success)
+//             .catch(err => {
+//                 if(err.data.message === 'Failed to authenticate') {
+
+
+//                     return ;
+//                 } 
+
+//                 fail(err);
+//             })
+//     );
+// }
+
+// export function createPostService($http, url) {
+//     url = createUrl(url);
+
+//     return function(data, callback) {
+//         fetchPOST(
+//             $http,
+//             url,
+//             data,
+//             (resp) => {
+//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+//                 else callback(resp.data);
+//             },
+//             (err) => callback(err)
+//         )
+//     }
+// }
+
+// export function createGetService($http, url) {
+//     url = createUrl(url);
+
+//     return function (callback) {
+//         fetchPOST(
+//             $http,
+//             url,
+//             null,
+//             (resp) => {
+//                 if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+//                 else callback(resp.data);
+//             },
+//             (err) => callback(err));
+//     }
+// }
+
+const SUCCESS_CODE = 200;
+/* harmony export (immutable) */ __webpack_exports__["a"] = SUCCESS_CODE;
+
+const INTERNAL_ERROR_CODE = 512;
+/* unused harmony export INTERNAL_ERROR_CODE */
+
+const TOKEN_EXPIRED = 'Failed to authenticate';
+/* harmony export (immutable) */ __webpack_exports__["b"] = TOKEN_EXPIRED;
+
+
+/***/ }),
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2822,12 +2822,12 @@ var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var hof_1 = __webpack_require__(2);
 var interface_1 = __webpack_require__(9); // has or is using
-var transitionHook_1 = __webpack_require__(12);
+var transitionHook_1 = __webpack_require__(14);
 var hookRegistry_1 = __webpack_require__(25);
 var hookBuilder_1 = __webpack_require__(32);
 var pathUtils_1 = __webpack_require__(18);
 var param_1 = __webpack_require__(11);
-var resolvable_1 = __webpack_require__(13);
+var resolvable_1 = __webpack_require__(15);
 var resolveContext_1 = __webpack_require__(19);
 var rejectFactory_1 = __webpack_require__(8);
 /** @hidden */
@@ -3663,7 +3663,7 @@ var hof_1 = __webpack_require__(2);
 var trace_1 = __webpack_require__(7);
 var coreservices_1 = __webpack_require__(3);
 var interface_1 = __webpack_require__(33);
-var resolvable_1 = __webpack_require__(13);
+var resolvable_1 = __webpack_require__(15);
 var pathUtils_1 = __webpack_require__(18);
 var strings_1 = __webpack_require__(5);
 var common_2 = __webpack_require__(4);
@@ -5158,7 +5158,7 @@ var updateGlobals_1 = __webpack_require__(74);
 var url_1 = __webpack_require__(75);
 var lazyLoad_1 = __webpack_require__(49);
 var transitionEventType_1 = __webpack_require__(50);
-var transitionHook_1 = __webpack_require__(12);
+var transitionHook_1 = __webpack_require__(14);
 var predicates_1 = __webpack_require__(1);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
@@ -5969,7 +5969,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var interface_1 = __webpack_require__(9);
-var transitionHook_1 = __webpack_require__(12);
+var transitionHook_1 = __webpack_require__(14);
 /**
  * This class returns applicable TransitionHooks for a specific Transition instance.
  *
@@ -6332,7 +6332,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module resolve */ /** for typedoc */
 __export(__webpack_require__(33));
-__export(__webpack_require__(13));
+__export(__webpack_require__(15));
 __export(__webpack_require__(19));
 //# sourceMappingURL=index.js.map
 
@@ -6348,7 +6348,7 @@ var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var strings_1 = __webpack_require__(5);
 var hof_1 = __webpack_require__(2);
-var resolvable_1 = __webpack_require__(13);
+var resolvable_1 = __webpack_require__(15);
 var coreservices_1 = __webpack_require__(3);
 var parseUrl = function (url) {
     if (!predicates_1.isString(url))
@@ -8952,7 +8952,7 @@ exports.lazyLoadState = lazyLoadState;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var transitionHook_1 = __webpack_require__(12);
+var transitionHook_1 = __webpack_require__(14);
 /**
  * This class defines a type of hook, such as `onBefore` or `onEnter`.
  * Plugins can define custom hook types, such as sticky states does for `onInactive`.
@@ -9459,7 +9459,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(16)(content, options);
+var update = __webpack_require__(13)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -9494,7 +9494,7 @@ if(false) {
 /* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(15)(false);
+exports = module.exports = __webpack_require__(12)(false);
 // imports
 
 
@@ -47635,7 +47635,7 @@ __export(__webpack_require__(32));
 __export(__webpack_require__(25));
 __export(__webpack_require__(8));
 __export(__webpack_require__(17));
-__export(__webpack_require__(12));
+__export(__webpack_require__(14));
 __export(__webpack_require__(50));
 __export(__webpack_require__(28));
 //# sourceMappingURL=index.js.map
@@ -47780,10 +47780,10 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(147);
 
 
 
@@ -47845,17 +47845,17 @@ function assignAllHoc() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__navbarTool_navbarTool__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sidebar_sidebar__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_user_user__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_login_login__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_company_company__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_parameter_parameter__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__addUserModal_addUserModal__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__addGroupModal_addGroupModal__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(119);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__addCompanyModal_addCompanyModal__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__editUserModal_editUserModal__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__editCompanyModal_editCompanyModal__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__listUserInGroupModal_listUserInGroupModal__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_group_group__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_login_login__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_company_company__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_parameter_parameter__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__addUserModal_addUserModal__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__addGroupModal_addGroupModal__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__addGroupToUserModal_addGroupToUserModal__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__addCompanyModal_addCompanyModal__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__editUserModal_editUserModal__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__editCompanyModal_editCompanyModal__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__listUserInGroupModal_listUserInGroupModal__ = __webpack_require__(129);
 
 
 
@@ -47997,7 +47997,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(16)(content, options);
+var update = __webpack_require__(13)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -48032,7 +48032,7 @@ if(false) {
 /* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(15)(false);
+exports = module.exports = __webpack_require__(12)(false);
 // imports
 exports.push([module.i, "@import url(http://fonts.googleapis.com/css?family=Roboto);", ""]);
 
@@ -48362,6 +48362,9 @@ module.exports = "<div class=sidebar data-color=purple data-image=../assets/img/
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__user_html__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_toastr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__user_css__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__user_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__user_css__);
+
 
 
 
@@ -48488,6 +48491,10 @@ function controller(user, search, company) {
         });
     };
 
+    self.sort = function(sortBy) {
+        self.sortBy = sortBy;
+    }
+
     self.isActive = function (user) {
         const ACTIVE = 'Active';
 
@@ -48511,6 +48518,7 @@ function controller(user, search, company) {
 
         //filter
         self.searchStr = {};
+        self.sortBy = '';
     }
 
     function init() {
@@ -48566,7 +48574,7 @@ function controller(user, search, company) {
 /* 102 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6>Fullname</h6></th> <th><h6>Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user-id=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('username')\">Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6>Role</h6></th> <th><h6 class=clickable ng-click=\"self.sort('fullname')\">Fullname</h6></th> <th><h6 class=clickable ng-click=\"self.sort('idCompany')\">Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user-id=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
 
 /***/ }),
 /* 103 */
@@ -58950,11 +58958,75 @@ module.exports = function() {
 
 /***/ }),
 /* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(106);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(13)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {
+	module.hot.accept("!!../../../../node_modules/css-loader/index.js!./user.css", function() {
+		var newContent = require("!!../../../../node_modules/css-loader/index.js!./user.css");
+
+		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(12)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".clickable{\n    cursor: pointer;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 107 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__group_html__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_toastr__);
@@ -59097,20 +59169,20 @@ function controller(group, search, company, auth) {
 });
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups  | filter:self.searchStr | filter:self.inCompany | pagination: self.curPage: self.groupPerPage  track by $index\"> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-model=self.groupPerPage ng-click=self.changeGroupPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\" ng-if=\"self.role === 0\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-primary'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_html__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_html__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__login_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_css__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_css__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__login_css__);
 
 
@@ -59213,17 +59285,17 @@ function controller(auth) {
 });
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=container> <div id=loginbox style=margin-top:50px class=\"mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2\"> <div class=\"panel panel-info\"> <div class=panel-heading id=login-panel> <div class=panel-title>Sign In</div> </div> <div style=padding-top:30px class=panel-body> <div style=display:none id=login-alert class=\"alert alert-danger col-sm-12\"></div> <form id=loginform class=form-horizontal role=form> <div style=margin-bottom:25px class=input-group> <span class=input-group-addon> <i class=material-icons>person</i> </span> <input ng-model=self.user.username id=login-username type=text class=form-control placeholder=\"  Username\"> </div> <div style=margin-bottom:25px class=input-group> <span class=input-group-addon> <i class=material-icons>lock</i> </span> <input ng-model=self.user.password id=login-password type=password class=form-control placeholder=Password> </div> <div style=margin-top:10px class=form-group> <div class=\"col-sm-12 controls right\"> <a ng-click=self.login() id=btn-login class=\"btn btn-primary\"> Login </a> <span id=error-login-msg class=text-danger ng-bind=self.errMsg></span> </div> </div> </form> </div> </div> </div> </div>";
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(110);
+var content = __webpack_require__(112);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -59237,7 +59309,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(16)(content, options);
+var update = __webpack_require__(13)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -59269,10 +59341,10 @@ if(false) {
 }
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(15)(false);
+exports = module.exports = __webpack_require__(12)(false);
 // imports
 
 
@@ -59283,12 +59355,12 @@ exports.push([module.i, "\n\n#login-password{\n    background-image: linear-grad
 
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__company_html__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__company_html__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__company_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__company_html__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_toastr__);
@@ -59423,18 +59495,18 @@ function controller(company, search) {
 });
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>COMPANY MANAGEMENT</h4> <p class=category>This is a site that manage the companys of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>NAME</h6></th> <th><h6>Description</h6></th> <th><h6>Location</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, company) in self.companies  | filter:self.searchStr | pagination: self.curPage: self.companyPerPage  track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=company.name></td> <td ng-bind=company.description></td> <td ng-bind=company.location></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"edit the info of company\" target=\"'edit-company-modal'\" ng-click=self.chooseCompany(company)> <i class=material-icons>edit</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=self.removeCompany(company.idCompany)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>companies per page :</label> <select ng-model=self.companyPerPage ng-click=self.changeCompanyPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new company\" class-name=\"'btn btn-primary'\" target=\"'add-company-modal'\">Add company </modal-btn> </div> <div> <add-company-modal add-company-success=self.addCompanySuccess></add-company-modal> <edit-company-modal edit-company-success=self.editCompanySuccess company=self.editCompany> </edit-company-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constant__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__parameter_html__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__parameter_html__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__parameter_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__parameter_html__);
 
 
@@ -59470,17 +59542,17 @@ function controller() {
 });
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports) {
 
 module.exports = "<h1>NAH</h1>";
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addUserModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addUserModal_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -59587,17 +59659,17 @@ function controller(user, company, modal){
 });
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, exports) {
 
 module.exports = " <modal name=self.name on-close=self.onClose header=\"'USER INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=row> <div class=\"form-group col-lg-6 col-sm-6 col-md-6\"> <label class=col-form-label>Full Name</label> <input type=text class=form-control ng-model=self.user.fullname> </div> <div class=\"form-group col-lg-6 col-sm-6 col-md-6\"> <label class=col-form-label>Email</label> <input type=text class=form-control ng-model=self.user.email> </div> </div> <div class=form-group> <label class=col-form-label>Username</label> <input type=text class=form-control ng-model=self.user.username> </div> <div class=form-group> <label class=col-form-label>Password</label> <input type=password class=form-control ng-model=self.user.password> </div> <div class=form-group> <label class=col-form-label>Confirm Password</label> <input type=password class=form-control ng-model=self.user.confirmPassword> </div> <div class=row> <div class=\"col-sm-8 col-md-8 col-lg-8 row\"> <label class=\"col-sm-3 col-md-3 col-lg-3\">Company : </label> <select ng-model=self.user.idCompany class=\"col-sm-6 col-md-6 col-lg-6\"> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> </div> <div class=\"col-sm-4 col-md-4 col-lg-4 row\"> <div class=row> <label class=\"col-sm-4 col-md-4 col-lg-4\">Role : </label> <select ng-model=self.user.role class=\"col-sm-5 col-md-5 col-lg-5\"> <option value=0>System Admin</option> <option value=1>Company Moderator</option> <option value=2>Normal User</option> </select> </div> </div> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addGroupModal_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -59706,17 +59778,17 @@ function controller(group, company, modal){
 });
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, exports) {
 
 module.exports = " <modal name=self.name on-close=self.onClose header=\"'GROUP INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Name</label> <input type=text class=form-control ng-model=self.group.name> </div> <div class=form-group> <label class=col-form-label>Description</label> <input type=text class=form-control ng-model=self.group.description> </div> <div class=form-group> <label class=\"col-sm-2 col-md-2 col-lg-2\">Company: </label> <select ng-model=self.group.idCompany> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addGroupToUserModal_html__);
 
 
@@ -59824,17 +59896,17 @@ function controller(group, modal) {
 });
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(module, exports) {
 
 module.exports = " <modal name=self.name on-close=self.onClose header=\"'Add User To Group'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=row> <span class=\"col-sm-3 col-md-3 col-lg-3 col-form-label\">List Group:</span> <select class=\"col-sm-6 col-md-6 col-lg-6\" style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addCompanyModal_html__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addCompanyModal_html__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addCompanyModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__addCompanyModal_html__);
 // import angular from 'angular';
 // import appName from '../../module';
@@ -59918,17 +59990,17 @@ function controller(company, modal){
 });
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports) {
 
 module.exports = " <modal name=self.name on-close=self.onClose header=\"'COMPANY INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Name</label> <input type=text class=form-control ng-model=self.company.name> </div> <div class=form-group> <label class=col-form-label>Description</label> <input type=text class=form-control ng-model=self.company.description> </div> <div class=form-group> <label class=col-form-label>Location</label> <input type=text class=form-control ng-model=self.company.location> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editUserModal_html__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editUserModal_html__ = __webpack_require__(126);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editUserModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__editUserModal_html__);
 
 
@@ -60096,17 +60168,17 @@ function controller(user, modal, auth, company, group) {
 });
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, exports) {
 
 module.exports = " <modal name=self.name on-close=self.onClose header=\"'USER INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Email</label> <input type=text class=form-control ng-model=self.user.email> </div> <div class=form-group> <label class=col-form-label>Full Name</label> <input type=text class=form-control ng-model=self.user.fullname> </div> <div class=form-group> <label class=col-form-label>Password</label> <input type=password class=form-control ng-model=self.user.password> </div> <div class=form-group> <label class=col-form-label>Confirm Password</label> <input type=password class=form-control ng-model=self.user.confirmPassword> </div> <div class=row> <div class=\"col-sm-4 col-md-4 col-lg-4 row\"> <div class=row ng-if=\"self.role <= 1\"> <label class=\"col-sm-4 col-md-4 col-lg-4\">Group : </label> <select ng-model=self.user.idGroup class=\"col-sm-5 col-md-5 col-lg-5\"> <option ng-repeat=\"group in self.listGroup\" value={{group.idGroup}} ng-bind=group.name> </option> </select> </div> </div> <div class=\"col-sm-8 col-md-8 col-lg-8 row\" ng-if=\"self.role === 0\"> <label class=\"col-sm-3 col-md-3 col-lg-3\">Company : </label> <select ng-model=self.user.idCompany class=\"col-sm-6 col-md-6 col-lg-6\" ng-click=self.companyOptionOnClick()> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> </div> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary float-right\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editCompanyModal_html__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editCompanyModal_html__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editCompanyModal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__editCompanyModal_html__);
 
 
@@ -60182,19 +60254,19 @@ function controller(company, modal) {
 });
 
 /***/ }),
-/* 126 */
+/* 128 */
 /***/ (function(module, exports) {
 
 module.exports = " <modal name=self.name on-close=self.onClose header=\"'Edit Company'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Name</label> <input type=text class=form-control ng-model=self.company.name> </div> <div class=form-group> <label class=col-form-label>Description</label> <input type=text class=form-control ng-model=self.company.description> </div> <div class=form-group> <label class=col-form-label>Location</label> <input type=text class=form-control ng-model=self.company.location> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
-/* 127 */
+/* 129 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__listUserInGroup_html__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__listUserInGroup_html__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__listUserInGroup_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__listUserInGroup_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__listUserInGroup_css__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__listUserInGroup_css__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__listUserInGroup_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__listUserInGroup_css__);
 
 
@@ -60274,17 +60346,17 @@ function controller(user, group) {
 });
 
 /***/ }),
-/* 128 */
+/* 130 */
 /***/ (function(module, exports) {
 
 module.exports = "<modal name=self.name on-close=\"\" header=\"'List User In Group'\"> <span class=text-danger ng-bind=self.errMsg></span> <span class=text-success ng-bind=self.sucMsg></span> <ul class=\"list-group product-category-all\"> <li class=list-group-item ng-repeat=\"u in self.listUser track by $index\"> <a class=badge ng-click=self.removeUserFromGroup(u.idUser)> <i class=material-icons>delete</i>  </a> <span> <i class=material-icons style=font-size:40px;vertical-align:middle>face</i> {{u.username}} </span> </li> </ul> </modal>";
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(130);
+var content = __webpack_require__(132);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -60298,7 +60370,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(16)(content, options);
+var update = __webpack_require__(13)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -60330,10 +60402,10 @@ if(false) {
 }
 
 /***/ }),
-/* 130 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(15)(false);
+exports = module.exports = __webpack_require__(12)(false);
 // imports
 
 
@@ -60344,14 +60416,16 @@ exports.push([module.i, ".badge{\nbackground:none;   \n}\n.badge i{\ncolor:#5d82
 
 
 /***/ }),
-/* 131 */
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stt__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__range__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stt__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sort__ = __webpack_require__(154);
+
 
 
 
@@ -60362,11 +60436,12 @@ exports.push([module.i, ".badge{\nbackground:none;   \n}\n.badge i{\ncolor:#5d82
     __WEBPACK_IMPORTED_MODULE_0__range__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_1__pagination__["a" /* default */],
     __WEBPACK_IMPORTED_MODULE_2__capitalize__["a" /* default */],
-    __WEBPACK_IMPORTED_MODULE_3__stt__["a" /* default */]
+    __WEBPACK_IMPORTED_MODULE_3__stt__["a" /* default */],
+    __WEBPACK_IMPORTED_MODULE_4__sort__["a" /* default */]
 ]);
 
 /***/ }),
-/* 132 */
+/* 134 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60397,7 +60472,7 @@ function range() {
 });
 
 /***/ }),
-/* 133 */
+/* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60445,7 +60520,7 @@ function pagination() {
 });
 
 /***/ }),
-/* 134 */
+/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60465,7 +60540,7 @@ function capitalize() {
 });
 
 /***/ }),
-/* 135 */
+/* 137 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60483,17 +60558,17 @@ function stt() {
 });
 
 /***/ }),
-/* 136 */
+/* 138 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetch__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetch__ = __webpack_require__(145);
 
 
 
@@ -60513,11 +60588,11 @@ function stt() {
 ]);
 
 /***/ }),
-/* 137 */
+/* 139 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(16);
 
 
 const name = 'user';
@@ -60649,11 +60724,11 @@ function service(fetch) {
 });
 
 /***/ }),
-/* 138 */
+/* 140 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(16);
 
 
 const name = 'group';
@@ -60768,7 +60843,7 @@ function service(fetch) {
 });
 
 /***/ }),
-/* 139 */
+/* 141 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60816,11 +60891,11 @@ function service($rootScope) {
 });
 
 /***/ }),
-/* 140 */
+/* 142 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(16);
 
 
 const name = 'company';
@@ -60908,7 +60983,7 @@ function service(fetch) {
 
 
 /***/ }),
-/* 141 */
+/* 143 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60966,11 +61041,11 @@ function service($rootScope) {
 });
 
 /***/ }),
-/* 142 */
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(16);
 
 
 const name = 'auth';
@@ -61069,11 +61144,11 @@ function service( $rootScope, fetch) {
 });
 
 /***/ }),
-/* 143 */
+/* 145 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(16);
 
 
 const name = 'fetch';
@@ -61124,7 +61199,7 @@ function service($http, $rootScope) {
 });
 
 /***/ }),
-/* 144 */
+/* 146 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61212,13 +61287,13 @@ function config($stateProvider, $urlRouterProvider) {
 /* harmony default export */ __webpack_exports__["a"] = (config);
 
 /***/ }),
-/* 145 */
+/* 147 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__browser_browser__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__browser_browser__ = __webpack_require__(152);
 
 
 
@@ -61233,11 +61308,11 @@ function config($stateProvider, $urlRouterProvider) {
 ]);
 
 /***/ }),
-/* 146 */
+/* 148 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_html__);
 
 // import './modal.css'
@@ -61323,17 +61398,17 @@ function controller(modal, $rootScope) {
 });
 
 /***/ }),
-/* 147 */
+/* 149 */
 /***/ (function(module, exports) {
 
 module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true data-backdrop=static> <div class=modal-dialog role=document> <div class=modal-content> <div class=modal-header> <button type=button class=close data-dismiss=modal aria-label=Close ng-click=self.onClose()> <span aria-hidden=true>&times;</span> </button> <h3 class=modal-title id=exampleModalLabel ng-bind=self.header></h3> </div> <div class=modal-body> <ng-transclude></ng-transclude> </div> </div> </div> </div> ";
 
 /***/ }),
-/* 148 */
+/* 150 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(151);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modalBtn_html__);
 
 // import { createModalName } from '../helper'
@@ -61370,17 +61445,17 @@ function controller(modal) {
 });
 
 /***/ }),
-/* 149 */
+/* 151 */
 /***/ (function(module, exports) {
 
 module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
 
 /***/ }),
-/* 150 */
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__browser_html__);
 // import { VIEWS } from '../../../constant';
 
@@ -61448,10 +61523,50 @@ function controller(auth) {
 });
 
 /***/ }),
-/* 151 */
+/* 153 */
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-if=self.isLogined> <app></app> </div> <div ng-if=!self.isLogined> <login></login> </div>";
+
+/***/ }),
+/* 154 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// import angular from 'angular';
+// import appName from '../module';
+
+const name = 'sort';
+
+
+// angular
+//     .module(appName)
+//     .filter(name, pagination)
+
+function sort() {
+    return function (input, attr) {
+
+        if(!attr) return input;
+
+        return input
+            // .map(e => e)
+            .sort((a, b) => {
+                const _a = a[attr].toString();
+                const _b = b[attr].toString();
+
+                if(_a < _b) return -1;
+                if(_a > _b) return 1;
+
+                return 0;
+            });
+
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: sort
+});
 
 /***/ })
 /******/ ]);

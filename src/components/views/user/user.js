@@ -1,6 +1,7 @@
 import { VIEWS } from '../../../constant';
 import template from './user.html';
-import toast from 'toastr'
+import toast from 'toastr';
+import './user.css';
 
 const name = VIEWS.user;
 
@@ -124,6 +125,10 @@ function controller(user, search, company) {
         });
     };
 
+    self.sort = function(sortBy) {
+        self.sortBy = sortBy;
+    }
+
     self.isActive = function (user) {
         const ACTIVE = 'Active';
 
@@ -147,6 +152,7 @@ function controller(user, search, company) {
 
         //filter
         self.searchStr = {};
+        self.sortBy = '';
     }
 
     function init() {
