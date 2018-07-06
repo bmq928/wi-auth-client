@@ -47781,9 +47781,9 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__hoc__ = __webpack_require__(148);
 
 
 
@@ -59899,7 +59899,7 @@ function controller(group, modal) {
 /* 122 */
 /***/ (function(module, exports) {
 
-module.exports = " <modal name=self.name on-close=self.onClose header=\"'Add User To Group'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=row> <span class=\"col-sm-3 col-md-3 col-lg-3 col-form-label\">List Group:</span> <select class=\"col-sm-6 col-md-6 col-lg-6\" style=margin:15px ng-model=self.idGroup> <option ng-repeat=\"g in self.listGroup track by $index\" value={{g.idGroup}} ng-bind=g.name></option> </select> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
+module.exports = " <modal name=self.name on-close=self.onClose header=\"'Add User To Group'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <table> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th style=cursor:pointer> ALL </th> <td>GROUP</td> </tr> </thead> <tbody> <tr> <td> <input type=checkbox> </td> <td>dsfkjlsa</td> </tr> <tr> <td> <input type=checkbox> </td> <td>dsfkjlsa</td> </tr> <tr> <td> <input type=checkbox> </td> <td>dsfkjlsa</td> </tr> <tr> <td> <input type=checkbox> </td> <td>dsfkjlsa</td> </tr> <tr> <td> <input type=checkbox> </td> <td>dsfkjlsa</td> </tr> <tr> <td> <input type=checkbox> </td> <td>dsfkjlsa</td> </tr> </tbody> </table> </table> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
 /* 123 */
@@ -60424,7 +60424,7 @@ exports.push([module.i, ".badge{\nbackground:none;   \n}\n.badge i{\ncolor:#5d82
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__capitalize__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stt__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sort__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sort__ = __webpack_require__(138);
 
 
 
@@ -60562,13 +60562,53 @@ function stt() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetch__ = __webpack_require__(145);
+// import angular from 'angular';
+// import appName from '../module';
+
+const name = 'sort';
+
+
+// angular
+//     .module(appName)
+//     .filter(name, pagination)
+
+function sort() {
+    return function (input, attr) {
+
+        if(!attr) return input;
+
+        return input
+            // .map(e => e)
+            .sort((a, b) => {
+                const _a = a[attr].toString();
+                const _b = b[attr].toString();
+
+                if(_a < _b) return -1;
+                if(_a > _b) return 1;
+
+                return 0;
+            });
+
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name,
+    options: sort
+});
+
+/***/ }),
+/* 139 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__group__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__company__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetch__ = __webpack_require__(146);
 
 
 
@@ -60588,7 +60628,7 @@ function stt() {
 ]);
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60724,7 +60764,7 @@ function service(fetch) {
 });
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60843,7 +60883,7 @@ function service(fetch) {
 });
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60891,7 +60931,7 @@ function service($rootScope) {
 });
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60983,7 +61023,7 @@ function service(fetch) {
 
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61041,7 +61081,7 @@ function service($rootScope) {
 });
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61144,7 +61184,7 @@ function service( $rootScope, fetch) {
 });
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61199,7 +61239,7 @@ function service($http, $rootScope) {
 });
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61287,13 +61327,13 @@ function config($stateProvider, $urlRouterProvider) {
 /* harmony default export */ __webpack_exports__["a"] = (config);
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__browser_browser__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_modal__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modalBtn_modalBtn__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__browser_browser__ = __webpack_require__(153);
 
 
 
@@ -61308,11 +61348,11 @@ function config($stateProvider, $urlRouterProvider) {
 ]);
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_html__);
 
 // import './modal.css'
@@ -61398,17 +61438,17 @@ function controller(modal, $rootScope) {
 });
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports) {
 
 module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true data-backdrop=static> <div class=modal-dialog role=document> <div class=modal-content> <div class=modal-header> <button type=button class=close data-dismiss=modal aria-label=Close ng-click=self.onClose()> <span aria-hidden=true>&times;</span> </button> <h3 class=modal-title id=exampleModalLabel ng-bind=self.header></h3> </div> <div class=modal-body> <ng-transclude></ng-transclude> </div> </div> </div> </div> ";
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalBtn_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modalBtn_html__);
 
 // import { createModalName } from '../helper'
@@ -61445,17 +61485,17 @@ function controller(modal) {
 });
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports) {
 
 module.exports = "<button class={{self.className}} data-toggle=modal data-target={{self._target}}> <ng-transclude></ng-transclude> </button>";
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__browser_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__browser_html__);
 // import { VIEWS } from '../../../constant';
 
@@ -61523,50 +61563,10 @@ function controller(auth) {
 });
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-if=self.isLogined> <app></app> </div> <div ng-if=!self.isLogined> <login></login> </div>";
-
-/***/ }),
-/* 154 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// import angular from 'angular';
-// import appName from '../module';
-
-const name = 'sort';
-
-
-// angular
-//     .module(appName)
-//     .filter(name, pagination)
-
-function sort() {
-    return function (input, attr) {
-
-        if(!attr) return input;
-
-        return input
-            // .map(e => e)
-            .sort((a, b) => {
-                const _a = a[attr].toString();
-                const _b = b[attr].toString();
-
-                if(_a < _b) return -1;
-                if(_a > _b) return 1;
-
-                return 0;
-            });
-
-    }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    name,
-    options: sort
-});
 
 /***/ })
 /******/ ]);
