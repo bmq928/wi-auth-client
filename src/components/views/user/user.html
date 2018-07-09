@@ -24,7 +24,7 @@
             </thead>
             <tbody>
         
-                <tr ng-repeat="(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy | pagination: self.curPage: self.userPerPage track by $index">
+                <tr ng-init="self.sortBy='username'" ng-repeat="(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy | pagination: self.curPage: self.userPerPage track by $index">
                     <!-- <td>
                         <input type="checkbox">
                     </td> -->
