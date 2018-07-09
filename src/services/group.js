@@ -38,6 +38,21 @@ function service(fetch) {
         )
     }
 
+    function addUserToGroups(data, callback) {
+        const url = createUrl('/group/add-user-to-groups');
+
+        fetch.fetchPOST(
+            // $http,
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     function removeUserFromGroup(data, callback) {
         const url = createUrl('/group/remove-user');
 
@@ -96,7 +111,8 @@ function service(fetch) {
         addUserToGroup,
         addNewGroup,
         removeUserFromGroup,
-        removeGroup
+        removeGroup,
+        addUserToGroups
     }
     
 }

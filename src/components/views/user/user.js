@@ -47,7 +47,7 @@ function controller(user, search, company) {
     }
 
     self.addGroupUserOnClick = function (user) {
-        self.addGroupUser = user.idUser;
+        self.addGroupUser = user;
         self.addGroupUser_idCompany = user.idCompany;
     }
 
@@ -137,7 +137,7 @@ function controller(user, search, company) {
 
     function preProcess() {
         self.removeUser = [];
-        self.addGroupUser = -1;  //id
+        self.addGroupUser = {}; 
         self.addGroupUser_idCompany = -1;
 
         //pre

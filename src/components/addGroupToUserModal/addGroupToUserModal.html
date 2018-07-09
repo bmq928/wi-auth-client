@@ -46,8 +46,9 @@
                 <tr>
                     <th style="cursor: pointer;">
                         <!-- <input type="checkbox"> -->
-                        ALL
+                        <!-- ALL -->
                     </th>
+                    <td>STT</td>
                     <td>GROUP</td>
                     <!-- <th><h6>ID</h6></th> -->
                     <!-- <th><h6>STT</h6></th> -->
@@ -56,41 +57,33 @@
             </thead>
             <tbody>
 
-                <tr>
-                    <td>
-                        <input type="checkbox">
+                <tr ng-repeat="(i, group) in self.listGroup track by $index">
+                    <td >
+                        <input
+                         ng-click="self.toggleAdd(group)"
+                         ng-if="!self.isOnGroup(group)"
+                         type="checkbox" >
+
+                         <i 
+                          style="color: red; cursor: pointer;"
+                          ng-if="self.isOnGroup(group)"
+                          ng-click="self.toggleRemove(group)"
+                          class="material-icons">
+                           remove_circle
+                        </i>
                     </td>
-                    <td>dsfkjlsa</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
+
+                    <!-- not remove style -->
+                    <td ng-if="!self.isRemoved(group)" ng-bind="i | stt: i"></td>
+                    <td ng-if="!self.isRemoved(group)" ng-bind="group.name"></td>
+
+                    <!-- remove style -->
+                    <td ng-if="self.isRemoved(group)">
+                        <del>{{i | stt: i}}</del>
                     </td>
-                    <td>dsfkjlsa</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
+                    <td ng-if="self.isRemoved(group)">
+                        <del>{{group.name}}</del>
                     </td>
-                    <td>dsfkjlsa</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>dsfkjlsa</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>dsfkjlsa</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>dsfkjlsa</td>
                 </tr>
 
                 <!-- <td>sdkfjlasjd</td>

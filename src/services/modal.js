@@ -5,7 +5,7 @@ function service($rootScope) {
 
     // const CLOSE_MODAL_EVENT = 'CLOSE_MODAL_EVENT'
 
-    function closeModal(name) {
+    function closeModal(name, callback) {
         const id = createModalName(name);
 
         const $ = window.jQuery;
@@ -22,6 +22,8 @@ function service($rootScope) {
                 $('#'+id).modal('hide');
             })
         }
+
+        if (callback) callback();
 
     }
 

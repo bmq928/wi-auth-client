@@ -26,9 +26,7 @@ module.exports = {
         }],
       },
       { test: /\.jpg$/, use: ["file-loader"] },
-      { test: /\.png$/, use: ["url-loader?mimetype=image/png"] }
-    ],
-    loaders: [
+      { test: /\.png$/, use: ["url-loader?mimetype=image/png"] },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -36,7 +34,16 @@ module.exports = {
           presets: ['stage-3']
         }
       }
-    ]
+    ],
+    // loaders: [
+    //   {
+    //     test: /\.js$/,
+    //     loader: 'babel-loader',
+    //     query: {
+    //       presets: ['stage-3']
+    //     }
+    //   }
+    // ]
   },
   //fix bug cannot resolve  'fs'
   node: {
@@ -45,5 +52,6 @@ module.exports = {
   resolve: {
     extensions: ['.json', '.js', '.jsx', '.css']
   },
-  devtool: 'source-map'
+  devtool: 'source-map',
+  mode: 'development'
 };
