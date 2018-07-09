@@ -1,4 +1,4 @@
-import { VIEWS } from '../../../constant';
+import {VIEWS} from '../../../constant';
 import template from './user.html';
 import toast from 'toastr';
 import './user.css';
@@ -116,16 +116,18 @@ function controller(user, search, company) {
     }
 
     self.forceUserLogOut = function (u) {
-        user.forceLogOut(u.idUser, (err, resp) => {
-            if (err) {
-                self.errMsg = err.reason;
-            } else {
-                init();
-            }
-        });
+        if (confirm('Are you sure to End all session of : ' + u.username)) {
+            user.forceLogOut(u.idUser, (err, resp) => {
+                if (err) {
+                    self.errMsg = err.reason;
+                } else {
+                    init();
+                }
+            });
+        }
     };
 
-    self.sort = function(sortBy) {
+    self.sort = function (sortBy) {
         self.sortBy = sortBy;
     }
 
@@ -137,7 +139,7 @@ function controller(user, search, company) {
 
     function preProcess() {
         self.removeUser = [];
-        self.addGroupUser = {}; 
+        self.addGroupUser = {};
         self.addGroupUser_idCompany = -1;
 
         //pre
