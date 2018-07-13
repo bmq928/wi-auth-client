@@ -143,6 +143,9 @@ function controller(group, modal) {
         self.errMsg = '';
         self.listGroup = [];
         self.idGroup = null;
+        self.searchGroupStr = {
+            name: ''
+        };
 
         //data
         self.listAddGroup = [];

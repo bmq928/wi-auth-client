@@ -42509,7 +42509,7 @@ function controller(group, company, modal) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " <modal name=self.name on-close=self.onClose header=\"'Add User To Group'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <table> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th style=cursor:pointer> </th> <td>STT</td> <td>GROUP</td> </tr> </thead> <tbody> <tr ng-repeat=\"(i, group) in self.listGroup track by $index\"> <td> <input ng-click=self.toggleAdd(group) ng-if=!self.isOnGroup(group) type=checkbox> <i style=color:red;cursor:pointer ng-if=self.isOnGroup(group) ng-click=self.toggleRemove(group) class=material-icons> remove_circle </i> </td> <td ng-if=!self.isRemoved(group) ng-bind=\"i | stt: i\"></td> <td ng-if=!self.isRemoved(group) ng-bind=group.name></td> <td ng-if=self.isRemoved(group)> <del>{{i | stt: i}}</del> </td> <td ng-if=self.isRemoved(group)> <del>{{group.name}}</del> </td> </tr> </tbody> </table> </table> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
+module.exports = " <modal name=self.name on-close=self.onClose header=\"'Add User To Group'\"> <div> <label style=margin-right:5px>Search Group:</label> <input type=text ng-model=self.searchGroupStr.name> </div> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <table> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th style=\"border-bottom:1px solid grey;width:120px\"> </th> <td style=\"border-bottom:1px solid grey\">STT</td> <td style=\"border-bottom:1px solid grey\">GROUP</td> </tr> </thead> <tbody> <tr ng-repeat=\"(i, group) in self.listGroup | filter:self.searchGroupStr  track by $index\"> <td> <input ng-click=self.toggleAdd(group) ng-if=!self.isOnGroup(group) type=checkbox> <i style=color:red;cursor:pointer ng-if=self.isOnGroup(group) ng-click=self.toggleRemove(group) class=material-icons> remove_circle </i> </td> <td ng-if=!self.isRemoved(group) ng-bind=\"i | stt: i\"></td> <td ng-if=!self.isRemoved(group) ng-bind=group.name></td> <td ng-if=self.isRemoved(group)> <del>{{i | stt: i}}</del> </td> <td ng-if=self.isRemoved(group)> <del>{{group.name}}</del> </td> </tr> </tbody> </table> </table> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
 
@@ -42665,6 +42665,9 @@ function controller(group, modal) {
         self.errMsg = '';
         self.listGroup = [];
         self.idGroup = null;
+        self.searchGroupStr = {
+            name: ''
+        };
 
         //data
         self.listAddGroup = [];
