@@ -9,9 +9,10 @@ const name = 'sort';
 //     .filter(name, pagination)
 
 function sort() {
-    return function (input, attr) {
+    return function (input, attr, reverse) {
 
         if(!attr) return input;
+        const param = !!(reverse) ? -1 : 1; // 
 
         return input
             // .map(e => e)
@@ -19,8 +20,8 @@ function sort() {
                 const _a = a[attr].toString();
                 const _b = b[attr].toString();
 
-                if(_a < _b) return -1;
-                if(_a > _b) return 1;
+                if(_a < _b) return -1 * param; // -1 * -1 = 1 => reverse
+                if(_a > _b) return 1 * param;  // 1 * -1 = 1 => reverse
 
                 return 0;
             });

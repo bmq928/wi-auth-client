@@ -128,6 +128,10 @@ function controller(user, search, company) {
     };
 
     self.sort = function (sortBy) {
+        if(self.sortBy = sortBy) self.reverse = !self.reverse;
+        else self.reverse = false;
+
+        
         self.sortBy = sortBy;
     }
 
@@ -145,6 +149,7 @@ function controller(user, search, company) {
         //pre
         self.users = [];
         self.idToCompanyDict = {};
+        self.reverse = false;
 
         //pagination
         self.userPerPage = 5;
