@@ -24,7 +24,7 @@
             </thead>
             <tbody>
         
-                <tr ng-repeat="(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy | pagination: self.curPage: self.userPerPage track by $index">
+                <tr ng-init="self.sortBy='username'" ng-repeat="(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy | pagination: self.curPage: self.userPerPage track by $index">
                     <!-- <td>
                         <input type="checkbox">
                     </td> -->
@@ -118,7 +118,7 @@
 
    <div class="col-sm-10 col-md-10 col-lg-10">
         <label>User per page :</label>
-        <select ng-model="self.userPerPage" ng-click="self.changeUserPerPage()">
+        <select ng-init="self.userPerPage='10'" ng-model="self.userPerPage" ng-click="self.changeUserPerPage()">
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="15">15</option>
