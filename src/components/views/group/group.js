@@ -65,6 +65,7 @@ function controller(group, search, company, auth) {
     function preProcess() {
         self.groups = [];
         self.companies = [];
+        self.idToCompanyDict = {};
         self.role = auth.getData().role;
 
         //pagination
@@ -107,6 +108,7 @@ function controller(group, search, company, auth) {
                 console.log(resp);
                 self.companies = resp.content;
                 
+                self.companies.forEach(c => self.idToCompanyDict[c.idCompany] = c.name)
             }
         })
     }
