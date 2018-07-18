@@ -78,13 +78,20 @@
 
             <div class="col-sm-4 col-md-4 col-lg-4 row">
                 <div class="row" ng-if="self.role <= 1">
-                    <label class="col-sm-4 col-md-4 col-lg-4">Group : </label>
+                    <!-- <label class="col-sm-4 col-md-4 col-lg-4">Group : </label>
                     <select ng-model="self.user.idGroup" class="col-sm-5 col-md-5 col-lg-5">
                         <option 
                          ng-repeat="group in self.listGroup"
                          value="{{group.idGroup}}"
                          ng-bind="group.name">
                         </option>
+                    </select> -->
+                    <label class="col-sm-4 col-md-4 col-lg-4">Role : </label>
+                    <select ng-model="self.user.role" class="col-sm-5 col-md-5 col-lg-5">
+                        <option value="0">System Admin</option>
+                        <option value="1">Company Moderator</option>
+                        <option value="2">Normal User</option>
+                        <option value="3">Special User</option>
                     </select>
                 </div>
             </div>
