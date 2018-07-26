@@ -32,7 +32,7 @@ function controller(search, auth) {
 
 
 function generateView(role) {
-    const { user, group, company, parameter } = VIEWS;
+    const { user, group, company, parameter, project } = VIEWS;
     const views = [];
 
     limitTabForUser();
@@ -49,16 +49,24 @@ function generateView(role) {
                 enableTabUser();
                 enableTabParameter();
                 enableTabGroup();
+                enableProject();
                 break;
             case 0:
                 enableTabUser();
                 enableTabParameter();
                 enableTabGroup();
                 enableTabCompany();
+                enableProject();
                 break;
         }
     }
 
+    function enableProject() {
+        views.push({
+            view: project,
+            icon: 'book'
+        })
+    }
     function enableTabUser() {
         views.push({
             view: user,

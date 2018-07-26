@@ -1,0 +1,74 @@
+<div class="text-danger" ng-bind="self.errMsg"></div>
+<!-- <div class="text-success" ng-bind="vm.resp"></div> -->
+<div class="card">
+    <div class="card-header" data-background-color="purple">
+        <h4 class="title">PROJECTS MANAGEMENT</h4>
+        <p class="category">This is a site that manage the projects of users </p>
+    </div>
+    <div class="card-content table-responsive">
+        <table class="table table-hover">
+            <thead class="text-primary">
+            <tr>
+                <!-- <th></th> -->
+                <!-- <th><h6>ID</h6></th> -->
+                <th><h6>STT</h6></th>
+                <th><h6 class="clickable" ng-click="self.sort('name')">Name</h6></th>
+                <th><h6>Company</h6></th>
+                <th><h6>Location</h6></th>
+                <th><h6>Department</h6></th>
+                <th><h6 class="clickable" ng-click="self.sort('createdBy')">Created By</h6></th>
+                <th><h6>Description</h6></th>
+                <th><h6>Action</h6></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="(key, project) in self.projects  | filter:self.searchStr | sort:self.sortBy : self.reverse | pagination: self.curPage: self.projectPerPage  track by $index">
+                <td ng-bind="key | stt:key"></td>
+                <td ng-bind="project.name"></td>
+                <td ng-bind="project.company"></td>
+                <td ng-bind="project.location"></td>
+                <td ng-bind="project.department"></td>
+                <td ng-bind="project.createdBy"></td>
+                <td ng-bind="project.description"></td>
+                <td>
+                    <button
+                            class="btn btn-danger btn-xs"
+                            title="remove company"
+                            ng-click="self.removeProject(project.idProject, project.createdBy)">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-sm-10 col-md-10 col-lg-10">
+        <label>Projects per page :</label>
+        <select ng-init="self.projectPerPage='10'" ng-model="self.projectPerPage"
+                ng-click="self.changeProjectPerPage()">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+        </select>
+    </div>
+
+</div>
+
+<!--===================== pagination =========================-->
+<div class="row">
+    <div class="col-sm-5 col-md-5 col-lg-5"></div>
+    <div class="col-sm-5 col-md-5 col-lg-5">
+        <ul class="pagination pagination-sm">
+            <li ng-repeat="page in [] | range: self.numPage" ng-class="{'active' : page === self.curPage}">
+                <a ng-bind="page" ng-click="self.changePage(page)"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+</div>

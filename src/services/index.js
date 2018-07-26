@@ -5,6 +5,7 @@ import company from './company';
 import modal from './modal';
 import auth from './auth';
 import fetch from './fetch';
+import project from './project';
 
 export default [
     user,
@@ -13,5 +14,6 @@ export default [
     company,
     modal,
     auth,
-    fetch
+    fetch,
+    project
 ];

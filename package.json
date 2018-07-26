@@ -27,6 +27,6 @@
     "webpack-cli": "^3.0.8"
   },
   "deploy": {
-    "script": "rsync -av public/* dev.sflow.me:/opt/admin-build/"
+    "script": "rsync -av public/* dev.i2g.cloud:/opt/admin-build/"
   }
 }

@@ -3,7 +3,8 @@ export const VIEWS = {
     group: 'group',
     company: 'company',
     login: 'login',
-    parameter: 'parameter'
+    parameter: 'parameter',
+    project: 'project'
 };
 
 export const APP_TITLE = 'WELL INSIGHT'
