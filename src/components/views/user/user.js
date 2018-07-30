@@ -8,9 +8,9 @@ const name = VIEWS.user;
 // ------------- HAM CHINH ---------------------------
 //self.userPerPage is a string => have to parseInt before use
 
-controller.$inject = ['user', 'search', 'company'];
+controller.$inject = ['user', 'search', 'company', 'auth'];
 
-function controller(user, search, company) {
+function controller(user, search, company, auth) {
     let self = this;
 
     self.$onInit = function () {
@@ -145,6 +145,8 @@ function controller(user, search, company) {
         self.removeUser = [];
         self.addGroupUser = {};
         self.addGroupUser_idCompany = -1;
+        self.userRole = auth.getData().role;
+        
 
         //pre
         self.users = [];

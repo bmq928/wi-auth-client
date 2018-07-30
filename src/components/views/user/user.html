@@ -52,7 +52,7 @@
                     </td>
                     <td ng-bind="user.fullname"></td>
                     <td ng-bind="self.idToCompanyDict[user.idCompany]"></td>
-                    <td>
+                    <td style="text-align:center;">
                         <modal-btn 
                          class-name="'btn btn-success btn-xs'"
                          target="'add-group-modal'"
@@ -68,47 +68,49 @@
                             <i class="material-icons">add</i>
                         </button> -->
 
-                        <modal-btn
-                         class-name="'btn btn-success btn-xs'"
-                         target="'edit-user-modal'"
-                         ng-click="self.editUserOnClick(user)">
-                            <i class="material-icons">edit</i>
-                        </modal-btn>
+                        <span ng-if="self.userRole < 2">
+                            <modal-btn
+                            class-name="'btn btn-success btn-xs'"
+                            target="'edit-user-modal'"
+                            ng-click="self.editUserOnClick(user)">
+                                <i class="material-icons">edit</i>
+                            </modal-btn>
 
-                        <!-- <button 
-                         title="edit user"
-                         data-toggle="modal"
-                         data-target="#edit-user-modal"
-                         class="btn btn-success btn-xs"
-                         ng-click="self.editUserOnClick(user.idUser)" >
-                            <i class="material-icons">edit</i>
-                        </button> -->
-                        <button 
-                         ng-if="self.isActive(user)"
-                         title="deactive user"
-                         class="btn btn-danger btn-xs"
-                         ng-click="self.deactiveUser(user.idUser)">
-                            <i class="material-icons">lock</i>
-                        </button>
-                        <button 
-                         ng-if="!(self.isActive(user))"
-                         title="active user"
-                         class="btn btn-success btn-xs"
-                         ng-click="self.activeUser(user.idUser)">
-                            <i class="material-icons">lock_open</i>
-                        </button>
-                        <button 
-                         class="btn btn-danger btn-xs" 
-                         title="remove user"
-                         ng-click="self.removeUserOnClick(user)">
-                            <i class="material-icons">delete</i>
-                        </button>
-                        <button
-                                class="btn btn-danger btn-xs"
-                                title="Force User Logout"
-                                ng-click="self.forceUserLogOut(user)">
-                            <i class="material-icons">sentiment_very_dissatisfied</i>
-                        </button>
+                            <!-- <button 
+                            title="edit user"
+                            data-toggle="modal"
+                            data-target="#edit-user-modal"
+                            class="btn btn-success btn-xs"
+                            ng-click="self.editUserOnClick(user.idUser)" >
+                                <i class="material-icons">edit</i>
+                            </button> -->
+                            <button 
+                            ng-if="self.isActive(user)"
+                            title="deactive user"
+                            class="btn btn-danger btn-xs"
+                            ng-click="self.deactiveUser(user.idUser)">
+                                <i class="material-icons">lock</i>
+                            </button>
+                            <button 
+                            ng-if="!(self.isActive(user))"
+                            title="active user"
+                            class="btn btn-success btn-xs"
+                            ng-click="self.activeUser(user.idUser)">
+                                <i class="material-icons">lock_open</i>
+                            </button>
+                            <button 
+                            class="btn btn-danger btn-xs" 
+                            title="remove user"
+                            ng-click="self.removeUserOnClick(user)">
+                                <i class="material-icons">delete</i>
+                            </button>
+                            <button
+                            class="btn btn-danger btn-xs"
+                            title="Force User Logout"
+                            ng-click="self.forceUserLogOut(user)">
+                                <i class="material-icons">sentiment_very_dissatisfied</i>
+                            </button>
+                        </span>
                     </td>
                 </tr>
             </tbody>

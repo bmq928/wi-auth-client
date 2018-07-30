@@ -31193,6 +31193,25 @@ exports.push([module.i, "\n\n#login-password{\n    background-image: linear-grad
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./src/components/views/project/project.css":
+/*!****************************************************************************!*\
+  !*** ./node_modules/css-loader!./src/components/views/project/project.css ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".clickable {\n    user-select: none;\n    cursor: pointer;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./src/components/views/user/user.css":
 /*!**********************************************************************!*\
   !*** ./node_modules/css-loader!./src/components/views/user/user.css ***!
@@ -43309,6 +43328,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _editUserModal_editUserModal__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./editUserModal/editUserModal */ "./src/components/editUserModal/editUserModal.js");
 /* harmony import */ var _editCompanyModal_editCompanyModal__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./editCompanyModal/editCompanyModal */ "./src/components/editCompanyModal/editCompanyModal.js");
 /* harmony import */ var _listUserInGroupModal_listUserInGroupModal__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./listUserInGroupModal/listUserInGroupModal */ "./src/components/listUserInGroupModal/listUserInGroupModal.js");
+/* harmony import */ var _views_project_project__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./views/project/project */ "./src/components/views/project/project.js");
 
 
 
@@ -43328,7 +43348,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ([_app_app__WEBPACK_IMPORTED_MODULE_0__["default"], _appFooter_appFooter__WEBPACK_IMPORTED_MODULE_1__["default"], _navbar_navbar__WEBPACK_IMPORTED_MODULE_2__["default"], _navbarHeader_navbarHeader__WEBPACK_IMPORTED_MODULE_3__["default"], _navbarTool_navbarTool__WEBPACK_IMPORTED_MODULE_4__["default"], _sidebar_sidebar__WEBPACK_IMPORTED_MODULE_5__["default"], _views_user_user__WEBPACK_IMPORTED_MODULE_6__["default"], _views_login_login__WEBPACK_IMPORTED_MODULE_8__["default"], _views_group_group__WEBPACK_IMPORTED_MODULE_7__["default"], _views_parameter_parameter__WEBPACK_IMPORTED_MODULE_10__["default"], _views_company_company__WEBPACK_IMPORTED_MODULE_9__["default"], _addGroupModal_addGroupModal__WEBPACK_IMPORTED_MODULE_12__["default"], _addCompanyModal_addCompanyModal__WEBPACK_IMPORTED_MODULE_14__["default"], _addUserModal_addUserModal__WEBPACK_IMPORTED_MODULE_11__["default"], _addGroupToUserModal_addGroupToUserModal__WEBPACK_IMPORTED_MODULE_13__["default"], _editUserModal_editUserModal__WEBPACK_IMPORTED_MODULE_15__["default"], _editCompanyModal_editCompanyModal__WEBPACK_IMPORTED_MODULE_16__["default"], _listUserInGroupModal_listUserInGroupModal__WEBPACK_IMPORTED_MODULE_17__["default"]]);
+
+/* harmony default export */ __webpack_exports__["default"] = ([_app_app__WEBPACK_IMPORTED_MODULE_0__["default"], _appFooter_appFooter__WEBPACK_IMPORTED_MODULE_1__["default"], _navbar_navbar__WEBPACK_IMPORTED_MODULE_2__["default"], _navbarHeader_navbarHeader__WEBPACK_IMPORTED_MODULE_3__["default"], _navbarTool_navbarTool__WEBPACK_IMPORTED_MODULE_4__["default"], _sidebar_sidebar__WEBPACK_IMPORTED_MODULE_5__["default"], _views_user_user__WEBPACK_IMPORTED_MODULE_6__["default"], _views_login_login__WEBPACK_IMPORTED_MODULE_8__["default"], _views_group_group__WEBPACK_IMPORTED_MODULE_7__["default"], _views_parameter_parameter__WEBPACK_IMPORTED_MODULE_10__["default"], _views_company_company__WEBPACK_IMPORTED_MODULE_9__["default"], _addGroupModal_addGroupModal__WEBPACK_IMPORTED_MODULE_12__["default"], _addCompanyModal_addCompanyModal__WEBPACK_IMPORTED_MODULE_14__["default"], _addUserModal_addUserModal__WEBPACK_IMPORTED_MODULE_11__["default"], _addGroupToUserModal_addGroupToUserModal__WEBPACK_IMPORTED_MODULE_13__["default"], _editUserModal_editUserModal__WEBPACK_IMPORTED_MODULE_15__["default"], _editCompanyModal_editCompanyModal__WEBPACK_IMPORTED_MODULE_16__["default"], _listUserInGroupModal_listUserInGroupModal__WEBPACK_IMPORTED_MODULE_17__["default"], _views_project_project__WEBPACK_IMPORTED_MODULE_18__["default"]]);
 
 /***/ }),
 
@@ -43700,7 +43721,7 @@ function controller(search, auth) {
 }
 
 function generateView(role) {
-    const { user, group, company, parameter } = _constant__WEBPACK_IMPORTED_MODULE_1__["VIEWS"];
+    const { user, group, company, parameter, project } = _constant__WEBPACK_IMPORTED_MODULE_1__["VIEWS"];
     const views = [];
 
     limitTabForUser();
@@ -43717,16 +43738,24 @@ function generateView(role) {
                 enableTabUser();
                 enableTabParameter();
                 enableTabGroup();
+                enableProject();
                 break;
             case 0:
                 enableTabUser();
                 enableTabParameter();
                 enableTabGroup();
                 enableTabCompany();
+                enableProject();
                 break;
         }
     }
 
+    function enableProject() {
+        views.push({
+            view: project,
+            icon: 'book'
+        });
+    }
     function enableTabUser() {
         views.push({
             view: user,
@@ -43934,7 +43963,7 @@ function controller(company, search) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Company</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups  | filter:self.searchStr | filter:self.inCompany | pagination: self.curPage: self.groupPerPage  track by $index\"> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td ng-bind=self.idToCompanyDict[group.idCompany]></td> <td> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-init=\"self.groupPerPage='10' \" ng-model=self.groupPerPage ng-click=self.changeGroupPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\" ng-if=\"self.role === 0\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-primary'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Company</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups  | filter:self.searchStr | filter:self.inCompany | pagination: self.curPage: self.groupPerPage  track by $index\"> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td ng-bind=self.idToCompanyDict[group.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-init=\"self.groupPerPage='10' \" ng-model=self.groupPerPage ng-click=self.changeGroupPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\" ng-if=\"self.role === 0\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-primary'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 
@@ -44300,6 +44329,155 @@ function controller() {
 
 /***/ }),
 
+/***/ "./src/components/views/project/project.css":
+/*!**************************************************!*\
+  !*** ./src/components/views/project/project.css ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!./project.css */ "./node_modules/css-loader/index.js!./src/components/views/project/project.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/components/views/project/project.html":
+/*!***************************************************!*\
+  !*** ./src/components/views/project/project.html ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>PROJECTS MANAGEMENT</h4> <p class=category>This is a site that manage the projects of users </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('name')\">Name</h6></th> <th><h6>Company</h6></th> <th><h6>Location</h6></th> <th><h6>Department</h6></th> <th><h6 class=clickable ng-click=\"self.sort('createdBy')\">Created By</h6></th> <th><h6>Description</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, project) in self.projects  | filter:self.searchStr | sort:self.sortBy : self.reverse | pagination: self.curPage: self.projectPerPage  track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=project.name></td> <td ng-bind=project.company></td> <td ng-bind=project.location></td> <td ng-bind=project.department></td> <td ng-bind=project.createdBy></td> <td ng-bind=project.description></td> <td> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=\"self.removeProject(project.idProject, project.createdBy)\"> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Projects per page :</label> <select ng-init=\"self.projectPerPage='10'\" ng-model=self.projectPerPage ng-click=self.changeProjectPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+
+/***/ }),
+
+/***/ "./src/components/views/project/project.js":
+/*!*************************************************!*\
+  !*** ./src/components/views/project/project.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _constant__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constant */ "./src/constant.js");
+/* harmony import */ var _project_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project.html */ "./src/components/views/project/project.html");
+/* harmony import */ var _project_html__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_project_html__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
+/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _project_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./project.css */ "./src/components/views/project/project.css");
+/* harmony import */ var _project_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_project_css__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+const name = _constant__WEBPACK_IMPORTED_MODULE_0__["VIEWS"].project;
+
+controller.$inject = ['project', 'search'];
+
+function controller(project, search) {
+    let self = this;
+
+    self.$onInit = function () {
+        preProcess();
+        init();
+        search.onSearchSubmit(text => {
+            self.searchStr = text;
+            self.changePage(1);
+            const numElments = self.projects.filter(c => c.name.includes(text) || c.createdBy.includes(text)).length;
+            self.numPage = calNumPage(numElments, self.projectPerPage);
+        });
+    };
+
+    self.sort = function (sortBy) {
+        if (self.sortBy === sortBy) self.reverse = !self.reverse;else self.reverse = false;
+        self.sortBy = sortBy;
+    };
+
+    function preProcess() {
+        self.projects = [];
+        self.projectPerPage = 10;
+        self.curPage = 1;
+        self.numPage = calNumPage(self.projects.length, self.projectPerPage);
+        self.searchStr = {};
+        self.errMsg = '';
+        self.sortBy = '';
+        self.reverse = false;
+    }
+
+    self.changeProjectPerPage = function () {
+        self.numPage = calNumPage(self.projects.length, self.projectPerPage);
+        if (self.curPage > self.numPage) self.curPage = 1;
+    };
+    self.changePage = function (page) {
+        self.curPage = page;
+    };
+
+    function init() {
+        project.getAllProject({}, (err, resp) => {
+            if (err) {
+                self.errMsg = err.reason;
+                toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
+            } else {
+                self.errMsg = '';
+                self.projects = resp.content;
+                self.numPage = calNumPage(self.projects.length, self.projectPerPage);
+            }
+        });
+    }
+
+    self.removeProject = function (idProject, owner) {
+        const data = { idProject, owner };
+        if (confirm('Are you sure remove this project?')) {
+            project.removeProject(data, (err, resp) => {
+                if (err) {
+                    self.errMsg = err.reason;
+                    toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
+                } else {
+                    self.errMsg = '';
+                    init();
+                    toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('Delete success');
+                }
+            });
+        }
+    };
+
+    function calNumPage(numElments, elPerPage) {
+        return parseInt(numElments) / parseInt(elPerPage) + 1;
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name,
+    options: {
+        template: (_project_html__WEBPACK_IMPORTED_MODULE_1___default()),
+        controller,
+        controllerAs: 'self'
+    }
+});
+
+/***/ }),
+
 /***/ "./src/components/views/user/user.css":
 /*!********************************************!*\
   !*** ./src/components/views/user/user.css ***!
@@ -44337,7 +44515,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('username')\">Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6 class=clickable ng-click=\"self.sort('role')\">Role</h6></th> <th><h6 class=clickable ng-click=\"self.sort('fullname')\">Fullname</h6></th> <th><h6 class=clickable ng-click=\"self.sort('idCompany')\">Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-init=\"self.sortBy='username'\" ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> <span ng-if=\"user.role === 3\">Special User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-init=\"self.userPerPage='10'\" ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('username')\">Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6 class=clickable ng-click=\"self.sort('role')\">Role</h6></th> <th><h6 class=clickable ng-click=\"self.sort('fullname')\">Fullname</h6></th> <th><h6 class=clickable ng-click=\"self.sort('idCompany')\">Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-init=\"self.sortBy='username'\" ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> <span ng-if=\"user.role === 3\">Special User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td style=text-align:center> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <span ng-if=\"self.userRole < 2\"> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </span> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-init=\"self.userPerPage='10'\" ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess></add-user-modal> <add-group-to-user-modal user=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
 
 /***/ }),
 
@@ -44367,9 +44545,9 @@ const name = _constant__WEBPACK_IMPORTED_MODULE_0__["VIEWS"].user;
 // ------------- HAM CHINH ---------------------------
 //self.userPerPage is a string => have to parseInt before use
 
-controller.$inject = ['user', 'search', 'company'];
+controller.$inject = ['user', 'search', 'company', 'auth'];
 
-function controller(user, search, company) {
+function controller(user, search, company, auth) {
     let self = this;
 
     self.$onInit = function () {
@@ -44501,6 +44679,7 @@ function controller(user, search, company) {
         self.removeUser = [];
         self.addGroupUser = {};
         self.addGroupUser_idCompany = -1;
+        self.userRole = auth.getData().role;
 
         //pre
         self.users = [];
@@ -44579,7 +44758,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function config($stateProvider, $urlRouterProvider) {
 
-    const { user, group, company, login, parameter } = _constant__WEBPACK_IMPORTED_MODULE_0__["VIEWS"];
+    const { user, group, company, login, parameter, project } = _constant__WEBPACK_IMPORTED_MODULE_0__["VIEWS"];
 
     function createUrl(view) {
         return `/${view}`;
@@ -44610,6 +44789,12 @@ function config($stateProvider, $urlRouterProvider) {
     }).state(parameter, {
         url: createUrl(parameter),
         template: createComponent(parameter),
+        controller: function ($state) {
+            if (!isLogin()) goToLogin($state);
+        }
+    }).state(project, {
+        url: createUrl(project),
+        template: createComponent(project),
         controller: function ($state) {
             if (!isLogin()) goToLogin($state);
         }
@@ -44667,7 +44852,8 @@ const VIEWS = {
     group: 'group',
     company: 'company',
     login: 'login',
-    parameter: 'parameter'
+    parameter: 'parameter',
+    project: 'project'
 };
 
 const APP_TITLE = 'WELL INSIGHT';
@@ -45585,20 +45771,25 @@ function service(fetch) {
 /*!********************************!*\
   !*** ./src/services/helper.js ***!
   \********************************/
-/*! exports provided: createUrl, SUCCESS_CODE, INTERNAL_ERROR_CODE, TOKEN_EXPIRED */
+/*! exports provided: createUrl, createUrlToMainService, SUCCESS_CODE, INTERNAL_ERROR_CODE, TOKEN_EXPIRED */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createUrl", function() { return createUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createUrlToMainService", function() { return createUrlToMainService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SUCCESS_CODE", function() { return SUCCESS_CODE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INTERNAL_ERROR_CODE", function() { return INTERNAL_ERROR_CODE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOKEN_EXPIRED", function() { return TOKEN_EXPIRED; });
 function createUrl(path) {
-    // const domain = 'http://auth.sflow.me:33333';
-    const domain = 'http://localhost:2999';
-    // const domain = 'http://167.99.77.175:2999';
+    // const domain = 'http://admin.dev.i2g.cloud';
+    const domain = 'http://127.0.0.1:2999';
+    return domain + path;
+}
 
+function createUrlToMainService(path) {
+    // const domain = 'http://dev.i2g.cloud';
+    const domain = 'http://127.0.0.1:3000';
     return domain + path;
 }
 
@@ -45681,6 +45872,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modal */ "./src/services/modal.js");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./auth */ "./src/services/auth.js");
 /* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./fetch */ "./src/services/fetch.js");
+/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./project */ "./src/services/project.js");
 
 
 
@@ -45689,7 +45881,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ([_user__WEBPACK_IMPORTED_MODULE_0__["default"], _group__WEBPACK_IMPORTED_MODULE_1__["default"], _search__WEBPACK_IMPORTED_MODULE_2__["default"], _company__WEBPACK_IMPORTED_MODULE_3__["default"], _modal__WEBPACK_IMPORTED_MODULE_4__["default"], _auth__WEBPACK_IMPORTED_MODULE_5__["default"], _fetch__WEBPACK_IMPORTED_MODULE_6__["default"]]);
+
+/* harmony default export */ __webpack_exports__["default"] = ([_user__WEBPACK_IMPORTED_MODULE_0__["default"], _group__WEBPACK_IMPORTED_MODULE_1__["default"], _search__WEBPACK_IMPORTED_MODULE_2__["default"], _company__WEBPACK_IMPORTED_MODULE_3__["default"], _modal__WEBPACK_IMPORTED_MODULE_4__["default"], _auth__WEBPACK_IMPORTED_MODULE_5__["default"], _fetch__WEBPACK_IMPORTED_MODULE_6__["default"], _project__WEBPACK_IMPORTED_MODULE_7__["default"]]);
 
 /***/ }),
 
@@ -45744,6 +45937,51 @@ function service($rootScope) {
         closeModal,
         createModalName,
         createModalCloseName
+    };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name,
+    options: service
+});
+
+/***/ }),
+
+/***/ "./src/services/project.js":
+/*!*********************************!*\
+  !*** ./src/services/project.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper */ "./src/services/helper.js");
+
+
+const name = 'project';
+
+service.$inject = ['fetch'];
+
+function service(fetch) {
+
+    function getAllProject({}, callback) {
+        const url = Object(_helper__WEBPACK_IMPORTED_MODULE_0__["createUrlToMainService"])('/project/list-of-all-user');
+        fetch.fetchPOST(url, null, resp => {
+            if (resp.data.code === _helper__WEBPACK_IMPORTED_MODULE_0__["SUCCESS_CODE"]) callback(false, resp.data);else callback(resp.data);
+        }, err => callback(err));
+    }
+
+    function removeProject(data, callback) {
+        const url = Object(_helper__WEBPACK_IMPORTED_MODULE_0__["createUrlToMainService"])('/project/delete');
+        fetch.fetchPOST(url, data, resp => {
+            if (resp.data.code === _helper__WEBPACK_IMPORTED_MODULE_0__["SUCCESS_CODE"]) callback(false, resp.data);else callback(resp.data);
+        }, err => callback(err));
+    }
+
+    return {
+        getAllProject,
+        removeProject
     };
 }
 
