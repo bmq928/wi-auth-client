@@ -5,9 +5,9 @@ import './project.css';
 
 const name = VIEWS.project;
 
-controller.$inject = ['project', 'search']
+controller.$inject = ['project', 'search', 'user'];
 
-function controller(project, search) {
+function controller(project, search, user) {
     let self = this;
 
     self.$onInit = function () {
@@ -47,15 +47,19 @@ function controller(project, search) {
     };
 
     function init() {
-        project.getAllProject({}, (err, resp) => {
-            if (err) {
-                self.errMsg = err.reason;
-                toast.error(err.reason);
-            } else {
-                self.errMsg = '';
-                self.projects = resp.content;
-                self.numPage = calNumPage(self.projects.length, self.projectPerPage);
-            }
+        user.getAllUser((err, resp) => {
+            let users = [];
+            resp.content.forEach(user => users.push(user.username));
+            project.getAllProject({users}, (err, resp) => {
+                if (err) {
+                    self.errMsg = err.reason;
+                    toast.error(err.reason);
+                } else {
+                    self.errMsg = '';
+                    self.projects = resp.content;
+                    self.numPage = calNumPage(self.projects.length, self.projectPerPage);
+                }
+            });
         });
     }
 

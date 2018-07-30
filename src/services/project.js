@@ -6,11 +6,11 @@ service.$inject = ['fetch'];
 
 function service(fetch) {
 
-    function getAllProject({}, callback) {
+    function getAllProject(payload, callback) {
         const url = createUrlToMainService('/project/list-of-all-user');
         fetch.fetchPOST(
             url,
-            null,
+            payload,
             (resp) => {
                 if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
                 else callback(resp.data);

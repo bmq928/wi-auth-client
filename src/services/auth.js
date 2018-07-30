@@ -1,4 +1,4 @@
-import { createUrl, SUCCESS_CODE, TOKEN_EXPIRED } from './helper';
+import {createUrl, createUrlToMainService, SUCCESS_CODE, TOKEN_EXPIRED} from './helper';
 
 const name = 'auth';
 
@@ -29,6 +29,19 @@ function service( $rootScope, fetch) {
     function logout() {
         localStorage.removeItem('jwt-token');
         emitMessage(EVENTS.LOGOUT_SUCCESS);
+    }
+
+    function updateDatabase(data, callback) {
+        const url = createUrlToMainService('/database/update');
+        fetch.fetchPOST(
+            url,
+            data,
+            (resp) => {
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        );
     }
 
     function login(data, callback) {
@@ -82,6 +95,7 @@ function service( $rootScope, fetch) {
         getData,
         logout,
         login,
+        updateDatabase,
         onLoggoutSuccess,
         onLoginSuccess,
         // jwtExpired,

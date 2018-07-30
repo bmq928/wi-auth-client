@@ -26,8 +26,10 @@ function controller(auth) {
                 if (err) {
                     self.errMsg = err.reason;
                 } else {
-                    console.log('suc');
-                    console.log(resp);
+                    auth.updateDatabase({}, (err, resp) =>{
+                        console.log('suc');
+                        console.log(resp);
+                    });
                 }
             })
         })
