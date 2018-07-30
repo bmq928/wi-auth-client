@@ -74,8 +74,8 @@ function controller(user, modal, auth, company, group) {
     function init() {
         group.getAllGroup((err, resp) => {
             if (err) {
-                console.log(err);
-                self.errMsg = err.reason;
+                // console.log(err);
+                // self.errMsg = err.reason;
             } else {
                 console.log(resp);
                 // self.listGroup = resp.content;

@@ -53,12 +53,7 @@
                     <td ng-bind="user.fullname"></td>
                     <td ng-bind="self.idToCompanyDict[user.idCompany]"></td>
                     <td style="text-align:center;">
-                        <modal-btn 
-                         class-name="'btn btn-success btn-xs'"
-                         target="'add-group-modal'"
-                         ng-click="self.addGroupUserOnClick(user)">
-                            <i class="material-icons">group</i>
-                        </modal-btn>
+                        
                         <!-- <button 
                          class="btn btn-success btn-xs"
                          title="group user"
@@ -68,13 +63,21 @@
                             <i class="material-icons">add</i>
                         </button> -->
 
-                        <span ng-if="self.userRole < 2">
-                            <modal-btn
+                        <modal-btn
                             class-name="'btn btn-success btn-xs'"
                             target="'edit-user-modal'"
                             ng-click="self.editUserOnClick(user)">
                                 <i class="material-icons">edit</i>
                             </modal-btn>
+
+                        <span ng-if="self.userRole < 2">
+                            <modal-btn 
+                            class-name="'btn btn-success btn-xs'"
+                            target="'add-group-modal'"
+                            ng-click="self.addGroupUserOnClick(user)">
+                                <i class="material-icons">group</i>
+                            </modal-btn>
+                            
 
                             <!-- <button 
                             title="edit user"
