@@ -176,3 +176,11 @@ a{
   .modal-backdrop{
     z-index: 1028;
   }
+
+  input[type=password]:hover {
+    border:initial;
+    border-top: initial;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: 
+  }
