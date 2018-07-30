@@ -141,6 +141,12 @@ function controller(user, search, company, auth) {
         return user.status === ACTIVE;
     }
 
+    self.getDefaultCompanyId = function(username){
+        const i = self.users.findIndex(u => u.username === username);
+        // console.log(self.users[i])
+        return self.users[i].idCompany;
+    }
+
     function preProcess() {
         self.removeUser = [];
         self.addGroupUser = {};

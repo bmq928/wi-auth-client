@@ -148,7 +148,11 @@
 
 <!--===== modal ====-->
 <div>
-    <add-user-modal add-user-success="self.addUserSuccess"></add-user-modal>
+    <add-user-modal 
+     add-user-success="self.addUserSuccess"
+     user-role="self.userRole"
+     get-default-company-id="self.getDefaultCompanyId">
+    </add-user-modal>
     <add-group-to-user-modal user="self.addGroupUser" company-id="self.addGroupUser_idCompany">
     </add-group-to-user-modal>
     <edit-user-modal 

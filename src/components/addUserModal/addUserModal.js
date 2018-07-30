@@ -4,8 +4,8 @@ import template from './addUserModal.html';
 
 const name = 'addUserModal';
 
-controller.$inject = ['user', 'company', 'modal'];
-function controller(user, company, modal){
+controller.$inject = ['user', 'company', 'modal', 'auth'];
+function controller(user, company, modal, auth){
     let self = this;
 
     self.$onInit = function(){
@@ -75,7 +75,15 @@ function controller(user, company, modal){
     }
 
     function checkSubmit(fullfill){
-        if(self.user.password === self.user.confirmPassword) {
+        if (self.userRole === 1) {
+            // company moderator mode
+            //set company is default this company
+            self.user.idCompany = self.getDefaultCompanyId(auth.getData().username);
+            self.user.role = 3; //normal user
+            fullfill()
+            // console.log({'user': self.user})
+        }
+        else if(self.user.password === self.user.confirmPassword) {
            fullfill();
         } else {
             self.errMsg = 'password confirm is not matched';
@@ -94,7 +102,9 @@ export default {
     name,
     options: {
         bindings: {
-            addUserSuccess: '<'
+            userRole: '<',
+            addUserSuccess: '<',
+            getDefaultCompanyId: '<'
         },
         template,
         controller,
