@@ -79,7 +79,7 @@ function controller(user, company, modal, auth){
             // company moderator mode
             //set company is default this company
             self.user.idCompany = self.getDefaultCompanyId(auth.getData().username);
-            self.user.role = 3; //normal user
+            if(self.user.role !== 0 && !self.user.role) self.user.role = 3; //normal user default
             fullfill()
             // console.log({'user': self.user})
         }
