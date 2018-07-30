@@ -57,7 +57,7 @@
             <input type="text" class="form-control" ng-model="self.group.description">
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-if="self.userRole === 0">
             <label class="col-sm-2 col-md-2 col-lg-2">Company: </label>
             <select ng-model="self.group.idCompany">
                 <option ng-repeat="company in self.listCompany" value="{{company.idCompany}}" ng-bind="company.name">

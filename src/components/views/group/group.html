@@ -92,7 +92,11 @@
 
 <!--===== modal ====-->
 <div>
-    <add-group-modal add-group-success="self.addGroupSuccess"></add-group-modal>
+    <add-group-modal 
+     user-role="self.role"
+     add-group-success="self.addGroupSuccess"
+     get-default-company-id="self.getDefaultCompanyId">
+    </add-group-modal>
     <list-user-in-group-modal 
      list-user="self.selectedGroup.users" 
      id-group="self.selectedGroup.idGroup">

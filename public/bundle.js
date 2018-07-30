@@ -42399,7 +42399,7 @@ function controller(company, modal) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " <modal name=self.name on-close=self.onClose header=\"'GROUP INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Name</label> <input type=text class=form-control ng-model=self.group.name> </div> <div class=form-group> <label class=col-form-label>Description</label> <input type=text class=form-control ng-model=self.group.description> </div> <div class=form-group> <label class=\"col-sm-2 col-md-2 col-lg-2\">Company: </label> <select ng-model=self.group.idCompany> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
+module.exports = " <modal name=self.name on-close=self.onClose header=\"'GROUP INFOMATION'\"> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <form> <div class=form-group> <label class=col-form-label>Name</label> <input type=text class=form-control ng-model=self.group.name> </div> <div class=form-group> <label class=col-form-label>Description</label> <input type=text class=form-control ng-model=self.group.description> </div> <div class=form-group ng-if=\"self.userRole === 0\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">Company: </label> <select ng-model=self.group.idCompany> <option ng-repeat=\"company in self.listCompany\" value={{company.idCompany}} ng-bind=company.name> </option> </select> </div> </form> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
 
@@ -42433,14 +42433,12 @@ function controller(group, company, modal) {
         checkSubmit(() => {
             group.addNewGroup(self.group, (err, resp) => {
                 if (err) {
-                    console.log(err);
-                    self.errMsg = err.content || err.statusText;
+                    if (err.code !== 512) self.errMsg = err.content || err.statusText;
                     self.sucMsg = '';
                 } else {
-                    console.log(resp.reason);
                     self.sucMsg = resp.reason;
 
-                    self.errMsg = '';
+                    // self.errMsg = '';
 
                     refreshField();
                     self.addGroupSuccess();
@@ -42467,6 +42465,9 @@ function controller(group, company, modal) {
         } else if (!self.group.description) {
             self.errMsg = 'description is required';
             self.sucMsg = '';
+        } else if (self.userRole === 1) {
+            self.group.idCompany = self.getDefaultCompanyId(self.group.name);
+            fullfill();
         } else {
             fullfill();
         }
@@ -42483,7 +42484,7 @@ function controller(group, company, modal) {
     function init() {
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                console.log({ err });
                 self.errMsg = err.reason;
             } else {
                 console.log(resp);
@@ -42511,7 +42512,9 @@ function controller(group, company, modal) {
     name,
     options: {
         bindings: {
-            addGroupSuccess: '<'
+            userRole: '<',
+            addGroupSuccess: '<',
+            getDefaultCompanyId: '<'
         },
         template: (_addGroupModal_html__WEBPACK_IMPORTED_MODULE_0___default()),
         controller,
@@ -43972,7 +43975,7 @@ function controller(company, search) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Company</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups  | filter:self.searchStr | filter:self.inCompany | pagination: self.curPage: self.groupPerPage  track by $index\"> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td ng-bind=self.idToCompanyDict[group.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-init=\"self.groupPerPage='10' \" ng-model=self.groupPerPage ng-click=self.changeGroupPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\" ng-if=\"self.role === 0\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-primary'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal add-group-success=self.addGroupSuccess></add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Company</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups  | filter:self.searchStr | filter:self.inCompany | pagination: self.curPage: self.groupPerPage  track by $index\"> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td ng-bind=self.idToCompanyDict[group.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-init=\"self.groupPerPage='10' \" ng-model=self.groupPerPage ng-click=self.changeGroupPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\" ng-if=\"self.role === 0\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-primary'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal user-role=self.role add-group-success=self.addGroupSuccess get-default-company-id=self.getDefaultCompanyId> </add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 
@@ -44052,6 +44055,14 @@ function controller(group, search, company, auth) {
                 }
             });
         }
+    };
+
+    self.getDefaultCompanyId = function (group) {
+        //due to api
+        //if user.role is company moderator
+        //all resp.groups are belong to user 's company
+
+        return self.groups[0].idCompany;
     };
 
     function preProcess() {

@@ -17,14 +17,12 @@ function controller(group, company, modal){
         checkSubmit(() => {
             group.addNewGroup(self.group, (err, resp) => {
                 if(err) {
-                    console.log(err);
-                    self.errMsg = err.content || err.statusText;
+                    if(err.code !== 512)self.errMsg = err.content || err.statusText;
                     self.sucMsg = '';
                 } else {
-                    console.log(resp.reason);
                     self.sucMsg = resp.reason;
                     
-                    self.errMsg = '';
+                    // self.errMsg = '';
 
                     refreshField();
                     self.addGroupSuccess();
@@ -52,6 +50,9 @@ function controller(group, company, modal){
         } else if (!self.group.description) {
             self.errMsg = 'description is required';
             self.sucMsg = ''
+        } else if(self.userRole === 1) {
+            self.group.idCompany = self.getDefaultCompanyId(self.group.name);
+            fullfill();
         } else {
             fullfill();
         }
@@ -68,7 +69,7 @@ function controller(group, company, modal){
     function init() {
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                console.log({err});
                 self.errMsg = err.reason;
             } else {
                 console.log(resp);
@@ -96,7 +97,9 @@ export default {
     name,
     options: {
         bindings: {
-            addGroupSuccess: '<'
+            userRole:'<',
+            addGroupSuccess: '<',
+            getDefaultCompanyId: '<'
         },
         template,
         controller,

@@ -62,6 +62,14 @@ function controller(group, search, company, auth) {
         }
     }
 
+    self.getDefaultCompanyId = function(group){
+        //due to api
+        //if user.role is company moderator
+        //all resp.groups are belong to user 's company
+
+        return self.groups[0].idCompany;
+    }
+
     function preProcess() {
         self.groups = [];
         self.companies = [];
