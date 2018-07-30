@@ -1,13 +1,12 @@
 export function createUrl(path) {
-    // const domain = 'http://auth.sflow.me:33333';
-    const domain = 'http://admin.sflow.me';
-    // const domain = 'http://167.99.77.175:2999';
-
+    // const domain = 'http://admin.dev.i2g.cloud';
+    const domain = 'http://127.0.0.1:2999';
     return domain + path;
 }
 
 export function createUrlToMainService(path) {
-    const domain = 'http://dev.i2g.cloud';
+    // const domain = 'http://dev.i2g.cloud';
+    const domain = 'http://127.0.0.1:3000';
     return domain + path;
 
 }

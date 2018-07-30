@@ -2,3 +2,6 @@ node_modules/*
 # /public/
 /package-lock.json
 /wi-auth-client.iml
+!/public/index.html
+/public/
+/.idea/
