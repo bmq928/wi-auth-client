@@ -93,6 +93,7 @@ function controller(user, search, company, auth) {
             if (err) {
                 self.errMsg = err.reason;
             } else {
+                toast.success("User " + resp.content.username + " Actived");
                 init();
             }
         })
@@ -110,6 +111,7 @@ function controller(user, search, company, auth) {
             if (err) {
                 self.errMsg = err.reason;
             } else {
+                toast.success("User " + resp.content.username + " Deactived");
                 init();
             }
         })
@@ -121,6 +123,7 @@ function controller(user, search, company, auth) {
                 if (err) {
                     self.errMsg = err.reason;
                 } else {
+                    toast.success("Successful");
                     init();
                 }
             });
@@ -128,10 +131,10 @@ function controller(user, search, company, auth) {
     };
 
     self.sort = function (sortBy) {
-        if(self.sortBy = sortBy) self.reverse = !self.reverse;
+        if (self.sortBy = sortBy) self.reverse = !self.reverse;
         else self.reverse = false;
 
-        
+
         self.sortBy = sortBy;
     }
 
