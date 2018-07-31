@@ -44225,8 +44225,10 @@ function controller(auth) {
                 if (err) {
                     self.errMsg = err.reason;
                 } else {
-                    console.log('suc');
-                    console.log(resp);
+                    auth.updateDatabase({}, (err, resp) => {
+                        console.log('suc');
+                        console.log(resp);
+                    });
                 }
             });
         });
@@ -44414,9 +44416,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const name = _constant__WEBPACK_IMPORTED_MODULE_0__["VIEWS"].project;
 
-controller.$inject = ['project', 'search'];
+controller.$inject = ['project', 'search', 'user'];
 
-function controller(project, search) {
+function controller(project, search, user) {
     let self = this;
 
     self.$onInit = function () {
@@ -44455,15 +44457,19 @@ function controller(project, search) {
     };
 
     function init() {
-        project.getAllProject({}, (err, resp) => {
-            if (err) {
-                self.errMsg = err.reason;
-                toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
-            } else {
-                self.errMsg = '';
-                self.projects = resp.content;
-                self.numPage = calNumPage(self.projects.length, self.projectPerPage);
-            }
+        user.getAllUser((err, resp) => {
+            let users = [];
+            resp.content.forEach(user => users.push(user.username));
+            project.getAllProject({ users }, (err, resp) => {
+                if (err) {
+                    self.errMsg = err.reason;
+                    toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
+                } else {
+                    self.errMsg = '';
+                    self.projects = resp.content;
+                    self.numPage = calNumPage(self.projects.length, self.projectPerPage);
+                }
+            });
         });
     }
 
@@ -44536,7 +44542,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('username')\">Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6 class=clickable ng-click=\"self.sort('role')\">Role</h6></th> <th><h6 class=clickable ng-click=\"self.sort('fullname')\">Fullname</h6></th> <th><h6 class=clickable ng-click=\"self.sort('idCompany')\">Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-init=\"self.sortBy='username'\" ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> <span ng-if=\"user.role === 3\">Special User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td style=text-align:center> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <span ng-if=\"self.userRole < 2\"> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </span> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-init=\"self.userPerPage='10'\" ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess user-role=self.userRole get-default-company-id=self.getDefaultCompanyId> </add-user-modal> <add-group-to-user-modal user=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal user-role=self.userRole edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('username')\">Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6 class=clickable ng-click=\"self.sort('role')\">Role</h6></th> <th><h6 class=clickable ng-click=\"self.sort('fullname')\">Fullname</h6></th> <th><h6 class=clickable ng-click=\"self.sort('idCompany')\">Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-init=\"self.sortBy='username'\" ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> <span ng-if=\"user.role === 3\">Special User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td style=text-align:center> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <span ng-if=\"self.userRole < 2\"> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </span> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>User per page :</label> <select ng-init=\"self.userPerPage='10'\" ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn ng-if=\"self.userRole <= 1\" class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div> <add-user-modal add-user-success=self.addUserSuccess user-role=self.userRole get-default-company-id=self.getDefaultCompanyId> </add-user-modal> <add-group-to-user-modal user=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal user-role=self.userRole edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
 
 /***/ }),
 
@@ -44650,6 +44656,7 @@ function controller(user, search, company, auth) {
             if (err) {
                 self.errMsg = err.reason;
             } else {
+                toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success("User " + resp.content.username + " Actived");
                 init();
             }
         });
@@ -44667,6 +44674,7 @@ function controller(user, search, company, auth) {
             if (err) {
                 self.errMsg = err.reason;
             } else {
+                toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success("User " + resp.content.username + " Deactived");
                 init();
             }
         });
@@ -44678,6 +44686,7 @@ function controller(user, search, company, auth) {
                 if (err) {
                     self.errMsg = err.reason;
                 } else {
+                    toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success("Successful");
                     init();
                 }
             });
@@ -45507,6 +45516,13 @@ function service($rootScope, fetch) {
         emitMessage(EVENTS.LOGOUT_SUCCESS);
     }
 
+    function updateDatabase(data, callback) {
+        const url = Object(_helper__WEBPACK_IMPORTED_MODULE_0__["createUrlToMainService"])('/database/update');
+        fetch.fetchPOST(url, data, resp => {
+            if (resp.data.code === _helper__WEBPACK_IMPORTED_MODULE_0__["SUCCESS_CODE"]) callback(false, resp.data);else callback(resp.data);
+        }, err => callback(err));
+    }
+
     function login(data, callback) {
         const url = Object(_helper__WEBPACK_IMPORTED_MODULE_0__["createUrl"])('/login');
 
@@ -45552,6 +45568,7 @@ function service($rootScope, fetch) {
         getData,
         logout,
         login,
+        updateDatabase,
         onLoggoutSuccess,
         onLoginSuccess,
         // jwtExpired,
@@ -45992,9 +46009,9 @@ service.$inject = ['fetch'];
 
 function service(fetch) {
 
-    function getAllProject({}, callback) {
+    function getAllProject(payload, callback) {
         const url = Object(_helper__WEBPACK_IMPORTED_MODULE_0__["createUrlToMainService"])('/project/list-of-all-user');
-        fetch.fetchPOST(url, null, resp => {
+        fetch.fetchPOST(url, payload, resp => {
             if (resp.data.code === _helper__WEBPACK_IMPORTED_MODULE_0__["SUCCESS_CODE"]) callback(false, resp.data);else callback(resp.data);
         }, err => callback(err));
     }
