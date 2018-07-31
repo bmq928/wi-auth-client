@@ -155,7 +155,8 @@ export default {
         bindings: {
             editUserSuccess: '<',
             // idUser: '<',
-            user: '<'
+            user: '<',
+            userRole: '<',
         },
         template,
         controller,
