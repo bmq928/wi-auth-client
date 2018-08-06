@@ -1,7 +1,7 @@
 <modal name="self.name" on-close="self.onClose" header="'Add User To Group'">
     <div>
         <label style="margin-right: 5px;">Search User:</label>
-        <input type="text" ng-model="self.searchGroupStr.name">
+        <input type="text" ng-model="self.searchUserStr.name">
     </div>
     <div class="text-success" ng-bind="self.sucMsg"></div>
     <div class="text-danger" ng-bind="self.errMsg"></div>
@@ -21,34 +21,15 @@
                 </tr>
             </thead>
             <tbody>
-
-                <tr ng-repeat="(i, group) in self.listGroup | filter:self.searchGroupStr  track by $index">
+                
+                <tr ng-repeat="(i, user) in self.listUser | filter:self.searchUserStr  track by $index">
                     <td >
-                        <input
-                         ng-click="self.toggleAdd(group)"
-                         ng-if="!self.isOnGroup(group)"
+                        <input 
+                         ng-click="self.toggleAdd(user)" 
                          type="checkbox" >
-
-                         <i 
-                          style="color: red; cursor: pointer;"
-                          ng-if="self.isOnGroup(group)"
-                          ng-click="self.toggleRemove(group)"
-                          class="material-icons">
-                           remove_circle
-                        </i>
                     </td>
-
-                    <!-- not remove style -->
-                    <td ng-if="!self.isRemoved(group)" ng-bind="i | stt: i"></td>
-                    <td ng-if="!self.isRemoved(group)" ng-bind="group.name"></td>
-
-                    <!-- remove style -->
-                    <td ng-if="self.isRemoved(group)">
-                        <del>{{i | stt: i}}</del>
-                    </td>
-                    <td ng-if="self.isRemoved(group)">
-                        <del>{{group.name}}</del>
-                    </td>
+                    <td ng-bind="i | stt: i"></td>
+                    <td ng-bind="user.username"></td>
                 </tr>
 
             </tbody>

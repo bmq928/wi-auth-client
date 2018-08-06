@@ -109,7 +109,10 @@
      id-group="self.selectedGroup.idGroup">
     </list-user-in-group-modal>
 
-    <add-user-to-group-modal>
+    <add-user-to-group-modal
+     group="self.selectedGroup"
+     company-id="self.selectedGroup.idCompany"
+     on-success="self.addUsersToGroupSuccess">
     </add-user-to-group-modal>
 </div>
 

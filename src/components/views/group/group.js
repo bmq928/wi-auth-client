@@ -41,8 +41,10 @@ function controller(group, search, company, auth) {
     }
 
     self.chooseGroup = function (group) {
-        //console.log(group);
+        // console.log({group});
         self.selectedGroup = group;
+        console.log('choose')
+        console.log(self.selectedGroup.idCompany)
     }
 
     self.removeGroup = function (idGroup) {
@@ -68,6 +70,11 @@ function controller(group, search, company, auth) {
         //all resp.groups are belong to user 's company
 
         return self.groups[0].idCompany;
+    }
+
+    self.addUsersToGroupSuccess = function() {
+        preProcess()
+        init()
     }
 
     function preProcess() {

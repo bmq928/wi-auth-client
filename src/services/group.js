@@ -99,6 +99,20 @@ function service(fetch) {
         )
     }
 
+    function addUsersToGroup (data, callback) {
+        const url = createUrl('/group/add-users-to-group')
+
+        fetch.fetchPOST(
+            url,
+            data,
+            (resp) => {
+                if(resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     // function onAddUserSuccess(callback) {
     //     $rootScope.$on(EVENT.addUserSuccess, (e, data) => {
     //         callback(data);
@@ -112,7 +126,8 @@ function service(fetch) {
         addNewGroup,
         removeUserFromGroup,
         removeGroup,
-        addUserToGroups
+        addUserToGroups,
+        addUsersToGroup
     }
     
 }
