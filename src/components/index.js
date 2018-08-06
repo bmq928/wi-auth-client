@@ -17,6 +17,7 @@ import editUserModal from './editUserModal/editUserModal';
 import editCompanyModal from './editCompanyModal/editCompanyModal';
 import listUserInGroupModal from './listUserInGroupModal/listUserInGroupModal';
 import project from './views/project/project';
+import addUserToGroupModal from './addUserToGroupModal/addUserToGroupModal';
 
 export default [
     app,
@@ -37,5 +38,6 @@ export default [
     editUserModal,
     editCompanyModal,
     listUserInGroupModal,
-    project
+    project,
+    addUserToGroupModal
 ];

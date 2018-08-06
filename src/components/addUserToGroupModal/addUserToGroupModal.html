@@ -1,0 +1,60 @@
+<modal name="self.name" on-close="self.onClose" header="'Add User To Group'">
+    <div>
+        <label style="margin-right: 5px;">Search User:</label>
+        <input type="text" ng-model="self.searchGroupStr.name">
+    </div>
+    <div class="text-success" ng-bind="self.sucMsg"></div>
+    <div class="text-danger" ng-bind="self.errMsg"></div>
+    <table>
+        <table class="table table-hover">
+            <thead class="text-primary">
+                <tr>
+                    <th style="border-bottom: 1px solid rgb(221, 221, 221); width: 120px;">
+                        <!-- <input type="checkbox"> -->
+                        <!-- ALL -->
+                    </th>
+                    <td style="border-bottom: 1px solid rgb(221, 221, 221);">STT</td>
+                    <td style="border-bottom: 1px solid rgb(221, 221, 221);">USER</td>
+                    <!-- <th><h6>ID</h6></th> -->
+                    <!-- <th><h6>STT</h6></th> -->
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="(i, group) in self.listGroup | filter:self.searchGroupStr  track by $index">
+                    <td >
+                        <input
+                         ng-click="self.toggleAdd(group)"
+                         ng-if="!self.isOnGroup(group)"
+                         type="checkbox" >
+
+                         <i 
+                          style="color: red; cursor: pointer;"
+                          ng-if="self.isOnGroup(group)"
+                          ng-click="self.toggleRemove(group)"
+                          class="material-icons">
+                           remove_circle
+                        </i>
+                    </td>
+
+                    <!-- not remove style -->
+                    <td ng-if="!self.isRemoved(group)" ng-bind="i | stt: i"></td>
+                    <td ng-if="!self.isRemoved(group)" ng-bind="group.name"></td>
+
+                    <!-- remove style -->
+                    <td ng-if="self.isRemoved(group)">
+                        <del>{{i | stt: i}}</del>
+                    </td>
+                    <td ng-if="self.isRemoved(group)">
+                        <del>{{group.name}}</del>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </table>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="self.onSubmit()">SUBMIT</button>
+    </div>
+</modal>
