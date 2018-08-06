@@ -16,9 +16,9 @@ function controller(group, modal) {
     }
 
     self.$onChanges = function () {
-        // console.log('com id')
-        // console.log(self.companyId);
-        // console.log(groups);
+        // //console.log('com id')
+        // //console.log(self.companyId);
+        // //console.log(groups);
 
         self.listGroup = groups.filter(g => g.idCompany === self.companyId);
 
@@ -48,7 +48,7 @@ function controller(group, modal) {
             self.listAddGroup = self.listAddGroup.filter(el => el != group.idGroup);
         }
 
-        console.log(self.listAddGroup);
+        //console.log(self.listAddGroup);
     }
 
     self.toggleRemove = function (group) {
@@ -57,7 +57,7 @@ function controller(group, modal) {
         } else {
             self.listRemoveGroup = self.listRemoveGroup.filter(el => el != group.idGroup);
         }
-        console.log(self.listRemoveGroup);
+        //console.log(self.listRemoveGroup);
     }
 
     // self.onClose = function () {
@@ -71,11 +71,11 @@ function controller(group, modal) {
     //     };
     //     group.addUserToGroup(data, (err, resp) => {
     //         if (err) {
-    //             console.log(err);
+    //             //console.log(err);
     //             self.errMsg = err.reason || err.statusText;
     //             self.sucMsg = '';
     //         } else {
-    //             console.log(resp);
+    //             //console.log(resp);
     //             self.sucMsg = resp.reason;
     //             self.errMsg = '';
     //             modal.closeModal(self.name);
@@ -109,11 +109,11 @@ function controller(group, modal) {
 
         group.addUserToGroups(data, (err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason || err.statusText;
                 self.sucMsg = '';
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.sucMsg = resp.reason;
                 self.errMsg = '';
                 modal.closeModal(self.name, self.onClose);
@@ -162,10 +162,10 @@ function controller(group, modal) {
                 self.sucMsg = '';
             } else {
                 // self.listGroup = resp.content;
-                // console.log('==========');
-                // console.log(resp.content);
-                // console.log(self.companyId);
-                // console.log(resp.content.filter(g => g.idCompany === self.companyId));
+                // //console.log('==========');
+                // //console.log(resp.content);
+                // //console.log(self.companyId);
+                // //console.log(resp.content.filter(g => g.idCompany === self.companyId));
                 groups = resp.content;
                 self.listGroup = resp.content.filter(g => g.idCompany === self.companyId);
             }

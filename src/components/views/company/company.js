@@ -46,7 +46,7 @@ function controller(company, search) {
 
     self.removeCompany = function (idCompany) {
         const data = { idCompany };
-        console.log(data);
+        //console.log(data);
         if (confirm('Are you sure remove this company?')) {
             company.removeCompany(data, (err, resp) => {
                 if(err) {
@@ -87,10 +87,10 @@ function controller(company, search) {
     function init() {
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.companies = resp.content;
 
                 self.filter = '';

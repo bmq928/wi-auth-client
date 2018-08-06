@@ -69,12 +69,12 @@ function controller(group, company, modal){
     function init() {
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log({err});
+                //console.log({err});
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.listCompany = resp.content;
-                console.log(self.listCompany);
+                //console.log(self.listCompany);
             }
         })
     }

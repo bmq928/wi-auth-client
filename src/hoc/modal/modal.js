@@ -15,10 +15,10 @@ function controller(modal, $rootScope) {
 
         // //safe close on click
         // const btn = document.getElementById(self._closeBtn);
-        // console.log(btn)
+        // //console.log(btn)
         // // btn.onclick = function() {
         // //     $rootScope.$apply(() => {
-        // //         console.log('should inside a $digest');
+        // //         //console.log('should inside a $digest');
         // //     })
         // // }
 
@@ -31,14 +31,14 @@ function controller(modal, $rootScope) {
         // const $thisModal = $(`#${self._name}`);
         // const $btnSubmit = $(`#${self._name} .modal-footer > button`);
 
-        // console.log('this modal');
-        // console.log(self._name);
-        // console.log($thisModal);
+        // //console.log('this modal');
+        // //console.log(self._name);
+        // //console.log($thisModal);
 
-        // console.log('this modal button');
-        // console.log($btnSubmit);
+        // //console.log('this modal button');
+        // //console.log($btnSubmit);
 
-        // console.log(document.getElementById(self._name));
+        // //console.log(document.getElementById(self._name));
 
 
         // if($thisModal.hasClass('in')) {

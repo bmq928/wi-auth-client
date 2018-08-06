@@ -17,7 +17,7 @@ function controller(search, auth) {
     }
 
     self.logout = function () {
-        console.log('logout');
+        //console.log('logout');
         auth.logout();
         // location.reload();
         // location.replace('/login');

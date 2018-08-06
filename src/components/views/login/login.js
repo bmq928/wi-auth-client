@@ -27,8 +27,8 @@ function controller(auth) {
                     self.errMsg = err.reason;
                 } else {
                     auth.updateDatabase({}, (err, resp) =>{
-                        console.log('suc');
-                        console.log(resp);
+                        //console.log('suc');
+                        //console.log(resp);
                     });
                 }
             })
@@ -56,14 +56,14 @@ function controller(auth) {
         // const $thisModal = $(`#${self._name}`);
         // const $btnSubmit = $(`#${self._name} .modal-footer > button`);
 
-        // console.log('this modal');
-        // console.log(self._name);
-        // console.log($thisModal);
+        // //console.log('this modal');
+        // //console.log(self._name);
+        // //console.log($thisModal);
 
-        // console.log('this modal button');
-        // console.log($btnSubmit);
+        // //console.log('this modal button');
+        // //console.log($btnSubmit);
 
-        // console.log(document.getElementById(self._name));
+        // //console.log(document.getElementById(self._name));
 
 
         // if($thisModal.hasClass('in')) {

@@ -14,7 +14,7 @@ function controller(user, search, company, auth) {
     let self = this;
 
     self.$onInit = function () {
-        console.log(toast);
+        //console.log(toast);
         preProcess();
         init();
 
@@ -35,7 +35,7 @@ function controller(user, search, company, auth) {
     self.addUserSuccess = function (data) {
         // self.users.push(data);
         // // self.users = [...self.users];
-        // console.log(self.users);
+        // //console.log(self.users);
 
         init();
         toast.success('Add user success');
@@ -61,7 +61,7 @@ function controller(user, search, company, auth) {
         if (confirm('Are you sure to delete user : ' + u.username)) {
             user.deleteUser(id, (err, resp) => {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     self.errMsg = err.reason;
                     toast.error(err.reason);
                 } else {
@@ -146,7 +146,7 @@ function controller(user, search, company, auth) {
 
     self.getDefaultCompanyId = function(username){
         const i = self.users.findIndex(u => u.username === username);
-        // console.log(self.users[i])
+        // //console.log(self.users[i])
         return self.users[i].idCompany;
     }
 
@@ -177,11 +177,11 @@ function controller(user, search, company, auth) {
         user.getAllUser((err, resp) => {
 
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
 
-                console.log(resp);
+                //console.log(resp);
                 self.users = resp.content;
                 self.filter = '';
 
@@ -194,7 +194,7 @@ function controller(user, search, company, auth) {
 
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
 

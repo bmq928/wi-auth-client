@@ -23,7 +23,7 @@ function controller(user, modal, auth, company, group) {
             //prevent password is show up in ui
             self.user.password = self.user.confirmPassword = '';
         }
-        // console.log(self.user);
+        // //console.log(self.user);
     }
 
     self.onSubmit = function () {
@@ -74,10 +74,10 @@ function controller(user, modal, auth, company, group) {
     function init() {
         group.getAllGroup((err, resp) => {
             if (err) {
-                // console.log(err);
+                // //console.log(err);
                 // self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 // self.listGroup = resp.content;
                 allGroups = resp.content;
                 makeGroupOption();
@@ -86,10 +86,10 @@ function controller(user, modal, auth, company, group) {
 
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.listCompany = resp.content;
 
             }
@@ -103,9 +103,9 @@ function controller(user, modal, auth, company, group) {
         } else {
             self.listGroup = allGroups.filter(g => g.idCompany.toString() === self.user.idCompany.toString());
         }
-        // console.log('++++');
-        // console.log(self.user);
-        // console.log(self.listGroup);
+        // //console.log('++++');
+        // //console.log(self.user);
+        // //console.log(self.listGroup);
     }
 
     function refreshField() {

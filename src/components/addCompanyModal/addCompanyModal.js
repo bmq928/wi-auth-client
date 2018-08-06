@@ -22,11 +22,11 @@ function controller(company, modal){
         checkSubmit(() => {
             company.addCompany(self.company, (err, resp) => {
                 if(err) {
-                    console.log(err);
+                    //console.log(err);
                     self.errMsg = err.content || err.statusText;
                     self.sucMsg = '';
                 } else {
-                    console.log(resp.reason);
+                    //console.log(resp.reason);
                     self.sucMsg = resp.reason;
                     
                     self.errMsg = '';

@@ -18,7 +18,7 @@ function service($http, $rootScope) {
             })
                 .then(success)
                 .catch(err => {
-                    console.log(err);
+                    //console.log(err);
                     if(err.data.message === TOKEN_EXPIRED) {
     
                         // auth.jwtExpired();

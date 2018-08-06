@@ -32,15 +32,19 @@ function controller(auth) {
 
     function init() {
         if (self.isLogined) {
-            changeUrl('user');
+            // console.log({'location.hash':location.hash})
+            // changeUrl('user');
+            changeUrl(location.hash)
+            // console.log({'location.hash':location.hash})
         } else {
             changeUrl('login');
         }
     }
 
 
-    function changeUrl(url) {
-        location.hash = `#!/${url}`;
+    function changeUrl(url) {        
+        if(url[0] == '#' && url[1] == '!') location.hash = url;
+        else location.hash = `#!/${url}`;
     }
 
 }

@@ -27,7 +27,7 @@ function assignAllComponent() {
 function assignAllFilter(){
     filters.forEach(f => {
         app.filter(f.name, f.options);
-        console.log(f.name);
+        //console.log(f.name);
     });
 }
 

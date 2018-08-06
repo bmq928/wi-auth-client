@@ -17,12 +17,12 @@ function controller(user, company, modal, auth){
         
         checkSubmit(() => {
             user.addUser(self.user, (err, resp) => {
-                console.log(self.user);
+                //console.log(self.user);
                 if(err) {
                     self.errMsg = err.content || err.statusText;
                     self.sucMsg = '';
                 } else {
-                    console.log(resp);
+                    //console.log(resp);
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
                     
@@ -57,12 +57,12 @@ function controller(user, company, modal, auth){
     function init() {
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.listCompany = resp.content;
-                console.log(self.listCompany);
+                //console.log(self.listCompany);
             }
         })
     }
@@ -81,7 +81,7 @@ function controller(user, company, modal, auth){
             self.user.idCompany = self.getDefaultCompanyId(auth.getData().username);
             if(self.user.role !== 0 && !self.user.role) self.user.role = 3; //normal user default
             fullfill()
-            // console.log({'user': self.user})
+            // //console.log({'user': self.user})
         }
         else if(self.user.password === self.user.confirmPassword) {
            fullfill();

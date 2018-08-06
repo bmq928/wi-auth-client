@@ -26,7 +26,7 @@ function service(fetch) {
         // $http({
         //     url: 'https://jsonplaceholder.typicode.com/posts',
         //     method: 'POST',
-        // }).then(resp => console.log(resp));
+        // }).then(resp => //console.log(resp));
     }
 
     function addUser(data, callback) {

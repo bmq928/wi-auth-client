@@ -42334,11 +42334,11 @@ function controller(company, modal) {
         checkSubmit(() => {
             company.addCompany(self.company, (err, resp) => {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     self.errMsg = err.content || err.statusText;
                     self.sucMsg = '';
                 } else {
-                    console.log(resp.reason);
+                    //console.log(resp.reason);
                     self.sucMsg = resp.reason;
 
                     self.errMsg = '';
@@ -42484,12 +42484,12 @@ function controller(group, company, modal) {
     function init() {
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log({ err });
+                //console.log({err});
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.listCompany = resp.content;
-                console.log(self.listCompany);
+                //console.log(self.listCompany);
             }
         });
     }
@@ -42563,9 +42563,9 @@ function controller(group, modal) {
     };
 
     self.$onChanges = function () {
-        // console.log('com id')
-        // console.log(self.companyId);
-        // console.log(groups);
+        // //console.log('com id')
+        // //console.log(self.companyId);
+        // //console.log(groups);
 
         self.listGroup = groups.filter(g => g.idCompany === self.companyId);
 
@@ -42594,7 +42594,7 @@ function controller(group, modal) {
             self.listAddGroup = self.listAddGroup.filter(el => el != group.idGroup);
         }
 
-        console.log(self.listAddGroup);
+        //console.log(self.listAddGroup);
     };
 
     self.toggleRemove = function (group) {
@@ -42603,7 +42603,7 @@ function controller(group, modal) {
         } else {
             self.listRemoveGroup = self.listRemoveGroup.filter(el => el != group.idGroup);
         }
-        console.log(self.listRemoveGroup);
+        //console.log(self.listRemoveGroup);
     };
 
     // self.onClose = function () {
@@ -42617,11 +42617,11 @@ function controller(group, modal) {
     //     };
     //     group.addUserToGroup(data, (err, resp) => {
     //         if (err) {
-    //             console.log(err);
+    //             //console.log(err);
     //             self.errMsg = err.reason || err.statusText;
     //             self.sucMsg = '';
     //         } else {
-    //             console.log(resp);
+    //             //console.log(resp);
     //             self.sucMsg = resp.reason;
     //             self.errMsg = '';
     //             modal.closeModal(self.name);
@@ -42653,11 +42653,11 @@ function controller(group, modal) {
 
         group.addUserToGroups(data, (err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason || err.statusText;
                 self.sucMsg = '';
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.sucMsg = resp.reason;
                 self.errMsg = '';
                 modal.closeModal(self.name, self.onClose);
@@ -42706,10 +42706,10 @@ function controller(group, modal) {
                 self.sucMsg = '';
             } else {
                 // self.listGroup = resp.content;
-                // console.log('==========');
-                // console.log(resp.content);
-                // console.log(self.companyId);
-                // console.log(resp.content.filter(g => g.idCompany === self.companyId));
+                // //console.log('==========');
+                // //console.log(resp.content);
+                // //console.log(self.companyId);
+                // //console.log(resp.content.filter(g => g.idCompany === self.companyId));
                 groups = resp.content;
                 self.listGroup = resp.content.filter(g => g.idCompany === self.companyId);
             }
@@ -42779,12 +42779,12 @@ function controller(user, company, modal, auth) {
 
         checkSubmit(() => {
             user.addUser(self.user, (err, resp) => {
-                console.log(self.user);
+                //console.log(self.user);
                 if (err) {
                     self.errMsg = err.content || err.statusText;
                     self.sucMsg = '';
                 } else {
-                    console.log(resp);
+                    //console.log(resp);
                     self.sucMsg = resp.reason;
                     self.errMsg = '';
 
@@ -42817,12 +42817,12 @@ function controller(user, company, modal, auth) {
     function init() {
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.listCompany = resp.content;
-                console.log(self.listCompany);
+                //console.log(self.listCompany);
             }
         });
     }
@@ -42841,7 +42841,7 @@ function controller(user, company, modal, auth) {
             self.user.idCompany = self.getDefaultCompanyId(auth.getData().username);
             if (self.user.role !== 0 && !self.user.role) self.user.role = 3; //normal user default
             fullfill();
-            // console.log({'user': self.user})
+            // //console.log({'user': self.user})
         } else if (self.user.password === self.user.confirmPassword) {
             fullfill();
         } else {
@@ -43017,7 +43017,7 @@ controller.$inject = ['auth'];
 function controller(auth) {
     let self = this;
     self.$onInit = function () {
-        console.log('int');
+        //console.log('int')
         preProcess();
         init();
     };
@@ -43033,7 +43033,7 @@ function controller(auth) {
 
     function init() {
         self.curView = decideView() || self.curView;
-        console.log(self);
+        //console.log(self);
     }
 }
 
@@ -43091,7 +43091,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const name = 'appFooter';
-console.log(name);
+//console.log(name);
 // angular
 //     .module(appName)
 //     .component(name, {
@@ -43249,7 +43249,7 @@ function controller(user, modal, auth, company, group) {
             //prevent password is show up in ui
             self.user.password = self.user.confirmPassword = '';
         }
-        // console.log(self.user);
+        // //console.log(self.user);
     };
 
     self.onSubmit = function () {
@@ -43300,10 +43300,10 @@ function controller(user, modal, auth, company, group) {
     function init() {
         group.getAllGroup((err, resp) => {
             if (err) {
-                // console.log(err);
+                // //console.log(err);
                 // self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 // self.listGroup = resp.content;
                 allGroups = resp.content;
                 makeGroupOption();
@@ -43312,10 +43312,10 @@ function controller(user, modal, auth, company, group) {
 
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.listCompany = resp.content;
             }
         });
@@ -43328,9 +43328,9 @@ function controller(user, modal, auth, company, group) {
         } else {
             self.listGroup = allGroups.filter(g => g.idCompany.toString() === self.user.idCompany.toString());
         }
-        // console.log('++++');
-        // console.log(self.user);
-        // console.log(self.listGroup);
+        // //console.log('++++');
+        // //console.log(self.user);
+        // //console.log(self.listGroup);
     }
 
     function refreshField() {
@@ -43554,8 +43554,8 @@ function controller(user, group) {
         //         self.users = resp.content;
         //     }
         // })
-        // console.log(self.listUser);
-        // if (self.listUser )console.log(self.listUser.length); else console.log('nanimonaidesu');
+        // //console.log(self.listUser);
+        // if (self.listUser )//console.log(self.listUser.length); else //console.log('nanimonaidesu');
         // if(!self.listUser || !self.listUser.length) self.errMsg = 'no user in this group';
     }
 }
@@ -43722,7 +43722,7 @@ function controller(search, auth) {
     };
 
     self.logout = function () {
-        console.log('logout');
+        //console.log('logout');
         auth.logout();
         // location.reload();
         // location.replace('/login');
@@ -43965,7 +43965,7 @@ function controller(company, search) {
 
     self.removeCompany = function (idCompany) {
         const data = { idCompany };
-        console.log(data);
+        //console.log(data);
         if (confirm('Are you sure remove this company?')) {
             company.removeCompany(data, (err, resp) => {
                 if (err) {
@@ -44006,10 +44006,10 @@ function controller(company, search) {
     function init() {
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.companies = resp.content;
 
                 self.filter = '';
@@ -44115,7 +44115,7 @@ function controller(group, search, company, auth) {
     };
 
     self.chooseGroup = function (group) {
-        console.log(group);
+        //console.log(group);
         self.selectedGroup = group;
     };
 
@@ -44170,10 +44170,10 @@ function controller(group, search, company, auth) {
     function init() {
         group.getAllGroup((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.groups = resp.content;
 
                 //pagination'
@@ -44184,10 +44184,10 @@ function controller(group, search, company, auth) {
 
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.companies = resp.content;
 
                 self.companies.forEach(c => self.idToCompanyDict[c.idCompany] = c.name);
@@ -44304,8 +44304,8 @@ function controller(auth) {
                     self.errMsg = err.reason;
                 } else {
                     auth.updateDatabase({}, (err, resp) => {
-                        console.log('suc');
-                        console.log(resp);
+                        //console.log('suc');
+                        //console.log(resp);
                     });
                 }
             });
@@ -44332,14 +44332,14 @@ function controller(auth) {
         // const $thisModal = $(`#${self._name}`);
         // const $btnSubmit = $(`#${self._name} .modal-footer > button`);
 
-        // console.log('this modal');
-        // console.log(self._name);
-        // console.log($thisModal);
+        // //console.log('this modal');
+        // //console.log(self._name);
+        // //console.log($thisModal);
 
-        // console.log('this modal button');
-        // console.log($btnSubmit);
+        // //console.log('this modal button');
+        // //console.log($btnSubmit);
 
-        // console.log(document.getElementById(self._name));
+        // //console.log(document.getElementById(self._name));
 
 
         // if($thisModal.hasClass('in')) {
@@ -44656,7 +44656,7 @@ function controller(user, search, company, auth) {
     let self = this;
 
     self.$onInit = function () {
-        console.log(toastr__WEBPACK_IMPORTED_MODULE_2___default.a);
+        //console.log(toast);
         preProcess();
         init();
 
@@ -44676,7 +44676,7 @@ function controller(user, search, company, auth) {
     self.addUserSuccess = function (data) {
         // self.users.push(data);
         // // self.users = [...self.users];
-        // console.log(self.users);
+        // //console.log(self.users);
 
         init();
         toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('Add user success');
@@ -44702,7 +44702,7 @@ function controller(user, search, company, auth) {
         if (confirm('Are you sure to delete user : ' + u.username)) {
             user.deleteUser(id, (err, resp) => {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     self.errMsg = err.reason;
                     toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
                 } else {
@@ -44785,7 +44785,7 @@ function controller(user, search, company, auth) {
 
     self.getDefaultCompanyId = function (username) {
         const i = self.users.findIndex(u => u.username === username);
-        // console.log(self.users[i])
+        // //console.log(self.users[i])
         return self.users[i].idCompany;
     };
 
@@ -44815,11 +44815,11 @@ function controller(user, search, company, auth) {
         user.getAllUser((err, resp) => {
 
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
 
-                console.log(resp);
+                //console.log(resp);
                 self.users = resp.content;
                 self.filter = '';
 
@@ -44830,7 +44830,7 @@ function controller(user, search, company, auth) {
 
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
 
@@ -45055,12 +45055,12 @@ function pagination() {
         let start = (pageth - 1) * elPerPage;
         let end = start + elPerPage;
 
-        // console.log('==========')
-        // console.log(`num ele ${numEl}`);
-        // console.log(`page: ${pageth}`);
-        // console.log(`elperpage: ${elPerPage}`);
-        // console.log(`start: ${start}`);
-        // console.log(`end: ${end}`);
+        // //console.log('==========')
+        // //console.log(`num ele ${numEl}`);
+        // //console.log(`page: ${pageth}`);
+        // //console.log(`elperpage: ${elPerPage}`);
+        // //console.log(`start: ${start}`);
+        // //console.log(`end: ${end}`);
         // if (pageth > numEl / elPerPage + 1) return; // pageth > num pages
         return input.slice(start, end);
     };
@@ -45234,14 +45234,17 @@ function controller(auth) {
 
     function init() {
         if (self.isLogined) {
-            changeUrl('user');
+            // console.log({'location.hash':location.hash})
+            // changeUrl('user');
+            changeUrl(location.hash);
+            // console.log({'location.hash':location.hash})
         } else {
             changeUrl('login');
         }
     }
 
     function changeUrl(url) {
-        location.hash = `#!/${url}`;
+        if (url[0] == '#' && url[1] == '!') location.hash = url;else location.hash = `#!/${url}`;
     }
 }
 
@@ -45327,10 +45330,10 @@ function controller(modal, $rootScope) {
 
         // //safe close on click
         // const btn = document.getElementById(self._closeBtn);
-        // console.log(btn)
+        // //console.log(btn)
         // // btn.onclick = function() {
         // //     $rootScope.$apply(() => {
-        // //         console.log('should inside a $digest');
+        // //         //console.log('should inside a $digest');
         // //     })
         // // }
 
@@ -45342,14 +45345,14 @@ function controller(modal, $rootScope) {
         // const $thisModal = $(`#${self._name}`);
         // const $btnSubmit = $(`#${self._name} .modal-footer > button`);
 
-        // console.log('this modal');
-        // console.log(self._name);
-        // console.log($thisModal);
+        // //console.log('this modal');
+        // //console.log(self._name);
+        // //console.log($thisModal);
 
-        // console.log('this modal button');
-        // console.log($btnSubmit);
+        // //console.log('this modal button');
+        // //console.log($btnSubmit);
 
-        // console.log(document.getElementById(self._name));
+        // //console.log(document.getElementById(self._name));
 
 
         // if($thisModal.hasClass('in')) {
@@ -45475,7 +45478,7 @@ __webpack_require__.r(__webpack_exports__);
 
 //render
 // const app = '<app></app>';
-// const app = `<modal name="'nah'"><h1>akldsjflkjasdf</h1></modal><modal-btn ng-click="console.log('nah')" target="'nah'" style="'btn btn-success'">some</modal-btn>`
+// const app = `<modal name="'nah'"><h1>akldsjflkjasdf</h1></modal><modal-btn ng-click="//console.log('nah')" target="'nah'" style="'btn btn-success'">some</modal-btn>`
 // const app = `<table-form title="'MANAGE'" description="'flaksdjfl'" headers="['sadf', 'adsfsdf']"></table-form>`;
 // render(app, document.getElementById('root-app'));
 
@@ -45530,7 +45533,7 @@ function assignAllComponent() {
 function assignAllFilter() {
     _filters__WEBPACK_IMPORTED_MODULE_2__["default"].forEach(f => {
         app.filter(f.name, f.options);
-        console.log(f.name);
+        //console.log(f.name);
     });
 }
 
@@ -45760,7 +45763,7 @@ function service($http, $rootScope) {
             method: 'POST',
             data: Object.assign({ token }, data)
         }).then(success).catch(err => {
-            console.log(err);
+            //console.log(err);
             if (err.data.message === _helper__WEBPACK_IMPORTED_MODULE_0__["TOKEN_EXPIRED"]) {
 
                 // auth.jwtExpired();
@@ -45810,7 +45813,7 @@ function service(fetch) {
         fetch.fetchPOST(
         // $http,
         url, null, resp => {
-            console.log(resp);
+            //console.log(resp);
             if (resp.data.code === _helper__WEBPACK_IMPORTED_MODULE_0__["SUCCESS_CODE"]) callback(false, resp.data);else callback(resp.data);
         }, err => callback(err));
     }
@@ -46200,7 +46203,7 @@ function service(fetch) {
         // $http({
         //     url: 'https://jsonplaceholder.typicode.com/posts',
         //     method: 'POST',
-        // }).then(resp => console.log(resp));
+        // }).then(resp => //console.log(resp));
     }
 
     function addUser(data, callback) {

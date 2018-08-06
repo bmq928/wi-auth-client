@@ -41,7 +41,7 @@ function controller(group, search, company, auth) {
     }
 
     self.chooseGroup = function (group) {
-        console.log(group);
+        //console.log(group);
         self.selectedGroup = group;
     }
 
@@ -96,10 +96,10 @@ function controller(group, search, company, auth) {
     function init() {
         group.getAllGroup((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.groups = resp.content;
 
                 //pagination'
@@ -110,10 +110,10 @@ function controller(group, search, company, auth) {
 
         company.getAllCompanies((err, resp) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
                 self.errMsg = err.reason;
             } else {
-                console.log(resp);
+                //console.log(resp);
                 self.companies = resp.content;
                 
                 self.companies.forEach(c => self.idToCompanyDict[c.idCompany] = c.name)

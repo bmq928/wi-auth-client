@@ -14,7 +14,7 @@ controller.$inject = ['auth']
 function controller(auth) {
     let self = this;
     self.$onInit = function () {
-        console.log('int')
+        //console.log('int')
         preProcess();
         init();
     }
@@ -31,7 +31,7 @@ function controller(auth) {
 
     function init() {
         self.curView = decideView() || self.curView;
-        console.log(self);
+        //console.log(self);
     }
 
 }

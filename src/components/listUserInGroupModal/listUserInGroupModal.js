@@ -56,8 +56,8 @@ function controller(user, group) {
         //         self.users = resp.content;
         //     }
         // })
-        // console.log(self.listUser);
-        // if (self.listUser )console.log(self.listUser.length); else console.log('nanimonaidesu');
+        // //console.log(self.listUser);
+        // if (self.listUser )//console.log(self.listUser.length); else //console.log('nanimonaidesu');
         // if(!self.listUser || !self.listUser.length) self.errMsg = 'no user in this group';
     }
 }

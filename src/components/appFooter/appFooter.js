@@ -3,7 +3,7 @@
 import template from './appFooter.html';
 
 const name = 'appFooter';
-console.log(name);
+//console.log(name);
 // angular
 //     .module(appName)
 //     .component(name, {
