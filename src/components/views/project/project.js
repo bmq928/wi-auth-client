@@ -63,6 +63,30 @@ function controller(project, search, user) {
         });
     }
 
+    self.createSharedProject = function (projectObject) {
+        project.createSharedProject({
+            project_name: projectObject.name,
+            username: projectObject.createdBy
+        }, (err, resp) => {
+            if (err) {
+                toast.error(err.reason);
+            } else {
+                init();
+                toast.success("Done");
+            }
+        });
+    };
+
+    self.removeSharedProject = function (projectObject) {
+        project.removeSharedProject(projectObject, (err, resp) => {
+            if (err) {
+                toast.error(err.reason);
+            } else {
+                init();
+                toast.success("Done");
+            }
+        });
+    };
     self.removeProject = function (idProject, owner) {
         const data = {idProject, owner};
         if (confirm('Are you sure remove this project?')) {

@@ -1,4 +1,4 @@
-import {createUrlToMainService, SUCCESS_CODE} from './helper';
+import {createUrlToMainService, createUrl, SUCCESS_CODE} from './helper';
 
 const name = 'project';
 
@@ -31,9 +31,37 @@ function service(fetch) {
         )
     }
 
+    function createSharedProject(data, callback) {
+        const url = createUrl('/shared-project/new');
+        fetch.fetchPOST(
+            url,
+            data,
+            (resp) => {
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
+    function removeSharedProject(data, callback) {
+        const url = createUrl('/shared-project/remove');
+        fetch.fetchPOST(
+            url,
+            data,
+            (resp) => {
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     return {
         getAllProject,
-        removeProject
+        removeProject,
+        createSharedProject,
+        removeSharedProject
     }
 }
 

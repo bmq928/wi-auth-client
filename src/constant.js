@@ -7,4 +7,4 @@ export const VIEWS = {
     project: 'project'
 };
 
-export const APP_TITLE = 'WELL INSIGHT'
+export const APP_TITLE = 'I2G';
