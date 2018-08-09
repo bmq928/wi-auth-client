@@ -48,7 +48,7 @@
                         <span ng-if="user.role === 0">System Admin</span>
                         <span ng-if="user.role === 1">Company Moderator </span>
                         <span ng-if="user.role === 2">Normal User</span>
-                        <span ng-if="user.role === 3">Special User</span>
+                        <!-- <span ng-if="user.role === 3">Special User</span> -->
                     </td>
                     <td ng-bind="user.fullname"></td>
                     <td ng-bind="self.idToCompanyDict[user.idCompany]"></td>

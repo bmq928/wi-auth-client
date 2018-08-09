@@ -1,6 +1,6 @@
 export function createUrl(path) {
-    const domain = 'http://admin.dev.i2g.cloud';
-    // const domain = 'http://127.0.0.1:2999';
+    // const domain = 'http://admin.dev.i2g.cloud';
+    const domain = 'http://127.0.0.1:2999';
     return domain + path;
 }
 
