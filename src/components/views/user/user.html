@@ -24,7 +24,7 @@
             </thead>
             <tbody>
         
-                <tr ng-init="self.sortBy='username'" ng-repeat="(key, user) in self.users  | filter:self.searchStr | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index">
+                <tr ng-init="self.sortBy='username'" ng-repeat="(key, user) in self.users  | filter:self.searchStr | filter:self.inGroupOrCompany | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index">
                     <!-- <td>
                         <input type="checkbox">
                     </td> -->
@@ -123,7 +123,7 @@
 <div class="row">
 
    <div class="col-sm-10 col-md-10 col-lg-10">
-        <label>User per page :</label>
+        <label class="col-sm-2 col-md-2 col-lg-2">User per page :</label>
         <select ng-init="self.userPerPage='10'" ng-model="self.userPerPage" ng-click="self.changeUserPerPage()">
             <option value="5">5</option>
             <option value="10">10</option>
@@ -132,7 +132,26 @@
             <option value="25">25</option>
         </select>
    </div>
-
+   <!-- <div class="col-sm-10 col-md-10 col-lg-10">
+        <label class="col-sm-2 col-md-2 col-lg-2">In group :</label>
+        <select ng-init="self.inGroupOrCompany.idGroup=''" ng-model="self.inGroupOrCompany.idGroup" ng-click="self.changeUserPerPage()">
+            <option value="">All</option>
+            
+        </select>
+    </div> -->
+    <div class="col-sm-10 col-md-10 col-lg-10">
+        <label class="col-sm-2 col-md-2 col-lg-2">In company :</label>
+        <select 
+         ng-init="self.inGroupOrCompany.idCompany=''" 
+         ng-model="self.inGroupOrCompany.idCompany" 
+         ng-click="self.filterByCompanyOrGroup()">
+            <option value="" >All</option>
+            <option 
+             ng-repeat="c in self.companies" 
+             value="{{c.idCompany}}" 
+             ng-bind="c.name"></option>
+        </select>
+    </div>
     <!-- <button 
      class="btn btn-success"
      title="add a user"
@@ -149,6 +168,10 @@
 
 
 </div>
+<div class="row">
+
+    
+ </div>
 
 <!--===== modal ====-->
 <div>

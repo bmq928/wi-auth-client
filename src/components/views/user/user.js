@@ -8,9 +8,9 @@ const name = VIEWS.user;
 // ------------- HAM CHINH ---------------------------
 //self.userPerPage is a string => have to parseInt before use
 
-controller.$inject = ['user', 'search', 'company', 'auth'];
+controller.$inject = ['user', 'search', 'company', 'auth', 'group'];
 
-function controller(user, search, company, auth) {
+function controller(user, search, company, auth, group) {
     let self = this;
 
     self.$onInit = function () {
@@ -23,12 +23,7 @@ function controller(user, search, company, auth) {
         search.onSearchSubmit((text) => {
             self.searchStr.username = text
 
-            //change page to one
-            self.changePage(1);
-
-            //update numPage            
-            const numElment = self.users.filter(u => u.username.includes(text)).length;
-            self.numPage = calNumPage(numElment, self.userPerPage);
+            self.updateNumPageFilter(u => u.username.includes(text))    
         });
     }
 
@@ -150,6 +145,24 @@ function controller(user, search, company, auth) {
         return self.users[i].idCompany;
     }
 
+    self.filterByCompanyOrGroup = function() {
+        console.log({'self.inGroupOrCompany.idCompany':self.inGroupOrCompany.idCompany})
+        self.updateNumPageFilter(user => 
+            !self.inGroupOrCompany.idCompany ||
+            user.idCompany.toString() === self.inGroupOrCompany.idCompany.toString())
+    }
+
+    self.updateNumPageFilter = function(predicate) {
+        //change page to one
+        self.changePage(1);
+
+        //update numPage            
+        const numElment = self.users.filter(predicate).length;
+        self.numPage = calNumPage(numElment, self.userPerPage);
+        console.log({numElment})
+        console.log({numPage: self.numPage})
+    }
+
     function preProcess() {
         self.removeUser = [];
         self.addGroupUser = {};
@@ -161,6 +174,8 @@ function controller(user, search, company, auth) {
         self.users = [];
         self.idToCompanyDict = {};
         self.reverse = false;
+        self.companies = []
+        self.groups = []
 
         //pagination
         self.userPerPage = 5;
@@ -171,6 +186,10 @@ function controller(user, search, company, auth) {
         //filter
         self.searchStr = {};
         self.sortBy = '';
+        self.inGroupOrCompany = {
+            // idGroup: '',
+            idCompany: ''
+        }
     }
 
     function init() {
@@ -184,7 +203,7 @@ function controller(user, search, company, auth) {
                 //console.log(resp);
                 self.users = resp.content;
                 self.filter = '';
-
+                console.log({'self.users' : self.users})
 
                 //pagination
                 self.numPage = self.users.length / self.userPerPage + 1;
@@ -199,8 +218,20 @@ function controller(user, search, company, auth) {
             } else {
 
                 const companies = resp.content;
-
+                self.companies = companies;
+                console.log({'self.companies': self.companies})
                 companies.forEach(c => self.idToCompanyDict[c.idCompany] = c.name)
+            }
+        })
+
+        group.getAllGroup((err, resp) => {
+            if (err) {
+                //console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                //console.log(resp);
+                self.groups = resp.content;
+                console.log({'self.groups': self.groups})
             }
         })
 
@@ -210,6 +241,8 @@ function controller(user, search, company, auth) {
         // return self.users.length / parseInt(self.userPerPage) + 1;
         return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
+
+    
 }
 
 
