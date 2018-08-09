@@ -6,8 +6,8 @@ import toast from 'toastr';
 
 const name = VIEWS.group;
 
-controller.$inject = ['group', 'search', 'company', 'auth']
-function controller(group, search, company, auth) {
+controller.$inject = ['group', 'search', 'company', 'auth', 'user']
+function controller(group, search, company, auth, user) {
     let self = this;
 
     self.$onInit = function () {
@@ -63,13 +63,15 @@ function controller(group, search, company, auth) {
             });
         }
     }
-
+    console.log({'getData': auth.getData()})
     self.getDefaultCompanyId = function(group){
         //due to api
         //if user.role is company moderator
         //all resp.groups are belong to user 's company
-
-        return self.groups[0].idCompany;
+        
+        
+        // return self.groups[0].idCompany;
+        return self.user.idCompany
     }
 
     self.addUsersToGroupSuccess = function() {
@@ -82,6 +84,7 @@ function controller(group, search, company, auth) {
         self.companies = [];
         self.idToCompanyDict = {};
         self.role = auth.getData().role;
+        self.user = {}
 
         //pagination
         self.groupPerPage = 5;
@@ -126,6 +129,20 @@ function controller(group, search, company, auth) {
                 self.companies.forEach(c => self.idToCompanyDict[c.idCompany] = c.name)
             }
         })
+
+        user.getAllUser((err, resp) => {
+
+            if (err) {
+                //console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                const {username} = auth.getData()
+                //console.log(resp);
+                self.user = resp.content.filter(u => u.username === username)[0]
+                console.log({'self.user': self.user})
+            }
+        })
+        
     }
 
     function calNumPage(numElments, elPerPage) {
