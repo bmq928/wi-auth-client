@@ -142,7 +142,7 @@
             <option ng-repeat="g in self.groups" value="{{g}}" ng-bind="g.name"></option>
         </select>
     </div>
-    <div class="col-sm-10 col-md-10 col-lg-10">
+    <div class="col-sm-10 col-md-10 col-lg-10" ng-if="self.userRole === 0">
         <label class="col-sm-2 col-md-2 col-lg-2">In company :</label>
         <select 
          ng-init="self.inCompany.idCompany=''" 
