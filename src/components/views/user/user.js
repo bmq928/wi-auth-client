@@ -13,6 +13,8 @@ controller.$inject = ['user', 'search', 'company', 'auth', 'group'];
 function controller(user, search, company, auth, group) {
     let self = this;
 
+    let users = []
+
     self.$onInit = function () {
         //console.log(toast);
         preProcess();
@@ -23,7 +25,7 @@ function controller(user, search, company, auth, group) {
         search.onSearchSubmit((text) => {
             self.searchStr.username = text
 
-            self.updateNumPageFilter(u => u.username.includes(text))    
+            updateNumPageFilter(u => u.username.includes(text))    
         });
     }
 
@@ -145,23 +147,32 @@ function controller(user, search, company, auth, group) {
         return self.users[i].idCompany;
     }
 
-    self.filterByCompanyOrGroup = function() {
-        console.log({'self.inGroupOrCompany.idCompany':self.inGroupOrCompany.idCompany})
-        self.updateNumPageFilter(user => 
-            !self.inGroupOrCompany.idCompany ||
-            user.idCompany.toString() === self.inGroupOrCompany.idCompany.toString())
+    self.filterByCompany = function() {
+        console.log({'self.inCompany.idCompany':self.inCompany.idCompany})
+        updateNumPageFilter(user => 
+            !self.inCompany.idCompany ||
+            user.idCompany.toString() === self.inCompany.idCompany.toString())
     }
 
-    self.updateNumPageFilter = function(predicate) {
-        //change page to one
-        self.changePage(1);
+    self.filterByGroup = function() {
+        if(!self.inGroup) {
+            
+            self.users = users
+            updateNumPageFilter(u => true) //all user
+        } else {
+            try {
+                const _groups = JSON.parse(self.inGroup)  
+                updateNumPageFilter(user => !!(_groups.users.filter(_u => user.idUser === _u.idUser)[0]))
+            } catch(e) {
+                self.users = users
+                updateNumPageFilter(u => true) //all user
+            }
+        }
 
-        //update numPage            
-        const numElment = self.users.filter(predicate).length;
-        self.numPage = calNumPage(numElment, self.userPerPage);
-        console.log({numElment})
-        console.log({numPage: self.numPage})
+        
     }
+
+     
 
     function preProcess() {
         self.removeUser = [];
@@ -186,10 +197,11 @@ function controller(user, search, company, auth, group) {
         //filter
         self.searchStr = {};
         self.sortBy = '';
-        self.inGroupOrCompany = {
+        self.inCompany = {
             // idGroup: '',
             idCompany: ''
         }
+        self.inGroup = ''  //json string that parse in filter
     }
 
     function init() {
@@ -202,6 +214,7 @@ function controller(user, search, company, auth, group) {
 
                 //console.log(resp);
                 self.users = resp.content;
+                users = resp.content;
                 self.filter = '';
                 console.log({'self.users' : self.users})
 
@@ -232,6 +245,7 @@ function controller(user, search, company, auth, group) {
                 //console.log(resp);
                 self.groups = resp.content;
                 console.log({'self.groups': self.groups})
+                // self.inGroup = self.groups[0]
             }
         })
 
@@ -242,6 +256,16 @@ function controller(user, search, company, auth, group) {
         return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
 
+    function updateNumPageFilter (predicate) {
+        //change page to one
+        self.changePage(1);
+
+        //update numPage            
+        const numElment = self.users.filter(predicate).length;
+        self.numPage = calNumPage(numElment, self.userPerPage);
+        console.log({numElment})
+        console.log({numPage: self.numPage})
+    }
     
 }
 

@@ -24,7 +24,7 @@
             </thead>
             <tbody>
         
-                <tr ng-init="self.sortBy='username'" ng-repeat="(key, user) in self.users  | filter:self.searchStr | filter:self.inGroupOrCompany | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index">
+                <tr ng-init="self.sortBy='username'" ng-repeat="(key, user) in self.users  | filter:self.searchStr | filter:self.inCompany | iig:self.inGroup | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index">
                     <!-- <td>
                         <input type="checkbox">
                     </td> -->
@@ -132,19 +132,22 @@
             <option value="25">25</option>
         </select>
    </div>
-   <!-- <div class="col-sm-10 col-md-10 col-lg-10">
+   <div class="col-sm-10 col-md-10 col-lg-10">
         <label class="col-sm-2 col-md-2 col-lg-2">In group :</label>
-        <select ng-init="self.inGroupOrCompany.idGroup=''" ng-model="self.inGroupOrCompany.idGroup" ng-click="self.changeUserPerPage()">
+        <select 
+         ng-init="self.inCompany.idCompany=''" 
+         ng-model="self.inGroup"
+         ng-click="self.filterByGroup()">
             <option value="">All</option>
-            
+            <option ng-repeat="g in self.groups" value="{{g}}" ng-bind="g.name"></option>
         </select>
-    </div> -->
+    </div>
     <div class="col-sm-10 col-md-10 col-lg-10">
         <label class="col-sm-2 col-md-2 col-lg-2">In company :</label>
         <select 
-         ng-init="self.inGroupOrCompany.idCompany=''" 
-         ng-model="self.inGroupOrCompany.idCompany" 
-         ng-click="self.filterByCompanyOrGroup()">
+         ng-init="self.inCompany.idCompany=''" 
+         ng-model="self.inCompany.idCompany" 
+         ng-click="self.filterByCompany()">
             <option value="" >All</option>
             <option 
              ng-repeat="c in self.companies" 

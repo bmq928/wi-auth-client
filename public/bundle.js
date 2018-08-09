@@ -44738,7 +44738,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('username')\">Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6 class=clickable ng-click=\"self.sort('role')\">Role</h6></th> <th><h6 class=clickable ng-click=\"self.sort('fullname')\">Fullname</h6></th> <th><h6 class=clickable ng-click=\"self.sort('idCompany')\">Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-init=\"self.sortBy='username'\" ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | filter:self.inGroupOrCompany | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td style=text-align:center> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <span ng-if=\"self.userRole < 2\"> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </span> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">User per page :</label> <select ng-init=\"self.userPerPage='10'\" ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">In company :</label> <select ng-init=\"self.inGroupOrCompany.idCompany=''\" ng-model=self.inGroupOrCompany.idCompany ng-click=self.filterByCompanyOrGroup()> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn ng-if=\"self.userRole <= 1\" class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div class=row> </div> <div> <add-user-modal add-user-success=self.addUserSuccess user-role=self.userRole get-default-company-id=self.getDefaultCompanyId> </add-user-modal> <add-group-to-user-modal user=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal user-role=self.userRole edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('username')\">Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6 class=clickable ng-click=\"self.sort('role')\">Role</h6></th> <th><h6 class=clickable ng-click=\"self.sort('fullname')\">Fullname</h6></th> <th><h6 class=clickable ng-click=\"self.sort('idCompany')\">Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-init=\"self.sortBy='username'\" ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | filter:self.inCompany | iig:self.inGroup | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td style=text-align:center> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <span ng-if=\"self.userRole < 2\"> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <button ng-if=self.isActive(user) title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </span> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">User per page :</label> <select ng-init=\"self.userPerPage='10'\" ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">In group :</label> <select ng-init=\"self.inCompany.idCompany=''\" ng-model=self.inGroup ng-click=self.filterByGroup()> <option value=\"\">All</option> <option ng-repeat=\"g in self.groups\" value={{g}} ng-bind=g.name></option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">In company :</label> <select ng-init=\"self.inCompany.idCompany=''\" ng-model=self.inCompany.idCompany ng-click=self.filterByCompany()> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn ng-if=\"self.userRole <= 1\" class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div class=row> </div> <div> <add-user-modal add-user-success=self.addUserSuccess user-role=self.userRole get-default-company-id=self.getDefaultCompanyId> </add-user-modal> <add-group-to-user-modal user=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal user-role=self.userRole edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
 
 /***/ }),
 
@@ -44773,6 +44773,8 @@ controller.$inject = ['user', 'search', 'company', 'auth', 'group'];
 function controller(user, search, company, auth, group) {
     let self = this;
 
+    let users = [];
+
     self.$onInit = function () {
         //console.log(toast);
         preProcess();
@@ -44782,7 +44784,7 @@ function controller(user, search, company, auth, group) {
         search.onSearchSubmit(text => {
             self.searchStr.username = text;
 
-            self.updateNumPageFilter(u => u.username.includes(text));
+            updateNumPageFilter(u => u.username.includes(text));
         });
     };
 
@@ -44902,20 +44904,25 @@ function controller(user, search, company, auth, group) {
         return self.users[i].idCompany;
     };
 
-    self.filterByCompanyOrGroup = function () {
-        console.log({ 'self.inGroupOrCompany.idCompany': self.inGroupOrCompany.idCompany });
-        self.updateNumPageFilter(user => !self.inGroupOrCompany.idCompany || user.idCompany.toString() === self.inGroupOrCompany.idCompany.toString());
+    self.filterByCompany = function () {
+        console.log({ 'self.inCompany.idCompany': self.inCompany.idCompany });
+        updateNumPageFilter(user => !self.inCompany.idCompany || user.idCompany.toString() === self.inCompany.idCompany.toString());
     };
 
-    self.updateNumPageFilter = function (predicate) {
-        //change page to one
-        self.changePage(1);
+    self.filterByGroup = function () {
+        if (!self.inGroup) {
 
-        //update numPage            
-        const numElment = self.users.filter(predicate).length;
-        self.numPage = calNumPage(numElment, self.userPerPage);
-        console.log({ numElment });
-        console.log({ numPage: self.numPage });
+            self.users = users;
+            updateNumPageFilter(u => true); //all user
+        } else {
+            try {
+                const _groups = JSON.parse(self.inGroup);
+                updateNumPageFilter(user => !!_groups.users.filter(_u => user.idUser === _u.idUser)[0]);
+            } catch (e) {
+                self.users = users;
+                updateNumPageFilter(u => true); //all user
+            }
+        }
     };
 
     function preProcess() {
@@ -44940,10 +44947,11 @@ function controller(user, search, company, auth, group) {
         //filter
         self.searchStr = {};
         self.sortBy = '';
-        self.inGroupOrCompany = {
+        self.inCompany = {
             // idGroup: '',
             idCompany: ''
         };
+        self.inGroup = ''; //json string that parse in filter
     }
 
     function init() {
@@ -44956,6 +44964,7 @@ function controller(user, search, company, auth, group) {
 
                 //console.log(resp);
                 self.users = resp.content;
+                users = resp.content;
                 self.filter = '';
                 console.log({ 'self.users': self.users });
 
@@ -44985,6 +44994,7 @@ function controller(user, search, company, auth, group) {
                 //console.log(resp);
                 self.groups = resp.content;
                 console.log({ 'self.groups': self.groups });
+                // self.inGroup = self.groups[0]
             }
         });
     }
@@ -44992,6 +45002,17 @@ function controller(user, search, company, auth, group) {
     function calNumPage(numElments, elPerPage) {
         // return self.users.length / parseInt(self.userPerPage) + 1;
         return parseInt(numElments) / parseInt(elPerPage) + 1;
+    }
+
+    function updateNumPageFilter(predicate) {
+        //change page to one
+        self.changePage(1);
+
+        //update numPage            
+        const numElment = self.users.filter(predicate).length;
+        self.numPage = calNumPage(numElment, self.userPerPage);
+        console.log({ numElment });
+        console.log({ numPage: self.numPage });
     }
 }
 
@@ -45160,13 +45181,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _capitalize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./capitalize */ "./src/filters/capitalize.js");
 /* harmony import */ var _stt__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./stt */ "./src/filters/stt.js");
 /* harmony import */ var _sort__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sort */ "./src/filters/sort.js");
+/* harmony import */ var _isInGroup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isInGroup */ "./src/filters/isInGroup.js");
 
 
 
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ([_range__WEBPACK_IMPORTED_MODULE_0__["default"], _pagination__WEBPACK_IMPORTED_MODULE_1__["default"], _capitalize__WEBPACK_IMPORTED_MODULE_2__["default"], _stt__WEBPACK_IMPORTED_MODULE_3__["default"], _sort__WEBPACK_IMPORTED_MODULE_4__["default"]]);
+
+/* harmony default export */ __webpack_exports__["default"] = ([_range__WEBPACK_IMPORTED_MODULE_0__["default"], _pagination__WEBPACK_IMPORTED_MODULE_1__["default"], _capitalize__WEBPACK_IMPORTED_MODULE_2__["default"], _stt__WEBPACK_IMPORTED_MODULE_3__["default"], _sort__WEBPACK_IMPORTED_MODULE_4__["default"], _isInGroup__WEBPACK_IMPORTED_MODULE_5__["default"]]);
+
+/***/ }),
+
+/***/ "./src/filters/isInGroup.js":
+/*!**********************************!*\
+  !*** ./src/filters/isInGroup.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// import angular from 'angular';
+// import appName from '../module';
+
+const name = 'iig';
+
+// angular
+//     .module(appName)
+//     .filter(name, range)
+
+function isInGroup() {
+    return function (input, groups) {
+        if (!groups) return input;
+
+        try {
+            const _groups = JSON.parse(groups);
+            return input.filter(user => !!_groups.users.filter(_u => user.idUser === _u.idUser)[0]);
+        } catch (e) {
+            return input;
+        }
+    };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name,
+    options: isInGroup
+});
 
 /***/ }),
 

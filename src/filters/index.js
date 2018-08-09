@@ -3,6 +3,7 @@ import pagination from './pagination';
 import capitalize from './capitalize';
 import stt from './stt';
 import sort from './sort';
+import iig from './isInGroup'
 
 
 export default [
@@ -10,5 +11,6 @@ export default [
     pagination,
     capitalize,
     stt,
-    sort
+    sort,
+    iig
 ];
