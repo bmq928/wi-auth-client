@@ -23,7 +23,7 @@ function controller(user, search, company, auth, group) {
 
         //search type
         search.onSearchSubmit((text) => {
-            self.searchStr.username = text
+            self.searchStr = text
 
             updateNumPageFilter(u => u.username.includes(text))    
         });
@@ -195,7 +195,8 @@ function controller(user, search, company, auth, group) {
         self.numPage = calNumPage(self.users.length, self.userPerPage);
 
         //filter
-        self.searchStr = {};
+        // self.searchStr = {};
+        self.searchStr = ''
         self.sortBy = '';
         self.inCompany = {
             // idGroup: '',

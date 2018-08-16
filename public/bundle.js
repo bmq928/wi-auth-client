@@ -31155,6 +31155,25 @@ exports.push([module.i, "select {\n  -webkit-appearance: button;\n  -webkit-bord
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./src/components/listGroupInProjectModal/listGroupInProject.css":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./src/components/listGroupInProjectModal/listGroupInProject.css ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "project modal .collapse {\n  width: 300px;\n  word-wrap: break-word;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./src/components/listUserInGroupModal/listUserInGroup.css":
 /*!*******************************************************************************************!*\
   !*** ./node_modules/css-loader!./src/components/listUserInGroupModal/listUserInGroup.css ***!
@@ -42462,9 +42481,6 @@ function controller(group, company, modal) {
         if (!self.group.name) {
             self.errMsg = 'name is required';
             self.sucMsg = '';
-        } else if (!self.group.description) {
-            self.errMsg = 'description is required';
-            self.sucMsg = '';
         } else if (self.userRole === 1) {
             self.group.idCompany = self.getDefaultCompanyId(self.group.name);
             fullfill();
@@ -43490,6 +43506,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _listUserInGroupModal_listUserInGroupModal__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./listUserInGroupModal/listUserInGroupModal */ "./src/components/listUserInGroupModal/listUserInGroupModal.js");
 /* harmony import */ var _views_project_project__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./views/project/project */ "./src/components/views/project/project.js");
 /* harmony import */ var _addUserToGroupModal_addUserToGroupModal__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./addUserToGroupModal/addUserToGroupModal */ "./src/components/addUserToGroupModal/addUserToGroupModal.js");
+/* harmony import */ var _listGroupInProjectModal_listGroupInProjectModal__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./listGroupInProjectModal/listGroupInProjectModal */ "./src/components/listGroupInProjectModal/listGroupInProjectModal.js");
 
 
 
@@ -43511,7 +43528,117 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ([_app_app__WEBPACK_IMPORTED_MODULE_0__["default"], _appFooter_appFooter__WEBPACK_IMPORTED_MODULE_1__["default"], _navbar_navbar__WEBPACK_IMPORTED_MODULE_2__["default"], _navbarHeader_navbarHeader__WEBPACK_IMPORTED_MODULE_3__["default"], _navbarTool_navbarTool__WEBPACK_IMPORTED_MODULE_4__["default"], _sidebar_sidebar__WEBPACK_IMPORTED_MODULE_5__["default"], _views_user_user__WEBPACK_IMPORTED_MODULE_6__["default"], _views_login_login__WEBPACK_IMPORTED_MODULE_8__["default"], _views_group_group__WEBPACK_IMPORTED_MODULE_7__["default"], _views_parameter_parameter__WEBPACK_IMPORTED_MODULE_10__["default"], _views_company_company__WEBPACK_IMPORTED_MODULE_9__["default"], _addGroupModal_addGroupModal__WEBPACK_IMPORTED_MODULE_12__["default"], _addCompanyModal_addCompanyModal__WEBPACK_IMPORTED_MODULE_14__["default"], _addUserModal_addUserModal__WEBPACK_IMPORTED_MODULE_11__["default"], _addGroupToUserModal_addGroupToUserModal__WEBPACK_IMPORTED_MODULE_13__["default"], _editUserModal_editUserModal__WEBPACK_IMPORTED_MODULE_15__["default"], _editCompanyModal_editCompanyModal__WEBPACK_IMPORTED_MODULE_16__["default"], _listUserInGroupModal_listUserInGroupModal__WEBPACK_IMPORTED_MODULE_17__["default"], _views_project_project__WEBPACK_IMPORTED_MODULE_18__["default"], _addUserToGroupModal_addUserToGroupModal__WEBPACK_IMPORTED_MODULE_19__["default"]]);
+
+/* harmony default export */ __webpack_exports__["default"] = ([_app_app__WEBPACK_IMPORTED_MODULE_0__["default"], _appFooter_appFooter__WEBPACK_IMPORTED_MODULE_1__["default"], _navbar_navbar__WEBPACK_IMPORTED_MODULE_2__["default"], _navbarHeader_navbarHeader__WEBPACK_IMPORTED_MODULE_3__["default"], _navbarTool_navbarTool__WEBPACK_IMPORTED_MODULE_4__["default"], _sidebar_sidebar__WEBPACK_IMPORTED_MODULE_5__["default"], _views_user_user__WEBPACK_IMPORTED_MODULE_6__["default"], _views_login_login__WEBPACK_IMPORTED_MODULE_8__["default"], _views_group_group__WEBPACK_IMPORTED_MODULE_7__["default"], _views_parameter_parameter__WEBPACK_IMPORTED_MODULE_10__["default"], _views_company_company__WEBPACK_IMPORTED_MODULE_9__["default"], _addGroupModal_addGroupModal__WEBPACK_IMPORTED_MODULE_12__["default"], _addCompanyModal_addCompanyModal__WEBPACK_IMPORTED_MODULE_14__["default"], _addUserModal_addUserModal__WEBPACK_IMPORTED_MODULE_11__["default"], _addGroupToUserModal_addGroupToUserModal__WEBPACK_IMPORTED_MODULE_13__["default"], _editUserModal_editUserModal__WEBPACK_IMPORTED_MODULE_15__["default"], _editCompanyModal_editCompanyModal__WEBPACK_IMPORTED_MODULE_16__["default"], _listUserInGroupModal_listUserInGroupModal__WEBPACK_IMPORTED_MODULE_17__["default"], _views_project_project__WEBPACK_IMPORTED_MODULE_18__["default"], _addUserToGroupModal_addUserToGroupModal__WEBPACK_IMPORTED_MODULE_19__["default"], _listGroupInProjectModal_listGroupInProjectModal__WEBPACK_IMPORTED_MODULE_20__["default"]]);
+
+/***/ }),
+
+/***/ "./src/components/listGroupInProjectModal/listGroupInProject.css":
+/*!***********************************************************************!*\
+  !*** ./src/components/listGroupInProjectModal/listGroupInProject.css ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!./listGroupInProject.css */ "./node_modules/css-loader/index.js!./src/components/listGroupInProjectModal/listGroupInProject.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/components/listGroupInProjectModal/listGroupInProject.html":
+/*!************************************************************************!*\
+  !*** ./src/components/listGroupInProjectModal/listGroupInProject.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<modal name=self.name on-close=\"\" header=\"'List Group'\" ng-class=\"{'modal-lg': true}\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th style=\"border-bottom:1px solid #ddd\">STT</th> <th style=\"border-bottom:1px solid #ddd\">GROUP</th> <th style=\"border-bottom:1px solid #ddd\">Company</th> <th style=\"border-bottom:1px solid #ddd;width:400px\">Permission</th> <th style=\"border-bottom:1px solid #ddd\">Action</th> </tr> </thead> <tbody> <tr ng-repeat=\"(i,group) in self.listGroup\"> <td>{{i}}</td> <td>{{group.name}}</td> <td>{{group.company.name}}</td> <td ng-init=\"permissionCollapse=group.name+'-'+group.company.name+'-'+'permission'\" style=width:300px> <button class=\"btn btn-primary btn-xs\" type=button data-toggle=collapse data-target=#{{permissionCollapse}} aria-expanded=false aria-controls={{permissionCollapse}}> Toggle </button> <div class=collapse id={{permissionCollapse}}> {{group.shared_project_group.permission}} </div> </td> <td> <button class=\"btn btn-danger btn-xs\" title=\"Remove group\" ng-click=self.removeGroup(group)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </modal>";
+
+/***/ }),
+
+/***/ "./src/components/listGroupInProjectModal/listGroupInProjectModal.js":
+/*!***************************************************************************!*\
+  !*** ./src/components/listGroupInProjectModal/listGroupInProjectModal.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _listGroupInProject_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./listGroupInProject.html */ "./src/components/listGroupInProjectModal/listGroupInProject.html");
+/* harmony import */ var _listGroupInProject_html__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_listGroupInProject_html__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _listGroupInProject_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./listGroupInProject.css */ "./src/components/listGroupInProjectModal/listGroupInProject.css");
+/* harmony import */ var _listGroupInProject_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_listGroupInProject_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
+/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+const name = 'listGroupInProjectModal';
+
+function controller(group, project) {
+    let self = this;
+    self.$onInit = function () {
+        preProcess();
+        init();
+    };
+
+    function preProcess() {
+        self.name = 'list-group-in-project-modal';
+        self.errMsg = '';
+    }
+    self.removeGroup = function (data) {
+        project.removeProjectOutOfGroup({
+            idGroup: data.idGroup,
+            idSharedProject: data.shared_project_group.idSharedProject,
+            type: 'remove'
+        }, (err, resp) => {
+            if (err) {
+                toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
+            } else {
+                self.listGroup.splice(self.listGroup.findIndex(g => g.idGroup == data.idGroup), 1);
+                init();
+                // toast.success("Done");
+            }
+        });
+    };
+    function init() {
+        self.projectCtrl.init();
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name,
+    options: {
+        bindings: {
+            listGroup: '<',
+            // removeGroup: '<'
+            projectCtrl: '<'
+        },
+        template: (_listGroupInProject_html__WEBPACK_IMPORTED_MODULE_0___default()),
+        controller,
+        controllerAs: 'self'
+    }
+});
 
 /***/ }),
 
@@ -43947,17 +44074,17 @@ function generateView(role) {
         switch (role) {
             case 2:
                 enableTabUser();
-                enableTabParameter();
+                // enableTabParameter();
                 break;
             case 1:
                 enableTabUser();
-                enableTabParameter();
+                // enableTabParameter();
                 enableTabGroup();
                 enableProject();
                 break;
             case 0:
                 enableTabUser();
-                enableTabParameter();
+                // enableTabParameter();
                 enableTabGroup();
                 enableTabCompany();
                 enableProject();
@@ -44614,7 +44741,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>PROJECTS MANAGEMENT</h4> <p class=category>This is a site that manage the projects of users </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('name')\">Name</h6></th> <th><h6>Company</h6></th> <th><h6>Location</h6></th> <th><h6>Department</h6></th> <th><h6 class=clickable ng-click=\"self.sort('createdBy')\">Created By</h6></th> <th><h6>Description</h6></th> <th><h6>Sharing Key</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, project) in self.projects  | filter:self.searchStr | sort:self.sortBy : self.reverse | pagination: self.curPage: self.projectPerPage  track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=project.name></td> <td ng-bind=project.company></td> <td ng-bind=project.location></td> <td ng-bind=project.department></td> <td ng-bind=project.createdBy></td> <td ng-bind=project.description></td> <td ng-bind=project.shareKey></td> <td> <button class=\"btn btn-danger btn-xs\" title=\"Remove project\" ng-click=\"self.removeProject(project.idProject, project.createdBy)\"> <i class=material-icons>delete</i> </button> <button ng-if=!(project.shareKey) class=\"btn btn-info btn-xs\" title=\"Create sharing key\" ng-click=self.createSharedProject(project)> <i class=material-icons>share</i> </button> <button ng-if=(project.shareKey) class=\"btn btn-danger btn-xs\" title=\"Stop sharing and delete sharing key\" ng-click=self.removeSharedProject(project)> <i class=material-icons>share</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Projects per page :</label> <select ng-init=\"self.projectPerPage='10'\" ng-model=self.projectPerPage ng-click=self.changeProjectPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>PROJECTS MANAGEMENT</h4> <p class=category>This is a site that manage the projects of users </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('name')\">Name</h6></th> <th><h6>Company</h6></th> <th><h6>Location</h6></th> <th><h6>Department</h6></th> <th><h6 class=clickable ng-click=\"self.sort('createdBy')\">Created By</h6></th> <th><h6>Description</h6></th> <th><h6>Sharing Key</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, project) in self.projects  | filter:self.searchStr | sort:self.sortBy : self.reverse | pagination: self.curPage: self.projectPerPage  track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=project.name></td> <td ng-bind=project.company></td> <td ng-bind=project.location></td> <td ng-bind=project.department></td> <td ng-bind=project.createdBy></td> <td ng-bind=project.description></td> <td ng-bind=project.shareKey></td> <td> <button class=\"btn btn-danger btn-xs\" title=\"Remove project\" ng-click=\"self.removeProject(project.idProject, project.createdBy)\"> <i class=material-icons>delete</i> </button> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list group in project\" ng-if=(project.shareKey) target=\"'list-group-in-project-modal'\" ng-click=self.choseProject(project)> <i class=material-icons>list</i> </modal-btn> <button ng-if=!(project.shareKey) class=\"btn btn-info btn-xs\" title=\"Create sharing key\" ng-click=self.createSharedProject(project)> <i class=material-icons>share</i> </button> <button ng-if=(project.shareKey) class=\"btn btn-danger btn-xs\" title=\"Stop sharing and delete sharing key\" ng-click=self.removeSharedProject(project)> <i class=material-icons>share</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Projects per page :</label> <select ng-init=\"self.projectPerPage='10'\" ng-model=self.projectPerPage ng-click=self.changeProjectPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> </div> <div> <list-group-in-project-modal list-group=self.selectedProject.groups project-ctrl=self> </list-group-in-project-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 
@@ -44634,6 +44761,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _project_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./project.css */ "./src/components/views/project/project.css");
 /* harmony import */ var _project_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_project_css__WEBPACK_IMPORTED_MODULE_3__);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 
 
 
@@ -44648,7 +44777,7 @@ function controller(project, search, user) {
 
     self.$onInit = function () {
         preProcess();
-        init();
+        self.init();
         search.onSearchSubmit(text => {
             self.searchStr = text;
             self.changePage(1);
@@ -44673,6 +44802,16 @@ function controller(project, search, user) {
         self.reverse = false;
     }
 
+    self.choseProject = (() => {
+        var _ref = _asyncToGenerator(function* (project) {
+            yield self.init();
+            self.selectedProject = project;
+        });
+
+        return function (_x) {
+            return _ref.apply(this, arguments);
+        };
+    })();
     self.changeProjectPerPage = function () {
         self.numPage = calNumPage(self.projects.length, self.projectPerPage);
         if (self.curPage > self.numPage) self.curPage = 1;
@@ -44681,11 +44820,13 @@ function controller(project, search, user) {
         self.curPage = page;
     };
 
-    function init() {
-        user.getAllUser((err, resp) => {
+    self.init = _asyncToGenerator(function* () {
+        user.getAllUser(function (err, resp) {
             let users = [];
-            resp.content.forEach(user => users.push(user.username));
-            project.getAllProject({ users }, (err, resp) => {
+            resp.content.forEach(function (user) {
+                return users.push(user.username);
+            });
+            project.getAllProject({ users }, function (err, resp) {
                 if (err) {
                     self.errMsg = err.reason;
                     toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
@@ -44696,7 +44837,7 @@ function controller(project, search, user) {
                 }
             });
         });
-    }
+    });
 
     self.createSharedProject = function (projectObject) {
         project.createSharedProject({
@@ -44706,7 +44847,7 @@ function controller(project, search, user) {
             if (err) {
                 toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
             } else {
-                init();
+                self.init();
                 toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success("Done");
             }
         });
@@ -44717,7 +44858,7 @@ function controller(project, search, user) {
             if (err) {
                 toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
             } else {
-                init();
+                self.init();
                 toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success("Done");
             }
         });
@@ -44731,7 +44872,7 @@ function controller(project, search, user) {
                     toastr__WEBPACK_IMPORTED_MODULE_2___default.a.error(err.reason);
                 } else {
                     self.errMsg = '';
-                    init();
+                    self.init();
                     toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('Delete success');
                 }
             });
@@ -44835,7 +44976,7 @@ function controller(user, search, company, auth, group) {
 
         //search type
         search.onSearchSubmit(text => {
-            self.searchStr.username = text;
+            self.searchStr = text;
 
             updateNumPageFilter(u => u.username.includes(text));
         });
@@ -44998,7 +45139,8 @@ function controller(user, search, company, auth, group) {
         self.numPage = calNumPage(self.users.length, self.userPerPage);
 
         //filter
-        self.searchStr = {};
+        // self.searchStr = {};
+        self.searchStr = '';
         self.sortBy = '';
         self.inCompany = {
             // idGroup: '',
@@ -45561,7 +45703,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true data-backdrop=static> <div class=modal-dialog role=document> <div class=modal-content> <div class=modal-header> <button type=button class=close data-dismiss=modal aria-label=Close ng-click=self.onClose()> <span aria-hidden=true>&times;</span> </button> <h3 class=modal-title id=exampleModalLabel ng-bind=self.header></h3> </div> <div class=modal-body> <ng-transclude></ng-transclude> </div> </div> </div> </div> ";
+module.exports = " <div class=\"modal fade\" id={{self._name}} tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true data-backdrop=static> <div class=modal-dialog ng-class=self.ngClass role=document> <div class=modal-content> <div class=modal-header> <button type=button class=close data-dismiss=modal aria-label=Close ng-click=self.onClose()> <span aria-hidden=true>&times;</span> </button> <h3 class=modal-title id=exampleModalLabel ng-bind=self.header></h3> </div> <div class=modal-body> <ng-transclude></ng-transclude> </div> </div> </div> </div> ";
 
 /***/ }),
 
@@ -45649,7 +45791,8 @@ function controller(modal, $rootScope) {
         bindings: {
             header: '<',
             name: '<',
-            onClose: '<'
+            onClose: '<',
+            ngClass: '<'
         },
         template: (_modal_html__WEBPACK_IMPORTED_MODULE_0___default()),
         controller,
@@ -46178,14 +46321,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INTERNAL_ERROR_CODE", function() { return INTERNAL_ERROR_CODE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOKEN_EXPIRED", function() { return TOKEN_EXPIRED; });
 function createUrl(path) {
-    const domain = 'http://admin.dev.i2g.cloud';
-    // const domain = 'http://127.0.0.1:2999';
+    // const domain = 'http://admin.dev.i2g.cloud';
+    const domain = 'http://127.0.0.1:2999';
     return domain + path;
 }
 
 function createUrlToMainService(path) {
-    const domain = 'http://dev.i2g.cloud';
-    // const domain = 'http://127.0.0.1:3000';
+    // const domain = 'http://dev.i2g.cloud';
+    const domain = 'http://127.0.0.1:3000';
     return domain + path;
 }
 
@@ -46389,11 +46532,19 @@ function service(fetch) {
         }, err => callback(err));
     }
 
+    function removeProjectOutOfGroup(data, callback) {
+        const url = Object(_helper__WEBPACK_IMPORTED_MODULE_0__["createUrl"])('/shared-project/add-to-group');
+        fetch.fetchPOST(url, data, resp => {
+            if (resp.data.code === _helper__WEBPACK_IMPORTED_MODULE_0__["SUCCESS_CODE"]) callback(false, resp.data);else callback(resp.data);
+        }, err => callback(err));
+    }
+
     return {
         getAllProject,
         removeProject,
         createSharedProject,
-        removeSharedProject
+        removeSharedProject,
+        removeProjectOutOfGroup
     };
 }
 

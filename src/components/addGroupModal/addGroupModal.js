@@ -47,9 +47,6 @@ function controller(group, company, modal){
         if(!self.group.name) {
             self.errMsg = 'name is required';
             self.sucMsg = '';
-        } else if (!self.group.description) {
-            self.errMsg = 'description is required';
-            self.sucMsg = ''
         } else if(self.userRole === 1) {
             self.group.idCompany = self.getDefaultCompanyId(self.group.name);
             fullfill();
