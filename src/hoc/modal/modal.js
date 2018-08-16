@@ -73,7 +73,8 @@ export default {
         bindings: {
             header: '<',
             name: '<',
-            onClose: '<'
+            onClose: '<',
+            ngClass: '<'
         },
         template,
         controller,

@@ -38,6 +38,14 @@
                             ng-click="self.removeProject(project.idProject, project.createdBy)">
                         <i class="material-icons">delete</i>
                     </button>
+                    <modal-btn
+                            class-name="'btn btn-success btn-xs'"
+                            title="list group in project"
+                            ng-if="(project.shareKey)"
+                            target="'list-group-in-project-modal'"
+                            ng-click="self.choseProject(project)">
+                        <i class="material-icons">list</i>
+                    </modal-btn>
                     <button
                             ng-if="!(project.shareKey)"
                             class="btn btn-info btn-xs"
@@ -72,6 +80,12 @@
         </select>
     </div>
 
+</div>
+
+<!--===== modal ====-->
+<div>
+    <list-group-in-project-modal list-group="self.selectedProject.groups" project-ctrl="self">
+    </list-group-in-project-modal>
 </div>
 
 <!--===================== pagination =========================-->

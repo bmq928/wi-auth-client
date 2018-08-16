@@ -1,0 +1,35 @@
+<modal name="self.name" on-close="" header="'List Group'" ng-class="{'modal-lg': true}">
+    <table class="table table-hover">
+        <thead class="text-primary">
+            <tr>
+                <th style="border-bottom: 1px solid rgb(221, 221, 221);">STT</th>
+                <th style="border-bottom: 1px solid rgb(221, 221, 221);">GROUP</th>
+                <th style="border-bottom: 1px solid rgb(221, 221, 221);">Company</th>
+                <th style="border-bottom: 1px solid rgb(221, 221, 221); width: 400px">Permission</th>
+                <th style="border-bottom: 1px solid rgb(221, 221, 221);">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr ng-repeat="(i,group) in self.listGroup">
+                <td>{{i}}</td>
+                <td>{{group.name}}</td>
+                <td>{{group.company.name}}</td>
+                <td ng-init="permissionCollapse=group.name+'-'+group.company.name+'-'+'permission'" style="width:300px">
+                    <button class="btn btn-primary btn-xs" type="button" data-toggle="collapse" data-target="#{{permissionCollapse}}" aria-expanded="false"
+                        aria-controls="{{permissionCollapse}}">
+                        Toggle
+                    </button>
+                    <div class="collapse" id="{{permissionCollapse}}">
+                        {{group.shared_project_group.permission}}
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-xs" title="Remove group" ng-click="self.removeGroup(group)">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</modal>

@@ -12,7 +12,7 @@ function controller(project, search, user) {
 
     self.$onInit = function () {
         preProcess();
-        init();
+        self.init();
         search.onSearchSubmit((text) => {
             self.searchStr = text;
             self.changePage(1);
@@ -38,6 +38,10 @@ function controller(project, search, user) {
         self.reverse = false;
     }
 
+    self.choseProject = async function (project) {
+        await self.init();
+        self.selectedProject = project;
+    };
     self.changeProjectPerPage = function () {
         self.numPage = calNumPage(self.projects.length, self.projectPerPage);
         if (self.curPage > self.numPage) self.curPage = 1;
@@ -46,7 +50,7 @@ function controller(project, search, user) {
         self.curPage = page;
     };
 
-    function init() {
+    self.init = async function() {
         user.getAllUser((err, resp) => {
             let users = [];
             resp.content.forEach(user => users.push(user.username));
@@ -71,7 +75,7 @@ function controller(project, search, user) {
             if (err) {
                 toast.error(err.reason);
             } else {
-                init();
+                self.init();
                 toast.success("Done");
             }
         });
@@ -82,7 +86,7 @@ function controller(project, search, user) {
             if (err) {
                 toast.error(err.reason);
             } else {
-                init();
+                self.init();
                 toast.success("Done");
             }
         });
@@ -96,7 +100,7 @@ function controller(project, search, user) {
                     toast.error(err.reason);
                 } else {
                     self.errMsg = '';
-                    init();
+                    self.init();
                     toast.success('Delete success');
                 }
             })

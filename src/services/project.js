@@ -1,4 +1,4 @@
-import {createUrlToMainService, createUrl, SUCCESS_CODE} from './helper';
+import { createUrlToMainService, createUrl, SUCCESS_CODE } from './helper';
 
 const name = 'project';
 
@@ -57,11 +57,25 @@ function service(fetch) {
         )
     }
 
+    function removeProjectOutOfGroup(data, callback) {
+        const url = createUrl('/shared-project/add-to-group');
+        fetch.fetchPOST(
+            url,
+            data,
+            (resp) => {
+                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                else callback(resp.data);
+            },
+            (err) => callback(err)
+        )
+    }
+
     return {
         getAllProject,
         removeProject,
         createSharedProject,
-        removeSharedProject
+        removeSharedProject,
+        removeProjectOutOfGroup
     }
 }
 
