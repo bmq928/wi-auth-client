@@ -95,17 +95,17 @@ function generateView(role) {
         switch (role) {
             case 2:
                 enableTabUser();
-                enableTabParameter();
+                // enableTabParameter();
                 break;
             case 1:
                 enableTabUser();
-                enableTabParameter();
+                // enableTabParameter();
                 enableTabGroup();
                 enableProject();
                 break;
             case 0:
                 enableTabUser();
-                enableTabParameter();
+                // enableTabParameter();
                 enableTabGroup();
                 enableTabCompany();
                 enableProject();
