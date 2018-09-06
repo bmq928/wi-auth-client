@@ -172,6 +172,13 @@ function controller(user, search, company, auth, group) {
         
     }
 
+    self.getGroupFilterOptions = function() {
+        const {idCompany} = self.inCompany;
+        console.log({idCompany})
+        if(!idCompany) return self.groups;
+        else return self.groups.filter(g => g.idCompany.toString() === idCompany.toString())
+    }
+
      
 
     function preProcess() {

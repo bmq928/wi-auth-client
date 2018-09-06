@@ -139,7 +139,7 @@
          ng-model="self.inGroup"
          ng-click="self.filterByGroup()">
             <option value="">All</option>
-            <option ng-repeat="g in self.groups" value="{{g}}" ng-bind="g.name"></option>
+            <option ng-repeat="g in self.getGroupFilterOptions()" value="{{g}}" ng-bind="g.name"></option>
         </select>
     </div>
     <div class="col-sm-10 col-md-10 col-lg-10" ng-if="self.userRole === 0">
