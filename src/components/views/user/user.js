@@ -25,7 +25,7 @@ function controller(user, search, company, auth, group) {
         search.onSearchSubmit((text) => {
             self.searchStr = text
 
-            updateNumPageFilter(u => u.username.includes(text))    
+            updateNumPageFilter(u => u.username.includes(text))
         });
     }
 
@@ -88,7 +88,8 @@ function controller(user, search, company, auth, group) {
 
         user.changeStatus(data, (err, resp) => {
             if (err) {
-                self.errMsg = err.reason;
+                // self.errMsg = err.reason;
+                toast.error(err.reason);
             } else {
                 toast.success("User " + resp.content.username + " Actived");
                 init();
@@ -141,52 +142,51 @@ function controller(user, search, company, auth, group) {
         return user.status === ACTIVE;
     }
 
-    self.getDefaultCompanyId = function(username){
+    self.getDefaultCompanyId = function (username) {
         const i = self.users.findIndex(u => u.username === username);
         // //console.log(self.users[i])
         return self.users[i].idCompany;
     }
 
-    self.filterByCompany = function() {
-        console.log({'self.inCompany.idCompany':self.inCompany.idCompany})
-        updateNumPageFilter(user => 
+    self.filterByCompany = function () {
+        console.log({'self.inCompany.idCompany': self.inCompany.idCompany})
+        updateNumPageFilter(user =>
             !self.inCompany.idCompany ||
             user.idCompany.toString() === self.inCompany.idCompany.toString())
     }
 
-    self.filterByGroup = function() {
-        if(!self.inGroup) {
-            
+    self.filterByGroup = function () {
+        if (!self.inGroup) {
+
             self.users = users
             updateNumPageFilter(u => true) //all user
         } else {
             try {
-                const _groups = JSON.parse(self.inGroup)  
+                const _groups = JSON.parse(self.inGroup)
                 updateNumPageFilter(user => !!(_groups.users.filter(_u => user.idUser === _u.idUser)[0]))
-            } catch(e) {
+            } catch (e) {
                 self.users = users
                 updateNumPageFilter(u => true) //all user
             }
         }
 
-        
+
     }
 
-    self.getGroupFilterOptions = function() {
+    self.getGroupFilterOptions = function () {
         const {idCompany} = self.inCompany;
         console.log({idCompany})
-        if(!idCompany) return self.groups;
+        if (!idCompany) return self.groups;
         else return self.groups.filter(g => g.idCompany.toString() === idCompany.toString())
     }
 
-     
 
     function preProcess() {
         self.removeUser = [];
         self.addGroupUser = {};
         self.addGroupUser_idCompany = -1;
         self.userRole = auth.getData().role;
-        
+
 
         //pre
         self.users = [];
@@ -224,7 +224,7 @@ function controller(user, search, company, auth, group) {
                 self.users = resp.content;
                 users = resp.content;
                 self.filter = '';
-                console.log({'self.users' : self.users})
+                console.log({'self.users': self.users})
 
                 //pagination
                 self.numPage = self.users.length / self.userPerPage + 1;
@@ -264,7 +264,7 @@ function controller(user, search, company, auth, group) {
         return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
 
-    function updateNumPageFilter (predicate) {
+    function updateNumPageFilter(predicate) {
         //change page to one
         self.changePage(1);
 
@@ -274,7 +274,7 @@ function controller(user, search, company, auth, group) {
         console.log({numElment})
         console.log({numPage: self.numPage})
     }
-    
+
 }
 
 
