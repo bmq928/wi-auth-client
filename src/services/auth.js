@@ -58,6 +58,7 @@ function service( $rootScope, fetch) {
                     const { token } = resp.data.content;
 
                     localStorage.setItem('jwt-token', token);
+                    localStorage.setItem('username', data.username);
                     emitMessage(EVENTS.LOGIN_SUCCESS);
 
                     callback(false, resp.data);

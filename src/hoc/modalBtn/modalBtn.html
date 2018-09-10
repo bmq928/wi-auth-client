@@ -1,6 +1,7 @@
 <button 
     class="{{self.className}}"
     data-toggle="modal"
+    ng-disabled="self.myDisable"
     data-target="{{self._target}}">
         <ng-transclude></ng-transclude>
 </button>

@@ -12,7 +12,7 @@ controller.$inject = ['user', 'search', 'company', 'auth', 'group'];
 
 function controller(user, search, company, auth, group) {
     let self = this;
-
+    self.currentUsername = window.localStorage.getItem("username");
     let users = []
 
     self.$onInit = function () {
@@ -49,6 +49,7 @@ function controller(user, search, company, auth, group) {
     }
 
     self.editUserOnClick = function (user) {
+        if (user.username === self.currentUsername) return toast.warning("You can not edit your infomation! Please contact supporter!");
         self.editUser = user;
     }
 

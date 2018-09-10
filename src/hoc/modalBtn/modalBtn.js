@@ -24,7 +24,8 @@ export default {
         transclude: true,
         bindings: {
             target: '<',
-            className: '<'
+            className: '<',
+            myDisable: '<'
         },
         template,
         controller,
