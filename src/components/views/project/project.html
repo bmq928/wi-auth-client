@@ -24,7 +24,7 @@
 
             <tr ng-repeat="(key, project) in self.projects  | filter:self.searchStr | sort:self.sortBy : self.reverse | pagination: self.curPage: self.projectPerPage  track by $index">
                 <td ng-bind="key | stt:key"></td>
-                <td ng-bind="project.name"></td>
+                <td ng-bind="project.alias || project.name"></td>
                 <td ng-bind="project.company"></td>
                 <td ng-bind="project.location"></td>
                 <td ng-bind="project.department"></td>
