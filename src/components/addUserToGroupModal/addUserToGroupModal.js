@@ -24,6 +24,11 @@ function controller(user, group, modal){
         init();
     }
 
+    self.isSelected = function(user) {
+        const id = user.idUser
+        return self.listAddUser.includes(id)
+    }
+
     self.toggleAdd = function (user) {
         // console.log({user})
         const id = user.idUser

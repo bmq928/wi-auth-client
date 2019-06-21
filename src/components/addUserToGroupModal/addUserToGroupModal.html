@@ -5,6 +5,7 @@
     </div>
     <div class="text-success" ng-bind="self.sucMsg"></div>
     <div class="text-danger" ng-bind="self.errMsg"></div>
+    <div style = "overflow-y: auto; max-height: 550px;">
     <table>
         <table class="table table-hover">
             <thead class="text-primary">
@@ -26,7 +27,7 @@
                     <td >
                         <input 
                          ng-click="self.toggleAdd(user)" 
-                         type="checkbox" >
+                         type="checkbox" ng-checked="self.isSelected(user)">
                     </td>
                     <td ng-bind="i | stt: i"></td>
                     <td ng-bind="user.username"></td>
@@ -35,6 +36,7 @@
             </tbody>
         </table>
     </table>
+    </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="self.onSubmit()">SUBMIT</button>
     </div>
