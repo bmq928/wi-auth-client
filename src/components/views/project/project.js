@@ -42,10 +42,12 @@ function controller(project, search, user) {
         await self.init();
         self.selectedProject = project;
     };
+
     self.changeProjectPerPage = function () {
         self.numPage = calNumPage(self.projects.length, self.projectPerPage);
         if (self.curPage > self.numPage) self.curPage = 1;
     };
+    
     self.changePage = function (page) {
         self.curPage = page;
     };
@@ -109,6 +111,13 @@ function controller(project, search, user) {
 
     function calNumPage(numElments, elPerPage) {
         return parseInt(numElments) / parseInt(elPerPage) + 1;
+    }
+
+    self.miniTrans = function(description) {
+        if (description.length > 55) {
+            return description.substr(0,51) + '...';
+        }
+        return description;
     }
 }
 

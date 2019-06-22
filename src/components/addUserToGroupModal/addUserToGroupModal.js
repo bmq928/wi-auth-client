@@ -16,10 +16,21 @@ function controller(user, group, modal){
 
     self.$onChanges = function() {
         self.listUser = users.filter(u => u.idCompany === self.companyId)
+        let groupTemp;
+        if (!self.groups) {
+            return;
+        }
+        for (let i = 0; i < self.groups.length; i++) {
+            console.log('LOOP')
+            if (self.groups[i].idGroup == self.group.idGroup) {
+                groupTemp = Object.assign({}, self.groups[i]);
+            }
+        }
+        self.users = groupTemp.users.map(user=> user.idUser);
+        self.listUserShow = self.listUser.filter(u => !self.users.includes(u.idUser));
     }
 
     self.onClose = function () {
-        
         preProcess();
         init();
     }
@@ -76,7 +87,8 @@ function controller(user, group, modal){
         self.searchUserStr = {
             username: ''
         }
-
+        self.listUserShow = []
+        self.users;
         //data
         self.listAddUser = [];
     }
@@ -90,13 +102,24 @@ function controller(user, group, modal){
             } else {
                 users = resp.content;
                 self.listUser = users.filter(u => u.idCompany === self.companyId)
-
+                console.log('users', users)
                 console.log({'self.listUser':self.listUser})
                 console.log({'self.group':self.group})
                 console.log({'self.companyId':self.companyId})
-                console.log('================================')
             }
-        })
+        });
+        group.getAllGroup((err, resp) => {
+            if (err) {
+                //console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                //console.log(resp);
+                self.groups = resp.content;
+                //pagination'
+                // self.numPage = self.groups.length / self.groupPerPage + 1;
+            }
+        });
+        
     }
 
     function checkSubmit(cb) {

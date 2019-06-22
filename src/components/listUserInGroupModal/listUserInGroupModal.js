@@ -6,7 +6,6 @@ const name = 'listUserInGroupModal';
 controller.$inject = ['user', 'group']
 function controller(user, group) {
     let self = this;
-
     self.$onInit = function () {
         preProcess();
         init();

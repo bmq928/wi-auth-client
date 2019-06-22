@@ -26,9 +26,9 @@
                         <input type="checkbox">
                     </td> -->
                     <!-- <td ng-bind="group.idGroup"></td> -->
-                    <td ng-bind="key | stt: key"></td>
+                    <td ng-bind="key + self.groupPerPage*(self.curPage-1) | stt: key"></td>
                     <td ng-bind="group.name"></td>
-                    <td ng-bind="group.description"></td>
+                    <td ng-bind="self.miniTrans(group.description)"></td>
                     <td ng-bind="self.idToCompanyDict[group.idCompany]"></td>                    
                     <td>
                          <modal-btn 
@@ -71,7 +71,7 @@
    </div>
    <div class="col-sm-10 col-md-10 col-lg-10" ng-if="self.role === 0">
         <label>Group in company :</label>
-        <select ng-model="self.inCompany.idCompany">
+        <select ng-model="self.inCompany.idCompany" ng-change="self.filterByCompany()">
             <option value="">All</option>
             <option 
             ng-repeat="c in self.companies track by $index" 

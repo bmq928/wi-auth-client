@@ -24,9 +24,9 @@
                         <input type="checkbox">
                     </td> -->
                     <!-- <td ng-bind="company.idCompany"></td> -->
-                    <td ng-bind="key | stt:key"></td>
+                    <td ng-bind="key + self.companyPerPage*(self.curPage-1) | stt:key"></td>
                     <td ng-bind="company.name"></td>
-                    <td ng-bind="company.description"></td>                    
+                    <td ng-bind="self.miniTrans(company.description)"></td>                    
                     <td ng-bind="company.location"></td> 
                     <td>{{company.users}}/{{company.licenses}}</td>
                     <td>

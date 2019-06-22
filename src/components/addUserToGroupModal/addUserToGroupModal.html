@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 
-                <tr ng-repeat="(i, user) in self.listUser | filter:self.searchUserStr  track by $index">
+                <tr ng-repeat="(i, user) in self.listUserShow | filter:self.searchUserStr  track by $index">
                     <td >
                         <input 
                          ng-click="self.toggleAdd(user)" 

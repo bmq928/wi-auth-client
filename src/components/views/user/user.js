@@ -78,6 +78,8 @@ function controller(user, search, company, auth, group) {
         // self.numPage = self.users.length / parseInt(self.userPerPage) + 1;
         self.numPage = calNumPage(self.users.length, self.userPerPage);
         if (self.curPage > self.numPage) self.curPage = 1;
+        self.filterByCompany();
+        self.filterByGroup();
     }
 
     self.activeUser = function (idUser) {
@@ -158,9 +160,9 @@ function controller(user, search, company, auth, group) {
 
     self.filterByGroup = function () {
         if (!self.inGroup) {
-
             self.users = users
-            updateNumPageFilter(u => true) //all user
+            updateNumPageFilter(user => !self.inCompany.idCompany ||
+                user.idCompany.toString() === self.inCompany.idCompany.toString()) //all user
         } else {
             try {
                 const _groups = JSON.parse(self.inGroup)
@@ -170,8 +172,6 @@ function controller(user, search, company, auth, group) {
                 updateNumPageFilter(u => true) //all user
             }
         }
-
-
     }
 
     self.getGroupFilterOptions = function () {
@@ -270,10 +270,11 @@ function controller(user, search, company, auth, group) {
         self.changePage(1);
 
         //update numPage            
+        console.log('RUN');
         const numElment = self.users.filter(predicate).length;
         self.numPage = calNumPage(numElment, self.userPerPage);
-        console.log({numElment})
-        console.log({numPage: self.numPage})
+        // console.log({numElment})
+        // console.log('numpage: ', self.numPage)
     }
 
 }

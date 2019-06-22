@@ -38,6 +38,7 @@ function controller(group, search, company, auth, user) {
         // self.numPage = self.companies.length / parseInt(self.groupPerPage) + 1;
         self.numPage = calNumPage(self.groups.length, self.groupPerPage);
         if(self.curPage > self.numPage) self.curPage = 1;
+        self.filterByCompany();
     }
 
     self.chooseGroup = function (group) {
@@ -94,7 +95,10 @@ function controller(group, search, company, auth, user) {
 
         //filter
         self.searchStr = {};
-        self.inCompany = {};
+        self.inCompany = {
+            // idGroup: '',
+            idCompany: ''
+        }
 
         //selected
         self.selectedGroup = {};
@@ -131,7 +135,6 @@ function controller(group, search, company, auth, user) {
         })
 
         user.getAllUser((err, resp) => {
-
             if (err) {
                 //console.log(err);
                 self.errMsg = err.reason;
@@ -142,12 +145,35 @@ function controller(group, search, company, auth, user) {
                 console.log({'self.user': self.user})
             }
         })
-        
+    }
+
+    self.filterByCompany = function () {
+        console.log('RUNNNN')
+        updateNumPageFilter(group =>
+            !self.inCompany.idCompany ||
+            group.idCompany.toString() === self.inCompany.idCompany.toString())
+    }
+
+    function updateNumPageFilter(predicate) {
+        //change page to one
+        self.changePage(1);
+    
+        //update numPage            
+        const numElment = self.groups.filter(predicate).length;
+        self.numPage = calNumPage(numElment, self.groupPerPage);
+        console.log('numpage: ', self.numPage)
     }
 
     function calNumPage(numElments, elPerPage) {
         // return self.users.length / parseInt(self.userPerPage) + 1;
         return parseInt(numElments) / parseInt(elPerPage) + 1;
+    }
+
+    self.miniTrans = function(description) {
+        if (description.length > 55) {
+            return description.substr(0,51) + '...';
+        }
+        return description;
     }
 
 }

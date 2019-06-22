@@ -108,6 +108,13 @@ function controller(company, search) {
         return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
 
+    self.miniTrans = function(description) {
+        if (description.length > 55) {
+            return description.substr(0,51) + '...';
+        }
+        return description;
+    }
+
 }
 
 // angular

@@ -18,7 +18,10 @@ function service(fetch) {
             url,
             null,
             (resp) => {
-                if (resp.data.code === SUCCESS_CODE) callback(false, resp.data);
+                if (resp.data.code === SUCCESS_CODE) {
+                    console.log('response', resp.data);
+                    callback(false, resp.data);
+                }
                 else callback(resp.data);
             },
             (err) => callback(err));

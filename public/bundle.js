@@ -1168,7 +1168,7 @@ _angular__WEBPACK_IMPORTED_MODULE_1__["ng"].module('ui.router.state').directive(
 /*!***********************************************************!*\
   !*** ./node_modules/@uirouter/angularjs/lib-esm/index.js ***!
   \***********************************************************/
-/*! exports provided: watchDigests, getLocals, getNg1ViewConfigFactory, ng1ViewsBuilder, Ng1ViewConfig, StateProvider, UrlRouterProvider, default, core, UIRouterGlobals, UIRouter, UIRouterPluginBase, root, fromJson, toJson, forEach, extend, equals, identity, noop, createProxyFunctions, inherit, inArray, _inArray, removeFrom, _removeFrom, pushTo, _pushTo, deregAll, defaults, mergeR, ancestors, pick, omit, pluck, filter, find, mapObj, map, values, allTrueR, anyTrueR, unnestR, flattenR, pushR, uniqR, unnest, flatten, assertPredicate, assertMap, assertFn, pairs, arrayTuples, applyPairs, tail, copy, _extend, silenceUncaughtInPromise, silentRejection, makeStub, services, Glob, curry, compose, pipe, prop, propEq, parse, not, and, or, all, any, is, eq, val, invoke, pattern, isUndefined, isDefined, isNull, isNullOrUndefined, isFunction, isNumber, isString, isObject, isArray, isDate, isRegExp, isInjectable, isPromise, Queue, maxLength, padString, kebobString, functionToString, fnToString, stringify, beforeAfterSubstr, hostRegex, stripLastPathElement, splitHash, splitQuery, splitEqual, trimHashVal, splitOnDelim, joinNeighborsR, Category, Trace, trace, DefType, Param, ParamTypes, StateParams, ParamType, PathNode, PathUtils, resolvePolicies, defaultResolvePolicy, Resolvable, NATIVE_INJECTOR_TOKEN, ResolveContext, resolvablesBuilder, StateBuilder, StateObject, StateMatcher, StateQueueManager, StateRegistry, StateService, TargetState, TransitionHookPhase, TransitionHookScope, HookBuilder, matchState, RegisteredHook, makeEvent, RejectType, Rejection, Transition, TransitionHook, TransitionEventType, defaultTransOpts, TransitionService, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, UrlRules, UrlConfig, ViewService, $q, $injector, BaseLocationServices, HashLocationService, MemoryLocationService, PushStateLocationService, MemoryLocationConfig, BrowserLocationConfig, keyValsToObjectR, getParams, parseUrl, buildUrl, locationPluginFactory, servicesPlugin, hashLocationPlugin, pushStateLocationPlugin, memoryLocationPlugin */
+/*! exports provided: default, core, watchDigests, getLocals, getNg1ViewConfigFactory, ng1ViewsBuilder, Ng1ViewConfig, StateProvider, UrlRouterProvider, UrlRules, UrlConfig, UIRouterGlobals, UIRouter, UIRouterPluginBase, root, fromJson, toJson, forEach, extend, equals, identity, noop, createProxyFunctions, inherit, inArray, _inArray, removeFrom, _removeFrom, pushTo, _pushTo, deregAll, defaults, mergeR, ancestors, pick, omit, pluck, filter, find, mapObj, map, values, allTrueR, anyTrueR, unnestR, flattenR, pushR, uniqR, unnest, flatten, assertPredicate, assertMap, assertFn, pairs, arrayTuples, applyPairs, tail, copy, _extend, silenceUncaughtInPromise, silentRejection, makeStub, services, Glob, curry, compose, pipe, prop, propEq, parse, not, and, or, all, any, is, eq, val, invoke, pattern, isUndefined, isDefined, isNull, isNullOrUndefined, isFunction, isNumber, isString, isObject, isArray, isDate, isRegExp, isInjectable, isPromise, Queue, maxLength, padString, kebobString, functionToString, fnToString, stringify, beforeAfterSubstr, hostRegex, stripLastPathElement, splitHash, splitQuery, splitEqual, trimHashVal, splitOnDelim, joinNeighborsR, Category, Trace, trace, DefType, Param, ParamTypes, StateParams, ParamType, PathNode, PathUtils, resolvePolicies, defaultResolvePolicy, Resolvable, NATIVE_INJECTOR_TOKEN, ResolveContext, resolvablesBuilder, StateBuilder, StateObject, StateMatcher, StateQueueManager, StateRegistry, StateService, TargetState, TransitionHookPhase, TransitionHookScope, HookBuilder, matchState, RegisteredHook, makeEvent, RejectType, Rejection, Transition, TransitionHook, TransitionEventType, defaultTransOpts, TransitionService, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, ViewService, $q, $injector, BaseLocationServices, HashLocationService, MemoryLocationService, PushStateLocationService, MemoryLocationConfig, BrowserLocationConfig, keyValsToObjectR, getParams, parseUrl, buildUrl, locationPluginFactory, servicesPlugin, hashLocationPlugin, pushStateLocationPlugin, memoryLocationPlugin */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1199,6 +1199,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _viewScroll__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./viewScroll */ "./node_modules/@uirouter/angularjs/lib-esm/viewScroll.js");
 /* harmony import */ var _uirouter_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @uirouter/core */ "./node_modules/@uirouter/core/lib-esm/index.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "core", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlRules"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlConfig"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UIRouterGlobals", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UIRouterGlobals"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UIRouter", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UIRouter"]; });
@@ -1480,10 +1484,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BaseUrlRule", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["BaseUrlRule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlService", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlService"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlRules"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlConfig"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewService", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["ViewService"]; });
 
@@ -5414,7 +5414,7 @@ var registerActivateViews = function (transitionService) {
 /*!******************************************************!*\
   !*** ./node_modules/@uirouter/core/lib-esm/index.js ***!
   \******************************************************/
-/*! exports provided: UIRouterGlobals, UIRouter, UIRouterPluginBase, root, fromJson, toJson, forEach, extend, equals, identity, noop, createProxyFunctions, inherit, inArray, _inArray, removeFrom, _removeFrom, pushTo, _pushTo, deregAll, defaults, mergeR, ancestors, pick, omit, pluck, filter, find, mapObj, map, values, allTrueR, anyTrueR, unnestR, flattenR, pushR, uniqR, unnest, flatten, assertPredicate, assertMap, assertFn, pairs, arrayTuples, applyPairs, tail, copy, _extend, silenceUncaughtInPromise, silentRejection, makeStub, services, Glob, curry, compose, pipe, prop, propEq, parse, not, and, or, all, any, is, eq, val, invoke, pattern, isUndefined, isDefined, isNull, isNullOrUndefined, isFunction, isNumber, isString, isObject, isArray, isDate, isRegExp, isInjectable, isPromise, Queue, maxLength, padString, kebobString, functionToString, fnToString, stringify, beforeAfterSubstr, hostRegex, stripLastPathElement, splitHash, splitQuery, splitEqual, trimHashVal, splitOnDelim, joinNeighborsR, Category, Trace, trace, DefType, Param, ParamTypes, StateParams, ParamType, PathNode, PathUtils, resolvePolicies, defaultResolvePolicy, Resolvable, NATIVE_INJECTOR_TOKEN, ResolveContext, resolvablesBuilder, StateBuilder, StateObject, StateMatcher, StateQueueManager, StateRegistry, StateService, TargetState, TransitionHookPhase, TransitionHookScope, HookBuilder, matchState, RegisteredHook, makeEvent, RejectType, Rejection, Transition, TransitionHook, TransitionEventType, defaultTransOpts, TransitionService, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, UrlRules, UrlConfig, ViewService, $q, $injector, BaseLocationServices, HashLocationService, MemoryLocationService, PushStateLocationService, MemoryLocationConfig, BrowserLocationConfig, keyValsToObjectR, getParams, parseUrl, buildUrl, locationPluginFactory, servicesPlugin, hashLocationPlugin, pushStateLocationPlugin, memoryLocationPlugin */
+/*! exports provided: UrlRules, UrlConfig, UIRouterGlobals, UIRouter, UIRouterPluginBase, root, fromJson, toJson, forEach, extend, equals, identity, noop, createProxyFunctions, inherit, inArray, _inArray, removeFrom, _removeFrom, pushTo, _pushTo, deregAll, defaults, mergeR, ancestors, pick, omit, pluck, filter, find, mapObj, map, values, allTrueR, anyTrueR, unnestR, flattenR, pushR, uniqR, unnest, flatten, assertPredicate, assertMap, assertFn, pairs, arrayTuples, applyPairs, tail, copy, _extend, silenceUncaughtInPromise, silentRejection, makeStub, services, Glob, curry, compose, pipe, prop, propEq, parse, not, and, or, all, any, is, eq, val, invoke, pattern, isUndefined, isDefined, isNull, isNullOrUndefined, isFunction, isNumber, isString, isObject, isArray, isDate, isRegExp, isInjectable, isPromise, Queue, maxLength, padString, kebobString, functionToString, fnToString, stringify, beforeAfterSubstr, hostRegex, stripLastPathElement, splitHash, splitQuery, splitEqual, trimHashVal, splitOnDelim, joinNeighborsR, Category, Trace, trace, DefType, Param, ParamTypes, StateParams, ParamType, PathNode, PathUtils, resolvePolicies, defaultResolvePolicy, Resolvable, NATIVE_INJECTOR_TOKEN, ResolveContext, resolvablesBuilder, StateBuilder, StateObject, StateMatcher, StateQueueManager, StateRegistry, StateService, TargetState, TransitionHookPhase, TransitionHookScope, HookBuilder, matchState, RegisteredHook, makeEvent, RejectType, Rejection, Transition, TransitionHook, TransitionEventType, defaultTransOpts, TransitionService, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, ViewService, $q, $injector, BaseLocationServices, HashLocationService, MemoryLocationService, PushStateLocationService, MemoryLocationConfig, BrowserLocationConfig, keyValsToObjectR, getParams, parseUrl, buildUrl, locationPluginFactory, servicesPlugin, hashLocationPlugin, pushStateLocationPlugin, memoryLocationPlugin */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5688,6 +5688,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TransitionService", function() { return _transition_index__WEBPACK_IMPORTED_MODULE_5__["TransitionService"]; });
 
 /* harmony import */ var _url_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./url/index */ "./node_modules/@uirouter/core/lib-esm/url/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlRules"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlConfig"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlMatcher", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlMatcher"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ParamFactory", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["ParamFactory"]; });
@@ -5701,10 +5705,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BaseUrlRule", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["BaseUrlRule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlService", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlService"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlRules"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlConfig"]; });
 
 /* harmony import */ var _view_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./view/index */ "./node_modules/@uirouter/core/lib-esm/view/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewService", function() { return _view_index__WEBPACK_IMPORTED_MODULE_7__["ViewService"]; });
@@ -10939,7 +10939,7 @@ var TransitionService = /** @class */function () {
 /*!**********************************************************!*\
   !*** ./node_modules/@uirouter/core/lib-esm/url/index.js ***!
   \**********************************************************/
-/*! exports provided: UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, UrlRules, UrlConfig */
+/*! exports provided: UrlRules, UrlConfig, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -45878,7 +45878,7 @@ function controller(user, company, modal, auth) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<modal name=self.name on-close=self.onClose header=\"'Add User To Group'\"> <div> <label style=margin-right:5px>Search User:</label> <input type=text ng-model=self.searchUserStr.username> </div> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <div style=overflow-y:auto;max-height:550px> <table> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th style=\"border-bottom:1px solid #ddd;width:120px\"> </th> <td style=\"border-bottom:1px solid #ddd\">STT</td> <td style=\"border-bottom:1px solid #ddd\">USER</td> </tr> </thead> <tbody> <tr ng-repeat=\"(i, user) in self.listUser | filter:self.searchUserStr  track by $index\"> <td> <input ng-click=self.toggleAdd(user) type=checkbox ng-checked=self.isSelected(user)> </td> <td ng-bind=\"i | stt: i\"></td> <td ng-bind=user.username></td> </tr> </tbody> </table> </table> </div> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
+module.exports = "<modal name=self.name on-close=self.onClose header=\"'Add User To Group'\"> <div> <label style=margin-right:5px>Search User:</label> <input type=text ng-model=self.searchUserStr.username> </div> <div class=text-success ng-bind=self.sucMsg></div> <div class=text-danger ng-bind=self.errMsg></div> <div style=overflow-y:auto;max-height:550px> <table> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th style=\"border-bottom:1px solid #ddd;width:120px\"> </th> <td style=\"border-bottom:1px solid #ddd\">STT</td> <td style=\"border-bottom:1px solid #ddd\">USER</td> </tr> </thead> <tbody> <tr ng-repeat=\"(i, user) in self.listUserShow | filter:self.searchUserStr  track by $index\"> <td> <input ng-click=self.toggleAdd(user) type=checkbox ng-checked=self.isSelected(user)> </td> <td ng-bind=\"i | stt: i\"></td> <td ng-bind=user.username></td> </tr> </tbody> </table> </table> </div> <div class=modal-footer> <button type=button class=\"btn btn-primary\" ng-click=self.onSubmit()>SUBMIT</button> </div> </modal>";
 
 /***/ }),
 
@@ -45911,10 +45911,21 @@ function controller(user, group, modal) {
 
     self.$onChanges = function () {
         self.listUser = users.filter(u => u.idCompany === self.companyId);
+        let groupTemp;
+        if (!self.groups) {
+            return;
+        }
+        for (let i = 0; i < self.groups.length; i++) {
+            console.log('LOOP');
+            if (self.groups[i].idGroup == self.group.idGroup) {
+                groupTemp = Object.assign({}, self.groups[i]);
+            }
+        }
+        self.users = groupTemp.users.map(user => user.idUser);
+        self.listUserShow = self.listUser.filter(u => !self.users.includes(u.idUser));
     };
 
     self.onClose = function () {
-
         preProcess();
         init();
     };
@@ -45968,9 +45979,11 @@ function controller(user, group, modal) {
         self.idUser = null;
         self.searchUserStr = {
             username: ''
-
-            //data
-        };self.listAddUser = [];
+        };
+        self.listUserShow = [];
+        self.users;
+        //data
+        self.listAddUser = [];
     }
 
     function init() {
@@ -45982,11 +45995,21 @@ function controller(user, group, modal) {
             } else {
                 users = resp.content;
                 self.listUser = users.filter(u => u.idCompany === self.companyId);
-
+                console.log('users', users);
                 console.log({ 'self.listUser': self.listUser });
                 console.log({ 'self.group': self.group });
                 console.log({ 'self.companyId': self.companyId });
-                console.log('================================');
+            }
+        });
+        group.getAllGroup((err, resp) => {
+            if (err) {
+                //console.log(err);
+                self.errMsg = err.reason;
+            } else {
+                //console.log(resp);
+                self.groups = resp.content;
+                //pagination'
+                // self.numPage = self.groups.length / self.groupPerPage + 1;
             }
         });
     }
@@ -46692,7 +46715,6 @@ const name = 'listUserInGroupModal';
 controller.$inject = ['user', 'group'];
 function controller(user, group) {
     let self = this;
-
     self.$onInit = function () {
         preProcess();
         init();
@@ -47138,7 +47160,7 @@ function generateView(role) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>COMPANY MANAGEMENT</h4> <p class=category>This is a site that manage the companys of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>NAME</h6></th> <th><h6>Description</h6></th> <th><h6>Location</h6></th> <th><h6>Licenses</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, company) in self.companies  | filter:self.searchStr | pagination: self.curPage: self.companyPerPage  track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=company.name></td> <td ng-bind=company.description></td> <td ng-bind=company.location></td> <td>{{company.users}}/{{company.licenses}}</td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"edit the info of company\" target=\"'edit-company-modal'\" ng-click=self.chooseCompany(company)> <i class=material-icons>edit</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=self.removeCompany(company.idCompany)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>companies per page :</label> <select ng-init=\"self.companyPerPage='10'\" ng-model=self.companyPerPage ng-click=self.changeCompanyPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new company\" class-name=\"'btn btn-primary'\" target=\"'add-company-modal'\">Add company </modal-btn> </div> <div> <add-company-modal add-company-success=self.addCompanySuccess></add-company-modal> <edit-company-modal edit-company-success=self.editCompanySuccess company=self.editCompany> </edit-company-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>COMPANY MANAGEMENT</h4> <p class=category>This is a site that manage the companys of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>NAME</h6></th> <th><h6>Description</h6></th> <th><h6>Location</h6></th> <th><h6>Licenses</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, company) in self.companies  | filter:self.searchStr | pagination: self.curPage: self.companyPerPage  track by $index\"> <td ng-bind=\"key + self.companyPerPage*(self.curPage-1) | stt:key\"></td> <td ng-bind=company.name></td> <td ng-bind=self.miniTrans(company.description)></td> <td ng-bind=company.location></td> <td>{{company.users}}/{{company.licenses}}</td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"edit the info of company\" target=\"'edit-company-modal'\" ng-click=self.chooseCompany(company)> <i class=material-icons>edit</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove company\" ng-click=self.removeCompany(company.idCompany)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>companies per page :</label> <select ng-init=\"self.companyPerPage='10'\" ng-model=self.companyPerPage ng-click=self.changeCompanyPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <modal-btn title=\"add a new company\" class-name=\"'btn btn-primary'\" target=\"'add-company-modal'\">Add company </modal-btn> </div> <div> <add-company-modal add-company-success=self.addCompanySuccess></add-company-modal> <edit-company-modal edit-company-success=self.editCompanySuccess company=self.editCompany> </edit-company-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 
@@ -47264,6 +47286,13 @@ function controller(company, search) {
         // return self.users.length / parseInt(self.userPerPage) + 1;
         return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
+
+    self.miniTrans = function (description) {
+        if (description.length > 55) {
+            return description.substr(0, 51) + '...';
+        }
+        return description;
+    };
 }
 
 // angular
@@ -47293,7 +47322,7 @@ function controller(company, search) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Company</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups  | filter:self.searchStr | filter:self.inCompany | pagination: self.curPage: self.groupPerPage  track by $index\"> <td ng-bind=\"key | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=group.description></td> <td ng-bind=self.idToCompanyDict[group.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"add user to group\" target=\"'add-user-to-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>add</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-init=\"self.groupPerPage='10' \" ng-model=self.groupPerPage ng-click=self.changeGroupPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\" ng-if=\"self.role === 0\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-primary'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal user-role=self.role add-group-success=self.addGroupSuccess get-default-company-id=self.getDefaultCompanyId> </add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> <add-user-to-group-modal group=self.selectedGroup company-id=self.selectedGroup.idCompany on-success=self.addUsersToGroupSuccess> </add-user-to-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>GROUP MANAGEMENT</h4> <p class=category>This is a site that manage the groups of user </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6>Groupname</h6></th> <th><h6>Description</h6></th> <th><h6>Company</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, group) in self.groups  | filter:self.searchStr | filter:self.inCompany | pagination: self.curPage: self.groupPerPage  track by $index\"> <td ng-bind=\"key + self.groupPerPage*(self.curPage-1) | stt: key\"></td> <td ng-bind=group.name></td> <td ng-bind=self.miniTrans(group.description)></td> <td ng-bind=self.idToCompanyDict[group.idCompany]></td> <td> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"add user to group\" target=\"'add-user-to-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>add</i> </modal-btn> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list of user in a group\" target=\"'list-user-in-group-modal'\" ng-click=self.chooseGroup(group)> <i class=material-icons>list</i> </modal-btn> <button class=\"btn btn-danger btn-xs\" title=\"remove group\" ng-click=self.removeGroup(group.idGroup)> <i class=material-icons>delete</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Group per page :</label> <select ng-init=\"self.groupPerPage='10' \" ng-model=self.groupPerPage ng-click=self.changeGroupPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\" ng-if=\"self.role === 0\"> <label>Group in company :</label> <select ng-model=self.inCompany.idCompany ng-change=self.filterByCompany()> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies track by $index\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn title=\"add a new group\" class-name=\"'btn btn-primary'\" target=\"'add-group-modal'\">Add Group </modal-btn> </div> <div> <add-group-modal user-role=self.role add-group-success=self.addGroupSuccess get-default-company-id=self.getDefaultCompanyId> </add-group-modal> <list-user-in-group-modal list-user=self.selectedGroup.users id-group=self.selectedGroup.idGroup> </list-user-in-group-modal> <add-user-to-group-modal group=self.selectedGroup company-id=self.selectedGroup.idCompany on-success=self.addUsersToGroupSuccess> </add-user-to-group-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 
@@ -47351,6 +47380,7 @@ function controller(group, search, company, auth, user) {
         // self.numPage = self.companies.length / parseInt(self.groupPerPage) + 1;
         self.numPage = calNumPage(self.groups.length, self.groupPerPage);
         if (self.curPage > self.numPage) self.curPage = 1;
+        self.filterByCompany();
     };
 
     self.chooseGroup = function (group) {
@@ -47407,10 +47437,12 @@ function controller(group, search, company, auth, user) {
 
         //filter
         self.searchStr = {};
-        self.inCompany = {};
+        self.inCompany = {
+            // idGroup: '',
+            idCompany: ''
 
-        //selected
-        self.selectedGroup = {};
+            //selected
+        };self.selectedGroup = {};
 
         //text info
         self.errMsg = '';
@@ -47444,7 +47476,6 @@ function controller(group, search, company, auth, user) {
         });
 
         user.getAllUser((err, resp) => {
-
             if (err) {
                 //console.log(err);
                 self.errMsg = err.reason;
@@ -47457,10 +47488,32 @@ function controller(group, search, company, auth, user) {
         });
     }
 
+    self.filterByCompany = function () {
+        console.log('RUNNNN');
+        updateNumPageFilter(group => !self.inCompany.idCompany || group.idCompany.toString() === self.inCompany.idCompany.toString());
+    };
+
+    function updateNumPageFilter(predicate) {
+        //change page to one
+        self.changePage(1);
+
+        //update numPage            
+        const numElment = self.groups.filter(predicate).length;
+        self.numPage = calNumPage(numElment, self.groupPerPage);
+        console.log('numpage: ', self.numPage);
+    }
+
     function calNumPage(numElments, elPerPage) {
         // return self.users.length / parseInt(self.userPerPage) + 1;
         return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
+
+    self.miniTrans = function (description) {
+        if (description.length > 55) {
+            return description.substr(0, 51) + '...';
+        }
+        return description;
+    };
 }
 
 // angular
@@ -47729,7 +47782,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>PROJECTS MANAGEMENT</h4> <p class=category>This is a site that manage the projects of users </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('name')\">Name</h6></th> <th><h6>Company</h6></th> <th><h6>Location</h6></th> <th><h6>Department</h6></th> <th><h6 class=clickable ng-click=\"self.sort('createdBy')\">Created By</h6></th> <th><h6>Description</h6></th> <th><h6>Sharing Key</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, project) in self.projects  | filter:self.searchStr | sort:self.sortBy : self.reverse | pagination: self.curPage: self.projectPerPage  track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=\"project.alias || project.name\"></td> <td ng-bind=project.company></td> <td ng-bind=project.location></td> <td ng-bind=project.department></td> <td ng-bind=project.createdBy></td> <td ng-bind=project.description></td> <td ng-bind=project.shareKey></td> <td> <button class=\"btn btn-danger btn-xs\" title=\"Remove project\" ng-click=\"self.removeProject(project.idProject, project.createdBy)\"> <i class=material-icons>delete</i> </button> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list group in project\" ng-if=(project.shareKey) target=\"'list-group-in-project-modal'\" ng-click=self.choseProject(project)> <i class=material-icons>list</i> </modal-btn> <button ng-if=!(project.shareKey) class=\"btn btn-info btn-xs\" title=\"Create sharing key\" ng-click=self.createSharedProject(project)> <i class=material-icons>share</i> </button> <button ng-if=(project.shareKey) class=\"btn btn-danger btn-xs\" title=\"Stop sharing and delete sharing key\" ng-click=self.removeSharedProject(project)> <i class=material-icons>share</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Projects per page :</label> <select ng-init=\"self.projectPerPage='10'\" ng-model=self.projectPerPage ng-click=self.changeProjectPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> </div> <div> <list-group-in-project-modal list-group=self.selectedProject.groups project-ctrl=self> </list-group-in-project-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>PROJECTS MANAGEMENT</h4> <p class=category>This is a site that manage the projects of users </p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('name')\">Name</h6></th> <th><h6>Company</h6></th> <th><h6>Location</h6></th> <th><h6>Department</h6></th> <th><h6 class=clickable ng-click=\"self.sort('createdBy')\">Created By</h6></th> <th><h6>Description</h6></th> <th><h6>Sharing Key</h6></th> <th><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-repeat=\"(key, project) in self.projects  | filter:self.searchStr | sort:self.sortBy : self.reverse | pagination: self.curPage: self.projectPerPage  track by $index\"> <td ng-bind=\"key + self.projectPerPage*(self.curPage-1) | stt:key\"></td> <td ng-bind=\"project.alias || project.name\"></td> <td ng-bind=project.company></td> <td ng-bind=project.location></td> <td ng-bind=project.department></td> <td ng-bind=project.createdBy></td> <td ng-bind=self.miniTrans(project.description)></td> <td ng-bind=project.shareKey></td> <td> <button class=\"btn btn-danger btn-xs\" title=\"Remove project\" ng-click=\"self.removeProject(project.idProject, project.createdBy)\"> <i class=material-icons>delete</i> </button> <modal-btn class-name=\"'btn btn-success btn-xs'\" title=\"list group in project\" ng-if=(project.shareKey) target=\"'list-group-in-project-modal'\" ng-click=self.choseProject(project)> <i class=material-icons>list</i> </modal-btn> <button ng-if=!(project.shareKey) class=\"btn btn-info btn-xs\" title=\"Create sharing key\" ng-click=self.createSharedProject(project)> <i class=material-icons>share</i> </button> <button ng-if=(project.shareKey) class=\"btn btn-danger btn-xs\" title=\"Stop sharing and delete sharing key\" ng-click=self.removeSharedProject(project)> <i class=material-icons>share</i> </button> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label>Projects per page :</label> <select ng-init=\"self.projectPerPage='10'\" ng-model=self.projectPerPage ng-click=self.changeProjectPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> </div> <div> <list-group-in-project-modal list-group=self.selectedProject.groups project-ctrl=self> </list-group-in-project-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div>";
 
 /***/ }),
 
@@ -47800,10 +47853,12 @@ function controller(project, search, user) {
             return _ref.apply(this, arguments);
         };
     })();
+
     self.changeProjectPerPage = function () {
         self.numPage = calNumPage(self.projects.length, self.projectPerPage);
         if (self.curPage > self.numPage) self.curPage = 1;
     };
+
     self.changePage = function (page) {
         self.curPage = page;
     };
@@ -47870,6 +47925,13 @@ function controller(project, search, user) {
     function calNumPage(numElments, elPerPage) {
         return parseInt(numElments) / parseInt(elPerPage) + 1;
     }
+
+    self.miniTrans = function (description) {
+        if (description.length > 55) {
+            return description.substr(0, 51) + '...';
+        }
+        return description;
+    };
 }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47920,7 +47982,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('username')\">Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6 class=clickable ng-click=\"self.sort('role')\">Role</h6></th> <th><h6 class=clickable ng-click=\"self.sort('fullname')\">Fullname</h6></th> <th><h6 class=clickable ng-click=\"self.sort('idCompany')\">Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-init=\"self.sortBy='username'\" ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | filter:self.inCompany | iig:self.inGroup | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td style=text-align:center> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" my-disable=\"self.currentUsername === user.username\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <span ng-if=\"self.userRole < 2\"> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <button ng-if=self.isActive(user) ng-disabled=\"self.currentUsername === user.username\" title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) ng-disabled=\"self.currentUsername === user.username\" title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-disabled=\"self.currentUsername === user.username\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </span> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">User per page :</label> <select ng-init=\"self.userPerPage='10'\" ng-model=self.userPerPage ng-click=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">In group :</label> <select ng-init=\"self.inCompany.idCompany=''\" ng-model=self.inGroup ng-click=self.filterByGroup()> <option value=\"\">All</option> <option ng-repeat=\"g in self.getGroupFilterOptions()\" value={{g}} ng-bind=g.name></option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\" ng-if=\"self.userRole === 0\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">In company :</label> <select ng-init=\"self.inCompany.idCompany=''\" ng-model=self.inCompany.idCompany ng-click=self.filterByCompany()> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn ng-if=\"self.userRole <= 1\" class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div class=row> </div> <div> <add-user-modal add-user-success=self.addUserSuccess user-role=self.userRole get-default-company-id=self.getDefaultCompanyId> </add-user-modal> <add-group-to-user-modal user=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal user-role=self.userRole edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
+module.exports = "<div class=text-danger ng-bind=self.errMsg></div> <div class=card> <div class=card-header data-background-color=purple> <h4 class=title>USER MANAGEMENT</h4> <p class=category>This is a site that manage the users</p> </div> <div class=\"card-content table-responsive\"> <table class=\"table table-hover\"> <thead class=text-primary> <tr> <th><h6>STT</h6></th> <th><h6 class=clickable ng-click=\"self.sort('username')\">Username</h6></th> <th><h6>Email</h6></th> <th><h6>Status</h6></th> <th><h6 class=clickable ng-click=\"self.sort('role')\">Role</h6></th> <th><h6 class=clickable ng-click=\"self.sort('fullname')\">Fullname</h6></th> <th><h6 class=clickable ng-click=\"self.sort('idCompany')\">Company</h6></th> <th style=padding-left:75px><h6>Action</h6></th> </tr> </thead> <tbody> <tr ng-init=\"self.sortBy='username'\" ng-repeat=\"(key, user) in self.users  | filter:self.searchStr | filter:self.inCompany | iig:self.inGroup | sort:self.sortBy : self.reverse  | pagination: self.curPage: self.userPerPage track by $index\"> <td ng-bind=\"key + self.userPerPage*(self.curPage-1) | stt:key\"></td> <td ng-bind=user.username></td> <td ng-bind=user.email></td> <td> <span ng-if=\"user.status === 'Inactive'\" class=\"label label-danger\" ng-bind=user.status> </span> <span ng-if=\"!(user.status === 'Inactive')\" class=\"label label-success\" ng-bind=user.status> </span> </td> <td> <span ng-if=\"user.role === 0\">System Admin</span> <span ng-if=\"user.role === 1\">Company Moderator </span> <span ng-if=\"user.role === 2\">Normal User</span> </td> <td ng-bind=user.fullname></td> <td ng-bind=self.idToCompanyDict[user.idCompany]></td> <td style=text-align:center> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'edit-user-modal'\" my-disable=\"self.currentUsername === user.username\" ng-click=self.editUserOnClick(user)> <i class=material-icons>edit</i> </modal-btn> <span ng-if=\"self.userRole < 2\"> <modal-btn class-name=\"'btn btn-success btn-xs'\" target=\"'add-group-modal'\" ng-click=self.addGroupUserOnClick(user)> <i class=material-icons>group</i> </modal-btn> <button ng-if=self.isActive(user) ng-disabled=\"self.currentUsername === user.username\" title=\"deactive user\" class=\"btn btn-danger btn-xs\" ng-click=self.deactiveUser(user.idUser)> <i class=material-icons>lock</i> </button> <button ng-if=!(self.isActive(user)) ng-disabled=\"self.currentUsername === user.username\" title=\"active user\" class=\"btn btn-success btn-xs\" ng-click=self.activeUser(user.idUser)> <i class=material-icons>lock_open</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"remove user\" ng-disabled=\"self.currentUsername === user.username\" ng-click=self.removeUserOnClick(user)> <i class=material-icons>delete</i> </button> <button class=\"btn btn-danger btn-xs\" title=\"Force User Logout\" ng-click=self.forceUserLogOut(user)> <i class=material-icons>sentiment_very_dissatisfied</i> </button> </span> </td> </tr> </tbody> </table> </div> </div> <div class=row> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">User per page :</label> <select ng-init=\"self.userPerPage='10'\" ng-model=self.userPerPage ng-change=self.changeUserPerPage()> <option value=5>5</option> <option value=10>10</option> <option value=15>15</option> <option value=20>20</option> <option value=25>25</option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">In group :</label> <select ng-init=\"self.inCompany.idCompany=''\" ng-model=self.inGroup ng-change=self.filterByGroup()> <option value=\"\">All</option> <option ng-repeat=\"g in self.getGroupFilterOptions()\" value={{g}} ng-bind=g.name></option> </select> </div> <div class=\"col-sm-10 col-md-10 col-lg-10\" ng-if=\"self.userRole === 0\"> <label class=\"col-sm-2 col-md-2 col-lg-2\">In company :</label> <select ng-init=\"self.inCompany.idCompany=''\" ng-model=self.inCompany.idCompany ng-change=self.filterByCompany()> <option value=\"\">All</option> <option ng-repeat=\"c in self.companies\" value={{c.idCompany}} ng-bind=c.name></option> </select> </div> <modal-btn ng-if=\"self.userRole <= 1\" class-name=\"'btn btn-primary'\" target=\"'add-user-modal'\">Add User </modal-btn> </div> <div class=row> </div> <div> <add-user-modal add-user-success=self.addUserSuccess user-role=self.userRole get-default-company-id=self.getDefaultCompanyId> </add-user-modal> <add-group-to-user-modal user=self.addGroupUser company-id=self.addGroupUser_idCompany> </add-group-to-user-modal> <edit-user-modal user-role=self.userRole edit-user-success=self.editUserSuccess user=self.editUser> </edit-user-modal> </div> <div class=row> <div class=\"col-sm-5 col-md-5 col-lg-5\"></div> <div class=\"col-sm-5 col-md-5 col-lg-5\"> <ul class=\"pagination pagination-sm\"> <li ng-repeat=\"page in [] | range: self.numPage\" ng-class=\"{'active' : page === self.curPage}\"> <a ng-bind=page ng-click=self.changePage(page)></a> </li> </ul> </div> <div class=\"col-sm-2 col-md-2 col-lg-2\"></div> </div> ";
 
 /***/ }),
 
@@ -48019,6 +48081,8 @@ function controller(user, search, company, auth, group) {
         // self.numPage = self.users.length / parseInt(self.userPerPage) + 1;
         self.numPage = calNumPage(self.users.length, self.userPerPage);
         if (self.curPage > self.numPage) self.curPage = 1;
+        self.filterByCompany();
+        self.filterByGroup();
     };
 
     self.activeUser = function (idUser) {
@@ -48095,9 +48159,8 @@ function controller(user, search, company, auth, group) {
 
     self.filterByGroup = function () {
         if (!self.inGroup) {
-
             self.users = users;
-            updateNumPageFilter(u => true); //all user
+            updateNumPageFilter(user => !self.inCompany.idCompany || user.idCompany.toString() === self.inCompany.idCompany.toString()); //all user
         } else {
             try {
                 const _groups = JSON.parse(self.inGroup);
@@ -48200,10 +48263,11 @@ function controller(user, search, company, auth, group) {
         self.changePage(1);
 
         //update numPage            
+        console.log('RUN');
         const numElment = self.users.filter(predicate).length;
         self.numPage = calNumPage(numElment, self.userPerPage);
-        console.log({ numElment });
-        console.log({ numPage: self.numPage });
+        // console.log({numElment})
+        // console.log('numpage: ', self.numPage)
     }
 }
 
@@ -49318,14 +49382,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INTERNAL_ERROR_CODE", function() { return INTERNAL_ERROR_CODE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOKEN_EXPIRED", function() { return TOKEN_EXPIRED; });
 function createUrl(path) {
-    const domain = 'https://admin.dev.i2g.cloud';
-    // const domain = 'http://127.0.0.1:2999';
+    // const domain = 'https://admin.dev.i2g.cloud';
+    const domain = 'http://127.0.0.1:2999';
     return domain + path;
 }
 
 function createUrlToMainService(path) {
-    const domain = 'http://dev.i2g.cloud';
-    // const domain = 'http://127.0.0.1:3000';
+    // const domain = 'http://dev.i2g.cloud';
+    const domain = 'http://127.0.0.1:3000';
     return domain + path;
 }
 
@@ -49632,7 +49696,10 @@ function service(fetch) {
         fetch.fetchPOST(
         // $http,
         url, null, resp => {
-            if (resp.data.code === _helper__WEBPACK_IMPORTED_MODULE_0__["SUCCESS_CODE"]) callback(false, resp.data);else callback(resp.data);
+            if (resp.data.code === _helper__WEBPACK_IMPORTED_MODULE_0__["SUCCESS_CODE"]) {
+                console.log('response', resp.data);
+                callback(false, resp.data);
+            } else callback(resp.data);
         }, err => callback(err));
 
         // $http({
