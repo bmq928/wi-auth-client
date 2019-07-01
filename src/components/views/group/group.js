@@ -36,6 +36,7 @@ function controller(group, search, company, auth, user) {
 
     self.changeGroupPerPage = function() {
         // self.numPage = self.companies.length / parseInt(self.groupPerPage) + 1;
+        console.log('RUN');
         self.numPage = calNumPage(self.groups.length, self.groupPerPage);
         if(self.curPage > self.numPage) self.curPage = 1;
         self.filterByCompany();
@@ -44,8 +45,8 @@ function controller(group, search, company, auth, user) {
     self.chooseGroup = function (group) {
         // console.log({group});
         self.selectedGroup = group;
-        console.log('choose')
-        console.log(self.selectedGroup.idCompany)
+        // console.log('choose')
+        // console.log(self.selectedGroup.idCompany)
     }
 
     self.removeGroup = function (idGroup) {
@@ -76,7 +77,7 @@ function controller(group, search, company, auth, user) {
     }
 
     self.addUsersToGroupSuccess = function() {
-        preProcess()
+        // preProcess()
         init()
     }
 
@@ -170,6 +171,7 @@ function controller(group, search, company, auth, user) {
     }
 
     self.miniTrans = function(description) {
+        if (!description) return '';
         if (description.length > 55) {
             return description.substr(0,51) + '...';
         }

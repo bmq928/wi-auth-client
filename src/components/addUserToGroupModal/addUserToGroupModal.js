@@ -119,7 +119,7 @@ function controller(user, group, modal){
                 // self.numPage = self.groups.length / self.groupPerPage + 1;
             }
         });
-        
+        self.$onChanges();
     }
 
     function checkSubmit(cb) {

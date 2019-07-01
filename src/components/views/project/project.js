@@ -39,7 +39,8 @@ function controller(project, search, user) {
     }
 
     self.choseProject = async function (project) {
-        await self.init();
+        //await self.init();
+        
         self.selectedProject = project;
     };
 
@@ -114,6 +115,7 @@ function controller(project, search, user) {
     }
 
     self.miniTrans = function(description) {
+        if (!description) return '';
         if (description.length > 55) {
             return description.substr(0,51) + '...';
         }

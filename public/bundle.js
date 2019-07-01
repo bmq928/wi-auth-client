@@ -1168,7 +1168,7 @@ _angular__WEBPACK_IMPORTED_MODULE_1__["ng"].module('ui.router.state').directive(
 /*!***********************************************************!*\
   !*** ./node_modules/@uirouter/angularjs/lib-esm/index.js ***!
   \***********************************************************/
-/*! exports provided: default, core, watchDigests, getLocals, getNg1ViewConfigFactory, ng1ViewsBuilder, Ng1ViewConfig, StateProvider, UrlRouterProvider, UrlRules, UrlConfig, UIRouterGlobals, UIRouter, UIRouterPluginBase, root, fromJson, toJson, forEach, extend, equals, identity, noop, createProxyFunctions, inherit, inArray, _inArray, removeFrom, _removeFrom, pushTo, _pushTo, deregAll, defaults, mergeR, ancestors, pick, omit, pluck, filter, find, mapObj, map, values, allTrueR, anyTrueR, unnestR, flattenR, pushR, uniqR, unnest, flatten, assertPredicate, assertMap, assertFn, pairs, arrayTuples, applyPairs, tail, copy, _extend, silenceUncaughtInPromise, silentRejection, makeStub, services, Glob, curry, compose, pipe, prop, propEq, parse, not, and, or, all, any, is, eq, val, invoke, pattern, isUndefined, isDefined, isNull, isNullOrUndefined, isFunction, isNumber, isString, isObject, isArray, isDate, isRegExp, isInjectable, isPromise, Queue, maxLength, padString, kebobString, functionToString, fnToString, stringify, beforeAfterSubstr, hostRegex, stripLastPathElement, splitHash, splitQuery, splitEqual, trimHashVal, splitOnDelim, joinNeighborsR, Category, Trace, trace, DefType, Param, ParamTypes, StateParams, ParamType, PathNode, PathUtils, resolvePolicies, defaultResolvePolicy, Resolvable, NATIVE_INJECTOR_TOKEN, ResolveContext, resolvablesBuilder, StateBuilder, StateObject, StateMatcher, StateQueueManager, StateRegistry, StateService, TargetState, TransitionHookPhase, TransitionHookScope, HookBuilder, matchState, RegisteredHook, makeEvent, RejectType, Rejection, Transition, TransitionHook, TransitionEventType, defaultTransOpts, TransitionService, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, ViewService, $q, $injector, BaseLocationServices, HashLocationService, MemoryLocationService, PushStateLocationService, MemoryLocationConfig, BrowserLocationConfig, keyValsToObjectR, getParams, parseUrl, buildUrl, locationPluginFactory, servicesPlugin, hashLocationPlugin, pushStateLocationPlugin, memoryLocationPlugin */
+/*! exports provided: watchDigests, getLocals, getNg1ViewConfigFactory, ng1ViewsBuilder, Ng1ViewConfig, StateProvider, UrlRouterProvider, default, core, UIRouterGlobals, UIRouter, UIRouterPluginBase, root, fromJson, toJson, forEach, extend, equals, identity, noop, createProxyFunctions, inherit, inArray, _inArray, removeFrom, _removeFrom, pushTo, _pushTo, deregAll, defaults, mergeR, ancestors, pick, omit, pluck, filter, find, mapObj, map, values, allTrueR, anyTrueR, unnestR, flattenR, pushR, uniqR, unnest, flatten, assertPredicate, assertMap, assertFn, pairs, arrayTuples, applyPairs, tail, copy, _extend, silenceUncaughtInPromise, silentRejection, makeStub, services, Glob, curry, compose, pipe, prop, propEq, parse, not, and, or, all, any, is, eq, val, invoke, pattern, isUndefined, isDefined, isNull, isNullOrUndefined, isFunction, isNumber, isString, isObject, isArray, isDate, isRegExp, isInjectable, isPromise, Queue, maxLength, padString, kebobString, functionToString, fnToString, stringify, beforeAfterSubstr, hostRegex, stripLastPathElement, splitHash, splitQuery, splitEqual, trimHashVal, splitOnDelim, joinNeighborsR, Category, Trace, trace, DefType, Param, ParamTypes, StateParams, ParamType, PathNode, PathUtils, resolvePolicies, defaultResolvePolicy, Resolvable, NATIVE_INJECTOR_TOKEN, ResolveContext, resolvablesBuilder, StateBuilder, StateObject, StateMatcher, StateQueueManager, StateRegistry, StateService, TargetState, TransitionHookPhase, TransitionHookScope, HookBuilder, matchState, RegisteredHook, makeEvent, RejectType, Rejection, Transition, TransitionHook, TransitionEventType, defaultTransOpts, TransitionService, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, UrlRules, UrlConfig, ViewService, $q, $injector, BaseLocationServices, HashLocationService, MemoryLocationService, PushStateLocationService, MemoryLocationConfig, BrowserLocationConfig, keyValsToObjectR, getParams, parseUrl, buildUrl, locationPluginFactory, servicesPlugin, hashLocationPlugin, pushStateLocationPlugin, memoryLocationPlugin */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1199,10 +1199,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _viewScroll__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./viewScroll */ "./node_modules/@uirouter/angularjs/lib-esm/viewScroll.js");
 /* harmony import */ var _uirouter_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @uirouter/core */ "./node_modules/@uirouter/core/lib-esm/index.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "core", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__; });
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlRules"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlConfig"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UIRouterGlobals", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UIRouterGlobals"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UIRouter", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UIRouter"]; });
@@ -1484,6 +1480,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BaseUrlRule", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["BaseUrlRule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlService", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlRules"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["UrlConfig"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewService", function() { return _uirouter_core__WEBPACK_IMPORTED_MODULE_9__["ViewService"]; });
 
@@ -5414,7 +5414,7 @@ var registerActivateViews = function (transitionService) {
 /*!******************************************************!*\
   !*** ./node_modules/@uirouter/core/lib-esm/index.js ***!
   \******************************************************/
-/*! exports provided: UrlRules, UrlConfig, UIRouterGlobals, UIRouter, UIRouterPluginBase, root, fromJson, toJson, forEach, extend, equals, identity, noop, createProxyFunctions, inherit, inArray, _inArray, removeFrom, _removeFrom, pushTo, _pushTo, deregAll, defaults, mergeR, ancestors, pick, omit, pluck, filter, find, mapObj, map, values, allTrueR, anyTrueR, unnestR, flattenR, pushR, uniqR, unnest, flatten, assertPredicate, assertMap, assertFn, pairs, arrayTuples, applyPairs, tail, copy, _extend, silenceUncaughtInPromise, silentRejection, makeStub, services, Glob, curry, compose, pipe, prop, propEq, parse, not, and, or, all, any, is, eq, val, invoke, pattern, isUndefined, isDefined, isNull, isNullOrUndefined, isFunction, isNumber, isString, isObject, isArray, isDate, isRegExp, isInjectable, isPromise, Queue, maxLength, padString, kebobString, functionToString, fnToString, stringify, beforeAfterSubstr, hostRegex, stripLastPathElement, splitHash, splitQuery, splitEqual, trimHashVal, splitOnDelim, joinNeighborsR, Category, Trace, trace, DefType, Param, ParamTypes, StateParams, ParamType, PathNode, PathUtils, resolvePolicies, defaultResolvePolicy, Resolvable, NATIVE_INJECTOR_TOKEN, ResolveContext, resolvablesBuilder, StateBuilder, StateObject, StateMatcher, StateQueueManager, StateRegistry, StateService, TargetState, TransitionHookPhase, TransitionHookScope, HookBuilder, matchState, RegisteredHook, makeEvent, RejectType, Rejection, Transition, TransitionHook, TransitionEventType, defaultTransOpts, TransitionService, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, ViewService, $q, $injector, BaseLocationServices, HashLocationService, MemoryLocationService, PushStateLocationService, MemoryLocationConfig, BrowserLocationConfig, keyValsToObjectR, getParams, parseUrl, buildUrl, locationPluginFactory, servicesPlugin, hashLocationPlugin, pushStateLocationPlugin, memoryLocationPlugin */
+/*! exports provided: UIRouterGlobals, UIRouter, UIRouterPluginBase, root, fromJson, toJson, forEach, extend, equals, identity, noop, createProxyFunctions, inherit, inArray, _inArray, removeFrom, _removeFrom, pushTo, _pushTo, deregAll, defaults, mergeR, ancestors, pick, omit, pluck, filter, find, mapObj, map, values, allTrueR, anyTrueR, unnestR, flattenR, pushR, uniqR, unnest, flatten, assertPredicate, assertMap, assertFn, pairs, arrayTuples, applyPairs, tail, copy, _extend, silenceUncaughtInPromise, silentRejection, makeStub, services, Glob, curry, compose, pipe, prop, propEq, parse, not, and, or, all, any, is, eq, val, invoke, pattern, isUndefined, isDefined, isNull, isNullOrUndefined, isFunction, isNumber, isString, isObject, isArray, isDate, isRegExp, isInjectable, isPromise, Queue, maxLength, padString, kebobString, functionToString, fnToString, stringify, beforeAfterSubstr, hostRegex, stripLastPathElement, splitHash, splitQuery, splitEqual, trimHashVal, splitOnDelim, joinNeighborsR, Category, Trace, trace, DefType, Param, ParamTypes, StateParams, ParamType, PathNode, PathUtils, resolvePolicies, defaultResolvePolicy, Resolvable, NATIVE_INJECTOR_TOKEN, ResolveContext, resolvablesBuilder, StateBuilder, StateObject, StateMatcher, StateQueueManager, StateRegistry, StateService, TargetState, TransitionHookPhase, TransitionHookScope, HookBuilder, matchState, RegisteredHook, makeEvent, RejectType, Rejection, Transition, TransitionHook, TransitionEventType, defaultTransOpts, TransitionService, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, UrlRules, UrlConfig, ViewService, $q, $injector, BaseLocationServices, HashLocationService, MemoryLocationService, PushStateLocationService, MemoryLocationConfig, BrowserLocationConfig, keyValsToObjectR, getParams, parseUrl, buildUrl, locationPluginFactory, servicesPlugin, hashLocationPlugin, pushStateLocationPlugin, memoryLocationPlugin */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5688,10 +5688,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TransitionService", function() { return _transition_index__WEBPACK_IMPORTED_MODULE_5__["TransitionService"]; });
 
 /* harmony import */ var _url_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./url/index */ "./node_modules/@uirouter/core/lib-esm/url/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlRules"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlConfig"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlMatcher", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlMatcher"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ParamFactory", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["ParamFactory"]; });
@@ -5705,6 +5701,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BaseUrlRule", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["BaseUrlRule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlService", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlRules", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlRules"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UrlConfig", function() { return _url_index__WEBPACK_IMPORTED_MODULE_6__["UrlConfig"]; });
 
 /* harmony import */ var _view_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./view/index */ "./node_modules/@uirouter/core/lib-esm/view/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewService", function() { return _view_index__WEBPACK_IMPORTED_MODULE_7__["ViewService"]; });
@@ -10939,7 +10939,7 @@ var TransitionService = /** @class */function () {
 /*!**********************************************************!*\
   !*** ./node_modules/@uirouter/core/lib-esm/url/index.js ***!
   \**********************************************************/
-/*! exports provided: UrlRules, UrlConfig, UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService */
+/*! exports provided: UrlMatcher, ParamFactory, UrlMatcherFactory, UrlRouter, UrlRuleFactory, BaseUrlRule, UrlService, UrlRules, UrlConfig */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46012,6 +46012,7 @@ function controller(user, group, modal) {
                 // self.numPage = self.groups.length / self.groupPerPage + 1;
             }
         });
+        self.$onChanges();
     }
 
     function checkSubmit(cb) {
@@ -47288,6 +47289,7 @@ function controller(company, search) {
     }
 
     self.miniTrans = function (description) {
+        if (!description) return '';
         if (description.length > 55) {
             return description.substr(0, 51) + '...';
         }
@@ -47378,6 +47380,7 @@ function controller(group, search, company, auth, user) {
 
     self.changeGroupPerPage = function () {
         // self.numPage = self.companies.length / parseInt(self.groupPerPage) + 1;
+        console.log('RUN');
         self.numPage = calNumPage(self.groups.length, self.groupPerPage);
         if (self.curPage > self.numPage) self.curPage = 1;
         self.filterByCompany();
@@ -47386,8 +47389,8 @@ function controller(group, search, company, auth, user) {
     self.chooseGroup = function (group) {
         // console.log({group});
         self.selectedGroup = group;
-        console.log('choose');
-        console.log(self.selectedGroup.idCompany);
+        // console.log('choose')
+        // console.log(self.selectedGroup.idCompany)
     };
 
     self.removeGroup = function (idGroup) {
@@ -47418,7 +47421,7 @@ function controller(group, search, company, auth, user) {
     };
 
     self.addUsersToGroupSuccess = function () {
-        preProcess();
+        // preProcess()
         init();
     };
 
@@ -47509,6 +47512,7 @@ function controller(group, search, company, auth, user) {
     }
 
     self.miniTrans = function (description) {
+        if (!description) return '';
         if (description.length > 55) {
             return description.substr(0, 51) + '...';
         }
@@ -47845,7 +47849,8 @@ function controller(project, search, user) {
 
     self.choseProject = (() => {
         var _ref = _asyncToGenerator(function* (project) {
-            yield self.init();
+            //await self.init();
+
             self.selectedProject = project;
         });
 
@@ -47927,6 +47932,7 @@ function controller(project, search, user) {
     }
 
     self.miniTrans = function (description) {
+        if (!description) return '';
         if (description.length > 55) {
             return description.substr(0, 51) + '...';
         }

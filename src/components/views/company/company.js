@@ -109,6 +109,7 @@ function controller(company, search) {
     }
 
     self.miniTrans = function(description) {
+        if (!description) return '';
         if (description.length > 55) {
             return description.substr(0,51) + '...';
         }
